@@ -10,5 +10,7 @@ from .maths_pca import _build_title_and_error_message, pca_op_tag, plot_pca_for_
 from .maths_test_questions.tricase_test_questions_generator import (
     TOTAL_TRICASE_QUESTIONS, make_maths_tricase_questions, make_maths_tricase_questions_customized)
 from .maths_test_questions.manual_test_questions_generator import make_maths_test_questions_and_answers
+from .maths_test_questions.test_questions_checker import (test_maths_questions_by_complexity, test_maths_questions_by_impact, 
+    test_maths_questions_and_add_useful_node_tags, test_correctness_on_num_questions, test_correctness_on_num_questions_core)
 
 from .maths_complexity import SimpleQuestionDescriptor
