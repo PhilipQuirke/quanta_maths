@@ -3,32 +3,23 @@ import unittest
 
 from transformer_lens import HookedTransformer
 from transformer_lens.utils import download_file_from_hf
+from quanta_tools import UsefulNodeList, NodeLocation, token_to_char, tokens_to_string, sort_unique_digits, QType, get_quanta_attention, get_quanta_impact, MATH_SUB_SHADES, MATH_ADD_SHADES
 
-from QuantaTools.model_token_to_char import token_to_char, tokens_to_string
-
-from QuantaTools.useful_node import NodeLocation, UsefulNode, UsefulNodeList
-
-from QuantaTools.quanta_constants import QType, MATH_ADD_SHADES, MATH_SUB_SHADES
-from QuantaTools.quanta_map_impact import sort_unique_digits, get_quanta_impact
-from QuantaTools.quanta_map_attention import get_quanta_attention
-
-from QuantaTools.model_pca import calc_pca_for_an 
-
-from QuantaTools.maths_tools import make_maths_tricase_questions
-from QuantaTools.maths_tools.maths_config import MathsConfig
-from QuantaTools.maths_tools.maths_constants import MathsToken, MathsBehavior
-from QuantaTools.maths_tools.maths_utilities import set_maths_vocabulary, int_to_answer_str, tokens_to_unsigned_int
-from QuantaTools.maths_tools.maths_data_generator import maths_data_generator_addition, maths_data_generator_subtraction, maths_data_generator_multiplication, maths_data_generator_mixed, maths_data_generator_mixed_core, make_maths_questions_and_answers
-from QuantaTools.maths_tools.maths_test_questions import make_maths_s0_questions_and_answers, make_maths_s1_questions_and_answers, make_maths_s2_questions_and_answers, make_maths_s3_questions_and_answers, make_maths_s4_questions_and_answers, make_maths_s5_questions_and_answers
-from QuantaTools.maths_tools.maths_test_questions import make_maths_m0_questions_and_answers, make_maths_m1_questions_and_answers, make_maths_m2_questions_and_answers, make_maths_m3_questions_and_answers
-from QuantaTools.maths_tools.maths_test_questions import make_maths_n1_questions_and_answers, make_maths_n2_questions_and_answers, make_maths_n3_questions_and_answers, make_maths_n4_questions_and_answers
-from QuantaTools.maths_tools.maths_complexity import get_maths_min_complexity
-from QuantaTools.maths_tools.maths_search_mix import (
+from maths_tools import make_maths_tricase_questions
+from maths_tools.maths_config import MathsConfig
+from maths_tools.maths_constants import MathsToken, MathsBehavior
+from maths_tools.maths_utilities import set_maths_vocabulary, int_to_answer_str, tokens_to_unsigned_int
+from maths_tools.maths_data_generator import maths_data_generator_addition, maths_data_generator_subtraction, maths_data_generator_multiplication, maths_data_generator_mixed, maths_data_generator_mixed_core, make_maths_questions_and_answers
+from maths_tools.maths_test_questions import make_maths_s0_questions_and_answers, make_maths_s1_questions_and_answers, make_maths_s2_questions_and_answers, make_maths_s3_questions_and_answers, make_maths_s4_questions_and_answers, make_maths_s5_questions_and_answers
+from maths_tools.maths_test_questions import make_maths_m0_questions_and_answers, make_maths_m1_questions_and_answers, make_maths_m2_questions_and_answers, make_maths_m3_questions_and_answers
+from maths_tools.maths_test_questions import make_maths_n1_questions_and_answers, make_maths_n2_questions_and_answers, make_maths_n3_questions_and_answers, make_maths_n4_questions_and_answers
+from maths_tools.maths_complexity import get_maths_min_complexity
+from maths_tools.maths_search_mix import (
     run_intervention_core, run_strong_intervention, run_weak_intervention,
     opr_functions, sgn_functions)
-from QuantaTools.maths_tools.maths_search_add import (
+from maths_tools.maths_search_add import (
     add_ss_functions, add_sc_functions, add_sa_functions, add_st_functions)
-from QuantaTools.maths_tools.maths_search_sub import (
+from maths_tools.maths_search_sub import (
     sub_mt_functions, sub_gt_functions, sub_md_functions, sub_mb_functions, neg_nd_functions, neg_nb_functions)
 
 

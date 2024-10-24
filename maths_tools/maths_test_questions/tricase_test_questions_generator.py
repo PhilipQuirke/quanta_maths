@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import Tuple
 import random
-
 import torch
 
-from QuantaTools.quanta_constants import QType
-from QuantaTools.maths_tools.maths_constants import MathsBehavior, MathsToken
-from QuantaTools.maths_tools.maths_data_generator import make_maths_questions_and_answers
+import quanta_tools as qt
+from quanta_tools import QType
+from maths_tools.maths_constants import MathsBehavior, MathsToken
+from maths_tools.maths_data_generator import make_maths_questions_and_answers
 
 
 # Create a cache of sample (matrix) maths questions based on the ST8, ST9, ST10 categorisation
@@ -16,7 +16,7 @@ TOTAL_TRICASE_QUESTIONS = 3*EACH_CASE_TRICASE_QUESTIONS
 @dataclass
 class OperatorQTypeNumber:
     operator: MathsToken
-    qtype:QType
+    qtype: QType
     number: int
 
 @dataclass

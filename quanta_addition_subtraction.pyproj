@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96a77344-fe98-4400-8758-f7beed2bf843}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>Tests\tests_suite.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>pytest</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
+    <Name>quanta_addition_subtraction</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="maths_tools\maths_search_add.py" />
+    <Compile Include="maths_tools\maths_search_sub.py" />
+    <Compile Include="maths_tools\maths_test_questions\manual_test_questions_generator.py" />
+    <Compile Include="maths_tools\maths_test_questions\test_questions_checker.py" />
+    <Compile Include="maths_tools\maths_test_questions\tricase_test_questions_generator.py" />
+    <Compile Include="maths_tools\maths_test_questions\__init__.py" />
+    <Compile Include="maths_tools\__init__.py" />
+    <Compile Include="maths_tools\maths_search_mix.py" />
+    <Compile Include="maths_tools\maths_complexity.py" />
+    <Compile Include="maths_tools\maths_config.py" />
+    <Compile Include="maths_tools\maths_data_generator.py" />
+    <Compile Include="maths_tools\maths_pca.py" />
+    <Compile Include="maths_tools\maths_utilities.py" />
+    <Compile Include="maths_tools\maths_constants.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="Tests\tests_sae.py" />
+    <Compile Include="Tests\tests_suite.py" />
+    <Compile Include="Tests\tests_maths.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".github\" />
+    <Folder Include="maths_tools\" />
+    <Folder Include="maths_tools\maths_test_questions\" />
+    <Folder Include="maths_tools\maths_test_questions\__pycache__\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".github\dependabot.yml" />
+    <Content Include=".gitignore" />
+    <Content Include="filter.md" />
+    <Content Include="hugging_models.md" />
+    <Content Include="mixed_model.md" />
+    <Content Include="pca.md" />
+    <Content Include="pyproject.toml" />
+    <Content Include="maths_tools\maths_test_questions\__pycache__\manual_test_questions_generator.cpython-311.pyc" />
+    <Content Include="maths_tools\maths_test_questions\__pycache__\test_questions_checker.cpython-311.pyc" />
+    <Content Include="maths_tools\maths_test_questions\__pycache__\tricase_test_questions_generator.cpython-311.pyc" />
+    <Content Include="maths_tools\maths_test_questions\__pycache__\__init__.cpython-311.pyc" />
+    <Content Include="README.md" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.12" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env1\">
+      <Id>env1</Id>
+      <Version>0.0</Version>
+      <Description>env1 (Python 3.12 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>0.0</Version>
+      <Description>env (Python 3.12 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuantaMechInterp\quanta_mech_interp.pyproj">
+      <Name>quanta_mech_interp</Name>
+      <Project>{ff6cc0a5-3fbf-4732-845f-46720839742e}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

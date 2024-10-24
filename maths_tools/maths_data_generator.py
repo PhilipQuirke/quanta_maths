@@ -1,9 +1,8 @@
 import random
 import torch
 from torch.utils.data import IterableDataset, DataLoader
-
-from QuantaTools.model_token_to_char import tokens_to_string
-from QuantaTools.quanta_constants import QType
+from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, tokens_to_string,
+    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 
 from .maths_constants import MathsBehavior, MathsToken
 from .maths_complexity import get_maths_question_complexity
