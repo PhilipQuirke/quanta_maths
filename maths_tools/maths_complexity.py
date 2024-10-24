@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import torch
 import transformer_lens.utils as utils
-from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
-    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
+from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, filter_nodes,
+    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition, 
+    get_quanta_impact, get_quanta_binary, get_quanta_attention, ALGO_SHADES, ATTN_SHADES, MATH_SUB_SHADES, MATH_ADD_SHADES)
 from .maths_utilities import tokens_to_unsigned_int
 from .maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
 
