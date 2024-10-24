@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='QuantaTools',
+    name='QuantaAdditionSubtraction',
     version='1.1',
     packages=find_packages(),
     description='Tools for use with the quanta framework annd transformer models',

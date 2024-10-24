@@ -1,13 +1,6 @@
 from abc import ABC, abstractmethod
-
-from QuantaTools.useful_node import position_name, answer_name, UsefulNode, UsefulNodeList
-from QuantaTools.quanta_constants import QType, QCondition, NO_IMPACT_TAG
-from QuantaTools.quanta_map_impact import sort_unique_digits
-from QuantaTools.quanta_filter import FilterNode, FilterAnd, FilterOr, FilterHead, FilterPosition, FilterAttention, FilterImpact, filter_nodes
-from QuantaTools.ablate_config import AblateConfig
-from QuantaTools.ablate_hooks import a_predict_questions, a_run_attention_intervention
-from QuantaTools.algo_search import SubTaskBase
-
+from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
+    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, QCondition)
 from .maths_constants import MathsToken, MathsBehavior, MathsTask 
 from .maths_data_generator import make_maths_questions_and_answers
 from .maths_utilities import int_to_answer_str 

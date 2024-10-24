@@ -9,10 +9,10 @@ from transformer_lens import HookedTransformer, HookedTransformerConfig, Factore
 from sklearn.model_selection import ParameterGrid
 from skopt.space import Real, Integer, Categorical
 from skopt.utils import use_named_args
+from quanta_tools import analyze_mlp_with_sae, optimize_sae_hyperparameters
 
-from QuantaTools.maths_tools.maths_config import MathsConfig
-from QuantaTools.maths_tools.maths_data_generator import get_mixed_maths_dataloader
-from QuantaTools.model_sae_train import analyze_mlp_with_sae, optimize_sae_hyperparameters
+from maths_tools.maths_config import MathsConfig
+from maths_tools.maths_data_generator import get_mixed_maths_dataloader
 
 
 # In Visual Studo Terminal run daily:

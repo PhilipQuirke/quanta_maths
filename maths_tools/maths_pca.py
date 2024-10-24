@@ -1,10 +1,5 @@
 import matplotlib.pyplot as plt
-
-from QuantaTools.model_token_to_char import token_to_char
-from QuantaTools.model_pca import calc_pca_for_an, pca_evr_0_percent
-from QuantaTools.quanta_constants import QType
-from QuantaTools.quanta_file_utils import save_plt_to_file
-from QuantaTools.useful_node import answer_name, NodeLocation
+from quanta_tools import NodeLocation, answer_name, calc_pca_for_an, QType, token_to_char, save_plt_to_file
 from .maths_constants import MathsBehavior, MathsToken
 from .maths_test_questions import EACH_CASE_TRICASE_QUESTIONS as TRICASE_QUESTIONS
 

@@ -1,10 +1,5 @@
-from QuantaTools.useful_node import position_name, answer_name, UsefulNode, UsefulNodeList
-from QuantaTools.quanta_constants import QType, QCondition
-from QuantaTools.quanta_map_impact import sort_unique_digits
-from QuantaTools.quanta_filter import FilterNode, FilterAnd, FilterOr, FilterHead, \
-     FilterContains, FilterPosition, FilterAttention, FilterImpact 
-from QuantaTools.ablate_config import AblateConfig
-
+from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
+    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 from .maths_constants import MathsToken, MathsBehavior, MathsTask 
 from .maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath
 from .maths_utilities import digit_name

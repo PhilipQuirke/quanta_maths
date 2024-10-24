@@ -1,15 +1,8 @@
 import matplotlib.pyplot as plt
 import torch
 import transformer_lens.utils as utils
-
-from QuantaTools.useful_node import position_name
-from QuantaTools.quanta_constants import QType, FAIL_SHADES, ATTN_SHADES, ALGO_SHADES, MATH_ADD_SHADES, MATH_SUB_SHADES
-from QuantaTools.quanta_filter import FilterPosition, filter_nodes
-from QuantaTools.quanta_map import create_colormap, pale_color
-from QuantaTools.quanta_map_attention import get_quanta_attention
-from QuantaTools.quanta_map_failperc import get_quanta_fail_perc
-from QuantaTools.quanta_map_binary import get_quanta_binary
-from QuantaTools.quanta_map_impact import get_quanta_impact
+from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
+    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 from .maths_utilities import tokens_to_unsigned_int
 from .maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
 
