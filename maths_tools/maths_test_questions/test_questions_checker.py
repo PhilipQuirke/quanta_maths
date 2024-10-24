@@ -1,7 +1,7 @@
 import torch
 from tqdm.notebook import tqdm
 import transformer_lens.utils as utils
-import quanta_tools as qt
+from quanta_tools import (tokens_to_string, logits_to_tokens_loss, get_question_answer_impact, get_maths_question_complexity, sort_unique_digits)
 
 
 def test_maths_questions_by_complexity(cfg, acfg, varied_questions):
