@@ -14,4 +14,4 @@ from .maths_test_questions.test_questions_checker import (test_maths_questions_b
     test_maths_questions_and_add_useful_node_tags, test_correctness_on_num_questions, test_correctness_on_num_questions_core)
 
 from .maths_complexity import (SimpleQuestionDescriptor, get_maths_min_complexity, get_maths_question_complexity, 
-    calc_maths_quanta_for_position_nodes, get_maths_node_operation_coverage, get_maths_nodes_operation_coverage)
+    calc_maths_quanta_for_position_nodes, get_maths_node_operation_coverage, get_maths_nodes_operation_coverage, get_maths_operation_complexity)
