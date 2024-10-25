@@ -7,6 +7,7 @@ from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, Su
 from .maths_utilities import tokens_to_unsigned_int
 from .maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
 
+
 class SimpleQuestionDescriptor:
 
     def __init__(self, first_value: int, second_value: int, answer: int, operator: int, raw_tensor: torch.LongTensor):
@@ -33,6 +34,7 @@ class SimpleQuestionDescriptor:
             answer = -1 * answer
         return SimpleQuestionDescriptor(
             first_value=first_value, second_value=second_value, answer=answer, operator=operator, raw_tensor=question)
+
 
 # Analyse and return the question complexity for the Addition (S0 to S4) or Subtraction (M0 to NG) questions
 def get_maths_question_complexity(cfg, question):
