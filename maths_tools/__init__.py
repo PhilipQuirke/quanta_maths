@@ -5,7 +5,7 @@ from .maths_data_generator import maths_data_generator_addition, maths_data_gene
 from .maths_search_add import add_ss_functions, add_sc_functions, add_sa_functions, add_st_functions
 from .maths_search_sub import sub_mt_functions, sub_gt_functions, sub_mb_functions, sub_md_functions
 from .maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath, opr_functions, sgn_functions
-from .maths_pca import _build_title_and_error_message, pca_op_tag, plot_pca_for_an, manual_nodes_pca, plot_nodes_pca_start_core
+from .maths_pca import _build_title_and_error_message, pca_op_tag, plot_pca_for_an, manual_nodes_pca, plot_nodes_pca_start_core, plot_nodes_pca_end
 
 from .maths_test_questions.tricase_test_questions_generator import (
     TOTAL_TRICASE_QUESTIONS, make_maths_tricase_questions, make_maths_tricase_questions_customized)
