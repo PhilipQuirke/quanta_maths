@@ -27,7 +27,8 @@ classifiers = [
 requires = ">=3.10"
 
 [tool.setuptools]
-packages = ["MathsMechInterp"]
+packages = {find = {}}
 
-[tool.setuptools.package-dir]
-MathsMechInterp="MathsMechInterp"
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["MathsMechInterp*"]
