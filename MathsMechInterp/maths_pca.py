@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 from QuantaMechInterp import NodeLocation, answer_name, calc_pca_for_an, QType, token_to_char, save_plt_to_file
 from MathsMechInterp.maths_constants import MathsBehavior, MathsToken
+from MathsMechInterp.MathsTestQuestions.tricase_test_questions_generator import EACH_CASE_TRICASE_QUESTIONS
 
 
-def plot_pca_for_an(ax, pca_attn_outputs, title, num_questions=100):
+def plot_pca_for_an(ax, pca_attn_outputs, title, num_questions=EACH_CASE_TRICASE_QUESTIONS):
     """
     Plot the PCA of PnLnHn's attention pattern, using ST8, ST9, ST10 questions that differ in the An digit
     Assumes that we have equal number of questions for each tricase.
