@@ -10,6 +10,7 @@ authors = [{ name = "Philip Quirke et al", email = "philipquirkenz@gmail.com" }]
 dependencies = [
     "numpy>=1.18.1"
 ]
+
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -20,7 +21,12 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
-requires-python = ">=3.10"
+
+[tool.python]
+requires = ">=3.10"
 
 [tool.setuptools.packages]
 names = ["MathsMechInterp", "MathsMechInterp.MathsTestQuestions"]
+
+[tool.setuptools.package-dir]
+QuantaMechInterp="QuantaMechInterp"
