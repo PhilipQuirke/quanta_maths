@@ -1,16 +1,15 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "MathsMechInterp"
-version = "1.0"
+version = "1.0.0"
 description = "Maths Mechanistic Interpretability tools"
-authors = [{ name = "Philip Quirke et al", email = "philipquirkenz@gmail.com" }]
-dependencies = [
-    "numpy>=1.18.1"
+authors = [
+    {name = "Philip Quirke et al", email = "philipquirkenz@gmail.com"}
 ]
-
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -21,9 +20,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
+dependencies = [
+    "numpy>=1.18.1"
+]
 
-[tool.python]
-requires = ">=3.10"
-
-[tool.setuptools.packages]
-names = ["MathsMechInterp", "MathsMechInterp.MathsTestQuestions"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["MathsMechInterp*"]
+namespaces = true
