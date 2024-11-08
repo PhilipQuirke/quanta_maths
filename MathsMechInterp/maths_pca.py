@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from QuantaMechInterp import NodeLocation, answer_name, calc_pca_for_an, QType, token_to_char, save_plt_to_file
 from MathsMechInterp.maths_constants import MathsBehavior, MathsToken
-from MathsMechInterp.MathsTestQuestions import EACH_CASE_TRICASE_QUESTIONS as TRICASE_QUESTIONS
+from MathsMechInterp.MathsTestQuestions.tricase_test_questions_generator import EACH_CASE_TRICASE_QUESTIONS as TRICASE_QUESTIONS
 
 
 
