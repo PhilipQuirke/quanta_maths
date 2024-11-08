@@ -29,4 +29,4 @@ requires = ">=3.10"
 names = ["MathsMechInterp", "MathsMechInterp.MathsTestQuestions"]
 
 [tool.setuptools.package-dir]
-QuantaMechInterp="QuantaMechInterp"
+MathsMechInterp="MathsMechInterp"
