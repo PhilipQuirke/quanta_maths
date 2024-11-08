@@ -26,8 +26,8 @@ classifiers = [
 [tool.python]
 requires = ">=3.10"
 
-[tool.setuptools]
-packages = {find = {}}
+[tool.setuptools.packages]
+find = {}
 
 [tool.setuptools.packages.find]
 where = ["."]
