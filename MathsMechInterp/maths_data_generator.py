@@ -1,7 +1,7 @@
 import random
 import torch
 from torch.utils.data import IterableDataset, DataLoader
-from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, tokens_to_string,
+from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, tokens_to_string,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 
 from .maths_constants import MathsBehavior, MathsToken

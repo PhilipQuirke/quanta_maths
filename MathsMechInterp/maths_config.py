@@ -1,5 +1,5 @@
 import re
-from quanta_tools import AlgoConfig, position_name
+from QuantaMechInterp import AlgoConfig, position_name
 
 
 # Extends UsefulConfig with mathematics-specific info for "123456+123456=+0246912" style questions

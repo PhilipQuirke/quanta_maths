@@ -1,9 +1,9 @@
 import torch
-from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
+from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact)
 
-from maths_tools.maths_constants import MathsToken, MathsBehavior
-from maths_tools.maths_data_generator import maths_data_generator_addition, maths_data_generator_subtraction, maths_data_generator_multiplication, maths_data_generator_mixed, maths_data_generator_mixed_core, make_maths_questions_and_answers
+from MathsMechInterp.maths_constants import MathsToken, MathsBehavior
+from MathsMechInterp.maths_data_generator import maths_data_generator_addition, maths_data_generator_subtraction, maths_data_generator_multiplication, maths_data_generator_mixed, maths_data_generator_mixed_core, make_maths_questions_and_answers
 
 
 # Move the data to the GPU (if any) for faster processing

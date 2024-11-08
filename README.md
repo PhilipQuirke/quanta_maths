@@ -18,7 +18,7 @@ pip install .
 ```
 
 ## Test bed
-Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook VerifiedArithmeticAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./quanta_tools/maths_config.py).   
+Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook VerifiedArithmeticAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./MathsMechInterp/maths_config.py).   
 
 ## Folders, Files and Classes 
 This library contains files:
@@ -32,7 +32,7 @@ This library contains files:
   - **Algorithm:** Colab VerifiedArithmeticAlgorithm.ipynb describes/tests an overall algorithm for a model (based on behavior and algorithm sub-tasks data)
     - Inputs *_behavior and *_algorithm json files (generated above) from HuggingFace 
 
-- **quanta_tools:** Python library code imported into the notebooks:
+- **QuantaMechInterp:** Python library code imported into the notebooks:
   - model_*.py: Contains the configuration of the transformer model being trained/analysed. Includes class ModelConfig 
   - useful_*.py: Contains data on the useful token positions and useful nodes (attention heads and MLP neurons) that the model uses in predictions. Includes class UsefulConfig derived from ModelConfig. Refer [Useful_Tags](./useful_tags.md) for more detail. 
   - algo_*.py: Contains tools to support declaring and validating a model algorithm. Includes class AlgoConfig derived from UsefulConfig.

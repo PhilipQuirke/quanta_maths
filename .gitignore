@@ -1,16 +1,10 @@
-# Ignore all files in the notebook directory
-notebooks/*
-
-# Ignore all Jupyter Notebook files
-*.ipynb
-
 # Ignore .ipynb_checkpoints directories created by Jupyter
 .ipynb_checkpoints/
+
 /.vs
 /__pycache__
-/maths_tools/__pycache__
-/test_useful_node_list.json
+/MathsMechInterp/__pycache__
 /Tests/__pycache__
-/maths_tools/maths_test_questions/__pycache__
+/MathsMechInterp/maths_test_questions/__pycache__
 /env
 /env1

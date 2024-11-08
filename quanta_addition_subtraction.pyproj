@@ -23,21 +23,20 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="maths_tools\maths_search_add.py" />
-    <Compile Include="maths_tools\maths_search_sub.py" />
-    <Compile Include="maths_tools\maths_test_questions\manual_test_questions_generator.py" />
-    <Compile Include="maths_tools\maths_test_questions\test_questions_checker.py" />
-    <Compile Include="maths_tools\maths_test_questions\tricase_test_questions_generator.py" />
-    <Compile Include="maths_tools\maths_test_questions\__init__.py" />
-    <Compile Include="maths_tools\__init__.py" />
-    <Compile Include="maths_tools\maths_search_mix.py" />
-    <Compile Include="maths_tools\maths_complexity.py" />
-    <Compile Include="maths_tools\maths_config.py" />
-    <Compile Include="maths_tools\maths_data_generator.py" />
-    <Compile Include="maths_tools\maths_pca.py" />
-    <Compile Include="maths_tools\maths_utilities.py" />
-    <Compile Include="maths_tools\maths_constants.py" />
-    <Compile Include="setup.py" />
+    <Compile Include="MathsMechInterp\maths_search_add.py" />
+    <Compile Include="MathsMechInterp\maths_search_sub.py" />
+    <Compile Include="MathsMechInterp\maths_test_questions\manual_test_questions_generator.py" />
+    <Compile Include="MathsMechInterp\maths_test_questions\test_questions_checker.py" />
+    <Compile Include="MathsMechInterp\maths_test_questions\tricase_test_questions_generator.py" />
+    <Compile Include="MathsMechInterp\maths_test_questions\__init__.py" />
+    <Compile Include="MathsMechInterp\__init__.py" />
+    <Compile Include="MathsMechInterp\maths_search_mix.py" />
+    <Compile Include="MathsMechInterp\maths_complexity.py" />
+    <Compile Include="MathsMechInterp\maths_config.py" />
+    <Compile Include="MathsMechInterp\maths_data_generator.py" />
+    <Compile Include="MathsMechInterp\maths_pca.py" />
+    <Compile Include="MathsMechInterp\maths_utilities.py" />
+    <Compile Include="MathsMechInterp\maths_constants.py" />
     <Compile Include="Tests\tests_sae.py" />
     <Compile Include="Tests\tests_suite.py" />
     <Compile Include="Tests\tests_maths.py">
@@ -46,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".github\" />
-    <Folder Include="maths_tools\" />
-    <Folder Include="maths_tools\maths_test_questions\" />
-    <Folder Include="maths_tools\maths_test_questions\__pycache__\" />
+    <Folder Include="MathsMechInterp\" />
+    <Folder Include="MathsMechInterp\maths_test_questions\" />
+    <Folder Include="MathsMechInterp\maths_test_questions\__pycache__\" />
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
@@ -59,10 +58,10 @@
     <Content Include="mixed_model.md" />
     <Content Include="pca.md" />
     <Content Include="pyproject.toml" />
-    <Content Include="maths_tools\maths_test_questions\__pycache__\manual_test_questions_generator.cpython-311.pyc" />
-    <Content Include="maths_tools\maths_test_questions\__pycache__\test_questions_checker.cpython-311.pyc" />
-    <Content Include="maths_tools\maths_test_questions\__pycache__\tricase_test_questions_generator.cpython-311.pyc" />
-    <Content Include="maths_tools\maths_test_questions\__pycache__\__init__.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\manual_test_questions_generator.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\test_questions_checker.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\tricase_test_questions_generator.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\__init__.cpython-311.pyc" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
