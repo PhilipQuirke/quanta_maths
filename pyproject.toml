@@ -27,6 +27,3 @@ requires = ">=3.10"
 
 [tool.setuptools.packages]
 names = ["MathsMechInterp", "MathsMechInterp.MathsTestQuestions"]
-
-[tool.setuptools.package-dir]
-MathsMechInterp="MathsMechInterp"
