@@ -10,9 +10,9 @@ from MathsMechInterp.maths_config import MathsConfig
 from MathsMechInterp.maths_constants import MathsToken, MathsBehavior
 from MathsMechInterp.maths_utilities import set_maths_vocabulary, int_to_answer_str, tokens_to_unsigned_int
 from MathsMechInterp.maths_data_generator import maths_data_generator_addition, maths_data_generator_subtraction, maths_data_generator_multiplication, maths_data_generator_mixed, maths_data_generator_mixed_core, make_maths_questions_and_answers
-from MathsMechInterp.maths_test_questions import make_maths_s0_questions_and_answers, make_maths_s1_questions_and_answers, make_maths_s2_questions_and_answers, make_maths_s3_questions_and_answers, make_maths_s4_questions_and_answers, make_maths_s5_questions_and_answers
-from MathsMechInterp.maths_test_questions import make_maths_m0_questions_and_answers, make_maths_m1_questions_and_answers, make_maths_m2_questions_and_answers, make_maths_m3_questions_and_answers
-from MathsMechInterp.maths_test_questions import make_maths_n1_questions_and_answers, make_maths_n2_questions_and_answers, make_maths_n3_questions_and_answers, make_maths_n4_questions_and_answers
+from MathsMechInterp.MathsTestQuestions import make_maths_s0_questions_and_answers, make_maths_s1_questions_and_answers, make_maths_s2_questions_and_answers, make_maths_s3_questions_and_answers, make_maths_s4_questions_and_answers, make_maths_s5_questions_and_answers
+from MathsMechInterp.MathsTestQuestions import make_maths_m0_questions_and_answers, make_maths_m1_questions_and_answers, make_maths_m2_questions_and_answers, make_maths_m3_questions_and_answers
+from MathsMechInterp.MathsTestQuestions import make_maths_n1_questions_and_answers, make_maths_n2_questions_and_answers, make_maths_n3_questions_and_answers, make_maths_n4_questions_and_answers
 from MathsMechInterp.maths_complexity import get_maths_min_complexity
 from MathsMechInterp.maths_search_mix import (
     run_intervention_core, run_strong_intervention, run_weak_intervention,
@@ -82,7 +82,7 @@ class TestMaths(unittest.TestCase):
 
         
     # During the construction of the test data, we check that the complexity of the question matches what the test data believes it is
-    def test_make_maths_test_questions_and_answers(self):
+    def test_make_MathsTestQuestions_and_answers(self):
         cfg = self.get_cfg()
         
         # Addition questions 

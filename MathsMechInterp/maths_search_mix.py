@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, QCondition)
-from .maths_constants import MathsToken, MathsBehavior, MathsTask 
-from .maths_data_generator import make_maths_questions_and_answers
-from .maths_utilities import int_to_answer_str 
+from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, MathsTask 
+from MathsMechInterp.maths_data_generator import make_maths_questions_and_answers
+from MathsMechInterp.maths_utilities import int_to_answer_str 
 
 
 def run_intervention_core(cfg, acfg, store_question, clean_question, expected_answer_impact, expected_answer_int, strong):
