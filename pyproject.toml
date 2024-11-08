@@ -1,4 +1,33 @@
-[tool.ruff]
-# Add your configuration options here
-# For example, to enable specific rules:
-select = ["E", "F", "W"]
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MathsMechInterp"
+version = "1.0"
+description = "Maths Mechanistic Interpretability tools"
+authors = [{name = "Philip Quirke et al", email = "philipquirkenz@gmail.com"}]
+dependencies = [
+    "numpy>=1.18.1",
+    "wheel"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.python]
+requires = ">=3.10"
+
+[tool.setuptools]
+packages = ["MathsMechInterp"]
+
+[tool.setuptools.package-dir]
+MathsMechInterp="MathsMechInterp"

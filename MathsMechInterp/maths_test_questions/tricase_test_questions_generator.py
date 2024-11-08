@@ -3,10 +3,10 @@ from typing import Tuple
 import random
 import torch
 
-import quanta_tools as qt
-from quanta_tools import QType
-from maths_tools.maths_constants import MathsBehavior, MathsToken
-from maths_tools.maths_data_generator import make_maths_questions_and_answers
+import QuantaMechInterp as qt
+from QuantaMechInterp import QType
+from MathsMechInterp.maths_constants import MathsBehavior, MathsToken
+from MathsMechInterp.maths_data_generator import make_maths_questions_and_answers
 
 
 # Create a cache of sample (matrix) maths questions based on the ST8, ST9, ST10 categorisation

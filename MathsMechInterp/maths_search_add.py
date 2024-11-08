@@ -1,4 +1,4 @@
-from quanta_tools import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
+from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 from .maths_constants import MathsToken, MathsBehavior, MathsTask 
 from .maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath
