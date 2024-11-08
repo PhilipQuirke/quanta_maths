@@ -58,7 +58,6 @@
     <Content Include="pca.md" />
     <Content Include="pyproject.toml" />
     <Content Include="README.md" />
-    <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.12" />
