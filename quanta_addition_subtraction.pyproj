@@ -37,7 +37,6 @@
     <Compile Include="MathsMechInterp\maths_pca.py" />
     <Compile Include="MathsMechInterp\maths_utilities.py" />
     <Compile Include="MathsMechInterp\maths_constants.py" />
-    <Compile Include="setup.py" />
     <Compile Include="Tests\tests_sae.py" />
     <Compile Include="Tests\tests_suite.py" />
     <Compile Include="Tests\tests_maths.py">
