@@ -4,9 +4,9 @@ from torch.utils.data import IterableDataset, DataLoader
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, tokens_to_string,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 
-from .maths_constants import MathsBehavior, MathsToken
-from .maths_complexity import get_maths_question_complexity
-from .maths_utilities import make_a_maths_question_and_answer
+from MathsMechInterp.maths_constants import MathsBehavior, MathsToken
+from MathsMechInterp.maths_complexity import get_maths_question_complexity
+from MathsMechInterp.maths_utilities import make_a_maths_question_and_answer
 
 
 def maths_data_generator_start( cfg ):

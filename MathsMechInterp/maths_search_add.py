@@ -1,8 +1,8 @@
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
-from .maths_constants import MathsToken, MathsBehavior, MathsTask 
-from .maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath
-from .maths_utilities import digit_name
+from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, MathsTask 
+from MathsMechInterp.maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath
+from MathsMechInterp.maths_utilities import digit_name
 
 
 # Addition "Use Sum 9" (SS) sub-task e.g. 34633+55555=+090188 where D4 and D'4 sum to 9 (4+5), and D3 + D'3 > 10

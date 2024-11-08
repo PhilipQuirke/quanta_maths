@@ -5,8 +5,8 @@ from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition, 
     get_quanta_impact, get_quanta_binary, get_quanta_attention, get_quanta_fail_perc, create_colormap, pale_color, 
     ALGO_SHADES, ATTN_SHADES, MATH_SUB_SHADES, MATH_ADD_SHADES, FAIL_SHADES)
-from .maths_utilities import tokens_to_unsigned_int
-from .maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
+from MathsMechInterp.maths_utilities import tokens_to_unsigned_int
+from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
 
 
 class SimpleQuestionDescriptor:

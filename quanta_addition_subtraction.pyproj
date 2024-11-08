@@ -25,10 +25,10 @@
   <ItemGroup>
     <Compile Include="MathsMechInterp\maths_search_add.py" />
     <Compile Include="MathsMechInterp\maths_search_sub.py" />
-    <Compile Include="MathsMechInterp\maths_test_questions\manual_test_questions_generator.py" />
-    <Compile Include="MathsMechInterp\maths_test_questions\test_questions_checker.py" />
-    <Compile Include="MathsMechInterp\maths_test_questions\tricase_test_questions_generator.py" />
-    <Compile Include="MathsMechInterp\maths_test_questions\__init__.py" />
+    <Compile Include="MathsMechInterp\MathsTestQuestions\manual_test_questions_generator.py" />
+    <Compile Include="MathsMechInterp\MathsTestQuestions\test_questions_checker.py" />
+    <Compile Include="MathsMechInterp\MathsTestQuestions\tricase_test_questions_generator.py" />
+    <Compile Include="MathsMechInterp\MathsTestQuestions\__init__.py" />
     <Compile Include="MathsMechInterp\__init__.py" />
     <Compile Include="MathsMechInterp\maths_search_mix.py" />
     <Compile Include="MathsMechInterp\maths_complexity.py" />
@@ -46,8 +46,8 @@
   <ItemGroup>
     <Folder Include=".github\" />
     <Folder Include="MathsMechInterp\" />
-    <Folder Include="MathsMechInterp\maths_test_questions\" />
-    <Folder Include="MathsMechInterp\maths_test_questions\__pycache__\" />
+    <Folder Include="MathsMechInterp\MathsTestQuestions\" />
+    <Folder Include="MathsMechInterp\MathsTestQuestions\__pycache__\" />
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
@@ -58,10 +58,10 @@
     <Content Include="mixed_model.md" />
     <Content Include="pca.md" />
     <Content Include="pyproject.toml" />
-    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\manual_test_questions_generator.cpython-311.pyc" />
-    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\test_questions_checker.cpython-311.pyc" />
-    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\tricase_test_questions_generator.cpython-311.pyc" />
-    <Content Include="MathsMechInterp\maths_test_questions\__pycache__\__init__.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\MathsTestQuestions\__pycache__\manual_test_questions_generator.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\MathsTestQuestions\__pycache__\test_questions_checker.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\MathsTestQuestions\__pycache__\tricase_test_questions_generator.cpython-311.pyc" />
+    <Content Include="MathsMechInterp\MathsTestQuestions\__pycache__\__init__.cpython-311.pyc" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
