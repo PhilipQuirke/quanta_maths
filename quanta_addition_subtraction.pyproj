@@ -47,6 +47,7 @@
     <Folder Include=".github\" />
     <Folder Include="MathsMechInterp\" />
     <Folder Include="MathsMechInterp\MathsTestQuestions\" />
+    <Folder Include="notebooks\" />
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,11 @@
     <Content Include="filter.md" />
     <Content Include="hugging_models.md" />
     <Content Include="mixed_model.md" />
+    <Content Include="notebooks\VerifiedArithmeticAlgorithm.ipynb" />
+    <Content Include="notebooks\VerifiedArithmeticAnalyse.ipynb" />
+    <Content Include="notebooks\VerifiedArithmeticSAE.ipynb" />
+    <Content Include="notebooks\VerifiedArithmeticTrain.ipynb" />
+    <Content Include="notebooks\VerifiedArithmeticTrainingGraphs.ipynb" />
     <Content Include="pca.md" />
     <Content Include="pyproject.toml" />
     <Content Include="README.md" />
