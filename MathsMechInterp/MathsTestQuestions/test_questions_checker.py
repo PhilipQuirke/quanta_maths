@@ -1,7 +1,6 @@
 import torch
 from tqdm.notebook import tqdm
-import transformer_lens.utils as utils
-from QuantaMechInterp import (tokens_to_string, logits_to_tokens_loss, get_question_answer_impact, sort_unique_digits, NodeLocation, a_predict_questions, loss_fn, QType)
+from QuantaMechInterp import (to_numpy, tokens_to_string, logits_to_tokens_loss, get_question_answer_impact, sort_unique_digits, NodeLocation, a_predict_questions, loss_fn, QType)
 from MathsMechInterp.maths_complexity import get_maths_question_complexity
 from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
 from MathsMechInterp.maths_data_generator import maths_data_generator
@@ -88,7 +87,7 @@ def test_maths_questions_by_impact(cfg, acfg, questions, position : int, ablate 
         q = questions[question_num]
         assert q.shape[0] == cfg.n_ctx # Check answer is embedded in question
 
-        the_loss_mean = utils.to_numpy(loss_fn(all_losses_raw[question_num]).mean())
+        the_loss_mean = to_numpy(loss_fn(all_losses_raw[question_num]).mean())
 
         # Only show the question if the loss exceeds the threshold (because of the ablated token position)
         if the_loss_mean > acfg.threshold:
@@ -119,7 +118,7 @@ def test_maths_questions_and_add_useful_node_tags(cfg, acfg, questions, node_loc
     for question_num in range(questions.shape[0]):
         q = questions[question_num]
 
-        the_loss_mean = utils.to_numpy(loss_fn(all_losses_raw[question_num]).mean())
+        the_loss_mean = to_numpy(loss_fn(all_losses_raw[question_num]).mean())
 
         # Only show the question if the loss exceeds the threshold (because of the ablated token position)
         if the_loss_mean > acfg.threshold:

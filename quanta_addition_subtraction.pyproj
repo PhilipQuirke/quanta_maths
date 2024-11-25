@@ -29,6 +29,8 @@
     <Compile Include="MathsMechInterp\MathsTestQuestions\test_questions_checker.py" />
     <Compile Include="MathsMechInterp\MathsTestQuestions\tricase_test_questions_generator.py" />
     <Compile Include="MathsMechInterp\MathsTestQuestions\__init__.py" />
+    <Compile Include="MathsMechInterp\model_sae_graph.py" />
+    <Compile Include="MathsMechInterp\model_sae_train.py" />
     <Compile Include="MathsMechInterp\__init__.py" />
     <Compile Include="MathsMechInterp\maths_search_mix.py" />
     <Compile Include="MathsMechInterp\maths_complexity.py" />

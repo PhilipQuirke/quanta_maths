@@ -15,3 +15,6 @@ from MathsMechInterp.MathsTestQuestions.test_questions_checker import (test_math
 
 from MathsMechInterp.maths_complexity import (SimpleQuestionDescriptor, get_maths_min_complexity, get_maths_question_complexity, 
     calc_maths_quanta_for_position_nodes, get_maths_node_operation_coverage, get_maths_nodes_operation_coverage, get_maths_operation_complexity)
+
+from MathsMechInterp.model_sae_train import analyze_mlp_with_sae, optimize_sae_hyperparameters
+from MathsMechInterp.model_sae_graph import analyze_and_visualize_sae

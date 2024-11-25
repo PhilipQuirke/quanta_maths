@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import torch
-import transformer_lens.utils as utils
-from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, filter_nodes, 
+from QuantaMechInterp import (to_numpy, QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name, filter_nodes, 
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition, 
     get_quanta_impact, get_quanta_binary, get_quanta_attention, get_quanta_fail_perc, create_colormap, pale_color, 
     ALGO_SHADES, ATTN_SHADES, MATH_SUB_SHADES, MATH_ADD_SHADES, FAIL_SHADES)
@@ -39,7 +38,7 @@ class SimpleQuestionDescriptor:
 
 # Analyse and return the question complexity for the Addition (S0 to S4) or Subtraction (M0 to NG) questions
 def get_maths_question_complexity(cfg, question):
-    qlist = utils.to_numpy(question)
+    qlist = to_numpy(question)
     inputs = qlist[:cfg.num_question_positions]
     operator = qlist[cfg.n_digits]
 
