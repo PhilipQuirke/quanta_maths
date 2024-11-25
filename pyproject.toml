@@ -22,7 +22,8 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.18.1",
-    "QuantaMechInterp>=1.0"
+    "transformer_lens",
+    "QuantaMechInterp>=1.0",
 ]
 
 [tool.setuptools.packages.find]

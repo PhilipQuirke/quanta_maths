@@ -1,5 +1,8 @@
 import re
-from QuantaMechInterp import AlgoConfig, position_name
+import transformer_lens.utils as utils
+from transformer_lens import HookedTransformerConfig
+
+from QuantaMechInterp import AlgoConfig, position_name, acfg
 
 
 # Extends UsefulConfig with mathematics-specific info for "123456+123456=+0246912" style questions
@@ -23,6 +26,8 @@ class MathsConfig(AlgoConfig):
         # More granular tricase_questions, indexed by (digit, operator, qtype).
         # Makes easier how we mix and match tricase data from different qtypes.
         self.customized_tricase_questions_dict = {}
+
+        self.configure_acfg_singleton()
       
 
     @property
@@ -188,3 +193,30 @@ class MathsConfig(AlgoConfig):
         assert(self.perc_sub >= 0)
         assert(self.n_digits > 0)
 
+    def configure_acfg_singleton(self):
+        # attn.hook_z is the "attention head output" hook point name (at a specified layer)
+        acfg.l_attn_hook_z_name = [utils.get_act_name('z', 0, 'a'),utils.get_act_name('z', 1, 'a'),utils.get_act_name('z', 2, 'a'),utils.get_act_name('z', 3, 'a')] # 'blocks.0.attn.hook_z' etc
+        # hook_resid_pre is the "pre residual memory update" hook point name (at a specified layer)
+        acfg.l_hook_resid_pre_name = ['blocks.0.hook_resid_pre','blocks.1.hook_resid_pre','blocks.2.hook_resid_pre','blocks.3.hook_resid_pre']
+        # hook_resid_post is the "post residual memory update" hook point name (at a specified layer)
+        acfg.l_hook_resid_post_name = ['blocks.0.hook_resid_post','blocks.1.hook_resid_post','blocks.2.hook_resid_post','blocks.3.hook_resid_post']
+        # mlp.hook_post is the "MLP layer" hook point name (at a specified layer)
+        acfg.l_mlp_hook_post_name = [utils.get_act_name('post', 0),utils.get_act_name('post', 1),utils.get_act_name('post', 2),utils.get_act_name('post', 3)] # 'blocks.0.mlp.hook_post' etc
+     
+    def get_HookedTransformerConfig(self):      
+        # Structure is documented at https://neelnanda-io.github.io/TransformerLens/transformer_lens.html#transformer_lens.HookedTransformerConfig.HookedTransformerConfig
+        return HookedTransformerConfig(
+            n_layers = self.n_layers,
+            n_heads = self.n_heads,
+            d_model = self.d_model,
+            d_head = self.d_head,
+            d_mlp = self.d_mlp,
+            act_fn = self.act_fn,
+            normalization_type = 'LN',
+            d_vocab = self.d_vocab,
+            d_vocab_out = self.d_vocab,
+            n_ctx = self.n_ctx,
+            init_weights = True,
+            device = "cuda",
+            seed = self.training_seed,
+        )
