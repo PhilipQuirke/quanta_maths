@@ -13,7 +13,7 @@ From source
 
 ```bash
 git clone https://github.com/PhilipQuirke/quanta_maths.git
-cd verified_transformers
+cd MathsMechInterp
 pip install .
 ```
 
