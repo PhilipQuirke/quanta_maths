@@ -12,7 +12,7 @@ This library support goals and uses [terminology](./terminology.md) introduced i
 From source
 
 ```bash
-git clone https://github.com/PhilipQuirke/QuantaAdditionSubtraction.git
+git clone https://github.com/PhilipQuirke/quanta_maths.git
 cd verified_transformers
 pip install .
 ```
