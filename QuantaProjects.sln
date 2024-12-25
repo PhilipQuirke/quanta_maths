@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "quanta_addition_subtraction", "quanta_addition_subtraction.pyproj", "{96A77344-FE98-4400-8758-F7BEED2BF843}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MathsMechInterp", "MathsMechInterp.pyproj", "{96A77344-FE98-4400-8758-F7BEED2BF843}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "QuantaMechInterp", "..\QuantaMechInterp\QuantaMechInterp.pyproj", "{FF6CC0A5-3FBF-4732-845F-46720839742E}"
 EndProject
