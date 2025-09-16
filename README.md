@@ -1,5 +1,5 @@
 ## Introduction
-This library support goals and uses [terminology](./terminology.md) introduced in the paper [Increasing Trust in Language Models through the Reuse of Verified Circuits](https://arxiv.org/abs/2402.02619). Please read the paper. In brief:
+This library support goals and uses [terminology](./terminology.md) introduced in the paper [Understanding Addition and Subtraction in Transformers](https://arxiv.org/abs/2402.02619). Please read the paper. In brief:
 - Given an existing transformer model with low loss, this library helps a researcher to analyze and understand the algorithm implemented by a transformer model.
 - The "useful" token positions, attention heads and MLP neurons that are used in predictions are identified.  
 - Various tools and techniques evaluate aspects of the model's "behavior" (e.g. attention patterns).
