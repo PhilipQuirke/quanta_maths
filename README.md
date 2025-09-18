@@ -56,7 +56,7 @@ Refer [Hugging_Models](./hugging_models.md) for more detail.
 ## Papers
 The papers associated with this content are:
 - Understanding Addition in Transformers: https://arxiv.org/abs/2310.13121 . Aka Paper1. Model add_d5_l1_h3_t30K is very similar to the one in this paper. 
-- Increasing Trust in Language Models through the Reuse of Verified Circuits. https://arxiv.org/abs/2402.02619  
+- Understanding Addition and Subtraction in Transformers. https://arxiv.org/abs/2402.02619  
 
 ## Extending the code
 Most exploratory work is done in a Google Colab in the 'train and 'analyse' notebooks. 
