@@ -18,18 +18,18 @@ pip install .
 ```
 
 ## Test bed
-Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QuantaMathsAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./MathsMechInterp/maths_config.py).   
+Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QMAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./MathsMechInterp/maths_config.py).   
 
 ## Folders, Files and Classes 
 This library contains files:
 
 - **Notebooks:** Jupyter notebooks which are run in Google Colab or Jupyter: 
-  - **Train:** Colab QuantaMathsTrain.ipynb is used to train transformer arithmetic models. 
+  - **Train:** Colab QMTrain.ipynb is used to train transformer arithmetic models. 
     - Outputs pth and json files that are (manually) stored on HuggingFace
-  - **Analysis:** Colab QuantaMathsAnalyse.ipynb is used to analyze the behavior and algorithm sub-tasks of transformer arithmetic models
+  - **Analysis:** Colab QMAnalyse.ipynb is used to analyze the behavior and algorithm sub-tasks of transformer arithmetic models
     - Inputs pth files (generated above) from HuggingFace
     - Outputs *_behavior and *_algorithm json files that are (manually) stored on HuggingFace
-  - **Algorithm:** Colab QuantaMathsAlgorithm.ipynb describes/tests an overall algorithm for a model (based on behavior and algorithm sub-tasks data)
+  - **Algorithm:** Colab QMAlgorithm.ipynb describes/tests an overall algorithm for a model (based on behavior and algorithm sub-tasks data)
     - Inputs *_behavior and *_algorithm json files (generated above) from HuggingFace 
 
 - **QuantaMechInterp:** Python library code imported into the notebooks:
