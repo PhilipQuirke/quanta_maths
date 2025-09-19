@@ -99,7 +99,7 @@ Questions/Thoughts:
 
 ## Hypothesis 2 - Automated task detection
 
-The python library and VerifiedArithmeticAnalyse.ipynb (Party 22) contain automated routines to search the useful nodes of a given model to see if they perform one of the above tasks.
+The python library and QMAnalyse.ipynb (Party 22) contain automated routines to search the useful nodes of a given model to see if they perform one of the above tasks.
 In April 2024, automated searches for these tasks exist: SA, SC, SS, ST, MD, MB, MT, ND, NB, OPR, SGN.
 
 For the ins1_mix_d6_l3_h4_t40K model the search results are:
@@ -109,7 +109,7 @@ For the ins1_mix_d6_l3_h4_t40K model the search results are:
 ![AlgorithmPurposePerNode](./assets/ins1_mix_d6_l3_h4_t40K_s372001AlgorithmPurposePerNode.svg?raw=true "AlgorithmPurposePerNode")
 
 ## Hypothesis 2 step H5: Calculating A2
-Part 27A "Calculating answer digit A2 in token position A3" in VerifiedArithmeticAnalyse.ipynb investigates Hypothesis 2 step H5 generating this quanta map:
+Part 27A "Calculating answer digit A2 in token position A3" in QMAnalyse.ipynb investigates Hypothesis 2 step H5 generating this quanta map:
 
 ![A2QuantaMap](./assets/ins1_mix_d6_l3_h4_t40K_s372001QuantaAtP18.svg?raw=true "A2 Quanta Map")
 
