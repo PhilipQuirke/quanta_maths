@@ -12,13 +12,13 @@ If a researcher suspects a useful node has a specific output pattern correspondi
 If the PCA says the node's output is strongly clustered, aligned to the input question classes, then we conclude the node is interpretable, and we add a "PCA" tag to the node as documentation (e.g. "PCA.A0.PA" )     
 
 ## Example usage
-The Increasing Trust in Language Models through the Reuse of Verified Circuits paper ( https://arxiv.org/abs/2402.02619 ) says that some nodes in the Addition model perform "TriCase" calculations - converting 3 classes of input questions into 2 or 3 output bits. 
+The Addition and Subtraction in Transformers paper ( https://arxiv.org/abs/2402.02619 ) says that some nodes in the Addition model perform "TriCase" calculations - converting 3 classes of input questions into 2 or 3 output bits. 
 
-In VerifiedArithmeticTrain.ipynb Colab notebook, we pick a single useful node (e.g. P19L2H1) and test it:
+In QMTrain.ipynb Colab notebook, we pick a single useful node (e.g. P19L2H1) and test it:
 - We construct 100 test questions for each of the 3 input classes (via qt.make_maths_tricase_questions)
 - We ask the model to predict the answers to the 300 questions
 - We run PCA on the output of the model (via calc_pca_for_an)
-- If the PCA says node's output is clustered into 2 or 3 clusters, aligned to the input question classes, then we conclude the node is interpretable, and we add a "PCA" tag to the node as documentation (e.g. "PCA.A0.PA" )      
+- If the PCA says node's output is clustered into 2 or 3 clusters, aligned to the input question classes, then we conclude the node is interpretable, and we add a "PCA" tag to the node as documentation (e.g. "PCA.A0.PA" )
 
 The library runs the PCA over many nodes, adding tags to interpretable nodes, and producing output like this:  
 
@@ -26,5 +26,3 @@ The library runs the PCA over many nodes, adding tags to interpretable nodes, an
 
 EVR is Explained Variance Ratio. This is a measure that indicates the proportion of the total variance in the data that is captured by each principal component.
 
-## Planned Enhancement
-Refer https://github.com/PhilipQuirke/verified_transformers/issues/27
