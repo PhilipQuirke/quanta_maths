@@ -12,7 +12,7 @@ This library support goals and uses [terminology](./terminology.md) introduced i
 From source
 
 ```bash
-git clone https://github.com/XXXXXXX/quanta_maths.git
+git clone https://github.com/PhilipQuirke/quanta_maths.git
 cd MathsMechInterp
 pip install .
 ```
