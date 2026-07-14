@@ -15,3 +15,16 @@ maths_catgen/__pycache__
 /tests/test_useful_node_list.json
 /build
 *.egg-info/
+
+# LaTeX build artifacts (docs/study-paper/paper.tex)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot

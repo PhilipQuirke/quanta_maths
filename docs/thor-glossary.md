@@ -120,11 +120,31 @@ is units). `D'` is the second question number; `D'n` its `n`th token.
 `A` is the answer including sign. `An` is the `n`th answer token (zero-based,
 `A0` is units). `Amax` is the highest token, always the `+` or `-` sign.
 
-### `S` (Addition sub-tasks: `SA`, `SC`, `SS`, `ST`, `ST8/ST9/ST10`)
+### `S` (Addition sub-tasks: `SA`, `SC`, `SS`, `ST`, `SV`)
 
 `S` is the addition prefix (think Sum; aka ADD). Sub-tasks:
 `SA` Basic Add `(Dn + D'n) % 10`; `SC` Make Carry `Dn + D'n >= 10`;
-`SS` Make Sum 9 `Dn + D'n == 9`; `ST` TriCase (outputs `ST8/ST9/ST10`).
+`SS` Make Sum 9 `Dn + D'n == 9`; `ST` TriCase; `SV` cascaded carry. See the
+[ST](#st) and [SV](#sv) entries below.
+
+### `ST`
+
+TriCase. An addition sub-task that classifies a digit-pair sum as tri-state:
+`1` (definitely carries, `Dn + D'n >= 10`), `0` (definitely no carry,
+`Dn + D'n <= 8`, and `ST0` is always `0`/`1`), or `U` (uncertain — the digits
+sum to exactly `9`, so a carry from the next-lower digit would cascade). The
+tri-state `{0, 1, U}` output is the key novelty and shows up as 3 distinct PCA
+clusters. `SV` resolves the `U` values across tokens. See [SV](#sv).
+
+### `SV`
+
+Cascaded carry. An addition sub-task that handles multi-digit carry cascades by
+combining `ST` values from higher- to lower-value digits with the `TriAdd`
+function (`SV1 = TriAdd(ST1, ST0)`, `SV2 = TriAdd(TriAdd(ST2, ST1), ST0)`, ...).
+Because the last term is always `ST0` (which is `0`/`1`), every `SVn` resolves to
+`0` or `1` — all `U` uncertainty is gone by the `=` token. The final answer
+combines `SVn` with [SA](#s-addition-sub-tasks-sa-sc-ss-st-sv). The subtraction
+parallel is `MV` (see [M](#m-positive-answer-subtraction-sub-tasks-md-mb-mz-mt)).
 
 ### `M` (positive-answer Subtraction sub-tasks: `MD`, `MB`, `MZ`, `MT`)
 
