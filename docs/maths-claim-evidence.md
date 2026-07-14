@@ -41,3 +41,26 @@ Confidence labels:
   (agenda entries 2–3). Raw pre-LayerNorm weights only; the LN-aware secondary
   analysis (A-9) is outstanding and could strengthen or remove the ordering
   signal. Tiny 10-token vocabulary; n = 10 per matrix.
+
+### CE2: At layer-0 operand-fetch heads, the value-path output is indistinguishable from linear transport of the (weakly-circular) digit embeddings
+
+- **Confidence**: **Medium** — replicated across 6 nodes in 2 accurate models
+  (5-digit + independent-seed 6-digit); direct artifact trail; but from a single
+  assay that was an `instrument failure` for its primary A2 question.
+- **Supporting evidence**: 2026-07-14 pair-sum bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-pair-sum-sufficiency.md](study-maths/study-pair-sum-sufficiency.md)).
+  At confirmed operand-fetch heads (near-equal attention to `Dn`,`D'n`, in the
+  [0.4,0.6] band, ablation-relevant), the head output over operand pairs matches
+  a **noise-free transport null** built from the model's own `W_E·W_V` on every
+  metric: sum/pair ratio ≈ 0.19–0.24, `R²_pair` = 1.0 (deterministic given
+  pair), a monotone ~1-D sum arc (`cos a + cos b` signature), and near-zero
+  full-space tri-cluster silhouette. Extends CE1's "structure is a weak
+  low-variance projection" motif from the embedding to the value path.
+- **Weakening / narrowing evidence**: the assay could not separate this from a
+  genuine aggregate computation (the metric is non-discriminating under the
+  no-lower-carry stimulus); it therefore establishes *consistency with
+  transport*, not that no aggregation occurs.
+- **Caveats**: Nodes are answer-position operand-fetch heads, not confirmed `ST`
+  carry-compute nodes; says nothing about where `ST` discretization happens.
+  Correlational, not causal. Does **not** score A2 (which remains untested).

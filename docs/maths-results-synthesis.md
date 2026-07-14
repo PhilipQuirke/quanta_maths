@@ -38,11 +38,36 @@ Figure: `results/study-digit-embedding-geometry/embed_pc_planes.png`
 (top-2 PC plane per model, digit-labeled) is the decision-relevant plot; the
 near-flat `embed_variance_spectra.png` is the evidence for isotropy.
 
+## Q: Where is the ST carry computed, and does attention aggregate or transport?
+
+Status after the 2026-07-14 pair-sum study (an `instrument failure` for its
+primary question; see [CE2](maths-claim-evidence.md#ce2-at-layer-0-operand-fetch-heads-the-value-path-output-is-indistinguishable-from-linear-transport-of-the-weakly-circular-digit-embeddings)
+and the [study note](study-maths/study-pair-sum-sufficiency.md)).
+
+- The A2 "aggregate-then-discretize" question is **still open**. The first assay
+  mis-targeted (it confirmed answer-position operand-fetch heads, not
+  question-position `ST` compute nodes) and used a metric that the no-lower-carry
+  stimulus rendered non-discriminating.
+- Durable by-product: at those operand-fetch heads, the value-path output is
+  **indistinguishable from linear transport** of the weakly-circular digit
+  embeddings — the same "weak low-variance projection" pattern seen for the
+  embedding itself (CE1). The monotone sum arc there is the arithmetic identity
+  `cos a + cos b = 2cos((a−b)/2)cos((a+b)/2)`, not evidence of an aggregation
+  computation.
+- **Method lesson (decision-relevant)**: full-space geometry keeps showing that
+  the tidy low-D structures (digit circle, ST tri-cluster, sum arc) are
+  *low-variance projections*; verdicts must compare against explicit nulls
+  (permutation, transport) and confirm the node's role independently, not read
+  a projection at face value.
+
 ## Open empirical questions
 
+- Where is `ST`/carry actually computed, and does attention aggregate operands
+  or merely transport them? (Needs a **confirmed question-position ST node** via
+  path-patching to the `SV` cascade; the answer-position assay could not tell.)
 - Does the model *use* digit magnitude / circular ordering in its computation,
   regardless of a weak embedding geometry? (Causal; backlog B1.)
-- Where does the tri-state `ST` / pair-sum structure live if not in the token
-  embedding — i.e. is it created at the attention-output / MLP stage?
-  (Agenda entries 2–3.)
+- Is the tri-state `ST` code well-separated at a *confirmed* ST node in the full
+  space, or is it (like the digit circle) a low-variance projection? (Entry 2,
+  re-scoped to a confirmed ST node.)
 - Does the weak embedding circular ordering survive LayerNorm folding? (A-9.)

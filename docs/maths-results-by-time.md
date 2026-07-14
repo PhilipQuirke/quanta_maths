@@ -33,3 +33,29 @@ live — not the current best story (that goes in
   freq1 metric is noise-inflated (+0.1–0.2 at low structure).
 - **Linked study**:
   [study-maths/study-digit-embedding-geometry.md](study-maths/study-digit-embedding-geometry.md)
+
+### 2026-07-14 — Pair-sum sufficiency at operand-fetch heads (A2 assay; instrument failure)
+
+- **Covered**: Head-output (pre-MLP value path), LN(MLP-in), MLP-post, and
+  resid geometry over 100 `(Dn,D'n)` cells (no lower carry) at layer-0
+  operand-fetch heads in `add_d5_l2_h3_t15K_s372001` (node `P14.L0.H1`) and
+  `add_d6_l2_h3_t20K_s173289` (nodes `P15–P20.L0.H1`). Metrics: CV
+  `R²_sum`/`R²_pair` + ratio, equal-sum collapse vs control, sum-arc PCA,
+  tri-cluster silhouette at 4 stages, operand-attention gating, ablation-impact
+  node confirmation. Positive control: sum-sufficient / operand-identity /
+  categorical / **circular-transport (from real `W_E·W_V`)** references.
+- **Artifacts** (local, no HF upload):
+  `results/study-pair-sum-sufficiency/positive_control.json`,
+  `model_results.json`, `head_output_pca.png`; script
+  `scripts/pair_sum_sufficiency.py`.
+- **Caveats / coverage gaps**: **Instrument failure** — confirmed nodes were
+  answer-position operand-fetch heads, not question-position `ST` compute nodes
+  (Paper-2 ST candidates P8/P9/P11 failed single-node ablation confirmation);
+  and the no-lower-carry stimulus pins `R²_pair=1`, so the ratio metric cannot
+  discriminate A2 from transport. A2 remains **untested**. Positive control
+  initially corrupted by a noise term in the transport arm (deflated its
+  `R²_pair`); corrected to noise-free, after which the transport null reproduces
+  the real signature (ratio 0.19 vs 0.20). Weights-only forward passes; no
+  causal path-patching.
+- **Linked study**:
+  [study-maths/study-pair-sum-sufficiency.md](study-maths/study-pair-sum-sufficiency.md)

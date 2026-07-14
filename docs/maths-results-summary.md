@@ -22,18 +22,25 @@ activation/MLP-level and causal questions rather than token-embedding geometry.
   weak, training-induced circular *ordering* (not a dominant circle/helix);
   confidence Medium (no-dominant-geometry) / Low-provisional (ordering). See
   [maths-claim-evidence.md#ce1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix).
+- **CE2** — at layer-0 operand-fetch heads the value-path output is
+  indistinguishable from linear transport of the (weakly-circular) embeddings;
+  confidence Medium. Extends the "weak low-variance projection" motif from the
+  embedding to the value path. See
+  [maths-claim-evidence.md#ce2](maths-claim-evidence.md#ce2-at-layer-0-operand-fetch-heads-the-value-path-output-is-indistinguishable-from-linear-transport-of-the-weakly-circular-digit-embeddings).
 
 ## Strongest live caveats
 
-- Weights-only: says nothing about whether the model *uses* digit geometry
-  (causal) or about activation-level feature geometry.
-- The circular-ordering signal is raw-weights only; the LN-aware secondary
-  analysis (A-9) is outstanding and could change it.
-- Findings so far concern the token embedding, not the tri-state `ST`/`SV`
-  cascade features that motivate the thread.
+- Weights-only / correlational: nothing yet on whether the model *uses* any of
+  this geometry (needs causal path-patching).
+- **A2 (aggregate-then-discretize) is untested**: the first assay was an
+  `instrument failure` (answer-position nodes, not confirmed `ST` nodes; a
+  ratio metric that could not separate aggregation from transport).
+- A recurring method trap: tidy low-D structures (digit circle, ST tri-cluster,
+  sum arc) keep turning out to be **low-variance projections**; verdicts require
+  explicit nulls and independent node-role confirmation.
 
 ## Open questions shaping near-term work
 
-- Does the model causally use digit magnitude/circularity despite a weak
-  embedding geometry? Where do the `ST`/pair-sum features live if not in the
-  embedding? See [maths-next-steps.md](maths-next-steps.md).
+- Where is `ST`/carry computed, and does attention aggregate or transport?
+  (Needs a confirmed question-position ST node.) Does the model causally use
+  digit geometry? See [maths-next-steps.md](maths-next-steps.md).
