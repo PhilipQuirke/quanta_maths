@@ -1,0 +1,1216 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2026_conference,times} % FOR ICLR
+%\usepackage{arxiv}  % FOR ARXIV
+%\usepackage{natbib} % FOR ARXIV
+% arXiv subjects: cs.LG (Machine Learning), cs.AI (Artificial Intelligence), cs.CL (Computation and Language)
+% Primary: cs.LG
+% Secondary: cs.AI, cs.CL
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+\usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{multirow}
+\usepackage{longtable}
+
+% For theorems and such
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\usepackage{colortbl}
+
+\newcommand{\SA}{$SA$ }
+\newcommand{\SAN}{$SA_{n}$ }
+\newcommand{\SANC}{$SA_{n}$, }
+\newcommand{\SAC}{$SA$, }
+\newcommand{\SC}{$SC$ }
+\newcommand{\SCN}{$SC_{n}$ }
+\newcommand{\SCC}{$SC$, }
+\newcommand{\SUS}{$SS$ }
+\newcommand{\SSN}{$SS_n$ }
+\newcommand{\ST}{$ST$ }
+\newcommand{\STC}{$ST$, }
+\newcommand{\STM}{$ST_{m}$ }
+\newcommand{\STN}{$ST_{n+1}$ }
+\newcommand{\SV}{$SV$ }
+\newcommand{\MD}{$MD$ }
+\newcommand{\MB}{$MB$ }
+\newcommand{\MZ}{$MZ$ }
+\newcommand{\MT}{$MT$ }
+\newcommand{\MTM}{$MT_{m}$ }
+\newcommand{\MTN}{$MT_{n+1}$ }
+\newcommand{\MV}{$MV$ }
+\newcommand{\ND}{$ND$ }
+\newcommand{\NB}{$NB$ }
+\newcommand{\NT}{$NT$ }
+\newcommand{\NTM}{$NT_{m}$ }
+\newcommand{\NTN}{$NT_{n+1}$ }
+\newcommand{\NV}{$NV$ }
+\newcommand{\OPR}{$OPR$ }
+\newcommand{\SGN}{$SGN$ }
+\newcommand{\GT}{$GT$ }
+\newcommand{\DN}{$D_{n}$}
+\newcommand{\DND}{$D'_{n}$}
+\newcommand{\ANST}{$ST_{n}$ }
+\newcommand{\ANMT}{$MT_{n}$ }
+\newcommand{\ANSV}{$SV_{n}$ }
+\newcommand{\ANMV}{$MV_{n}$ }
+\newcommand{\ANNV}{$NV_{n}$ }
+\newcommand{\ANGT}{$GT_{n}$ }
+\newcommand{\DM}{$D_{n-1}$}
+\newcommand{\DMD}{$D'_{n-1}$}
+\newcommand{\AMSV}{$SV_{n-1}$ }
+\newcommand{\AMST}{$ST_{n-1}$ }
+\newcommand{\AN}{$A_{n}$}
+\newcommand{\AM}{$A_{n-1}$}
+\newcommand{\PN}{$P_{n}$}
+\newcommand{\LN}{$L_{n}$}
+\newcommand{\HN}{$H_{n}$}
+
+\def\UrlBreaks{\do\/\do-} % Added to split long URLs.
+\newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
+
+%\usepackage[table]{xcolor} % FOR ARXIV
+% Define a custom light brown color
+\definecolor{lightbrown}{rgb}{0.7, 0.4, 0.1}
+
+\title{Understanding Addition and Subtraction in Transformers}
+
+\author{%
+    Philip Quirke\\
+    Martian\\
+    \texttt{philip@withmartian.com}
+    \And
+    Clement Neo\\
+    NTU\\
+    \And
+    Fazl Barez\\
+    University of Oxford, Martian\\
+    \texttt{fazl@robots.ox.ac.uk}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+Transformers are widely deployed in large language models (LLMs), yet most models still fail on basic arithmetic tasks such as multidigit addition. In contrast, we show that small transformers trained from scratch can solve n-digit addition and subtraction with 99.999\% accuracy. Building directly on prior work that uncovered addition circuits, we extend the analysis to subtraction and present a unified mechanistic account based on cascading carry and borrow circuits. Using a suite of 49 trained models, we apply systematic ablations and node-level constraints to validate the learned mechanisms, and release a reproducible interpretability toolkit for studying arithmetic circuits. Finally, surveying 180 publicly available LLMs, we find that only 7\% can reliably perform addition, underscoring the gap between specialized small models and general-purpose LLMs. Our results show that arithmetic can be implemented exactly by tiny transformers, offering a tractable case study for mechanistic interpretability and a cautionary contrast with the persistent arithmetic failures of much larger models.
+
+%Recent work shows transformers can learn addition, but earlier models suffer low accuracy and are restricted to small numbers. The connection between single-task and multitask arithmetic remains unclear. We analyze 49 autoregressive transformers trained on addition, subtraction, or both—comprising 16 addition-only, 7 subtraction-only, 8 mixed, and 14 initialized mixed models. These span 5–15 digits, 2–4 attention heads, and 2–3 layers.
+
+%Addition models converge on a shared algorithm, with most exceeding 99.999\% accuracy. We provide a mechanistic account of this implementation. Subtraction-only models perform worse. Initialized mixed models reveal, via parameter transfer, that features specialized for addition become polysemantic, aiding both tasks and improving subtraction.
+%We explain the mixed algorithm and release a reusable library of mechanistic interpretability tools to define, locate, and visualize these algorithmic circuits across multiple models.
+
+\end{abstract} 
+
+\section{Introduction}
+
+% Large language models (LLMs) have achieved remarkable success across diverse tasks, yet most fail at basic arithmetic. We survey 180 LLMs (from 1 to 405 billion parameters) and find $<5$\% can perform 10 digit addition accurately. Some of the accurate models can use external tools and likely use these tools to achieve this accuracy. (See App.~\ref{app:SurveyingLLMAdditionCapability} and Figure~\ref{fig:ModelScores}). We show that transformers (without tools) can learn to perform addition and subtraction accurately.
+
+
+% Purpose: Set scene: Transformer model safety
+%Transformer-based large language models (LLMs) are powerful \citep{Barak2022HiddenPI} yet largely inscrutable due to their complex, nonlinear interactions in dense layers within high-dimensional spaces. Given this complexity, their deployment in critical settings \citep{Zhang2022ShiftingML} highlights the need to understand their behavior. \citet{Hendrycks2022XRiskAF} argue that making these models interpretable is key to their safe use. 
+
+% Purpose: Set scene: Mechanistic interpretability
+%Previous work by {\citep{quirke2023understanding} demonstrated that transformers can learn addition on small numbers, but their models had poor accuracy and were limited to a single operation. Understanding how transformers can overcome these limitations to perform more accurate mathematical computations across multiple operations is crucial for several reasons. First, it provides insights into how neural networks can learn and combine multiple precise algorithms, a key capability for more complex reasoning tasks. Second, studying how models transition from single-task to multitask competence while maintaining accuracy reveals important principles about knowledge transfer and representation sharing in neural networks.
+
+%Understanding how models arrive at their predictions is critical for diagnosing errors, enhancing safety, and gaining fundamental insights into modern neural networks. Mechanistic interpretability provides a pathway toward this understanding by identifying the “circuits” responsible for particular computations within a network’s layers and attention heads.
+
+%In this work, we use multidigit arithmetic as a revealing testbed for mechanistic interpretability. We train and analyze 49 autoregressive transformer models on addition, subtraction, or both, covering question lengths of 5 to 15 digits and varying in their number of layers (2–3) and attention heads (2–4). Our experiments encompass three categories of models: addition-only, subtraction-only, and “mixed” models trained to handle both operations. Through a systematic investigation of these networks, we show that addition-only models converge on a highly accurate, shared algorithm, yielding near-perfect performance. We mechanistically explain the algorithm. Subtraction-only models, in contrast, exhibit lower accuracy.
+
+%To explore how multitask learning reshapes these internal algorithms, we then conduct parameter transfer experiments using three distinct approaches, each involving the initialization of mixed models with parameters from addition-only networks. Interestingly, one of these approaches boosts the subtraction accuracy beyond what is achieved by mixed models trained from scratch, indicating that features specialized for addition can be effectively repurposed for subtraction. We provide a detailed mechanistic explanation of the mixed algorithm, illustrating how certain addition circuits become “polysemantic” under multitask learning, driving behavior for both operations.
+
+%A further contribution of our study is the development of a reusable library of mechanistic interpretability tools. This library enables researchers to define and search for algorithmic features, visualize network structures and feature interactions, and conduct cross-model comparisons efficiently. 
+
+%Overall, our results demonstrate the power of mechanistic interpretability in shedding light on how transformers learn and reuse algorithmic circuits across related tasks, paving the way for deeper understanding and more reliable deployment of large language models in diverse domains.
+
+% We create infinite training data enriched with the edge cases that the models learn most slowly. We train 49 small transformer models (2-3 layers, 3-4 attention heads) on 5 to 12 digit addition and subtraction tasks. Most models train in less than an hour on Google Colab. These models achieve $>$99.999\% accuracy. These models succeed where most LLMs fail, such as on cascading carry operations (e.g., 555555555+444444448=+1000000003). Our models are 10,000 times smaller than GPT-3 yet surpass it in arithmetic accuracy.
+
+Large language models (LLMs) achieve remarkable performance across diverse tasks, but still struggle with basic arithmetic. In a survey of 180 LLMs ranging from 1B to 405B parameters, 7\% can reliably perform addition. The few that succeed typically rely on external tools, suggesting that the underlying models have not truly learned arithmetic (See App.~\ref{app:SurveyingLLMAdditionCapability}). In contrast, we show that transformers trained from scratch can master both addition and subtraction with near-perfect accuracy - without using external tools.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.55\columnwidth]{Figures/AdditionAlgorithm.png}
+\caption{Our n-digit addition algorithm is mathematically sound. It uses 4 features: It calculates single-digit carry-one values $(ST_n$), combining them into multidigit carry-one values $(SV_n$). Any $SV_n$ uncertain (U) values are refined to 0 or 1 over tokens (highlighted). By the “+" token, $SV2$ gives the A3 value as 0 or 1. The other answer digits \AN $ $ are calculated from $SA_n$ and \AMSV values.}
+\label{fig:AdditionAlgorithm}
+\end{figure}
+
+We construct (effectively infinite) synthetic training data enriched with the hardest edge cases, and train 49 small transformer models (2–3 layers, 3–4 attention heads) on 5 to 12-digit arithmetic. These models converge rapidly, reaching $>$99.999\% accuracy. They succeed on the cascading carry one and borrow one cases where LLMs fail e.g. 555555555 + 444444448 = 1000000003. Our largest model has ~10M parameters—over four orders of magnitude smaller than GPT-3—and trains to near-perfect accuracy in under an hour on a single GPU, providing an efficient, reproducible, and interpretable testbed for mechanistic analysis.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.8\columnwidth]{Figures/AdditionModelScores.png}
+\caption{We score the addition and subtraction capability of 180 public LLMs. A score of 5 means the LLM handled two 5 digits numbers correctly but failed with 6 digit numbers. 7\% of addition and 12\% of subtraction models get the maximum test score 15. The top models can call external tools.}
+\label{fig:ModelScores}
+\end{figure}
+
+%We introduce a novel, simple, mathematically exact algorithm for n-digit addition (Figure \ref{fig:AdditionAlgorithm}). The algorithm respects the transformer’s left-to-right processing constraint, handling high-value digits before low-value ones. We also introduce a novel, exact algorithm for subtraction.
+\textcolor{blue}{ We introduce a novel, simple, mathematically exact algorithm for n-digit addition (Figure \ref{fig:AdditionAlgorithm}). Unlike human calculation (right-to-left), the algorithm processes digits left-to-right—the natural ordering in which arithmetic appears in training corpora and the constraint under which LLMs must operate. We also introduce a novel, exact algorithm for subtraction. }
+
+We then ask whether our trained models actually implement these algorithms. To do so, a model must realize each algorithmic subtask. We hypothesize the existence of specific calculation “nodes” capable of carrying out these subtasks, and develop code to automatically search for candidate nodes.
+We evaluate these candidates through systematic ablations. Each ablation is designed around a specific subtask, allowing us to precisely predict how the model’s output should change when we intervene. The predictions match perfectly: intervening on the identified node produces exactly the expected effect. Every model we study contains nodes corresponding to all subtasks, though in some cases a single logical role is distributed across two attention heads.
+
+The algorithms also impose strict constraints on node ordering and relationships. For example, certain nodes must appear earlier in the computation sequence, while others depend on them downstream (see Figure \ref{fig:AdditionAlgorithm}). We test these constraints and find they are consistently satisfied across seeds, model sizes, and digit ranges. Together, these results show that all our accurate models converge on the same algorithmic solution.
+
+To make this analysis reproducible, we release a general-purpose interpretability library.
+%\url{https://anonymous.4open.science/r/quanta_mech_interp-F9E5}. % FOR ICLR
+\url{https://github.com/PhilipQuirke/quanta_mech_interp}. % FOR ARXIV
+It provides tools for (1) node characterization, search, and ablation, (2) systematic testing of node relationships and constraints, and (3) visualizations.
+It is a foundational tool used by this project
+\url{https://anonymous.4open.science/r/quanta_maths-6413} % FOR ICLR
+%\url{https://github.com/PhilipQuirke/quanta_maths} % FOR ARXIV
+
+\textbf{Our contributions are fivefold}: (i) a large-scale survey of LLM arithmetic capabilities, (ii) enriched datasets for addition and subtraction, (iii) 49 small transformer models trained to near-perfect accuracy, (iv) human-comprehensible exact addition and subtraction algorithms and (v) a reusable interpretability toolkit demonstrating that these models implement the algorithms.
+
+We conclude that transformers can implement exact n-digit addition and subtraction through interpretable circuits. With appropriate training and data, larger LLMs could in principle adopt the same mechanisms.
+
+\section{Related Work}
+
+%Mechanistic interpretability aims to reverse engineer neural networks to find interpretable algorithms that are implemented in a model's weights \citep{olah2020zoom}. Mathematical frameworks \citep{elhage2021mathematical} explain how transformer attention heads can work with each other to implement complex algorithms.
+
+%Causal Scrubbing \citep{causalscrubbing2023} recommends explaining a model algorithm by documenting a low-level computation graph, mapping from the graph to the model nodes that implement the computation, and performing experimentation verification. Investigative techniques such as ablation interventions, activation unembeddings \citep{logitlens2020}, and sparse autoencoders \citep{onelayersparseautoencoder2023,cunningham2023sparse}, underpinned by the more theoretical frameworks \citep{mathematicalframework2021,geva2022transformer}, provide tools to help confirm a mapping. 
+
+%\textbf{Investigating pre-trained LMs on Arithmetic.} 
+%Even though basic arithmetic can be solved following a few simple rules, pre-trained LMs often struggle to solve simple math questions \citep{hendrycks2021measuring}. Causal mediation analysis \citep{stolfo2023mechanistic} has been used to investigate how large pre-trained LMs like Pythia and GPT-J performed addition to solve word problems. It is also possible to improve a model's arithmetic abilities used supervised fine tuning - including enriched training data \citep{liu2023goat}.
+
+%\textbf{Studying Toy Models for Arithmetic.} Applying mechanistic interpretability to toy transformers can help to better isolate clear, distinct circuits given the highly specific experimental setup for the model studied \citep{nanda2023progress}. {\citet{quirke2023understanding} detailed a 1-layer, 3-head transformer model that performs 5-digit addition, showing it failed on edge cases (e.g. “77778+22222=100000" where a “carry 1" cascades through 4 digits), incorrectly predicting 1\% of questions. 
+
+%Many natural prediction problems decompose into a finite set of knowledge and skills that are “quantized" into discrete chunks (quanta) \citep{michaud2023quantization}. Models must learn these quanta to reduce loss. Understanding a network reduces to enumerating its quanta. Other studies \citep{schaeffer2023emergent} prove useful ways to measure quanta in mathematical prediction problems.
+
+\textbf{Mechanistic understanding of arithmetic in transformers}. Early work by \citet{nanda2023progress} revealed that one-layer models implement modular addition through discrete Fourier transforms, converting addition into rotations in frequency space - showing transformers can find unintuitive algorithms for basic mathematics. \citet{quirke2023understanding} detailed an algorithm for n-digit addition in a single-layer model that achieved 99\% accuracy, identifying a cascading carry-one failure mode. Subsequent work on training dynamics \citep{musat2024clusteringalignmentunderstandingtraining} and the finding that even random transformers exhibit algorithmic capabilities \citep{zhong2024algorithmiccapabilitiesrandomtransformers} suggest architectural biases toward systematic computation.
+
+\textbf{Architectural modifications and specialized models}. Several approaches achieve near-perfect arithmetic accuracy through architectural changes. Reformatting inputs to present least-significant digits first by adding position embeddings and zero-padding strategies \citep{mcleish2024transformersarithmeticrightembeddings}. \citet{cho2024positioncouplingimprovinglength} align computational flow with carry propagation. Specialized models demonstrate superior performance: MathGLM's 10M parameter model achieves 100\% accuracy on integer addition through step-by-step reasoning \citep{yang2023gptsolvemathematicalproblems}, while \citet{qiu2024dissectingmultiplicationtransformersinsights} reached 99.9\% accuracy on 5-digit multiplication with a tiny transformer that outperforms GPT-4. Subtraction is much less studied, though \cite{zhang2024interpretingimprovinglargelanguage} identified symmetries between addition and subtraction circuits, with the same attention heads handling both operations.
+
+%\textbf{Production systems versus specialized models}. The Claude 3.5 Haiku circuit analysis \cite{lindsey2025biology} reveals how a frontier model implements addition. Rather than the clean n-digit algorithms found in specialized models, Claude employs a “bespoke" circuit combining lookup tables for memorized facts with magnitude estimation pathways. This distributed circuit achieves perfect accuracy on 2-digit addition using mechanisms distinct from both human methods and specialized models. The gap between Claude's complex implementation on short addition questions and the elegant n-digit algorithms in specialized models illustrates a fundamental challenge: production LLMs trained on diverse tasks develop hybrid strategies rather than the interpretable, generalizable algorithms that specialized models achieve.
+\textbf{Production systems versus specialized models}. The Claude 3.5 Haiku circuit analysis \cite{lindsey2025biology} reveals how frontier models implement addition differently: using "bespoke" circuits combining lookup tables with magnitude estimation rather than clean n-digit algorithms. This illustrates how production LLMs develop hybrid strategies instead of the interpretable, generalizable algorithms that specialized models achieve. 
+
+\section{Methodology}
+Transformer models learn addition algorithms different from traditional human methods. We define an alternative, mathematically-equivalent framework for addition and demonstrate our models implement this approach.
+
+\subsection{Mathematical Framework}
+
+For addition and subtraction of two $n$-digit numbers, we use the Fig.~\ref{fig:AdditionTerms} notation. (Detail in App.~\ref{app:Terminology}). 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\columnwidth]{Figures/AdditionExampleWithPlus.png}
+\caption{For 5-digit addition and subtraction, our notation for the main input tokens is $D4$, ..., $D0$ and $D'4$, ..., $D'0$. For output tokens it is $A6$, .., $A0$. For n-digits, we use the notation \DN, .., $D0$, \DND, .., $D'0$ and \AN, .., $A0$.}
+\label{fig:AdditionTerms}
+\end{figure} 
+
+\subsection{Addition Algorithm Description}
+\label{Sec:AdditionFramework}
+
+For addition, aligned with \citet{quirke2023understanding}, we define the “Base Add" subtask $SA_n$ to compute the digit-wise sum modulo 10:
+
+\begin{equation}
+    SA_n = (D_n + D'_n) \mod 10  
+\end{equation}
+
+%The “Simple Carry" subtask $A_n.SC$ then determines whether the addition between the two digits creates a carry bit:
+%\begin{equation}
+%    SC_n = 1 \text{ if } D_n + D'_n \geq 10  \text{ else } 0
+%\end{equation}
+
+%Using just these two subtasks, the model and framework from \citet{quirke2023understanding} accurately predicts addition queries containing single-digit carries like “045+046=0091". However, for queries like “555+446=1001" where the carry bit cascades through 2 or more digits, this 1-layer model gave erroneous results like “555+446=0901".
+
+To solve $n$-digit addition with high accuracy, the framework must handle carry bits that cascade through multiple digits. For an autoregressive model to correctly predict the first answer digit in “555+448=+1003", as “1", it must cascade the carry bit from the \textit{rightmost} digit to the \textit{leftmost} digit in a single forward pass. This is particularly challenging for an autoregressive model that processes tokens from left to right. Aligned to this challenge we define two new subtasks.
+
+First, we introduce subtask ST. It classifies a digit pair sum as \textit{definitely} causing a carry (e.g. 6+7), definitely \textit{not} causing a carry (e.g. 2+3), or \textit{possibly} causing a carry (e.g. 5+4). The 5+4 case is uncertain as the digits sum to 9 and a carry from the next-lower-value digit would cause a carry:
+
+\begin{equation}
+    \underbrace{ST_n}_{(D_n, D'_n)} =
+    \begin{cases}
+    1 & \text{if } (D_n + D'_n) \geq 10 \\
+    0 & \text{if } (D_n + D'_n) \le 8 \text{ or } n = 0 \hspace{1cm}\text{Note ST0 is always 0 or 1.} \\
+    U & \text{otherwise} \hspace{3.55cm} \text{Sums to 9, so carry is uncertain} \\
+    \end{cases}
+\end{equation}
+
+The “TriAdd" function combines two $ST_n$ style values X and Y. Only if \textit{both} X and Y are U, does TriAdd return U (there is still uncertainty), otherwise it returns 0 or 1 (the carry bit value is known): 
+
+\begin{equation}
+    \underbrace{\text{TriAdd}}_{(X, Y)} = \\
+    \begin{cases}
+        Y & \text{if } X = U \\
+        X & \text{otherwise} \\
+    \end{cases}
+\end{equation}
+
+Finally, we introduce the SV subtask that uses TriAdd to handle multidigit carry cascades. We describe $SV_n$ using the first 3 examples:
+
+\begin{align}
+    SV0 &= ST0 \\
+    SV1 &= \text{TriAdd}(ST1,ST0) \\
+    SV2 &= \text{TriAdd}(\text{TriAdd}(ST2,ST1),ST0)
+\end{align}
+
+The highlighted (solid-color) part of Figure~\ref{fig:AdditionAlgorithm} illustrates the SV2 calculation. Note that the calculation first combines ST2 and ST1 (the higher value digits) before combining the result with ST0. This formulation mirrors the left to right order in which the model processes tokens i.e. from higher value digits to lower value digits. The last term in all $SV_n$ calculations is ST0 which is always 0 or 1, so all $SV_n$ evaluate 0 or 1. That is, at the end of the $SV_n$ calculation any uncertainty has been resolved. 
+
+The $SV_n$ are perfectly accurate multidigit cascade carry values. Their calculation occurs across multiple tokens and is completed by the “=" token. Combining the \ANSV values with the \SAN values as shown in Figure~\ref{fig:AdditionAlgorithm} gives perfectly accurate answer tokens.
+
+\subsection{Subtraction Algorithm Description}
+\label{Sec:SubtractionFramework}
+
+Our subtraction algorithm mirrors our addition algorithm, replacing addition's “cascading carry one" with  subtraction's “cascading borrow one". Both operations use the same iterative approach to reducing “cascading" uncertainty token by token. 
+
+We introduce “Base Diff" $MD_n$ defined as \DN - \DND $ $ modulo 10 (paralleling $SA_n$). We also introduce $MB_n$ for the single-digit “borrow one" case (paralleling $ST_n$):
+
+\begin{equation}
+    \underbrace{MB_n}_{(D_n, D'_n)} = \\
+    \begin{cases}
+        1 & \text{if } D_n < D'_n  \text{ (borrow one)}\\
+        0 & \text{if } D_n > D'_n \text{ (no borrow)}\\
+        U & \text{if } D_n = D'_n \text{ (uncertain)} \\
+    \end{cases}
+\end{equation}
+
+Finally, we introduce $MV_n$ which parallels $SV_n$ to handle the “cascading borrow one" edge case. With this formulation, the addition and subtraction algorithms have the same structure (just replacing $SA_n$ with $MD_n$, $ST_n$ with $MB_N$, and $SV_n$ with $MV_N$). 
+
+Subtraction poses an additional algorithmic difficulty - some questions give a positive answer (e.g. 325-129=+196) and others a negative answer (e.g. 325-329=-004). Note that all the answer digits are different in the above examples.  While there are multiple ways this could be handled mathematicaly, we introduce “Neg Diff" $ND_n$ defined as \DND - \DN $ $ modulo 10 (the opposite of $MD_n$).  At the “=" token, the $MV_n$ avalues are known, and the algorithm selects $MD_n$ or $MD_n$ values as appropriate.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/SubtractionAlgorithm.png}
+\caption{Our subtraction algorithm parallels our addition algorithm but it refines “cascading borrow one" uncertainty over multiple tokens. The refined $MV2$ value determines both the answer sign (“+" or “-") and which digit values ($MD_n$ or $ND_n$) to use for the final output.}
+\label{fig:SubtractionAlgorithm}
+\end{figure*}
+
+In Fig.~\ref{fig:SubtractionAlgorithm}, the value $MV2$ determines the answer sign. While the following calculations could use $MV2$ too, in fact they attend to the answer sign itself. We introduce the subtask SGN to reflect this.     
+
+\subsection{Mixed Algorithm Description}
+\label{Sec:MixedFramework}
+
+For mixed models handling both operations, we add the subtask OPR meaning “attends to the prompt operation token". The mixed models uses OPR and SGN to determine whether to output addition, positive-subtraction, or negative-subtraction answer digits.
+
+
+\section{Experiments}
+
+\subsection{Training Models}  
+\label{sec:TrainingModels}
+
+Our models' vocabulary consisted of 14 tokens: the digits 0-9 plus the mathematical operators +, -, =, *, and /. (Also see App.~\ref{app:Vocab}). We created an infinite training dataset enriched with rare numerical combinations (mainly cascading use cases). (Also see App.~\ref{app:TrainingData})
+
+We trained addition-only, subtraction-only, and mixed (addition and subtraction) models. We systematically explored different model architectures and settled on 2 layers and 3 or 4 attention heads. (Also see App.~\ref{app:ModelShape})
+
+We trained used a batch size of 64, learning rate of 0.00008, and weight decay of 0.1. The loss function was defined as the mean negative log likelihood across all output tokens. Training was stopped when the loss was very low e.g. $2 \times 10^{-8}$. (Also see App.~\ref{app:ModelLoss}, Fig.~\ref{fig:TrainingLossAddition}, Fig.~\ref{fig:TrainingLossMixed}). 
+
+Each model's accuracy was tested on 1 million questions. Robust statistical accuracy ranges were calculated, but for ease of presentation, we say a model has 99.999\% accuracy if it got less than 10 of the 1 million questions wrong. Most models achieved this. The resulting 49 models, including detailed accuracy results, are summarized in Tab.~\ref{tab:AdditionModels} and Tab.~\ref{tab:MixedModels}. 
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/training_loss_addition.pdf}
+\caption{The 5- to 15-digit 2-layer 3-head addition models have very low loss. With more digits training takes longer. Details in Tab.\ref{tab:AdditionModels}.}
+\label{fig:TrainingLossAddition}
+\end{figure*}
+
+\subsubsection{Training mixed models}
+\label{sec:TrainingNDigitMixed}
+
+To explore how transformers can learn multiple arithmetic operations simultaneously, we conducted experiments with models capable of both addition and subtraction.  We were particularly interested in whether knowledge from addition-specialized models could transfer to this expanded task.
+
+We trained 14 mixed models with various architectures, including 6- and 10-digit models with 2-3 layers and 3-4 attention heads (see Tab.\ref{tab:MixedModels}). Each model was initialized using weights from a highly accurate addition-only model, specifically copying the weights into the first two layers and first three heads of the mixed model. During training, we used a curriculum of 80\% subtraction and 20\% addition examples, using enriched data for both operations (See Fig.~\ref{fig:InsertAddIntoMix}).
+
+This initialization approach proved effective, with most models quickly achieving high accuracy on both operations. We explored alternative training strategies, such as periodically ``freezing" the inserted attention heads or MLPs by restoring their original addition-model weights every 100 training steps. However, these more constrained approaches resulted in lower accuracy, suggesting that some flexibility in modifying the initialized weights was necessary for optimal performance (Also see App.~\ref{app:MixedModelInit})
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\columnwidth]{Figures/add_neurips_1.pdf}
+\caption{Mixed model initialization and analysis: (1) Train an accurate 5-digit addition model. (2) Reverse-engineer it to identify the implemented algorithm. (3) Insert its attention head and MLP weights (in brown) into a larger model. (4) Train the new model on 80\% subtraction and 20\% addition. (5) The resulting model predicts accurately and reuses the inserted addition circuits for both tasks.}
+\label{fig:InsertAddIntoMix} 
+\end{figure}
+
+We did a seed sensitivity analysis. App.~\ref{app:SeedSensitivity} includes a visualization Fig.~\ref{fig:SeedSensitivity} of the range of training losses for different model categories.
+
+
+\subsection{Experimental Results}
+\label{Sub:ExperimentalResults}
+
+To verify whether our models implement the algorithms described above, we developed a systematic framework for analyzing model internals. For each trained model, we investigated whether it contains the specific computational components our algorithms require and whether these components interact according to the algorithmic constraints.
+
+\subsubsection{Implementation Analysis Framework} 
+Consider a 6-digit addition model. If it implements our algorithm, it must satisfy these constraints:
+
+\begin{itemize}
+    \item \textbf{Functional accuracy}: The model must correctly add any two 6-digit numbers, selecting the unique correct answer from nearly 2 million possible answers.
+    
+    \item \textbf{Complete component coverage}: The model must implement the required subtasks for each digit position i.e. 6 $SA$, 6 $ST$, 6 $SV$, and 7 answer digit finalization nodes.
+    
+    \item \textbf{Component-level behavior}: Each node implementing a subtask must obey certain conditions. For instance, a node implementing $ST2$ must:
+    \begin{itemize}
+        \item Attend primarily to tokens $D_2$ and $D'_2$ (post-softmax attention $> 0.01$)
+        \item Be positioned after $D'_2$ but before the ``='' token
+        \item A Primary Component Analysis (PCA) should show 3 distinct clusters. (See Fig.~\ref{fig:PCATrigrams5D}.)
+        \item Given three test question sets, created specifically to trigger the 3 $ST2$ values, each question set should align with exactly one of the PCA clusters.
+    \end{itemize}
+    
+    \item \textbf{Algorithmic ordering constraints}: Node locations must respect computational dependencies. Since SV1 = TriAdd(ST1, ST0), a node computing SV1 must be positioned after nodes computing ST1 and ST0. Our 6-digit model has over 30 such ordering constraints.
+    
+    \item \textbf{Causal verification through intervention}: When we identify a candidate node for a specific subtask (e.g. ST2), we can construct paired test questions differing only in that subtask's value. By intervening on the candidate node and swapping its activations between the test pairs, we can predict the model's output from nearly 2 million possible answers.
+\end{itemize}
+
+For models with more than 6 digits, the constraints list grows further. The subtraction and mixed algorithms each have a more extensive constraints list. With 49 models to test, we developed an automated testing framework to:
+
+\begin{itemize}
+    \item Systematically search for nodes over each subtask and digit position combination retaining only those that satisfy all the constraints in our algorithm
+    \item Compare the list of nodes found with the algorithmic requirements (including intra-node relationships). 
+    \item Visualize the results.
+\end{itemize}
+
+\subsubsection{Addition model results} 
+
+We tested a single 1-layer addition model. Our framework found the $SA_n$ and $SC_n$ (single-digit carry calculated during answer tokens) nodes as described by \cite{quirke2023understanding} that give the model its 99\% accuracy.
+
+Testing our fifteen 2-layer addition models, we find all models contain the subtasks required by our addition algorithm, and satisfy the algorithmic requirements. This consistent pattern suggests we have identified a robust and generalizable algorithm that naturally arises when transformer models are trained on addition in our setup. There is some variability between models:
+
+\begin{itemize}
+\item In a given model, $ST_N$ is not as ``tidy" as shown in Fig.~\ref{fig:AdditionAlgorithm}. Different models select different attention heads to calculate say ST2. Redundantly, some models have two nodes that both calculate say ST1. See Tab.~\ref{tab:MathsPurposePerNodeAdd6D}.   
+\item Some models combine 2 attention heads (with the same token position and layer) to calculate say SA2. Many models only use one attention head.
+\item For ST nodes, the PCA trigrams have difference appearances in each attention head (- but all have 3 clusters aligned to the ST values. See Fig.~\ref{fig:PCATrigrams5D}. 
+\item All models have \ST nodes, but some models also have and use \SC nodes. The \SC nodes are redundant: the \ST values are equivalent and the \SV values are superior!  See Tab.~\ref{tab:MathsPurposePerNodeAdd6D}. 
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\columnwidth]{Figures/PCA_trigrams_D5_selected.png}
+%\caption{For a 5-digit addition model, these three sample PCAs show one attention head at one token position tested for one answer digit each. Each dot represents a question - colored by the question's expected ST value (0, 1 or U as red, green, blue respectively). The PCA data differs somewhat per case, but there is a strong correlation between the PCA and the expected 3 ST values.}
+\caption{For a 5-digit addition model, these three sample PCAs each show 1 attention head at a token position tested for 1 answer digit. Each dot represents a question, colored by the question's expected ST value (0, 1, or U). While the PCA data varies across cases, the 3 ST classes form visually distinct clusters in each plot, suggesting that the attention head's activation patterns differ systematically based on ST value and that the model could potentially distinguish between these 3 cases.}
+\label{fig:PCATrigrams5D}
+\end{figure}
+
+%For a specific 5-digit addition model instance, we mapped the algorithm to individual nodes and verified each node's role. Figure~\ref{fig:AdditionAlgorithm} diagrams the algorithm, with node details in App.~\ref{app:Hypothesis3}. The model adheres to all known constraints and achieves \textgreater{99.999}\% accuracy using 36 nodes, as compared to the 1-layer model that uses 21 nodes to achieve 99\% accuracy.
+
+\begin{table*}[h]
+    \caption{For a sample 5-digit addition model, we show a compacted location map for the \SAC \SC and \ST subtasks. Interestingly 1) the \ST nodes are in a semi-random order 2) the second $ST1$ node is redundant 3) the model uses \SC nodes which are redundant 4) each \SA subtask is shared across two attention heads.}
+    \label{tab:MathsPurposePerNodeAdd6D}
+    \vspace{0.1in}
+    \sffamily
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    % \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} 
+    \begin{tabularx}{\textwidth}{|c|*{10}{>{\centering\arraybackslash}X|}}
+    \hline 
+    & \textcolor{brown}{\textbf{(P11)}} & \textcolor{brown}{\textbf{(P12)}} & \textcolor{brown}{\textbf{(P13)}} & \textcolor{brown}{\textbf{(P14)}} & \textcolor{brown}{\textbf{(P15)}} & \textcolor{brown}{\textbf{(P16)}} & \textcolor{brown}{\textbf{(P17)}} & \textcolor{brown}{\textbf{(P18)}} & \textcolor{brown}{\textbf{(P19)}} & \textcolor{brown}{\textbf{(P20)}} \\ 
+    & \textcolor{brown}{\textbf{D'1}} & \textcolor{brown}{\textbf{D'0}} & \textcolor{brown}{\textbf{=}} & \textcolor{brown}{\textbf{+}} & \textcolor{brown}{\textbf{A6}} & \textcolor{brown}{\textbf{A5}} & \textcolor{brown}{\textbf{A4}} & \textcolor{brown}{\textbf{A3}} & \textcolor{brown}{\textbf{A2}} & \textcolor{brown}{\textbf{A1}} \\ 
+    \hline 
+    \textcolor{brown}{\textbf{L0H0}} & ST2 & ST3 & ST1 & ST4 & SC4 & SC3 & SC2 & SC1 & SC0 & \cellcolor{black!80}\\ 
+    \hline
+    \textcolor{brown}{\textbf{L0H1}} & ST1 & \cellcolor{black!80} & ST0 & \cellcolor{black!80} & \multirow{2}{*}{SA5} & \multirow{2}{*}{SA4} & \multirow{2}{*}{SA3} & \multirow{2}{*}{SA2} & \multirow{2}{*}{SA1} & \multirow{2}{*}{SA0} \\  
+    \cline{1-1}
+    \textcolor{brown}{\textbf{L0H2}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & ST5 & & & & & &\\ 
+    \hline
+    \end{tabularx}
+\end{table*}
+
+\subsubsection{Mixed model results} 
+Testing our accurate "mixed" (both addition and subtraction) models, we find all models contain the subtasks required by our addition algorithm, and satisfy the algorithmic requirements. 
+
+The mixed models have the same types of variability that the addition models have.
+
+\textbf{Evolution of Polysemantic Nodes.} \cite{zhang2024interpretingimprovinglargelanguage} identified symmetries between addition and subtraction circuits, with the same attention heads handling both operations. We expand on this finding. 
+
+Consider the mixed models that we initialized with accurate, smaller addition models before training. The majority of inherited nodes became polysemantic during training. Rather than developing entirely new circuits for subtraction, the models adapted their addition circuits to handle both operations. For example, a node that originally only performed Base Add (\SA) often learns to handle three subtasks: addition (\SA), positive-answer subtraction diff (\MD), and negative-answer subtraction diff (\ND). (Refer to Tab.~\ref{tab:MathsPurposePerNodeMix6D}.) 
+
+%\subsection{Mixed model class detection}
+%\label{sec:MixedClassDetection}
+%Mixed models must identify whether each input belongs to one of three classes: addition (S), positive-answer subtraction (M), or negative-answer subtraction (N). For addition questions (marked by “+"), classification is immediate. For subtraction questions (marked by “-"), the model must determine whether $D \ge D'$ to distinguish between M and N classes. This classification must occur by the “=" token since it determines whether the first answer token will be “+" or “-".
+
+%The model can determine $D \ge D'$ using the \ANMT values, or using a hypothesised dedicated comparison circuit based on a new subtask. 
+
+%\begin{equation} 
+%    GT_n = 1 \text{ if } D_n \geq D'_n \text{ else } 0
+%\end{equation}
+
+%The multidigit $GT$ is computed similarly to $SV$. We verify its presence using ablations that flip the answer sign when $GT$ is disrupted.
+
+%All mixed models use the \ANMT and \ANGT subtasks to determine answer sign—often (but not always) computed by the same node (see Tab.~\ref{tab:MathsPurposePerNodeAdd6D}). As both \MT and \GT can distinguish sign, models may mix these methods across digits.
+
+%A single node can output multiple arithmetic results (e.g., $SA2$, $MD2$, $ND2$) but lacks intrinsic knowledge of whether the task is addition, positive, or negative subtraction. We hypothesize it emits all three results into the residual stream, and another node selects the correct one based on context.
+
+%Each answer digit usually has one attention head focusing on OPR and SGN, helping the MLP retain the correct output and discard the others (Tab.~\ref{tab:MathsPurposePerNodeMix6D}).
+
+
+\begin{table*}[h]
+    \caption{For this mixed model, in the last 5 tokens, polysemantic attention heads simultaneously generate outputs for the three question classes (S, M and N). Other heads calculate the question class by attending to the question operation (OPR) token and the answer sign (SGN) token. We assume the MLP layers then select the output appropriate for the class. }
+    \label{tab:MathsPurposePerNodeMix6D}
+    \vspace{0.1in}
+    \sffamily
+    \small
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+
+    \begin{tabularx}{\textwidth}{|c|*{12}{>{\centering\arraybackslash}X|}}
+
+    \hline 
+    & \textcolor{brown}{\textbf{(P9)}} & \textcolor{brown}{\textbf{(P10)}} & \textcolor{brown}{\textbf{(P11)}} & \textcolor{brown}{\textbf{(P12)}} & \textcolor{brown}{\textbf{(P13)}} & \textcolor{brown}{\textbf{(P14)}} & \textcolor{brown}{\textbf{(P15)}} & \textcolor{brown}{\textbf{(P16)}} & \textcolor{brown}{\textbf{(P17)}} & \textcolor{brown}{\textbf{(P18)}} & \textcolor{brown}{\textbf{(P19)}} & \textcolor{brown}{\textbf{(P20)}} \\ 
+    & \textcolor{brown}{\textbf{D'3}} & \textcolor{brown}{\textbf{D'2}} & \textcolor{brown}{\textbf{D'1}} & \textcolor{brown}{\textbf{D'0}} & \textcolor{brown}{\textbf{=}} & \textcolor{brown}{\textbf{A7}} & \textcolor{brown}{\textbf{A6}} & \textcolor{brown}{\textbf{A5}} & \textcolor{brown}{\textbf{A4}} & \textcolor{brown}{\textbf{A3}} & \textcolor{brown}{\textbf{A2}} & \textcolor{brown}{\textbf{A1}} \\ 
+    \hline 
+    \multirow{3}{*}{\textcolor{brown}{\textbf{L0H0}}} & MT4 & \cellcolor{black!80} & \cellcolor{black!80}  & MT3 & \cellcolor{black!80}  & ST4 &  &  & SC2 & SC1 & SC0 & OPR \\
+    & & \cellcolor{black!80} &  \cellcolor{black!80} & MT3 &  \cellcolor{black!80} & MT4 & SC4 & SC3 & NB2 & MB1 & MB0 & SGN\\
+    & & \cellcolor{black!80} & \cellcolor{black!80} & & \cellcolor{black!80} & OPR & &  &  & NB1 & NB0 & \\ \cline{1-8}
+    \hline
+    
+    \multirow{2}{*}{\textcolor{brown}{\textbf{L0H1}}} & ST4 & ST2 & ST1 & ST3 & ST0 & \cellcolor{black!80} & SA5 &  &  &  &  & \\
+    & & MT2 & MT1 & & MT0 & \cellcolor{black!80} & MD5 & SA4 & SA3 & SA2 & SA1 & SA0\\ \cline{1-2}
+    
+    \multirow{3}{*}{\textcolor{brown}{\textbf{L0H2}}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & ST5 & SA4 & MD4 & MD3 & MD2 & MD1 & MD0\\
+    & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & OPR & ND5 & ND4 & ND3 & ND2 & ND1 & ND0 \\
+    & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & SGN & &  &  &  &  & \\ \hline
+    
+    \multirow{2}{*}{\textcolor{brown}{\textbf{L0H3}}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & OPR & OPR & OPR & OPR & OPR & OPR\\ 
+    & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & SGN & SGN & SGN & SGN & SGN & SGN\\ 
+    \hline
+    \end{tabularx}
+\end{table*}
+
+We believe that this adaptation was likely because these three operations share a common structure: each maps a pair of digits (10 possibilities for \DN × 10 possibilities for \DND = 100 input cases) to a single-digit result (10 possible outputs). Similarly, some models adapted nodes that originally handled carry bits ($ST$) to also process borrow bit operations ($MT$).
+
+\begin{table}[h]
+    \caption{Mixed models re-use most inserted addition-model nodes. Many inserted nodes become polysemantic during training - performing addition, positive-answer subtraction \textbf{and} negative-answer subtraction subtasks simultaneously. For a sample mixed model that uses 96 nodes and had 48 nodes inserted, this table shows inserted node reuse.}    
+    \label{tab:Coverage_SNM}
+    \vspace{0.1in}
+    \centering
+    \begin{tabularx}{0.66\columnwidth}{|X|c c|c c|}
+        \hline
+        & \multicolumn{2}{c|}{\textbf{Used}} & \multicolumn{2}{c|}{\textbf{Inserted}} \\
+        \hline
+        \textbf{Question class} & \textbf{\#} & \textbf{\%} & \textbf{\#} & \textbf{\%} \\
+        \hline
+        All questions & 96 & & 48 & \\
+        Addition & 61 & 64\% & 42 & 88\% \\
+        Positive-answer subtraction & 70 & 73\% & 40 & 83\% \\
+        Negative-answer subtraction & 53 & 55\% & 29 & 60\% \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\section{Conclusion}
+\label{sec:Conclusion}
+Our analysis of 49 transformer models demonstrate their ability to learn highly accurate mathematical algorithms, achieving over 99.999\% accuracy on addition tasks up to 15 digits. By investigating how models implement computations using attention heads and MLPs, we uncovered novel computational approaches distinct from traditional human calculation methods. Parameter transfer experiments revealed that features originally specialized for addition could be repurposed for subtraction, with many nodes becoming polysemantic.
+
+Our research provides insights into how transformers learn precise algorithmic computations across related tasks, developing a reusable library of mechanistic interpretability tools that advances our understanding of neural network computational learning.
+
+\section{Limitations and Future Work}
+\label{sec:LimitationsAndFutureWork}
+
+%While we identify and test the \textit{role} of each node in the mixed model algorithm, we do not detail the \textit{data representation} of the polysemantic nodes, SGN nodes, and OPR nodes output in the residual stream. We have not detailed the \textit{transformation} of this data performed by MLP layer nodes that support accurate answer digit prediction.
+While we identify and test the functional \textit{role} of each component in the mixed model algorithm, we do not analyze the specific \textit{data representations} and \textit{transformations} used by polysemantic nodes, SGN nodes, and OPR nodes in the residual stream, nor the detailed mechanisms by which MLP layers process this information. Although our algorithmic-level analysis may be more generalizable across models, this approach leaves gaps in understanding how the identified components actually encode and manipulate information.
+
+Our automated framework for discovering algorithm subtasks in models, while instrumental in accelerating our research, has limitations. Some aspects are specific to our math models. Some aspects are generic and have already been used in the published paper by ~\citet{harrasse2025tinysqlprogressivetexttosqldataset}.
+
+%We created a declarative language to describe algorithms in terms of necessary subtasks and a framework to test these descriptions against specific models, but more work is needed to generalize this. We also need standard metrics to measure the “strength" of the evidence collected from a model when compared to a described algorithm.  
+Fully reverse engineering neural networks faces significant challenges, including distributed parallel computations difficult to trace to specific components. We made progress on an alternative approach: a declarative language describing algorithms in terms of subtasks and a framework to test these descriptions against models. However, more work is needed to refine this method and quantity our certainty when comparing evidence gathered from models against an algorithmic description.
+
+Our models may be useful to researchers investigating the universality of representations / circuits across models. 
+
+\bibliography{paper}
+\bibliographystyle{iclr2026_conference} % ICLR
+%\bibliographystyle{plainnat} % ARXIV
+
+\appendix
+
+\section{Appendix: Terminology and Abbreviations}
+\label{app:Terminology}
+These terms and abbreviations are used in this paper and the associated Colabs and python code:
+
+\begin{itemize}
+\item \textbf{Pn} : Model (input or output) token position. Zero-based. e.g. \textbf{P}18, \textbf{P}18L1H0
+\item \textbf{Ln} : Model layer n. Zero-based. e.g. P18\textbf{L}1H2
+\item \textbf{Hn} : Attention head n. Zero-based. e.g. P18L1\textbf{H}2
+\item \textbf{Mn} : MLP neuron n. Zero-based
+\item \textbf{PnLnHn} : Location / name of a single attention head, at a specified layer, at a specific token position
+\item \textbf{PnLnMn} : Location / name of a single MLP neuron, at a specified layer, at a specific token position
+\item \textbf{D} : First number of the pair question numbers
+\item \textbf{Dn} : nth numeric token in the first question number. Zero-based. D0 is the units value
+\item \textbf{D'} : Second number of the pair question numbers
+\item \textbf{D'n} : nth token in the second question number. Zero-based. D0 is the units value
+\item \textbf{A} : Answer to the question (including answer sign)
+\item \textbf{An} : nth token in the answer. Zero-based. A0 is the units value. The highest token is the “+" or “-" answer sign
+\item \textbf{S} : Prefix for Addition. Think S for Sum. 
+\item \textbf{SA} : Base Add. An addition subtask. $SA_n$ is defined as (Dn + D'n) \% 10. e.g. 5 + 7 gives 2
+\item \textbf{SC} : Carry One. An addition subtask. $SC_n$ is defined as Dn + D'n $>=$ 10. e.g. 5 + 7 gives True
+%\item \textbf{SS} : Make Sum 9. An addition subtask. $SS_n$ is defined as Dn + D'n == 9. e.g. 5 + 7 gives False
+\item \textbf{ST} : TriCase. An addition subtask. Refer paper body for details
+\item \textbf{M} : Prefix for Subtraction with a positive answer. Think M for Minus. Aka SUB
+\item \textbf{MD}: Basic Difference. A subtraction subtask. $MD_n$ is defined as (Dn - D'n) \% 10. e.g. 3 - 7 gives 6
+\item \textbf{MB}: Borrow One. A positive-answer subtraction subtask. $MB_n$ is defined as Dn - D'n $<$ 0. e.g. 5 - 7 gives True
+%\item \textbf{MZ} : Make Zero. A positive-answer subtraction subtask. $MZ_n$ is defined as Dn - D'n == 0. e.g. 5 - 5 gives True
+%\item \textbf{MT} : TriCase. A positive-answer subtraction subtask. 
+%\item \textbf{MT1, MT0, MT-1} : Outputs of the MT TriCase subtask.  
+\item \textcolor{blue}{\textbf{Node} : A logical locus implementing a specific subtask. Physically an attention head (e.g. P18L0H1), an MLP layer (P18L0MLP), or occasionally two heads working together.}
+\item \textbf{N} : Prefix for Subtraction with a negative answer. Think N for Negative. Aka NEG
+\item \textbf{ND} : Basic Difference. A negative-answer subtraction subtask. $ND_n$ is defined as (Dn - D'n) \% 10. e.g. 3 - 7 gives 6
+\item \textbf{NB} : Borrow One. A negative-answer subtraction subtask. $NB_n$ is defined as Dn - D'n $<$ 0. e.g. 5 - 7 gives True
+%\item \textbf{NT} : TriCase. A negative-answer subtraction subtask. 
+%\item \textbf{GT} : Greater Than. A subtraction subtask. $GT_n$ is defined as Dn $>$ D'n. e.g. 3 $>$ 5 gives False
+\item \textbf{OPR} : Operator. A subtask that attends to the + or - token in the question (which determines whether the question is addition or subtraction).
+\item \textbf{SGN} : Sign. A subtask that attends to the first answer token, which is + or -
+\item \textbf{PCA} : Principal Component Analysis
+\item \textbf{EVR} : Explained Variance Ratio. In PCA, EVR represents the percentage of variance explained by each of the selected components.
+\end{itemize}
+
+\section{Appendix: Ethics Statement}
+\label{app:EthicsStatement}
+Our work aims to explain the inner workings of transformer-based language models, which may have broad implications for a wide range of applications. A deeper understanding of generative AI has dual usage. While the potential for misuse exists, we discourage it. The knowledge gained can be harnessed to safeguard systems, ensuring they operate as intended. It is our sincere hope that this research will be directed towards the greater good, enriching our society and preventing detrimental effects. We encourage responsible use of AI, aligning with ethical guidelines.
+
+\section{Appendix: Vocabulary}
+\label{app:Vocab}
+Each digit is represented as a separate token. \citep{liu2023goat} state that LLaMa's “remarkable arithmetic ability ... is mainly atributed to LLaMA’s consistent tokenization of numbers". The model's vocabulary contains 14 tokens ( 0, .., 9, +, -, =, *, / ) to enable this and planned future investigations.
+
+
+\section{Appendix: Training Data}
+\label{app:TrainingData}
+Training uses a new batch of data each step (aka Infinite Training Data) to minimize memorization. Depending on the configuration, each training run processes 1 to 4 million training datums. For the 5-digit addition problem there are 100,000 squared (that is 10 billion) possible questions. So the training data is much less than 1\% of the possible problems.
+
+Addition and subtraction include rare edge cases. For example, these cascades (e.g. 55555+44446=100001, 54321+45679=1000000,
+44450+55550=10000, 1234+8769=10003) are exceedingly rare. The data generator
+was enhanced to increase the frequency of all known edges cases. This leads to lower model loss. 
+
+We enriched 60\% of training data based on these edge cases (leaving the other 40\% of training data random):
+(1) The initial model failed at cascading carry ones in addition. To rectify this, we randomly selected one operand and modified a random subset of digits in that operand to make the selected digit-position sum to 9, increasing the likelihood of a cascading carry one. 
+(2) The initial model was worse at the subtraction task when the answer was negative, so we added 1 to each second operand digit (that was 8 or less) to increase the frequency of negative answers. 
+(3) When the operands were identical, the initial model predicted -000000 instead of +000000. We increased the frequency of this case. For example, for 6 digit questions, we increased the frequency from 0.0001\% to 0.6\%.
+
+\section{Appendix: Surveying LLM Addition Capability}
+\label{app:SurveyingLLMAdditionCapability}
+
+LLM Gateways provide access to hundreds of LLMs. We used the Martian Gateway ( \url{https://app.withmartian.com/} ) to quickly and cheaply access 193 LLMs ( \url{https://withmartian.github.io/llm-adapters/} ) ranging in size from 1 to 405 billion parameters. We tested their ability to perform addition accurately on the test questions containing cascading carry ones shown in Tab.~\ref{tab:cascading_carry_tests}. A model's score represents the longest question the model succeeded on before it failed a question. The results are shown in Fig.~\ref{fig:ModelScores}.   Fig.~\ref{fig:ModelScoreByOutputTokenCost} shows the size of the models seems uncorrelated to its ability to perform these questions. 
+
+\begin{table}[htbp]
+\centering
+\caption{Addition prompts used to test LLMs' ability to handle the cascading carry one use case.}
+\label{tab:cascading_carry_tests}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Test Prompt} & \textbf{Correct Answer} \\
+\hline
+Answer concisely: 6+5= & 11 \\
+Answer concisely: 19+87= & 106 \\
+Answer concisely: 774+229= & 1003 \\
+Answer concisely: 6587+3416= & 10003 \\
+Answer concisely: 22605+77398= & 100003 \\
+Answer concisely: 532847+467159= & 1000006 \\
+Answer concisely: 5613709+4386294= & 10000003 \\
+Answer concisely: 72582383+27417619= & 100000002 \\
+Answer concisely: 206727644+793272359= & 1000000003 \\
+Answer concisely: 7580116456+2419883549= & 10000000005 \\
+Answer concisely: 52449010267+47550989737= & 100000000004 \\
+Answer concisely: 888522030597+111477969406= & 1000000000003 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/ModelScoreByOutputTokenCost.png}
+\caption{This scatter plot shows each model's addition and subtraction score against the model output token cost (an approximate metric for the model size). The maximum possible score is 15.}
+\label{fig:ModelScoreByOutputTokenCost}
+\end{figure*}
+
+At time of writing, 4.76\% of models scored 10 or more (specifically nousresearch/hermes-3-llama-3.1-405b, amazon/nova-pro-v1, anthropic/claude-opus-4-1-20250805, mistralai/magistral-medium-2506, openai/gpt-4o-mini-search-preview, openai/gpt-4o-search-preview, openai/o4-mini, qwen/qwen3-coder and tencent/hunyuan-a13b-instruct). Some of these models explicitly acknowledge the use of external tools. For others it is not obvious whether they use tools. The three Chat GPT 5 models tested scored 4, 4 and 7. After publication, we will make public the Jupyter notebook used to perform the test. It takes less than 20 minutes and costs less than 1 USD to run. 
+
+Each model was tested with one carefully chosen cascading-carry question per length with the score based on the longest correct answer before failure. So Figure 2 may overstate the ability of some models, but this only strengthens our concerns about the lack of accuracy in most models.
+
+\section{Appendix: Training Setup}
+\label{app:ModelShape}
+
+Addition, subtraction and mixed (addition and subtraction) training experiments were done in a Colab notebook. The Colab runs on a T4 GPU. Each training run takes up to 60 mins. The key parameters (and their common configurations) are:
+\begin{itemize}
+\item n\_layers = 1, 2 or 3: Number of layers.
+\item n\_heads = 3 or 4: Number of attention heads.
+\item n\_digits = 5 .. 15: Number of digits in the question.
+\end{itemize}
+
+% For ICLR
+The Colabs will be made available on publication.
+% For ARXIV
+%The Colabs are available at \url{https://github.com/PhilipQuirke/quanta_maths}
+
+While we wanted a very low loss models, we also wanted to keep the model compact - intuiting that a smaller model would be easier to understand than a large model. Here are the things we tried to reduce loss that \textbf{didn't} work:  
+
+\begin{itemize}
+\item Increasing the frequency of hard (cascading carry one) examples in the training data so the model has more hard examples to learn from. This improved training speed but did not reduce loss.
+\item Increasing the number of attention heads from 3 to 4 or 5 (while still using 1 layer) to provide more computing power. 
+\item Changing the question format from “12345+22222=” to “12345+22222equals” giving the model more prediction steps after the question is revealed before it needs to state the first answer digit.
+\item Inserting “+” in the answer format (e.g. “12345+22222=034567” becomes “12345+22222=+034567” had no impact on accuracy or the algorithm.
+\item With n\_layers = 1 increasing the number of attention heads from 3 to 4. 
+\item Changing the n\_layers to 2 and n\_heads to 2.
+\end{itemize}
+
+The smallest model shape that did reduce loss significantly was 2 layers with 3 attention heads.
+
+
+\section{Appendix: Model Loss}
+\label{app:ModelLoss}
+
+The model defaults to batch size = 64. The loss function is simple:
+
+\begin{itemize}
+\item Per Digit Loss: For “per digit” graphs and analysis, for a given answer digit, the loss used is negative log likelihood.
+\item All Digits Loss: For “all answer digits” graphs and analysis, the loss used is the mean of the “per digit” loss across all the answer digits.
+\end{itemize}
+
+In our experimental models, the number of digits in the question varies from 5 to 15, the number of layers varies from 1 to 4, the number of heads varies from 3 to 4. Each experimental model's loss is detailed in Tabs.~\ref{tab:AdditionModels} and ~\ref{tab:MixedModels}. 
+
+During training, the models use an AdamW optimizer with a learning rate (LR) of 0.00008, weight decay of 0.1 and betas of (0.9, 0.98). During the first 5th of training the LR is linearly increased from 0.01 * LR to LR to help stabilize training. During the remainder of training, cosine annealing is used.
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/training_loss_ins1_mixed.pdf}
+\caption{The 5- to 8-digit initialized mixed models have very low loss and \textgreater{99.999}\% accuracy. With more digits the model loss and accuracy is worse. Details in Tab.\ref{tab:MixedModels}.}
+\label{fig:TrainingLossMixed}
+\end{figure*}
+
+\section{Appendix: Experimental models}
+\label{app:ExperimentalModels}
+
+Forty-nine models were trained and analyzed (Refer Tabs.~\ref{tab:AdditionModels} and ~\ref{tab:MixedModels}). 
+% For ICLR
+The models and analysis output will be made available on HuggingFace on publication to support further research in AI Safety.
+% For ARXIV
+%The models and output of analysis are available on HuggingFace at \url{https://huggingface.co/PhilipQuirke} in the \texttt{quanta\_maths\_*} collections to support further research in AI Safety.
+
+\begin{table*}[t]
+  \caption{Addition-only models studied. The number of addition failures per million questions is shown. The number of useful attention heads at token position and useful MLP layers at token position are shown - summarizing the data shown in figures like Fig~\ref{fig:FailPerc5D}. }  
+  \label{tab:AdditionModels}  
+  \centering
+  \begin{tabularx}{\textwidth}{|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.7cm}|p{1cm}|p{0.9cm}|p{0.8cm}|p{0.8cm}|p{0.7cm}|X|}
+    \hline
+    \\[0.25em]  % Add space for rotated headers
+    \textbf{\rotatebox{90}{\makebox[0pt]{Digits}}} & \textbf{\rotatebox{90}{\makebox[0pt]{Layers}}} & \textbf{\rotatebox{90}{\makebox[0pt]{Heads}}} & \textbf{Train Steps} & \textbf{Train Seed} & \textbf{Train loss} & \textbf{Add Fails / M} & \textbf{Heads used} & \textbf{MLPs used} & \textbf{Clopper-Pearson 95\%  Interval}\\ 
+    \hline
+    5 & 1 & 3 & 30K & 372001 & 9.4e-2 & 12621 & 15 & 6 & [1.24e-2, 1.28e-2] \\ 
+    5 & 2 & 3 & 15K & 372001 & 1.6e-8 & 0 & 30 & 16 & [0.00e+0, 3.69e-6]\\
+    5 & 2 & 3 & 40K & 372001 & 2.0e-9 & 0 & 22 & 15 & [0.00e+0, 3.69e-6]\\ 
+    6 & 2 & 3 & 15K & 372001 & 1.7e-8 & 2 & 31 & 17 & [2.42e-7, 7.22e-6]\\
+    6 & 2 & 3 & 20K & 173289 & 1.5e-8 & 0 & 28 & 17 & [0.00e+0, 3.69e-6]\\
+    6 & 2 & 3 & 20K & 572091 & 7.0e-9 & 0 & 35 & 17 & [0.00e+0, 3.69e-6]\\
+    6 & 2 & 3 & 40K & 372001 & 2.0e-9 & 0 & 29 & 17 & [0.00e+0, 3.69e-6]\\
+    7 & 2 & 3 & 45K & 173289 & 3.0e-9 & 0 & 31 & 20 & [0.00e+0, 3.69e-6]\\
+    8 & 2 & 3 & 45K & 173289 & 3.0e-9 & 0 & 35 & 22 & [0.00e+0, 3.69e-6]\\
+    9 & 2 & 3 & 45K & 173289 & 3.0e-9 & 0 & 54 & 27 & [0.00e+0, 3.69e-6]\\
+    10 & 2 & 3 & 40K & 572091 & 7.0e-9 & 0 & 44 & 28 & [0.00e+0, 3.69e-6]\\
+    11 & 2 & 3 & 50K & 173289 & 8.0e-9 & 2 & 56 & 29 & [2.42e-7, 7.22e-6]\\
+    12 & 2 & 3 & 50K & 173289 & 5.0e-9 & 3 & 50 & 33 & [4.25e-7, 7.88e-6]\\
+    13 & 2 & 3 & 50K & 173289 & 6.3e-8 & 1 & 66 & 31 & [2.53e-8, 5.57e-6]\\
+    14 & 2 & 3 & 60K & 173289 & 5.5e-6 & 199 & 68 & 35 & [1.74e-4, 2.00e-4] \\
+    15 & 2 & 3 & 80K & 572091 & 8.6e-8 & 10 & 93 & 58 & [4.71e-6, 1.67e-5]\\    
+    \hline
+  \end{tabularx}   
+\end{table*}
+
+\begin{table*}[t]
+  \caption{Subtraction-only and mixed models studied. The number of addition and subtraction failures per million questions is shown. The number of useful attention heads at token position and useful MLP layers at token position are shown - summarizing the data shown in figures like Fig~\ref{fig:FailPerc5D}. }  
+  \label{tab:MixedModels}   
+  \centering
+  \begin{tabularx}{\textwidth}
+{|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.8cm}|p{0.9cm}|p{1cm}|p{0.7cm}|p{0.7cm}|p{0.8cm}|p{0.8cm}|X|}     
+    \hline
+    \\[0.25em]  % Add space for rotated headers
+    \textbf{\rotatebox{90}{\makebox[0pt]{Digits}}} & \textbf{\rotatebox{90}{\makebox[0pt]{Layers}}} & \textbf{\rotatebox{90}{\makebox[0pt]{Heads}}} & \textbf{Train Steps} & \textbf{Train Seed} & \textbf{Train loss} & \textbf{Add Fails / M}& \textbf{Sub  Fails / M} & \textbf{Heads used} & \textbf{MLPs used} & \textbf{Clopper-Pearson 95\% Interval}\\ 
+    \hline
+    \multicolumn{11}{|c|}{\textcolor{lightbrown}{\textbf{Subtraction models}}} \\
+    \hline
+    5 & 2 & 3 & 30K & 372001 & 1.0e-3 & N/A & 3689 & 57 & 20 & [3.57e-3, 3.81e-3] \\
+    6 & 2 & 3 & 30K & 372001 & 5.8e-6 & N/A & 2 & 37 & 21 & [2.42e-7, 7.22e-6] \\
+    6 & 2 & 3 & 30K & 572091 & 5.8e-4 & N/A & 3889 & 58 & 21 & [3.77e-3, 4.01e-3] \\
+    8 & 2 & 3 & 50K & 173289 & 4.0e-9 & N/A & 1 & 65 & 26 & [2.53e-8, 5.57e-6] \\
+    8 & 2 & 3 & 50K & 371793 & 2.5e-5 & N/A & 487 & 71 & 28 & [4.45e-4, 5.32e-4] \\
+    10 & 2 & 3 & 75K & 173289 & 2.0e-3 & N/A & 6672 & 101 & 37 & [6.50e-3, 6.72e-3] \\
+    12 & 2 & 3 & 75K & 371793 & 3.4e-4 & N/A & 2175 & 96 & 32 & [2.08e-3, 2.25e-3] \\
+    \hline
+    \multicolumn{11}{|c|}{\textcolor{lightbrown}{\textbf{Mixed models}}} \\
+    \hline
+    5 & 3 & 4 & 40K & 372001 & 9.0e-9 & 0 & 0 & 45 & 21 & [0.00e+0, 3.69e-6]\\
+    6 & 3 & 4 & 40K & 372001 & 5.0e-9 & 1 & 0 & 54 & 26 & [2.53e-8, 5.57e-6]\\
+    7 & 3 & 4 & 50K & 372001 & 2.0e-8 & 2 & 6 & 108 & 40 & [3.45e-6, 1.58e-5]\\
+    8 & 3 & 4 & 60K & 173289 & 4.7e-8 & 0 & 7 & 123 & 45 & [2.81e-6, 1.44e-5\\
+    9 & 3 & 4 & 60K & 173289 & 3.2e-7 & 1 & 33 & 140 & 46 & [2.35e-5, 4.75e-5]\\
+    10 & 3 & 4 & 75K & 173289 & 1.1e-6 & 2 & 295 & 143 & 53 & [2.65e-4, 3.53e-4]\\
+    11 & 3 & 4 & 80K & 572091 & 3.9e-8 & 0 & 13 & 138 & 50 & [6.52e-6, 2.33e-5]\\
+    12 & 3 & 4 & 85K & 572091 & 1.7e-8 & 2 & 10 & 167 & 55 & [8.68e-6, 2.72e-5]\\
+    13 & 3 & 4 & 85K & 572091 & 9.5e-6 & 399 & 4164 & 197 & 64 & [4.41e-3, 4.70e-3]\\
+    \hline
+    \multicolumn{11}{|c|}{\textcolor{lightbrown}{\textbf{Mixed models initialized with addition model}}} \\
+    \hline
+    5 & 2 & 3 & 40K & 572091 & 2.5e-7 & 1 & 52 & 49 & 20 & [5.35e-5, 8.48e-5]\\
+    6 & 2 & 3 & 40K & 572091 & 2.4e-8 & 0 & 5 & 57 & 21 & [1.63e-6, 1.10e-5]\\
+    6 & 3 & 3 & 40K & 572091 & 1.8e-8 & 0 & 3 & 70 & 35 & [4.25e-7, 7.88e-6]\\
+    6 & 3 & 3 & 80K & 572091 & 1.6e-8 & 0 & 3 & 75 & 35 & [4.25e-7, 7.88e-6]\\
+    6 & 3 & 4 & 40K & 372001 & 8.0e-9 & 0 & 0 & 72 & 26 & [0.00e+0, 3.69e-6]\\
+    6 & 3 & 4 & 40K & 173289 & 1.4e-8 & 3 & 2 & 60 & 29 & [2.16e-6, 1.18e-5]\\
+    6 & 3 & 4 & 50K & 572091 & 2.9e-8 & 0 & 4 & 79 & 29 & [8.11e-7, 9.28e-6]\\
+    7 & 3 & 4 & 50K & 572091 & 1.8e-8 & 4 & 1 & 104 & 38 & [1.03e-6, 1.08e-5]\\
+    8 & 3 & 4 & 70K & 572091 & 4.3e-5 & 50 & 1196 & 116 & 42 & [1.11e-3, 1.23e-3]\\
+    9 & 3 & 4 & 70K & 572091 & 5.4e-8 & 1 & 4 & 160 & 50 & [8.11e-7, 9.28e-6]\\
+    10 & 3 & 3 & 50K & 572091 & 6.3e-7 & 6 & 7 & 90 & 45 & [5.64e-6, 2.15e-5]\\
+    11 & 3 & 4 & 75K & 572091 & 5.9e-5 & 11066 & 1120 & 141 & 47 & [1.19e-2, 1.22e-2]\\
+    \hline
+    \multicolumn{11}{|c|}{\textcolor{lightbrown}{\textbf{Mixed models initialized with add model. Reset useful heads every 100 steps}}} \\
+    \hline
+    6 & 4 & 4 & 40K & 372001 & 1.7e-8 & 3 & 8 & 51 & 30 & [5.64e-6, 2.15e-5]\\
+    \hline
+    \multicolumn{11}{|c|}{\textcolor{lightbrown}{\textbf{Mixed models inited with add model. Reset useful hds \& MLPs every 100 steps}}} \\
+    \hline
+    6 & 4 & 3 & 40K & 372001 & 3.0e-4 & 17 & 3120 & 115 & 53 & [3.06e-3, 3.30e-3]\\
+    \hline
+  \end{tabularx}  
+\end{table*}
+
+
+For each model the 'QuantaMathsTrain' Colab notebook generates two files:
+\begin{itemize}
+\item A “model.pth" file containing the model weights
+\item A “training\_loss.json" file containing configuration information and training loss data
+\end{itemize}
+
+While, for each model the 'QuantaMathsAnalysis' Colab notebook generates two more files:
+\begin{itemize}
+\item A “behaviors.json" file containing generic “behavior" facts learnt about the model by the Colab e.g. P18L0H0 attends to tokens D3 and D'3
+\item A “features.json" file containing maths-specific “feature" facts learnt about the model by the Colab e.g. P18L0H0 performs the SC3 subtask.
+\end{itemize}
+
+
+
+\begin{table*}[h!]
+    \caption{For a sample model, all nodes used in predictions are shown by token position (horizontally) and model layer (vertically), detailing the \textbf{answer digits} they impact. Here, the attention heads in token position P10 labelled A5..3 help predict the answer digits A3, A4 and A5. For all addition and mixed models studied, before the “=" token, each node often calculates data used to predict \textbf{multiple} answer digits. After the “=" token, all nodes in a given token position are used to predict a \textbf{single} answer digit.}
+    \label{tab:Impact5D}
+    \vspace{0.1in}
+    \sffamily
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    % \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} 
+    \begin{tabularx}{\textwidth}{|c|*{10}{>{\centering\arraybackslash}X|}}
+    \hline 
+    & \textcolor{brown}{\textbf{(P6)}} & \textcolor{brown}{\textbf{(P9)}} & \textcolor{brown}{\textbf{(P10)}} & \textcolor{brown}{\textbf{(P11)}} & \textcolor{brown}{\textbf{(P12)}} & \textcolor{brown}{\textbf{(P13)}} & \textcolor{brown}{\textbf{(P14)}} & \textcolor{brown}{\textbf{(P15)}} & \textcolor{brown}{\textbf{(P16)}} & \textcolor{brown}{\textbf{(P17)}} \\ 
+    & \textcolor{brown}{\textbf{D'4}} & \textcolor{brown}{\textbf{D'1}} & \textcolor{brown}{\textbf{D'0}} & \textcolor{brown}{\textbf{=}} & \textcolor{brown}{\textbf{+}} & \textcolor{brown}{\textbf{A5}} & \textcolor{brown}{\textbf{A4}} & \textcolor{brown}{\textbf{A3}} & \textcolor{brown}{\textbf{A2}} & \textcolor{brown}{\textbf{A1}} \\ 
+    \hline 
+    \textcolor{brown}{\textbf{L0H0}} & \cellcolor{black!80} & \cellcolor{black!80} & & \cellcolor{black!80} & \cellcolor{black!80} & \multirow{2}{*}{A4} & \cellcolor{black!80} & \multirow{2}{*}{A2} & \multirow{2}{*}{A1} & \cellcolor{black!80}\\ 
+    \cline{1-1} \cline{2-3} \cline{5-6} \cline{8-8} \cline{11-11} 
+    \textcolor{brown}{\textbf{L0H1}} &  & A5 & A5..3 & \cellcolor{black!80} & \multirow{6}{*}{A5} &  & A3 &  &  & A0 \\  
+    \cline{1-1} \cline{3-3} \cline{5-5} \cline{7-11}
+    \textcolor{brown}{\textbf{L0H2}} & A5 & \cellcolor{black!80} &  & \multirow{2}{*}{A5..1} &  & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80}\\ 
+    \cline{1-1} \cline{3-4} \cline{7-11}
+    \textcolor{brown}{\textbf{L0MLP}} &  & \cellcolor{black!80} & A5..2 &  & & A4 & A3 & A2 & A1 & A0 \\ 
+    \cline{1-5} \cline{7-11}
+    \textcolor{brown}{\textbf{L1H0}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} &  & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80}\\ 
+    \cline{1-5} \cline{7-11} 
+    \textcolor{brown}{\textbf{L1H2}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} &  & \multirow{2}{*}{A4} & \multirow{2}{*}{A3} & \multirow{2}{*}{A2} & \cellcolor{black!80} & \cellcolor{black!80}\\ 
+    \cline{1-5} \cline{10-11} 
+    \textcolor{brown}{\textbf{L1MLP}} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} & \cellcolor{black!80} &  &  &  &  & A1 & A0 \\ 
+    \hline
+    % & \textbf{P6} & \textbf{P9} & \textbf{P10} & \textbf{P11} & \textbf{P12} & \textbf{P13} & \textbf{P14} & \textbf{P15} & \textbf{P16} & \textbf{P17} \\ \hline
+    \end{tabularx}
+\end{table*}
+
+
+
+%\section{Appendix: TriAdd Mappings}
+%\label{app:TriAdd}
+
+%TriAdd transfers data from \AM to \AN by integrating the values of \AMST and \ANST. This function can be represented as nine bigram mappings with three possible outputs.  Tab.\ref{tab:TriAddMappings} shows the logical bigram mapping.
+
+%\begin{table}[h]
+%    \caption{\AN .TriAdd can be calculated from \ANST and \AMST through nine bigram mappings and yielding the three distinct outputs 0, U and 1 }    
+%    \label{tab:TriAddMappings}
+%    \centering
+%    \begin{tabularx}{\columnwidth}{p{2cm} p{1.2cm} p{1.2cm} p{1.2cm}}
+%          & \ANST & \ANST & \ANST \\
+%         \textbf{\AMST} & = 0 & = U & = 1 \\
+%         \hline
+%         \textbf{0} & 0 & U & 1 \\             
+%         \textbf{U} & 0 & U & 1 \\\
+%         \textbf{1} & 0 & 1 & 1 \\
+%    \end{tabularx}
+%\end{table}
+
+\section{Appendix: Complexity}
+\label{app:Complexity}
+To analyze question difficulty, we categorized addition questions by the complexity of the computation required to solve the question, as shown in Tab.~\ref{tab:AdditionComplexity}. The categories are arranged according to the number of digits that a carry bit has to cascade through.
+
+\begin{table}[ht]
+    \caption{We categorise addition questions into non-overlapping “calculation complexity" quanta, ordered by increased computational difficulty (and decreasing occurrence frequency). Five-digit addition questions quanta are \textit{S0} to \textit{S5}. Ten-digit addition question quanta are \textit{S0} to \textit{S10}. \textit{S10}'s frequency is $ \sim 3e-4$ showing the need to enrich training data for rare edge cases. }
+    \label{tab:AdditionComplexity}
+    \centering
+    \vspace{0.5cm}
+    \begin{tabularx}{\columnwidth}{p{0.7cm} p{1.2cm} p{3.3cm} l}
+    \hline
+         \textbf{Name} &  \textbf{Contains} & \textbf{Example} & \textbf{Freq} \\
+         \hline
+         \textit{S0} & \SA & 11111+12345=23456 &  $\sim$5\% \\
+         \textit{S1} & \text{SA,SC} & 11111+9=22230 & $\sim$21\%  \\
+         \textit{S2} & \text{SA,SC}x2 & 11111+89=22300 & $\sim$34\% \\
+         \textit{S3} & \text{SA,SC}x3 & 11111+889=23000 & $\sim$28\% \\
+         \textit{S4} & \text{SA,SC}x4 & 11111+8889=30000 & $\sim$11\% \\
+         \textit{S5} & \text{SA,SC}x5 & 11111+88889=100000 & $\sim$2\% \\
+         \hline
+    \end{tabularx}
+\end{table}
+
+% Define M and N complexity
+%\begin{table}[ht]
+%    \caption{We define “positive-answer subtraction" and “negative-answer subtraction" calculation complexity quanta that parallel the addition quanta.}   
+%    \label{tab:SubtractionComplexity}
+%    \centering
+%    \begin{tabularx}{\columnwidth}{p{0.8cm} l p{0.8cm} l l}
+%         \textbf{+ve Sub} & \textbf{Contains} & \textbf{-ve Sub} & \textbf{Contains} & \textbf{Like} \\
+%         \hline
+%         \textit{M0} & \textit{MD} & N/A & N/A & \textit{S0} \\
+%         \textit{M1} & \textit{MD,MB} & \textit{N1} & \textit{ND,NB} & \textit{S1} \\
+%         \textit{M2} & \textit{MD,MB}x2 & \textit{N2} & \textit{ND,NB}x2 & \textit{S2} \\
+%         \textit{M3} & \textit{MD,MB}x3 & \textit{N3} & \textit{ND,NB}x3 & \textit{S3} \\
+%         \textit{M4} & \textit{MD,MB}x4 & \textit{N4} & \textit{ND,NB}x4 & \textit{S4} \\
+%    \end{tabularx}
+%\end{table}
+
+%\begin{table}[ht]
+%    \caption{Implementing the T operator as a bigram mapping from 2 input tokens to 1 result token. }    
+%    \label{tab:Addition_T1Pairs}
+%    \centering
+%    \begin{tabularx}{\columnwidth}{ccccccccc}
+%          \DN vs $D'_n$  & \textbf{0} & \textbf{1} & \textbf{...} & \textbf{4} & \textbf{5} & \textbf{...} & \textbf{8} & \textbf{9} \\
+%         \hline
+%         \textbf{0} & 0 & 1 & ... & 4 & 5 & ... & 8 & 9 \\             
+%         \textbf{1} & 1 & 2 & ... & 5 & 6 & ... & 9 & 10 \\ 
+%         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
+%         \textbf{4} & 4 & 5 & ... & 8 & 9 & ... & 12 & 13 \\             
+%         \textbf{5} & 5 & 6 & ... & 9 & 10 & ... & 13 & 14 \\ 
+%         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
+%         \textbf{8} & 8 & 9 & ... & 12 & 13 & ... & 16 & 17 \\ 
+%         \textbf{9} & 9 & 10 & ... & 13 & 14 & ... & 17 & 18 \\ 
+%    \end{tabularx}
+%\end{table}
+
+%\begin{table}[ht]
+%    \caption{Converting a \AN .T value into a \SA, \SC or \SUS value. }    
+%    \label{tab:Addition_T1Bigrams}
+%    \centering
+%    \begin{tabularx}{\columnwidth}{cccc}
+%         \AN .T & \AN .\SA & \AN .\SC  &  \AN .\SUS \\
+%         \hline
+%         \textbf{0} & 0 & 0 & 0 \\             
+%         \textbf{1} & 1 & 0 & 0 \\             
+%         ... & ... & ... & ... \\
+%         \textbf{8} & 8 & 0 & 0 \\             
+%         \textbf{9} & 9 & 0 & 1 \\   
+%         \textbf{10} & 0 & 1 & 0 \\   
+%         ... & ... & ... & ... \\
+%         \textbf{17} & 7 & 1 & 0 \\             
+%         \textbf{18} & 8 & 1 & 0 \\             
+%    \end{tabularx}
+%\end{table}
+
+%\begin{table}[ht]
+%    \caption{Calculating \AN .T2 from \AN .T and \AM .T }    
+%    \label{tab:Addition_T2Mappings}
+%    \centering
+%    \begin{tabularx}{\columnwidth}{p{1.5cm} p{2.5cm} p{2.5cm}}
+%         \textbf{\AN .T} & \textbf{\AN .T2 if \AM .SC==0} & \textbf{\AN .T2 if \AM .SC==1} \\
+%         \hline
+%         \textbf{0} & 0 & 1 \\             
+%         \textbf{1} & 1 & 2 \\             
+%         ... & ... & ... \\        
+%         \textbf{9} & 9 & 10 \\   
+%         \textbf{10} & 10 & 11 \\   
+%         ... & ... & ...  \\
+%         \textbf{17} & 17 & 18 \\             
+%         \textbf{18} & 18 & 19 \\             
+%    \end{tabularx}
+%\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
+\caption{For a sample \textbf{5-digit} 2-layer 3-head \textbf{addition} model, this map shows a compacted view of all useful token positions (horizontally) and all useful attention heads and MLP layers (vertically) used in predictions as green cells. Each cell shows the simplest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. The model only uses nodes in ten token positions. }
+\label{fig:Complexity5D}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
+\caption{This map shows the \textbf{\% of enriched questions} that fail when we ablate each node in a \textbf{5-digit} 2-layer 3-head addition model. The model only uses nodes in token positions P6 to P17 (i.e. tokens D'4 to A1). Lower percentages correspond to rarer edge cases. The grey space represents nodes that are not used by the model.}
+\label{fig:FailPerc5D}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AttentionBehaviorPerHead.pdf}
+\caption{This map shows the input tokens each attention head attends to at each token position in a \textbf{5-digit} 2-layer 3-head addition model. At token position P12 the model predicts the first answer digit A5. \textbf{All} digit pairs (e.g. D2 D'2) are attended to by P12.}
+\label{fig:Attention5D}
+\end{figure}
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=0.66\columnwidth]{Figures/PCA_Bigrams_D5.pdf}
+%\caption{For 5-digit addition, for these attention heads, for exactly 1 digit \AN { } each, PCA shows these interpretable results. The dot colours show the TriCase value of each question. The PCA and TriCase data are strongly correlated, but the PCA data has 2 states. }
+%\label{fig:PCABigrams5D}
+%\end{figure}
+
+
+%\section{Appendix: Addition Interchange Interventions}
+%\label{app:InterchangeInterventions}
+
+%To test the hypothesis 3 mapping of the mathematical framework (casual abstraction) to the model attention heads, various “interchange interventions" (aka activation patching) experiments were performed on the model, where
+%\begin{itemize}
+%\item A particular claim about an attention head has selected for testing. 
+%\item The model predicted answers for sample test questions, and the attention head activations were recorded (stored).   
+%\item The model then predicted answers for more questions, but this time we intervened during the prediction to override the selected attention head activations with the activations from the previous run.   
+%\end{itemize}
+
+%Using this approach we obtained the findings in Tab.~\ref{tab:InterchangeInterventions}.
+
+%\begin{table*}[ht]
+%    \centering
+%    \begin{tabularx}{\textwidth}{p{2.2cm} p{6cm} p{6.7cm}}
+%         \textbf{Nodes} & \textbf{Claim: Attention head(s) perform ...} & \textbf{Finding: Attention head(s) perform a function that ...} \\
+%         \hline
+%         P8.L0.H1 and MLP & ST2 = TriCase( D2, D'2 ) impacting A4 and A5 accuracy & Based on D2 and D'2. Triggers on a A2 carry value. Provides carry bit used in A5 and A4 calculation. \\         
+%         P9.L0.H1 and MLP & ST1 = TriCase( D1, D'1 ) impacting A5, A4 and A3 accuracy & Based on D1 and D'1. Triggers on a A1 carry value. Provides carry bit used in A5, A4 and A3 calculation. \\         
+%         P10.L0.H1 and MLP & ST2 = TriAdd( ST1, TriCase(D0, D'0) ) impacting A5, A4, A3 and A2 accuracy & Based on D0 and D'0. Triggers on a A0 carry value. Provides carry bit used in A5, A4, A3 and A2 calculation.  \\         
+%         P11.L0.H1 and MLP & ST4 = TriAdd( TriCase( D3, D'3 ), TriAdd( ST2, ST1)) impacting A5 accuracy & Based on D3 and D'3. Triggers on a A3 carry value. Provides carry bit used in A5 calculations. \\         
+%         P11.L0.H2 and MLP & ST4 = TriCase(D4, D'4) impacting A5 accuracy A4 & Based on D4 and D'4. Triggers on a A4 carry value. Provides carry bit used in A5 calculation. \\         
+%         P12.L0.H0+H2 and MLP & SA4 = (D4 + D'4) \% 10 impacting A4 accuracy A4 & Sums D4 and D'4. Impacts A4 \\        
+%         P13.L0.H0+H2 and MLP & SA3 = (D3 + D'3) \% 10 impacting A3 accuracy & Sums D3 and D'3. Impacts A3 \\         
+%         P14.L0.H0+H2 and MLP & SA2 = (D2 + D'2) \% 10 impacting A2 accuracy & Sums D2 and D'2. Impacts A2 \\   
+%         P14.L0.H1 and MLP & (D1 + D'1) / 10 + P10.ST2 info impacting A2 accuracy & Calculates P10.ST1 but add P10.ST2 info when ST1 != ST2. Impacts A2 \\       
+%         P15.L0.H0+H2 and MLP & SA1 = (D1 + D'1) \% 10 impacting A1 accuracy & Sums D1 and D'1. Impacts A1 \\  
+%         P15.L0.H1 and MLP & SC0 = (D0 + D'0) / 10 impacting A1 accuracy & Triggers when D0 + D'0 \textgreater 10. Impacts A1 digit by 1 \\     
+%         P16.L0.H0+H2 and MLP & SA0 = (D0 + D'0) \% 10 impacting A0 accuracy & Sums D0 and D'0. Impacts A0 \\            
+%    \end{tabularx}
+%    \caption{Interchange Interventions experiments used activation patching to test the claims addition hypothesis 3 made for each attention head in a sample mixed model. Experimental results are consistent with hypothesis 3 for all nodes. }    
+%    \label{tab:InterchangeInterventions}
+%\end{table*}
+
+
+\section{Appendix: N-Digit Addition}
+\label{app:NDigitAddition}
+
+The addition models perform addition accurately. Visualizations that provided insights into the behavior of the model, aiding our interpretation of the algorithm, are below:     
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
+\caption{This map shows the simpliest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node in the \textbf{5-digit} 2-layer 3-head \textbf{addition} model. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. }
+\label{fig:Complexity5D_app}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\columnwidth]{Figures/add_d6_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
+\caption{This map shows the \textbf{\% of questions} that fail when we ablate each node in the \textbf{6-digit} 2-layer 3-head addition model. The model only uses nodes in token positions P11 to P20. Lower percentages correspond to rarer edge cases. The grey space represents nodes that are not useful. }
+\label{fig:FailPerc6D}
+\end{figure}
+
+Some notes about the models:
+
+\begin{itemize}
+\item The models selected different attention heads in the early positions to use to do the same logical calculations.    
+\item Some models use 2 attention heads per digit to do the \SA calculation, whereas some models only uses one (and so are more compact).
+\item The PCA trigrams have difference appearances in different models (but the same interpretable clusters). Refer Figures~\ref{fig:PCATrigrams5D} % and ~\ref{fig:PCA_Trigrams_D6}.  
+\item Per answer digit, some models use the \SC calculation, whereas some models optimize it out and rely solely on the \ST value (and so are more compact).
+\end{itemize}
+
+
+\section{Appendix: Mixed Model Initialization}
+\label{app:MixedModelInit}
+
+We experimented with three approaches to re-using the trained addition model in the “mixed" (addition and subtraction) model:
+
+\begin{itemize}
+    \item Initialize Only: Initialize the untrained mixed model with the addition model weights before training begins.
+    \item Freeze Attention: As per “Initialize Only", but also every 100 training steps recopy the attention head weights from the addition model into the partially-trained mixed model.
+    \item Freeze All: As per “Initialize Only", but also every 100 training steps recopy the entire addition model (attention heads and MLP layers) into the partially-trained mixed model.
+\end{itemize}
+
+Our intuition was that “Initialize Only" would give the mixed model the most freedom to learn new algorithms, but that the “Freeze Attention" and “Freeze All" approaches would make the resulting trained mixed model easier to interpret (as we could reuse our addition model insights).
+
+After experimentation we found that the “Initialize Only" approach was the only one that quickly trained to be able to do both addition and subtraction accurately. We concluded that the other two methods constrain the model's ability to learn new algorithms too much.
+
+We also experimented with “where" in the model we inserted the addition (6-digit, 2-layer, 3-head) model into the slightly larger (6-digit, 3-layer, 4-head) mixed model.  That is, do we initialize the first 2 layers or the last 2 layers of the mixed model? Also do we initialize the first 3 attention heads or the last 3 attention heads of the mixed model? Our intuition was that initializing the first layers and heads would be more likely to cause the model to re-use the addition circuits adding interpretability, so we used this approach.
+
+\section{Appendix: Seed Sensitivity}
+\label{app:SeedSensitivity}
+An analysis of the sensitivity of 48 models to the initial seed was performed (This analysis excluded one model - the inaccurate 1-layer addition model that reproduces the \citet{quirke2023understanding} paper results). Fig.~\ref{fig:SeedSensitivity} shows the results. We conclude:
+
+\begin{itemize}
+\item The Addition models are the most stable - that is they are not sensitive to the seed value. 
+\item The other categories (Subtraction, Mixed, Mixed+Init, and Mixed+Reset)  show relatively low to moderate sensitivity.
+\item The higher average loss for Subtraction models show that the models find it harder to learn Subtraction is isolation.
+\item The higher average loss for Mixed+Reset models show that the this type of intervention during training makes it harder for the models to learn 
+\end{itemize}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/SeedSensitivityByModelAnalysis.png}
+\caption{A visualization of the range of training losses across 48 models grouped by the different model categories.}
+\label{fig:SeedSensitivity}
+\end{figure*}
+
+
+\section{Appendix: N-Digit Subtraction}
+\label{app:NDigitSubtraction}
+
+The mixed models perform addition and subtraction accurately. Visualizations that provided insights into the behavior of the model, aiding our interpretation of the algorithm, are below:     
+  
+
+% Show the re-use/generalization of the inserted addition nodes
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\columnwidth]{Figures/Coverage_SNM.pdf}
+\caption{ This map of a sample 6-digit \textbf{mixed} model shows the 98 nodes used to predict answers to addition (S), positive-answer subtraction (M) and/or negative-answer subtraction (N) questions. Before training the mixed model, 48 nodes were initalized pre-training with a smaller \textbf{addition} model's weights. These are have a red border. During mixed model training, 39 of 48 of the initalized monosemantic nodes were generalized (become poly-semantic) and now help predict two or three question classes. }
+\label{fig:Coverage_SNM}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AdditionMinComplexity.pdf}
+\caption{This map shows the simplest \textbf{complexity} quanta S0, S1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model when doing \textbf{addition} questions.}
+\label{fig:mix_add_complexity}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001PositiveanswerSubtractionMinComplexity.pdf}
+\caption{This map shows the simpliest \textbf{complexity} quanta M0, M1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model for \textbf{subtraction} questions with positive answers. }
+\label{fig:mix_sub_complexity}
+\end{figure}
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AnswerImpactBehaviorPerNode.pdf}
+%\caption{This map shows the \textbf{answer digit(s)} A0 .. A7 impacted when we ablate each useful node in the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model. A7 is the sign of the answer and calculated first. Note the similarity to the 5 and 6-addition Tab.~\ref{tab:Impact5D} and Figure~\ref{fig:Impact6D}.}
+%\label{fig:mix_answer_impact}
+%\end{figure}
+
+Some notes about the mixed models:
+
+\begin{itemize}
+\item All the notes about the addition model (above) also apply to the mixed model.
+\item The model contains a new subtask that stands out: The algorithm relies on calculations done at token position P0, when the model has only seen one question token! What information can the model gather from just the first token? Intuitively, if the first token is a “8" or “9" then the first answer token is more likely to be a “+" (and not a “-"). The model uses this heuristic even though this probabilistic information is sometimes incorrect and so will work against the model achieving very low loss. 
+\end{itemize}
+
+
+%\section{Appendix: Addition Hypothesis 1}
+%\label{app:Hypothesis1}
+
+%Given the 2-layer attention pattern’s similarity to 1-layer attention pattern, and the above evidence, our first (incorrect) hypothesis was that the 2-layer algorithm:
+
+%\begin{itemize}
+%\item Is based on the same \SAC \SC and \SUS operations as the 1-layer.
+%\item Uses the new early positions to (somehow) do the \SUS calculations with higher accuracy than the 1-layer model.
+%\item The long double staircase still finalizes each answer digit’s calculation.
+%\item The two attention nodes in the long double staircase positions do the \SA and \SC calculations and pull in \SUS information calculated in the early positions.
+%\end{itemize}
+
+%If this is correct then the 2-layer algorithm successfully completes these calculations:
+
+%\begin{itemize}
+%\item A0 = SA0
+%\item A1 = SA1 + SC0
+%\item A2 = SA2 + (SC1 or (SS1 \& SC0))
+%\item A3 = SA3 + (SC2 or (SS2 \& SC1) or (SS2 \& SS1 \& SC0))
+%\item A4 = SA4 + (SC3 or (SS3 \& SC2) or (SS3 \& SS2 \& SC1) or (SS3 \& SS2 \& SS1 \& SC0))
+%\item A5 = SC4 or (SS4 \& SC3) or (SS4 \& SS3 \& SC2) or (SS4 \& SS3 \& SS2 \& SC1) or (SS4 \& SS3 \& SS2 \& SS1 \& SC0)
+%\end{itemize}
+
+%Our intuition is that there are not enough useful nodes in positions 8 to 11 to complete the A5 calculation this way. So we abandoned this hypothesis.
+
+
+%\section{Appendix: Addition Hypothesis 2}
+%\label{app:Hypothesis2}
+
+%Our second (incorrect) hypothesis was that the 2-layer algorithm has a \textbf{more compact} data representation, so it can pack more calculations into each node, allowing it to accurately predict A5 in step 11.
+
+%We claimed the model stores the sum of each digit-pair as a single token in the range “0” to “18” (covering 0+0 to 9+9). We name this operator \AN .T, where T stands for “token addition”:
+
+%\begin{itemize}
+%\item \AN .T = \DN + $D'_n$
+%\end{itemize}
+
+%The \AN .T operation does not understand mathematical addition. Tab.~\ref{tab:Addition_T1Pairs} shows how the model implements the T operator as a bigram mapping.
+
+%\AN .T is a compact way to store data. Tab.~\ref{tab:Addition_T1Bigrams} show how, if it needs to, the model can convert a \AN .T value into a one-digit-accuracy \SAC \SC or \SUS value.)
+
+%Our notation shorthand for one-digit-accuracy these “conversion" bigram mappings is:
+
+%\begin{itemize}
+%\item \SAN = (\AN .T \% 10) where \% is the modulus operator 
+%\item \SCN = (\AN .T // 10) where // is the integer division operator
+%\item \SSN = (\AN .T == 9) where == is the equality operator
+%\end{itemize}
+
+%The A0.T value is accurate. But the other \AN .T values are \textbf{not} accurate because each is constrained to information from just one digit. We define another more accurate operator \AN .T2 that has “two-digit accuracy”. \AN .T2 is the pair sum for the nth digit plus the carry bit (if any) from the n-1th digit T:
+
+%\begin{itemize}
+%\item \AN .T2 = \AN .T + \AM .SC
+%\end{itemize}
+
+%\AN .T2 is more accurate than \AN .T. The \AN .T2 value is always in the range “0” to “19” (covering 0+0+0 to 9+9+CarryOne). Tab.~\ref{tab:Addition_T2Mappings} show how the model can implement the T2 operator as a mapping.
+
+%Following this pattern, we define operators \AN .T3, \AN .T4 and \AN .T5 with 3, 4 and 5 digit accuracy respectively:
+
+%\begin{itemize}
+%\item \AN .T3 = \AN .T + ( \AM .T2 // 10 )	aka \AN .T + \AM .SC2
+%\item \AN .T4 = \AN .T + ( \AM .T3 // 10 )	aka \AN .T + \AM .SC3
+%\item \AN .T5 = \AN .T + ( \AM .T4 // 10 )	aka \AN .T + \AM .SC4
+%\end{itemize}
+
+%The value A4.T5 is accurate as it integrates \SC and cascading \SUS data all the way back to and including A0.T. The values A1.T2, A2.T3, A3.T4 are also all accurate. If the model knows these values it can calculate answer digits accurately:
+
+%\begin{itemize}
+%\item A1 = A1.T2 \% 10 
+%\item A2 = A2.T3 \% 10 
+%\item A3 = A3.T4 \% 10 
+%\item A4 = A4.T5 \% 10 
+%\item A5 = A4.T5 // 10 
+%\end{itemize}
+
+%In this hypothesis, \textbf{all} the answer digits are accurately calculated using the nodes in positions 8 to 11. This hypothesis 2 is feasible, elegant and compact - reflecting the authors (human) values for good code.
+
+%Experimenation shows the model does not implement this hypothesis. It retains the long staircase \SA calculations in positions 11 to 16. Why? Two reasons suggest themselves:
+
+%\begin{itemize}
+%\item Hypothesis 2 is too compact. The model is not optimising for compactness. The long staircase is discovered early in training, and it works for simple questions. Once the overall algorithm gives low loss consistently it stops optimising.
+%\item Hypothesis 2 accurately predicts \textbf{all} answer digits in step 11 - reflecting the authors (human) values for good code. The model is not motivated to do this. It just needs to accurately predict A5 as 1 or 0 in step 11 and A4 in step 12 - nothing more.
+%\end{itemize}
+
+%We abandoned this hypothesis.
+
+
+\section{Appendix: Addition Hypothesis 3}
+\label{app:Hypothesis3}
+
+The hypothesis 3 pseudo-code was derived iteratively by obtaining experimental results and mapping them to mathematical operations. Some of the experiments and mappings were:
+
+\begin{itemize}
+\item Ablation experiments show that the A5 value is \textbf{accurately} calculated in prediction step 11 using 5 attention heads and 5 MLP layers. The pseudo-code accurately calculates A5 while constraining itself to this many steps.
+
+\item Ablating the nodes one by one shows which answer digit(s) are reliant on each node (Ref Tab.~\ref{tab:Impact5D}). Most interestingly, ablating P10.L0.H1 impacts the answer digits A5, A4, A3, A2 (but not A1 and A0). This node is used in the calculation of A5, A4, A3, A2 in prediction steps 11, 12, 13 and 14. These relationships are constraints that are all obeyed by the pseudo-code. 
+
+\item The pseudo-code has 4 instances where \ANST is calculated using TriCase. PCA of the corresponding nodes (P8.L0.H1, P9.L0.H1, P11.L0.H2 and P14.L0.H1) shows tri-state output for the specified \DN . (see Figure~\ref{fig:PCATrigrams5D}).
+
+\item The pseudo-code has 4 instances where compound functions using TriCase and TriAdd to generate tri-state outputs. PCA of the corresponding nodes (P11.L0.H1, P12.L0.H1 and P13.L0.H1) shows tri-state output for the specified \DN . (see Figure~\ref{fig:PCATrigrams5D}).
+
+\item Activation patching (aka interchange intervention) experiments at attention head level confirmed some aspects of the calculations.
+
+\item The pseudo code includes calculations like ST1 which it says is calculated in P9.L0.H1 \textbf{and} P9.L0.MLP. Ablation tells us both nodes are necessary. For the attention head we use the PCA results for insights. We didn't implement a similar investigative tool for the MLP layer, so in the pseudo-code we attribute the calculation of ST1 to both nodes.
+
+\item For P10.L0.H1, the attention head PCA could represent either a bi-state or tri-state output. The MLP layer at P10.L0.MLP could map the attention head output to either a bi-state or tri-state. We cannot see which. The pseudo-code shows a tri-state calculation at P10.L0.MLP, but with small alterations the pseudo-code would work with a bi-state output.
+
+\item For P15.L0.H1 the attention head PCA could represent either a bi-state or tri-state output. The pseudo-code shows a bi-state calculation SC0 at P15.L0.H1, but with small alterations the pseudo-code would work with a tri-state output.
+
+\item The calculation of ST2 in P14.L0.H1 is a interesting case. The model needs ST2 for A2 accuracy. The model could simply reuse the accurate ST2 value calculated in P10. Activation patching shows that it does not. Instead the P14 attention heads calculate ST1 from D1 and D'1 directly, and only relies on the P10.D1.ST2 value in the case where ST2 != ST1. That is, the calculation is “use P14.ST1 value else use ST2 value". This aligns with the model learning the P10.ST1 calculation early in training (for 90\% accuracy) and later learning that P10.ST2 contains additional information it can use to get to \textgreater{99.999}\% accuracy.
+\end{itemize}
+
+
+\end{document}
