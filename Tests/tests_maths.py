@@ -1,3 +1,5 @@
+import os
+import tempfile
 import torch
 import unittest
 
@@ -417,18 +419,19 @@ class TestMaths(unittest.TestCase):
         
 
     def test_useful_node_list_save_load(self):
-        
+
         cfg, the_list = self.get_useful_node_list()
 
-        the_file_name = "test_useful_node_list.json"
-        the_list.save_nodes(the_file_name)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            the_file_name = os.path.join(temp_dir, "test_useful_node_list.json")
+            the_list.save_nodes(the_file_name)
 
-        the_list2 = UsefulNodeList()  
-        the_list2.load_nodes(the_file_name)   
-        self.assertEqual( len(the_list.nodes), len(the_list2.nodes) )
-        for i in range(len(the_list.nodes)):
-            self.assertEqual( the_list.nodes[i].name(), the_list2.nodes[i].name() )
-            self.assertEqual( len(the_list.nodes[i].tags), len(the_list2.nodes[i].tags) )
+            the_list2 = UsefulNodeList()
+            the_list2.load_nodes(the_file_name)
+            self.assertEqual( len(the_list.nodes), len(the_list2.nodes) )
+            for i in range(len(the_list.nodes)):
+                self.assertEqual( the_list.nodes[i].name(), the_list2.nodes[i].name() )
+                self.assertEqual( len(the_list.nodes[i].tags), len(the_list2.nodes[i].tags) )
 
 
     # Test that two attention tags are sorted alphabetically if they are within 5% of each other
