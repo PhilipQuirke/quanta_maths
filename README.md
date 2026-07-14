@@ -1,10 +1,10 @@
 ## Introduction
-This library support goals and uses [terminology](./terminology.md) introduced in the paper [Understanding Addition and Subtraction in Transformers](https://arxiv.org/abs/2402.02619). Please read the paper. In brief:
+This library support goals and uses [terminology](./docs/terminology.md) introduced in the paper [Understanding Addition and Subtraction in Transformers](https://arxiv.org/abs/2402.02619). Please read the paper. In brief:
 - Given an existing transformer model with low loss, this library helps a researcher to analyze and understand the algorithm implemented by a transformer model.
 - The "useful" token positions, attention heads and MLP neurons that are used in predictions are identified.  
 - Various tools and techniques evaluate aspects of the model's "behavior" (e.g. attention patterns).
 - The researcher can extend the tools with model-specific searches and tests - searching for hypothesised model components that perform model-specific algorithm "sub-tasks" (e.g. Base Add in the Addition model)
-- Useful facts found in this way are stored as JSON (refer [Useful_Tags](./useful_tags.md) for details) and can be visualized (refer [Assets](./Assets/"Assets") for samples).
+- Useful facts found in this way are stored as JSON (refer [Useful_Tags](./docs/useful_tags.md) for details) and can be visualized (refer [Assets](./assets/) for samples).
 - A researcher can describe an algorithm hypothesis as a series of claims, and evaluate those claims against the facts found. The resulting insights can be used to refine and\or extend both the algorithm sub-task tests and the algorithm hypothesis description, leading to a full description of the model's algorithm.
 
 ## Installation
@@ -34,9 +34,9 @@ This library contains files:
 
 - **QuantaMechInterp:** Python library code imported into the notebooks:
   - model_*.py: Contains the configuration of the transformer model being trained/analysed. Includes class ModelConfig 
-  - useful_*.py: Contains data on the useful token positions and useful nodes (attention heads and MLP neurons) that the model uses in predictions. Includes class UsefulConfig derived from ModelConfig. Refer [Useful_Tags](./useful_tags.md) for more detail. 
+  - useful_*.py: Contains data on the useful token positions and useful nodes (attention heads and MLP neurons) that the model uses in predictions. Includes class UsefulConfig derived from ModelConfig. Refer [Useful_Tags](./docs/useful_tags.md) for more detail. 
   - algo_*.py: Contains tools to support declaring and validating a model algorithm. Includes class AlgoConfig derived from UsefulConfig.
-  - quanta_*.py: Contains categorisations of model behavior (aka quanta), with ways to detect, filter and graph them. Refer [Filter](./filter.md) for more detail. 
+  - quanta_*.py: Contains categorisations of model behavior (aka quanta), with ways to detect, filter and graph them. Refer [Filter](./docs/filter.md) for more detail. 
   - ablate_*.py: Contains ways to "intervention ablate" the model and detect the impact of the ablation
   - maths_*.py: Contains specializations of the above specific to arithmetic (addition and subtraction) transformer models. Includes class MathsConfig derived from AlgoConfig.
           
@@ -51,7 +51,7 @@ For each model these output files available are:
 - generic analysis facts (behavior.json), and
 - maths-specific results from searching for hypothesis algorithm features (features.json)
 
-Refer [Hugging_Models](./hugging_models.md) for more detail.
+Refer [Hugging_Models](./docs/hugging_models.md) for more detail.
 
 ## Papers
 The papers associated with this content are:

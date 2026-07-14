@@ -22,12 +22,18 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.18.1",
+    "pandas",
+    "torch",
     "transformer_lens",
+    "scikit-learn",
+    "scikit-optimize",
+    "matplotlib",
+    "requests",
+    "tqdm",
     "QuantaMechInterp>=1.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["MathsMechInterp*"]
-include = ["MathsCatGen*"]
+include = ["MathsMechInterp*", "MathsCatGen*"]
 namespaces = true

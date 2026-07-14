@@ -10,3 +10,5 @@
 /env1
 MathsCatGen/__pycache__
 .env
+.DS_Store
+/test_useful_node_list.json
