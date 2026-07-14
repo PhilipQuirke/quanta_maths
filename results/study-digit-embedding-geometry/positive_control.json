@@ -1,0 +1,140 @@
+{
+  "detection": [
+    {
+      "kind": "circle",
+      "planted_share": 0.2,
+      "recovered_freq1": 0.39654999530292023,
+      "recovered_unique_linear": 0.08762230300019881,
+      "detect_stat": 0.39654999530292023,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": false,
+      "classified": "R1"
+    },
+    {
+      "kind": "circle",
+      "planted_share": 0.3,
+      "recovered_freq1": 0.444435302462105,
+      "recovered_unique_linear": 0.0825330538952541,
+      "detect_stat": 0.444435302462105,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "R1"
+    },
+    {
+      "kind": "circle",
+      "planted_share": 0.4,
+      "recovered_freq1": 0.5175407082452927,
+      "recovered_unique_linear": 0.0727674090659857,
+      "detect_stat": 0.5175407082452927,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "R1"
+    },
+    {
+      "kind": "circle",
+      "planted_share": 0.5,
+      "recovered_freq1": 0.6099448436293874,
+      "recovered_unique_linear": 0.05869571089610017,
+      "detect_stat": 0.6099448436293874,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "R1"
+    },
+    {
+      "kind": "circle",
+      "planted_share": 0.7,
+      "recovered_freq1": 0.7727335381721807,
+      "recovered_unique_linear": 0.03561198509613577,
+      "detect_stat": 0.7727335381721807,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "R1"
+    },
+    {
+      "kind": "circle",
+      "planted_share": 0.9,
+      "recovered_freq1": 0.9211751023193798,
+      "recovered_unique_linear": 0.012238741314784567,
+      "detect_stat": 0.9211751023193798,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "R1"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.2,
+      "recovered_freq1": 0.3270520742803332,
+      "recovered_unique_linear": 0.12600914049629616,
+      "detect_stat": 0.3270520742803332,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": false,
+      "classified": "partial/ambiguous"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.3,
+      "recovered_freq1": 0.41190504403233025,
+      "recovered_unique_linear": 0.13989740085362018,
+      "detect_stat": 0.41190504403233025,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "partial/ambiguous"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.4,
+      "recovered_freq1": 0.4691125428624893,
+      "recovered_unique_linear": 0.135988643729648,
+      "detect_stat": 0.4691125428624893,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "partial/ambiguous"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.5,
+      "recovered_freq1": 0.5315686643135435,
+      "recovered_unique_linear": 0.14389395771434943,
+      "detect_stat": 0.5315686643135435,
+      "detect_p": 0.0009995002498750624,
+      "detected_at_40_p01": true,
+      "classified": "partial/ambiguous"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.7,
+      "recovered_freq1": 0.641359319876729,
+      "recovered_unique_linear": 0.1579949123027077,
+      "detect_stat": 0.641359319876729,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "partial/ambiguous"
+    },
+    {
+      "kind": "helix",
+      "planted_share": 0.9,
+      "recovered_freq1": 0.7676967837447045,
+      "recovered_unique_linear": 0.165326273111249,
+      "detect_stat": 0.7676967837447045,
+      "detect_p": 0.0004997501249375312,
+      "detected_at_40_p01": true,
+      "classified": "partial/ambiguous"
+    }
+  ],
+  "calibration": {
+    "isotropic": {
+      "n": 200,
+      "alpha": 0.01,
+      "fpr_freq1": 0.005,
+      "fpr_unique_linear": 0.02
+    },
+    "anisotropic": {
+      "planted_circle_40_recovered_freq1": 0.5404510320110414,
+      "planted_circle_40_detect_p": 0.0004997501249375312,
+      "detected": true,
+      "fpr_freq1": 0.005,
+      "n": 200,
+      "alpha": 0.01
+    }
+  }
+}

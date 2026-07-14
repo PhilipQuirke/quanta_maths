@@ -18,7 +18,11 @@ My expected end-to-end story for how a trained addition model computes
 1. **Numeric geometry at the embedding.** Digit tokens `0-9` are embedded with
    functional structure — a few circular (Fourier-like) components realizing
    mod-10 geometry, possibly plus an ordered magnitude component — rather than
-   as 10 arbitrary near-orthogonal symbols (A1).
+   as 10 arbitrary near-orthogonal symbols (A1). *[2026-07-14: this stage took
+   damage — the embedding is near-isotropic with only a weak circular ordering;
+   see A1 confidence update and [CE1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix).
+   The "how it computes" weight now leans on stages 2–5 (activation/MLP), not
+   the embedding.]*
 2. **Aggregate, then discretize.** Fixed position-based attention (the double
    staircase) pairs `Dn` with `D'n`; because the attention value path is
    linear, the head output contains the superposition
@@ -115,8 +119,17 @@ attention, with the cascade carried forward as compact tie-breaking state.
 - **Tension with human**: Refines C1 — "simple" survives but "approximately
   one direction per feature" may not; the natural unit is a small subspace
   with circular content.
-- **Confidence**: medium-high that some functional numeric structure exists;
-  medium that it is specifically circular/helical.
+- **Confidence**: LOWERED 2026-07-14 after the digit-embedding study
+  ([CE1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix)):
+  the strong "dominant circular/helical geometry at the token level" form is
+  **refuted** for these models' embeddings (near-isotropic 9-D; circular
+  *variance* at noise floor; unembedding unstructured and misaligned). A weak
+  circular *ordering* survives (3/4 accurate models, absent untrained),
+  provisional pending the LN-aware close-out. So: **low** that a dominant
+  circle/helix organizes the digit *embedding*; **low-medium** that *some*
+  circular ordering exists; the belief's real test moves to whether the
+  *computation* uses circular/magnitude structure (causal, B1) regardless of a
+  clean embedding — was medium-high/medium.
 
 ### A2: The core computation is aggregate-then-discretize
 
@@ -328,7 +341,14 @@ attention, with the cascade carried forward as compact tie-breaking state.
   circle-plus-position structure.
 - **Tension with human**: Agrees with C1's spirit and supplies the mechanism
   (no capacity pressure); bounds it via A1/A3 (simple ≠ strictly linear).
-- **Confidence**: medium-high.
+- **Confidence**: PARTIALLY CHALLENGED 2026-07-14. The digit-embedding
+  low-rank prediction is **refuted at the embedding level** (participation ratio
+  ≈ 8.7/9 — near-isotropic, not sharp low-rank) for both trained *and* untrained
+  models, so this is partly a property of 10 points in high-dim, not of the
+  trained features. The core A8 claim is about *activation* effective dimension
+  across the task (agenda entry 7), which remains **untouched**. Net: was
+  medium-high; hold medium-high for the activation claim, but note the embedding
+  matrix is not itself low-rank.
 
 ## Sharpest forks
 
@@ -409,3 +429,14 @@ External:
   external literature before any experiments in this thread. Contains no
   empirical content. The "update only after the post-result skeptic gate"
   rule applies from the first study onward.
+- **2026-07-14** — After the digit-embedding geometry study (Gate 2 passed;
+  [study note](study-maths/study-digit-embedding-geometry.md),
+  [CE1](maths-claim-evidence.md)): lowered **A1** (strong dominant-geometry form
+  refuted at the token embedding; weak circular *ordering* survives,
+  provisional pending LN-aware A-9) and annotated **A8** (embedding matrix is
+  near-isotropic, not low-rank — but that is partly true of the untrained model
+  too; the activation-level A8 claim is untouched). Stage 1 of the overall
+  picture annotated. Prediction scoring lives in the study note; these are the
+  post-gate belief updates. No change to A2–A7 (untouched by a weights-only
+  study). Reframe: the "how it computes" story now hinges on the
+  activation/MLP stages and a causal test, not on a clean embedding geometry.

@@ -44,37 +44,29 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Experiment | Updates |
 | --- | --- | --- | --- |
-| 1 | ready | [Digit-embedding geometry audit](#1-digit-embedding-geometry-audit) | A1, C1 |
-| 2 | ready | [Pair-sum sufficiency at an ST node](#2-pair-sum-sufficiency-at-an-st-node) | A2, C3 |
-| 3 | ready | [Full-space ST tri-state geometry](#3-full-space-st-tri-state-geometry) | A3, C1 |
+| 1 | ready | [Pair-sum sufficiency at an ST node](#1-pair-sum-sufficiency-at-an-st-node) | A2, C3 |
+| 2 | ready | [Full-space ST tri-state geometry](#2-full-space-st-tri-state-geometry) | A3, C1 |
+| 3 | ready | [LN-aware digit-embedding close-out (A-9)](#3-ln-aware-digit-embedding-close-out-a-9) | A1, C1 |
 | 4 | ready | [Attention-pattern invariance census](#4-attention-pattern-invariance-census) | A5, C3 |
 | 5 | ready | [Cross-position and cross-subtask probe transfer](#5-cross-position-and-cross-subtask-probe-transfer) | C2, A4, A8 |
 | 6 | ready | [Cascade tracing and inter-position patching](#6-cascade-tracing-and-inter-position-patching) | A6, C3, A4 |
 | 7 | ready | [Task-wide effective dimensionality and dictionary recovery](#7-task-wide-effective-dimensionality-and-dictionary-recovery) | A8, C1 |
 | 8 | sequenced | [Mixed-model shared-engine geometry](#8-mixed-model-shared-engine-geometry) | A7, C2 |
 
-### 1. Digit-embedding geometry audit
+Entry-order note (2026-07-14 rerank, after the digit-embedding study): the
+former entry 1 (digit-embedding geometry audit) is **complete** —
+verdict AMBIGUOUS, strong-form A1 refuted, weak circular *ordering*
+provisionally confirmed; trail in the
+[results ledger](maths-results-by-time.md) and
+[study note](study-maths/study-digit-embedding-geometry.md). Because the token
+embedding turned out to carry little dominant geometry, the mechanism studies
+(pair-sum sufficiency, `ST` geometry) are now the sharpest cheap discriminators
+and move to the top. The LN-aware close-out (new entry 3) is the required
+finish of the digit-embedding line before its CE1 claim is de-provisionalized;
+it is cheap (weights-only) but ranks below the two mechanism studies because it
+only refines an already-ambiguous verdict.
 
-Characterize the embedding and unembedding geometry of the digit tokens `0-9`
-on an existing addition model (start with the 5-digit addition model carrying
-the Hypothesis-3 node map; replicate on at least one other seed or size from
-the [Hugging Face store](hugging_models.md)). The question: is the digit code
-dominated by circular mod-10 structure (wrap-around adjacency, `9` next to
-`0`), by a helix-like circle-plus-magnitude structure, or is it an
-unstructured near-orthogonal 10-way code?
-
-This is the cheapest entry in the queue — weights-only, no harness — and it
-settles the vocabulary every later geometry question is phrased in. It
-directly attacks the geometry-vs-lookup fork: A1's circular prediction versus
-its lookup-table and bag-of-heuristics alternatives, and the "near-linear"
-wording of C1. Whichever way it lands, entries 2, 3, and 8 get reinterpreted
-in its terms, which is why it outranks everything else.
-
-Done when: the variance share and ordering structure of the digit code is
-quantified in the full space (not a 2D projection), replicated on a second
-model, recorded in a study note, and scored against the A1 and C1 predictions.
-
-### 2. Pair-sum sufficiency at an ST node
+### 1. Pair-sum sufficiency at an ST node
 
 At a known [ST](thor-glossary.md#st) node where Paper 2's ablations say the
 attention head and its MLP are *both* necessary, examine the representation
@@ -94,7 +86,7 @@ Done when: equal-sum collapse is quantified against a matched unequal-sum
 control, the pre-MLP versus post-MLP shape verdict is recorded, and the A2 and
 C3 predictions are scored.
 
-### 3. Full-space ST tri-state geometry
+### 2. Full-space ST tri-state geometry
 
 Measure the geometry of the `ST` output classes `{0, 1, U}` at one or two ST
 nodes in the full residual-stream dimensionality, executing the human file's
@@ -113,6 +105,21 @@ best-known observation into its first real representation claim.
 Done when: centroid separations and angles classify the shape into one of the
 three candidates (or an explicit fourth), with full-space statistics, scored
 against A3 and C1.
+
+### 3. LN-aware digit-embedding close-out (A-9)
+
+Finish the pre-registered digit-embedding design by repeating the geometry
+statistics on the **LayerNorm-effective** embedding (fold the first LN into
+`W_E`), the secondary analysis (amendment A-9) not run in the first pass. The
+weak circular *ordering* signal that survived — significant in 3 of 4 accurate
+models, absent in the untrained control — is exactly the metric most sensitive
+to LN, so the CE1 claim's ordering half stays **provisional** until this lands.
+Cheap (weights-only, reuses
+[`scripts/digit_embedding_geometry.py`](../scripts/digit_embedding_geometry.py)).
+
+Done when: raw-vs-LN agreement is reported per the A-9 rule (classified-read or
+band-boundary change = disagreement → ambiguous), the CE1 ordering claim is
+de-provisionalized or revised, and A1's ordering sub-claim is re-scored.
 
 ### 4. Attention-pattern invariance census
 
@@ -188,8 +195,8 @@ This is the direct test of A8 (no superposition pressure; complexity is
 compositional) and the low-dimensionality half of C1, and it bounds how much
 undiscovered structure the earlier targeted studies might have missed. It
 ranks below the targeted geometry studies because its interpretation depends
-on their verdicts — for example, circular features from entry 1 legitimately
-occupy two dimensions each.
+on their verdicts — for example, any circular features from the digit-embedding
+study would legitimately occupy two dimensions each.
 
 Done when: an effective-dimension table and an inventory-match verdict exist
 and are scored against A8 and C1.
@@ -207,11 +214,12 @@ exist that selects among them?
 This is where C2 and A7 make opposite predictions on the same measurement —
 C2 expects different sub-tasks to be near-orthogonal; A7 expects heavy
 `SA`/`MD`/`ND` overlap steered by low-rank control — so whichever way it
-lands, a conjecture takes real damage. If entry 1 found circular digit
-geometry, this entry also tests A1's corollary that subtraction is addition
-with a reflected operand. Status `sequenced`: it should inherit instruments
-and geometry vocabulary from entries 1–3 rather than develop its own, per the
-addition-first scope.
+lands, a conjecture takes real damage. The digit-embedding study found no
+dominant circular geometry, so A1's corollary that subtraction is addition with
+a reflected operand is now tested at the *node/activation* level here rather
+than assumed from the embedding. Status `sequenced`: it should inherit
+instruments and geometry vocabulary from entries 1–2 (and the digit-embedding
+study) rather than develop its own, per the addition-first scope.
 
 Done when: overlap and control-direction verdicts exist for the shared nodes
 and are scored against A7 and C2.
@@ -221,12 +229,15 @@ and are scored against A7 and C2.
 One-paragraph candidates, not ranked and not counted against the entry cap.
 Promote by swapping into the queue.
 
-- **B1 — Causal embedding-geometry test.** If entry 1 finds circular digit
-  structure, test whether it is load-bearing: interventions that move a digit
-  embedding along the hypothesized circle should shift model outputs the way
-  the geometry predicts, while a lookup-table story predicts breakage instead
-  of lawful shifts. Turns A1 from correlational to causal; updates A1 and its
-  lookup alternative.
+- **B1 — Causal embedding-geometry test.** The digit-embedding study found only
+  a weak, correlational circular *ordering* (not a dominant geometry), so the
+  causal question is now sharper: does the model *use* digit magnitude/circular
+  ordering at all? Interventions that move a digit embedding along the
+  hypothesized circle should shift outputs the way the geometry predicts if the
+  ordering is load-bearing, versus breakage under a lookup story. **Sequence
+  after entry 3 (LN-aware A-9)**, since whether the ordering survives LN
+  determines whether a causal test is worth building. Updates A1 and its lookup
+  alternative.
 - **B2 — MLP discretization mechanism.** Zoom into how MLP neurons implement
   the `Dn + D'n → SA/ST` map at one node: neuron activation profiles as a
   function of pair sum, key-value-memory signatures versus Fourier-product
@@ -240,7 +251,8 @@ Promote by swapping into the queue.
   ("register versus tape"). Discriminates A4's just-in-time-fetch belief from
   the orthogonal-slots layout C2 implies at answer time.
 - **B5 — Cross-seed and cross-size universality sweep.** Re-run the headline
-  geometry verdicts (entries 1–3) across the model zoo (seeds, sizes, layer
+  geometry verdicts (the digit-embedding study and entries 1–2) across the
+  model zoo (seeds, sizes, layer
   counts), since Paper 2 documents node-level variability between models.
   Determines whether claims are about *these* models or this task; updates
   the confidence of A1, A3, and C1 claims before anything reaches the paper
@@ -279,7 +291,8 @@ Each freeze carries a classification (`question answered` / `question failure`
 ## Deliberately paused
 
 - **New training runs** (including the checkpoint-instrumented retrain B9
-  needs): paused until the existing-artifact studies (entries 1–5) have
+  needs): paused until the existing-artifact studies (entries 1–5 and the
+  digit-embedding study) have
   calibrated instruments and confirmed the question is worth the compute.
   Reopen when a queue entry's design genuinely requires a new model.
 - **Paper-facing work**: per the guardrail in
