@@ -1,4 +1,4 @@
-from MathsMechInterp.maths_constants import MathsToken
+from quanta_maths.maths_constants import MathsToken
 
 
 # Vocabulary dictionary: Mapping from character (key) to token (value)

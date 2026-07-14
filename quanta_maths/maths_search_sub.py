@@ -1,10 +1,10 @@
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
     FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 
-from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, MathsTask 
-from MathsMechInterp.maths_search_mix import run_intervention_core, run_strong_intervention, run_weak_intervention, SubTaskBaseMath
-from MathsMechInterp.maths_utilities import digit_name
-from MathsMechInterp.maths_config import MathsConfig
+from quanta_maths.maths_constants import MathsToken, MathsBehavior, MathsTask 
+from quanta_maths.maths_search_mix import run_intervention_core, run_strong_intervention, run_weak_intervention, SubTaskBaseMath
+from quanta_maths.maths_utilities import digit_name
+from quanta_maths.maths_config import MathsConfig
 
 
 # Subtraction "Essential Borrow Info" (MT) sub-task. 

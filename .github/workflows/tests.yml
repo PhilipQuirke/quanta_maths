@@ -24,5 +24,4 @@ jobs:
           pip install .
 
       - name: Run test suite
-        working-directory: Tests
-        run: python tests_suite.py
+        run: pytest tests

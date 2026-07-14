@@ -13,12 +13,12 @@ From source
 
 ```bash
 git clone https://github.com/PhilipQuirke/quanta_maths.git
-cd MathsMechInterp
+cd quanta_maths
 pip install .
 ```
 
 ## Test bed
-Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QMAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./MathsMechInterp/maths_config.py).   
+Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QMAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./quanta_maths/maths_config.py).   
 
 ## Folders, Files and Classes 
 This library contains files:

@@ -3,11 +3,11 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "MathsMechInterp"
+name = "quanta_maths"
 version = "1.0.0"
 description = "Maths Mechanistic Interpretability tools"
 authors = [
-    {name = "Philip Quirke et al", email = "philipquirkenz@gmail.com"}
+    {name = "Philip Quirke et al", email = "philip@withmartian.com"}
 ]
 requires-python = ">=3.10"
 classifiers = [
@@ -35,5 +35,5 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["MathsMechInterp*", "MathsCatGen*"]
+include = ["quanta_maths*", "maths_catgen*"]
 namespaces = true

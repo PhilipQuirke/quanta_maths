@@ -1,9 +1,9 @@
 import torch
 from tqdm.notebook import tqdm
 from QuantaMechInterp import (to_numpy, tokens_to_string, logits_to_tokens_loss, get_question_answer_impact, sort_unique_digits, NodeLocation, a_predict_questions, loss_fn, QType)
-from MathsMechInterp.maths_complexity import get_maths_question_complexity
-from MathsMechInterp.maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
-from MathsMechInterp.maths_data_generator import maths_data_generator
+from quanta_maths.maths_complexity import get_maths_question_complexity
+from quanta_maths.maths_constants import MathsToken, MathsBehavior, maths_tokens_to_names
+from quanta_maths.maths_data_generator import maths_data_generator
 
 
 def test_maths_questions_by_complexity(cfg, acfg, varied_questions):

@@ -5,8 +5,8 @@ import torch
 
 import QuantaMechInterp as qt
 from QuantaMechInterp import QType
-from MathsMechInterp.maths_constants import MathsBehavior, MathsToken
-from MathsMechInterp.maths_data_generator import make_maths_questions_and_answers
+from quanta_maths.maths_constants import MathsBehavior, MathsToken
+from quanta_maths.maths_data_generator import make_maths_questions_and_answers
 
 
 # Create a cache of sample (matrix) maths questions based on the ST8, ST9, ST10 categorisation
