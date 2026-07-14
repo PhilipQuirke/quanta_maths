@@ -9,7 +9,7 @@ from transformer_lens import HookedTransformer, HookedTransformerConfig, Factore
 from sklearn.model_selection import ParameterGrid
 from skopt.space import Real, Integer, Categorical
 from skopt.utils import use_named_args
-from QuantaMechInterp import analyze_mlp_with_sae, optimize_sae_hyperparameters
+from MathsMechInterp import analyze_mlp_with_sae, optimize_sae_hyperparameters
 
 from MathsMechInterp.maths_config import MathsConfig
 from MathsMechInterp.maths_data_generator import get_mixed_maths_dataloader
