@@ -44,102 +44,26 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Experiment | Updates |
 | --- | --- | --- | --- |
-| 1 | ready | [Pair-sum sufficiency at an ST node](#1-pair-sum-sufficiency-at-an-st-node) | A2, C3 |
-| 2 | ready | [Full-space ST tri-state geometry](#2-full-space-st-tri-state-geometry) | A3, C1 |
-| 3 | ready | [LN-aware digit-embedding close-out (A-9)](#3-ln-aware-digit-embedding-close-out-a-9) | A1, C1 |
-| 4 | ready | [Attention-pattern invariance census](#4-attention-pattern-invariance-census) | A5, C3 |
-| 5 | ready | [Cross-position and cross-subtask probe transfer](#5-cross-position-and-cross-subtask-probe-transfer) | C2, A4, A8 |
-| 6 | ready | [Cascade tracing and inter-position patching](#6-cascade-tracing-and-inter-position-patching) | A6, C3, A4 |
-| 7 | ready | [Task-wide effective dimensionality and dictionary recovery](#7-task-wide-effective-dimensionality-and-dictionary-recovery) | A8, C1 |
-| 8 | sequenced | [Mixed-model shared-engine geometry](#8-mixed-model-shared-engine-geometry) | A7, C2 |
+| 1 | ready | [Cross-position and cross-subtask probe transfer](#1-cross-position-and-cross-subtask-probe-transfer) | C2, A4, A8 |
+| 2 | ready | [Cascade tracing and inter-position patching](#2-cascade-tracing-and-inter-position-patching) | A6, C3, A4 |
+| 3 | ready | [Task-wide effective dimensionality and dictionary recovery](#3-task-wide-effective-dimensionality-and-dictionary-recovery) | A8, C1 |
+| 4 | sequenced | [Mixed-model shared-engine geometry](#4-mixed-model-shared-engine-geometry) | A7, C2 |
 
-Entry-order note (2026-07-14 rerank, after the digit-embedding study): the
-former entry 1 (digit-embedding geometry audit) is **complete** —
-verdict AMBIGUOUS, strong-form A1 refuted, weak circular *ordering*
-provisionally confirmed; trail in the
+Entry-order note (2026-07-16 rerank #9, after the attention-invariance census):
+the census is **complete** — **A5's strong static-wiring form is falsified /
+narrowed to hybrid**: a few heads (`L1.H1` operand-read Q11 & answer Q14;
+`L0.H0` answer Q17) relocate their attention target with the carry state
+(value-matched contrast, clean & Bonferroni-safe in the 6-digit model; 5-digit
+inconclusive; representational not causal) ([CE8](maths-claim-evidence.md)). This
+is a **genuine new structural fact** (breaking the A3-family refutation streak).
+The carry-routing cells become candidate content-routed nodes for the
+**cascade-tracing** entry, which must confirm them *causally* (pattern-patching).
+Cross-position/cross-subtask probe transfer (C2/A4/A8) promotes to #1 — a compact
+assay-shared study scoring three conjectures. Trail in the
 [results ledger](maths-results-by-time.md) and
-[study note](study-maths/study-digit-embedding-geometry.md). Because the token
-embedding turned out to carry little dominant geometry, the mechanism studies
-(pair-sum sufficiency, `ST` geometry) are now the sharpest cheap discriminators
-and move to the top. The LN-aware close-out (new entry 3) is the required
-finish of the digit-embedding line before its CE1 claim is de-provisionalized;
-it is cheap (weights-only) but ranks below the two mechanism studies because it
-only refines an already-ambiguous verdict.
+[study note](study-maths/study-attention-invariance.md).
 
-### 1. Pair-sum sufficiency at an ST node
-
-At a known [ST](thor-glossary.md#st) node where Paper 2's ablations say the
-attention head and its MLP are *both* necessary, examine the representation
-between head output and MLP input. A2 predicts the head output is the raw
-aggregate — digit pairs with equal `Dn + D'n` should be near-identical there,
-forming an ordered low-dimensional arc with the `U` case at the
-`Dn + D'n = 9` point — while the familiar 3-cluster tri-state structure should
-exist only after the MLP.
-
-This is the crux of A2 (aggregate-then-discretize) and the second-sharpest
-fork: it decides whether attention *performs* the addition in embedding space
-or merely transports operands, and it would turn the paper's unexplained
-"head and MLP jointly necessary" observation into a mechanism. It also feeds
-entry 3, since it locates where the categorical shape is created.
-
-Done when: equal-sum collapse is quantified against a matched unequal-sum
-control, the pre-MLP versus post-MLP shape verdict is recorded, and the A2 and
-C3 predictions are scored.
-
-### 2. Full-space ST tri-state geometry
-
-Measure the geometry of the `ST` output classes `{0, 1, U}` at one or two ST
-nodes in the full residual-stream dimensionality, executing the human file's
-own caveat that the existing 3-cluster [PCA](pca.md) evidence is only a
-projection. The discrete candidate shapes, from
-[A3](maths-conjectures-agent.md#a3-the-st-tri-state-is-a-2d-categorical-code-with-u-off-the-01-axis):
-(a) a 1D ordered scalar with `U` between `0` and `1`; (b) two near-independent
-binary directions (a carry bit and a sum-is-9 bit, echoing the legacy
-`SC`/`SS` sub-tasks); (c) a 2D simplex-like categorical code with `U` off the
-0–1 axis.
-
-Each shape implies a different downstream `TriAdd` reading and a different
-verdict on C1's "near-linear" wording, so this entry converts the thread's
-best-known observation into its first real representation claim.
-
-Done when: centroid separations and angles classify the shape into one of the
-three candidates (or an explicit fourth), with full-space statistics, scored
-against A3 and C1.
-
-### 3. LN-aware digit-embedding close-out (A-9)
-
-Finish the pre-registered digit-embedding design by repeating the geometry
-statistics on the **LayerNorm-effective** embedding (fold the first LN into
-`W_E`), the secondary analysis (amendment A-9) not run in the first pass. The
-weak circular *ordering* signal that survived — significant in 3 of 4 accurate
-models, absent in the untrained control — is exactly the metric most sensitive
-to LN, so the CE1 claim's ordering half stays **provisional** until this lands.
-Cheap (weights-only, reuses
-[`scripts/digit_embedding_geometry.py`](../scripts/digit_embedding_geometry.py)).
-
-Done when: raw-vs-LN agreement is reported per the A-9 rule (classified-read or
-band-boundary change = disagreement → ambiguous), the CE1 ordering claim is
-de-provisionalized or revised, and A1's ordering sub-claim is re-scored.
-
-### 4. Attention-pattern invariance census
-
-Measure how much attention patterns vary across a large, stratified question
-set: per head, per token position, on an addition model. A5 predicts
-near-invariance (static positional wiring) with data-dependence confined to
-the value path and MLPs; the informative exceptions, if any, should sit at
-cascade or selection nodes (for example when an `ST` input is `U` versus not).
-
-This is a quick win: cheap forward passes, no interventions, and it produces
-two reusable byproducts — the stratified question classes (carry-free,
-single-carry, `U`-cascade chains) and a per-node attention baseline — that
-entry 6 needs anyway. A clear invariance verdict also simplifies every later
-patching design, because static routing means interventions can target the
-value path with less confounding.
-
-Done when: pattern variance is quantified per head and position with an
-explicit exception list, scored against A5 and the routing half of C3.
-
-### 5. Cross-position and cross-subtask probe transfer
+### 1. Cross-position and cross-subtask probe transfer
 
 Test C2's two halves separately. First, template sharing: does a linear
 readout for `ST` trained at one digit position transfer to other positions
@@ -160,7 +84,7 @@ this thread produces.
 Done when: the transfer and angle results give explicit verdicts on both
 halves of C2 and on A4's template claim, scored accordingly.
 
-### 6. Cascade tracing and inter-position patching
+### 2. Cascade tracing and inter-position patching
 
 Trace where the carry-cascade state lives and when it matters. First, trace:
 at which token positions and layers the running `ST`/`SV` cascade state is
@@ -177,12 +101,19 @@ whole cascade at `=`) — the carried-vs-wide-fetch fork. It is also the direct
 test of C3's central claim and its falsifier. This is the heaviest
 addition-model entry (patching harness plus question-class construction), so
 it sits after the cheap studies that supply its node maps and question sets.
+**New input from CE8**: the attention-invariance census found **carry-state
+target-routing** heads (6-digit `L1.H1` Q11/Q14, `L0.H0` Q17;
+[registry](../results/study-attention-invariance/attention_routing_registry.json)) —
+these are candidate content-routed cascade nodes and should be **confirmed
+causally** here by patching the *attention pattern* (not just the value path).
+Do not inherit the "CE5-combiner-locus" gloss unchallenged (CE8's cleanest cell
+is an operand-read position, not an answer position).
 
 Done when: decodability-by-position tracing plus per-class patching effects
 jointly select one of the three cascade stories (or explicitly none), scored
 against A6, C3, and A4's just-in-time-fetch prediction.
 
-### 7. Task-wide effective dimensionality and dictionary recovery
+### 3. Task-wide effective dimensionality and dictionary recovery
 
 Measure the effective dimensionality of residual-stream activity across the
 whole task distribution, per layer and position, and compare against the size
@@ -201,7 +132,7 @@ study would legitimately occupy two dimensions each.
 Done when: an effective-dimension table and an inventory-match verdict exist
 and are scored against A8 and C1.
 
-### 8. Mixed-model shared-engine geometry
+### 4. Mixed-model shared-engine geometry
 
 On the mixed model `ins1_mix_d6_l3_h4_t40K_s372001` (see
 [mixed_model.md](mixed_model.md)), measure the geometry of polysemantic nodes
@@ -280,13 +211,44 @@ Promote by swapping into the queue.
   model cannot pipeline the cascade across layers the same way deeper models
   can. Analyze how it resolves the nines cascade — a forced wide-fetch would
   be an existence proof for A6's main alternative. Updates A6.
+- **B11 — L0→L1 U-resolution hand-off path-patch.** CE5 shows layer-0 nodes
+  conduct the running carry and the answer-position L1 MLP combines it. Directly
+  test the hand-off with an edge path-patch (freeze the L1 MLP's other inputs,
+  vary only the L0-conduit→L1-MLP edge) to confirm the two-site "compute-low,
+  apply-at-answer" mechanism — clean in 6-digit, borderline in 5-digit, so worth
+  a direct edge test. Also test A6's **tie-break economy** on multi-digit
+  `...999` cascades (single-digit `U` only so far). Updates A6, A2.
+- **B12 — Question-position transient `U` probe.** CE6/CE7 refuted a dedicated
+  `{0,1,U}` symbol across *answer-position* residual sites (carry is binary,
+  resolved around L1-attention). The only live A3 remnant is a *transient* `U`
+  at **question positions** (D'n), where the carry is being built before it is
+  resolution-split — needs a purpose-built construction (the answer-position
+  4-class assay does not place the pre-resolution carry state at question
+  positions). Low expected yield given the four-study streak, but it is the one
+  regime where A3 can still live. Updates A3 (final disposition).
 
 ## Frozen lines
 
 Each freeze carries a classification (`question answered` / `question failure`
 / `instrument failure`) and an explicit reopen condition.
 
-- *None yet.*
+- **Pair-sum sufficiency via answer-position attention+ablation selection**
+  (2026-07-14) — **`instrument failure`**. The assay selected answer-position
+  operand-fetch heads (not confirmed question-position `ST` compute nodes), and
+  its no-lower-carry stimulus pinned `R²_pair=1` so the sum/pair ratio could not
+  separate aggregation from transport (a noise-free transport null reproduced
+  the whole signature). A2 untested. Trail:
+  [study note](study-maths/study-pair-sum-sufficiency.md),
+  [CE2](maths-claim-evidence.md). **Reopen** only via a confirmed compute node
+  (now available — the make-carry heads CE3 and the L1-MLP `U`-combiner CE5)
+  *and* a discriminating metric that does not over-determine the ratio (compare
+  head output directly against the transport null; include cascade-varying
+  context). Per the contract, an `instrument
+  failure` freeze triggers an **outside-view sweep** before the reopened
+  experiment: check how the arithmetic-interpretability literature
+  (e.g. Nanda 2023 Fourier features, Zhong 2023 Clock/Pizza, Kantamneni &
+  Tegmark 2025) *distinguishes* "attention transports circular codes" from
+  "attention computes" — since that is exactly the confound that sank this assay.
 
 ## Deliberately paused
 

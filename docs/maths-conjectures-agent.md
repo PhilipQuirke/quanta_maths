@@ -124,12 +124,16 @@ attention, with the cascade carried forward as compact tie-breaking state.
   the strong "dominant circular/helical geometry at the token level" form is
   **refuted** for these models' embeddings (near-isotropic 9-D; circular
   *variance* at noise floor; unembedding unstructured and misaligned). A weak
-  circular *ordering* survives (3/4 accurate models, absent untrained),
-  provisional pending the LN-aware close-out. So: **low** that a dominant
-  circle/helix organizes the digit *embedding*; **low-medium** that *some*
-  circular ordering exists; the belief's real test moves to whether the
-  *computation* uses circular/magnitude structure (causal, B1) regardless of a
-  clean embedding — was medium-high/medium.
+  circular *ordering* survives (3/4 accurate models, absent untrained). **Update
+  2026-07-16 (LN-aware close-out, A-9):** the weak ordering **persists in the
+  LN-effective geometry** the computation reads (position-free and model-true) —
+  but LN is *near-isometric* here (γ std ~0.005), so this is only *weak*
+  robustness, and the ordering holds in **2 of 3 independent seeds** (fails
+  s173289). So: **low** that a dominant circle/helix organizes the digit
+  *embedding*; **low** that a weak circular ordering exists (real, LN-robust
+  weakly, seed-fragile — no longer provisional); the belief's real test moves to
+  whether the *computation* uses circular/magnitude structure (causal, B1)
+  regardless of a clean embedding — was medium-high/medium.
 
 ### A2: The core computation is aggregate-then-discretize
 
@@ -163,7 +167,19 @@ attention, with the cascade carried forward as compact tie-breaking state.
 - **Tension with human**: Sharpens C3 — "attention moves" undersells it;
   attention's linear mixing is the addition itself, performed in embedding
   space.
-- **Confidence**: medium-high.
+- **Confidence**: HELD at medium-high (2026-07-14). The first pre-MLP assay
+  ([study-pair-sum-sufficiency.md](study-maths/study-pair-sum-sufficiency.md))
+  was an **`instrument failure`** — it confirmed answer-position operand-fetch
+  heads rather than question-position `ST` compute nodes, and its no-lower-carry
+  stimulus pinned `R²_pair=1` so the sum/pair ratio could not distinguish
+  aggregation from transport (a noise-free transport null reproduced the whole
+  signature). A2's actual prediction (pre-MLP sum-sufficiency *at a confirmed ST
+  node*, with MLP-created tri-state) is therefore **untested**, not refuted.
+  A real test needs a path-patching-confirmed ST node and a discriminating
+  metric (see agenda). One incidental datapoint: at operand-fetch heads the
+  value path looks like pure transport of weakly-circular embeddings (CE2),
+  which weakly cautions against over-reading attention as adding "extra"
+  structure, but does not bear on A2's ST-node claim.
 
 ### A3: The `ST` tri-state is a 2D categorical code, with `U` off the 0–1 axis
 
@@ -191,7 +207,17 @@ attention, with the cascade carried forward as compact tie-breaking state.
   corners of a square, distinguishable from a simplex by angle geometry.
 - **Tension with human**: None direct; turns C1's cluster observation into a
   geometry question with three discrete candidate shapes.
-- **Confidence**: medium.
+- **Confidence**: LOWERED to **low** 2026-07-16. Two studies now refute the
+  off-axis-third-symbol form: [CE6](maths-claim-evidence.md) at the combiner
+  input, and [CE7](maths-claim-evidence.md) across **all 7 answer-position
+  residual sites** (the is-U axis is never significant vs the null; `U` is
+  resolved to binary around L1-attention, never a dedicated symbol). Scoped: this
+  refutes a symbol *comparable in magnitude to the binary carry* at
+  *answer-position* sites; **untested** are a *weak* symbol (≤~0.3× the committed
+  separation, below the detection floor) and a *transient* `U` at **question
+  positions** (D'n, descoped) — the only regimes where A3's remnant can still
+  live. A3 is not globally dead, but the "U as a dedicated symbol" frame is
+  strongly disfavored (see streak note in the reflection log).
 
 ### A4: Features are position-addressed: shared templates plus positional binding
 
@@ -252,7 +278,20 @@ attention, with the cascade carried forward as compact tie-breaking state.
   move attention by content.
 - **Tension with human**: Consistent with C3; sharpens "attention moves" into
   "attention is static wiring".
-- **Confidence**: medium-high.
+- **Confidence**: LOWERED to **medium 2026-07-16** — the strong "static
+  positional wiring" form is **falsified / narrowed to hybrid** by the
+  attention-invariance census ([CE8](maths-claim-evidence.md)). Under a
+  value-matched contrast (digit-`n` fixed, only lower carry toggled), a few heads
+  (`L1.H1` operand-read Q11 & answer Q14; `L0.H0` answer Q17) **relocate their
+  attention target with the carry state** — A5's own pre-registered falsifier —
+  clean and Bonferroni-safe in the 6-digit model (5-digit inconclusive;
+  representational, not causal). A5's *majority* claim (most cells target-static)
+  survives, and the earlier CE3 partial support (confirmed carry heads have
+  question-independent operand attention) stands, but "attention is static
+  wiring" as an unqualified statement is refuted. **Reword the belief to: mostly
+  static positional wiring, with genuine carry-state target-routing at a few L1
+  (and one L0) heads.** The routing cells are candidate nodes for a causal
+  pattern-patching test (cascade-tracing entry).
 
 ### A6: The carry cascade is carried state, but load-bearing only as a tie-breaker
 
@@ -285,7 +324,15 @@ attention, with the cascade carried forward as compact tie-breaking state.
   stays live.
 - **Tension with human**: Agrees with C3's storage/propagation core; adds the
   tie-break economy and the wide-fetch alternative.
-- **Confidence**: medium.
+- **Confidence**: medium; **carried+combined sub-claim SUPPORTED (refined)
+  2026-07-15** by the combiner-vs-conduit study ([CE5](maths-claim-evidence.md)):
+  layer-0 nodes conduct a running carry (clean in 6-digit) which the
+  **answer-position L1 MLP combines** with the digit's sum-class to resolve `U`
+  — genuine carried state consulted for the `U` tie-break, resolved at the
+  answer position (not `=`; refines the wording). The **tie-break-economy**
+  sub-claim (selective harm to multi-digit `...999` cascades) remains
+  **untested** (single-digit `U` only). Raise confidence on the
+  carried+combined core to medium-high; hold the tie-break economy at medium.
 
 ### A7: Mixed models are one engine under low-rank `OPR`/`SGN` control, not parallel circuits
 
@@ -440,3 +487,111 @@ External:
   post-gate belief updates. No change to A2–A7 (untouched by a weights-only
   study). Reframe: the "how it computes" story now hinges on the
   activation/MLP stages and a causal test, not on a clean embedding geometry.
+- **2026-07-14** — After the pair-sum sufficiency study (Gate 2 returned BLOCK,
+  resolved; `instrument failure`;
+  [study note](study-maths/study-pair-sum-sufficiency.md),
+  [CE2](maths-claim-evidence.md)): **A2 confidence HELD** (not lowered) — the
+  assay mis-targeted (answer-position heads, not confirmed `ST` nodes) and its
+  metric could not separate aggregation from transport, so A2 is untested. Added
+  the value-path transport by-product as CE2. No change to A3 (deferred to the
+  re-scoped entry 2) or C3 (MLP-transform half untested). Method lesson recorded
+  in the results synthesis: tidy low-D structures keep being low-variance
+  projections; require nulls + independent node-role confirmation.
+- **2026-07-16** — After the attention-invariance census (Gate 2 PASS WITH
+  CONDITIONS; [study note](study-maths/study-attention-invariance.md),
+  [CE8](maths-claim-evidence.md)): **A5's strong static-wiring form falsified /
+  narrowed to hybrid** (lowered to medium) — a few L1 heads (+one L0) relocate
+  their attention target with the carry state (value-matched contrast, clean in
+  6-digit, Bonferroni-safe; A5's own falsifier). This **breaks the recent
+  A3-family refuted/untouched streak** with a genuine new structural fact — but
+  a narrow one (6-digit only; representational, not causal). **C3** routing half
+  supported (the content-dependence *refines A5*, not new C3 — human-owned,
+  noted). **A6 untouched** (no cascade patching; the routing cells are candidate
+  nodes for the entry-3 causal test, not an A6 test). Gate-2 correctly stopped
+  two over-reaches: scoring the noisy 5-digit as a "replication" (it is
+  inconclusive), and the "answer-position/CE5-combiner-locus" gloss (the cleanest
+  cell is an operand-read position, which actually strengthens the finding by
+  rebutting the trivial "answer-digit-depends-on-carry" reading). Method: only a
+  value-matched target-move falsifies A5 — pattern-variance is A5-consistent
+  because a static head still has value-dependent softmax weights.
+- **2026-07-16** — After the LN-aware digit-embedding close-out (Gate 2 PASS
+  WITH CONDITIONS; [study note](study-maths/study-ln-aware-embedding.md),
+  revises [CE1](maths-claim-evidence.md)): the CE1 circular-**ordering** signal
+  is **de-provisionalized** — it persists in the LN-effective geometry, but only
+  *weakly* (LN is near-isometric here, γ std ~0.005) and it is **seed-fragile**
+  (2 of 3 independent seeds; fails s173289). A1's ordering sub-claim scored
+  "weak ordering, LN-robust modestly, 2/3 seeds — not confirmed-strong"; C1
+  weakly/narrowly supported (near-isometric LN adds no curvature — low-info).
+  Evidence integrity clean (raw arm reproduced CE1 bit-for-bit in the committed
+  script). The embedding-geometry line is now closed at the representational
+  level; the only deeper embedding question is *causal* (B1). Gate-2 caught a
+  headline over-read (near-isometry makes "LN-robust" weak) and a replication
+  over-count (model-count vs seed-count) — both corrected.
+- **2026-07-16** — After the earliest-tri-state-site study (Gate 2 PASS WITH
+  CONDITIONS; [study note](study-maths/study-earliest-tristate-site.md),
+  [CE7](maths-claim-evidence.md)): **A3 off-axis-third-symbol form refuted across
+  all answer-position residual sites** (dropped to low); the binary resolution is
+  applied around L1-attention, never a dedicated `U` symbol. C1 narrowly
+  supported (binary linear carry throughout — human-owned, noted). A6/A2
+  untouched. **STREAK SIGNAL (Evidence Rules)**: this is the *fourth consecutive*
+  A3-family refuted/untouched result (pair-sum instrument-failure → U-resolution
+  ambiguous → CE6 combiner refuted → CE7 all-sites refuted). The "U as a distinct
+  tri-state symbol" conceptual frame is **stale** at answer positions; the
+  productive next moves are the *question-position* transient-U probe and the
+  *multi-digit `...999` cascade* (A6), NOT more answer-position geometry sweeps.
+  The Gate-1 lesson recurred usefully: the `U ≡ SA_n=9` identity + a
+  metric-vs-hypothesis mismatch (centroid distance vs the is-U subspace) had to
+  be fixed before the assay could discriminate — the axis-decomposition
+  discriminator was the fix.
+- **2026-07-15** — After the tri-state-geometry study (Gate 2 BLOCK, resolved;
+  [study note](study-maths/study-st-tristate-geometry.md),
+  [CE6](maths-claim-evidence.md)): **A3 off-axis-third-symbol form refuted at the
+  combiner input** (locus-scoped; `U` on the 0–1 axis, split by resolution),
+  lowered to low-medium; A3's live remnant is a possible tri-state at an earlier
+  (untested) site. **C1** narrowly supported at this locus (clean binary linear
+  carry) — human-owned, noted not edited. **A2/A6 untouched** (the assay can't
+  show the U-decision is upstream vs in the MLP — `carry_in` ingredients are
+  linearly present at the input; consistent with CE5). Gate-2 fixed an
+  evidence-integrity gap (headline numbers now reproducible in the script) and
+  the "resolution is upstream / no-L0-attribution" over-reach. Method lesson: a
+  site linearly separating an outcome ≠ that site computing it (ingredients vs
+  decision), and `U ≡ SA_n=9` is a fatal confound the resolution variable breaks.
+- **2026-07-15** — After the combiner-vs-conduit study (Gate 2 PASS WITH
+  CONDITIONS — first pass after three BLOCKs;
+  [study note](study-maths/study-combiner-vs-conduit.md),
+  [CE5](maths-claim-evidence.md)): **A6 carried+combined sub-claim supported**
+  (L0 conduits + answer-position **L1 MLP combiner** resolves `U`;
+  tie-break-economy still untested); **A2 supported at the U-combine step** (the
+  nonlinear carry-class combination is in the L1 MLP output; pre-MLP
+  sum-sufficiency still untested); **A5 partial** (U branch in the MLP); **A3
+  anchored** (geometry not measured; combiner locus `P14/P16.L1.MLP` now
+  confirmed for entry 2). The working discriminator was node-level activation
+  invariance (definite-invariant / U-variant), the endpoint-independent fix for
+  the definite-digit carry-independence trap that vacuated the prior gate.
+- **2026-07-15** — After the U-resolution study (Gate 2 returned BLOCK,
+  resolved; positive-but-ambiguous;
+  [study note](study-maths/study-u-resolution-path.md),
+  [CE4](maths-claim-evidence.md)): **no conjecture updated** — A6/A2/A5/A3 all
+  scored **untouched**. The study located an MLP-heavy L0/L1 path that
+  *transmits* the tri-state U-flip and is distinct from the CE3 make-carry heads
+  (reconfirming "separate paths" with named nodes), but its pre-registered
+  combiner discriminator was **vacuous** (a definite digit's `A_{n+1}` has no
+  lower-carry dependence, so the trivial readout also passed), so it cannot tell
+  a U-combiner from a carry-conduit. Method lesson: an interaction gate needs a
+  control arm with a signal a non-target node could transmit; use a *corruption*
+  control next. This tempers the temptation to score A6 "carried state
+  supported" — a question-position MLP transmitting is exactly what transport
+  looks like.
+- **2026-07-14** — After the confirm-ST-node study (Gate 2 returned BLOCK,
+  resolved; [study note](study-maths/study-confirm-st-node.md),
+  [CE3](maths-claim-evidence.md)): **A5 partial support** (confirmed carry heads
+  are static-position, question-independent-attention, value-path-causal).
+  **A6 untouched** (the `=`-resolution sub-claim could not be scored — the `=`
+  patch was layer-0-only and autoregressively confounded). **A2** now has a
+  better anchor (a causally-confirmed carry node) but it is `SC`-grade, not the
+  tri-state `ST` node A2 ultimately concerns. **New incidental finding** (candidate
+  for a future conjecture): the *binary make-carry* and the *tri-state
+  `U`-resolution* are computed by **different paths** — the make-carry head does
+  not transmit U-resolution, yet the model resolves `U` correctly. This splits
+  A2/A3's implicit "one ST node does it all" picture and makes *locating the
+  U-resolution path* the top mechanistic question.

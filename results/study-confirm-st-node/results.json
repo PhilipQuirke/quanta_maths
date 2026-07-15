@@ -1,0 +1,1182 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "control": {
+      "model": "add_d5_l2_h3_t15K_s372001",
+      "accuracy": 1.0,
+      "node_level_control": {
+        "node": "P14L0H1",
+        "digit": 3,
+        "A_n_flip": 0.95,
+        "A_n+1_flip": 0.0,
+        "same_class_null_A_n": 0.0
+      },
+      "coarse_resid_eq_control": {
+        "A_n_flip": 0.0,
+        "A_n+1_flip": 0.0,
+        "any_flip": 0.0
+      }
+    },
+    "sweep": {
+      "model": "add_d5_l2_h3_t15K_s372001",
+      "accuracy": 1.0,
+      "bar": 0.85,
+      "nodes": {
+        "P8L0H1": {
+          "target_digit": 0,
+          "operand_attn_mass": 0.014759331941604614,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.85
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "tristate": {
+              "A_n+1_flip": NaN,
+              "note": "n<1: no lower digit"
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-none"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9666666666666667
+            }
+          }
+        },
+        "P9L0H1": {
+          "target_digit": 0,
+          "operand_attn_mass": 0.0006591309793293476,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "tristate": {
+              "A_n+1_flip": NaN,
+              "note": "n<1: no lower digit"
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-none"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            }
+          }
+        },
+        "P11L0H2": {
+          "target_digit": 0,
+          "operand_attn_mass": 0.9920986294746399,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8833333333333333
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.18333333333333332,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.18333333333333332,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "tristate": {
+              "A_n+1_flip": NaN,
+              "note": "n<1: no lower digit"
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-none"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            }
+          }
+        },
+        "P14L0H1": {
+          "target_digit": 3,
+          "operand_attn_mass": 0.975135326385498,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.8833333333333333,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.8833333333333333,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.9215686274509803,
+              "frac_SA_changed": 0.85
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.8833333333333333,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.8833333333333333,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.8888888888888888,
+              "frac_SA_changed": 0.9
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.8333333333333334,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.8333333333333334,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 0.8392857142857143,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SA"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.9,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.9,
+              "A_n+1_flip": 0.0,
+              "A_n_flip_given_SA_change": 1.0,
+              "frac_SA_changed": 0.9
+            }
+          }
+        },
+        "P13L0H0": {
+          "target_digit": 3,
+          "operand_attn_mass": 0.9862688183784485,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8833333333333333
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9833333333333333
+            }
+          }
+        },
+        "P14L0H0": {
+          "target_digit": 2,
+          "operand_attn_mass": 0.9840911626815796,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.9833333333333333,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9833333333333333
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.9833333333333333,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.9833333333333333,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.9833333333333333,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.9833333333333333,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            }
+          }
+        },
+        "P15L0H0": {
+          "target_digit": 1,
+          "operand_attn_mass": 0.9902095794677734,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8833333333333333
+            }
+          }
+        },
+        "P16L0H0": {
+          "target_digit": 0,
+          "operand_attn_mass": 0.9081856608390808,
+          "bar": 0.85,
+          "both_direction_A_n+1_flip": 0.8166666666666667,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.8166666666666667,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.8166666666666667,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.7666666666666667,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.7666666666666667,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "tristate": {
+              "A_n+1_flip": NaN,
+              "note": "n<1: no lower digit"
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-none"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.9,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.9,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            }
+          }
+        }
+      }
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "control": {
+      "model": "add_d6_l2_h3_t20K_s173289",
+      "accuracy": 1.0,
+      "node_level_control": {
+        "node": "P20L0H1",
+        "digit": 0,
+        "A_n_flip": 0.9333333333333333,
+        "A_n+1_flip": 0.0,
+        "same_class_null_A_n": 0.0
+      },
+      "coarse_resid_eq_control": {
+        "A_n_flip": 0.0,
+        "A_n+1_flip": 0.0,
+        "any_flip": 0.0
+      }
+    },
+    "sweep": {
+      "model": "add_d6_l2_h3_t20K_s173289",
+      "accuracy": 1.0,
+      "bar": 0.8333333333333334,
+      "nodes": {
+        "P14L0H1": {
+          "target_digit": 5,
+          "operand_attn_mass": 0.9542185664176941,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9666666666666667
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            }
+          }
+        },
+        "P15L0H2": {
+          "target_digit": 4,
+          "operand_attn_mass": 0.932356059551239,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8666666666666667
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            }
+          }
+        },
+        "P16L0H2": {
+          "target_digit": 3,
+          "operand_attn_mass": 0.9419057965278625,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            }
+          }
+        },
+        "P17L0H2": {
+          "target_digit": 2,
+          "operand_attn_mass": 0.9435803294181824,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            }
+          }
+        },
+        "P18L0H2": {
+          "target_digit": 1,
+          "operand_attn_mass": 0.8299201726913452,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9166666666666666
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8833333333333333
+            },
+            "tristate": {
+              "A_n+1_flip": 0.0,
+              "n_pairs": 60
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.8166666666666667
+            }
+          }
+        },
+        "P19L0H2": {
+          "target_digit": 0,
+          "operand_attn_mass": 0.929133415222168,
+          "bar": 0.8333333333333334,
+          "both_direction_A_n+1_flip": 1.0,
+          "z": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "local_reverse": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9333333333333333
+            },
+            "cascade": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.95
+            },
+            "tristate": {
+              "A_n+1_flip": NaN,
+              "note": "n<1: no lower digit"
+            },
+            "null": {
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 0.0
+            },
+            "classification": "R-SC(binary)"
+          },
+          "joint_zmlp": {
+            "local": {
+              "per_digit_flip": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0
+              ],
+              "A_n_flip": 0.0,
+              "A_n+1_flip": 1.0,
+              "A_n_flip_given_SA_change": 0.0,
+              "frac_SA_changed": 0.9
+            }
+          }
+        }
+      }
+    }
+  }
+}

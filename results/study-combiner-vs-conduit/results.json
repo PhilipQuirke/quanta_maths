@@ -1,0 +1,158 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "accuracy": 1.0,
+    "refs_separate": true,
+    "inert_ref_diff": 1.1920928955078125e-07,
+    "conduit_ref_diff": 0.752042756206356,
+    "control": {
+      "model": "add_d5_l2_h3_t15K_s372001",
+      "accuracy": 1.0,
+      "n": 2,
+      "conduit_ref": {
+        "pos": 15,
+        "def_diff": 0.752042756206356,
+        "u_diff": 0.7455457277595997
+      },
+      "inert_ref": {
+        "node": "P0L0H0",
+        "def_diff": 1.1920928955078125e-07,
+        "u_diff": 1.1920928955078125e-07
+      }
+    },
+    "nodes": {
+      "P10L0MLP": {
+        "prior_role": "u_transmitter",
+        "kind": "mlp",
+        "target_digit": 2,
+        "def_diff_cos": 0.3502622462809086,
+        "u_diff_cos": 0.7272533141076565,
+        "def_diff_lo": 0.3441734800736109,
+        "def_diff_hi": 0.3563510124882062,
+        "ratio_def_over_u": 0.48162344399771995,
+        "label": "borderline"
+      },
+      "P14L1MLP": {
+        "prior_role": "u_transmitter",
+        "kind": "mlp",
+        "target_digit": 2,
+        "def_diff_cos": 0.0039026568333307902,
+        "u_diff_cos": 1.1834388787547747,
+        "def_diff_lo": 0.0043982009092966715,
+        "def_diff_hi": 0.003407112757364909,
+        "ratio_def_over_u": 0.003297725721280575,
+        "label": "combiner"
+      },
+      "P13L0H0": {
+        "prior_role": "make_carry",
+        "kind": "z",
+        "target_digit": 2,
+        "def_diff_cos": -8.443991343180338e-09,
+        "u_diff_cos": 4.967053731282552e-09,
+        "def_diff_lo": -5.960464477539063e-09,
+        "def_diff_hi": -1.0927518208821614e-08,
+        "ratio_def_over_u": -1.4151022805295566,
+        "label": "inert"
+      },
+      "P14L0H0": {
+        "prior_role": "make_carry",
+        "kind": "z",
+        "target_digit": 2,
+        "def_diff_cos": 2.0077824592590333e-05,
+        "u_diff_cos": 0.001178520917892456,
+        "def_diff_lo": 2.6123722394307456e-05,
+        "def_diff_hi": 1.4031926790873209e-05,
+        "ratio_def_over_u": 0.017036445642432677,
+        "label": "inert"
+      },
+      "P15L0H0": {
+        "prior_role": "make_carry",
+        "kind": "z",
+        "target_digit": 2,
+        "def_diff_cos": 0.9921679114789488,
+        "u_diff_cos": 1.0430569471684672,
+        "def_diff_lo": 1.014808923615783,
+        "def_diff_hi": 0.9695268993421148,
+        "ratio_def_over_u": 0.9512116411487638,
+        "label": "conduit"
+      }
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "accuracy": 1.0,
+    "refs_separate": true,
+    "inert_ref_diff": 0.0,
+    "conduit_ref_diff": 0.5199162915349007,
+    "control": {
+      "model": "add_d6_l2_h3_t20K_s173289",
+      "accuracy": 1.0,
+      "n": 3,
+      "conduit_ref": {
+        "pos": 17,
+        "def_diff": 0.5199162915349007,
+        "u_diff": 0.5579992488026619
+      },
+      "inert_ref": {
+        "node": "P0L0H0",
+        "def_diff": 0.0,
+        "u_diff": 0.0
+      }
+    },
+    "nodes": {
+      "P11L0H2": {
+        "prior_role": "u_transmitter",
+        "kind": "z",
+        "target_digit": 3,
+        "def_diff_cos": 0.9495682365823692,
+        "u_diff_cos": 0.8955066215014085,
+        "def_diff_lo": 0.9737011597647022,
+        "def_diff_hi": 0.9254353134000364,
+        "ratio_def_over_u": 1.0603698651942417,
+        "label": "conduit"
+      },
+      "P11L0MLP": {
+        "prior_role": "u_transmitter",
+        "kind": "mlp",
+        "target_digit": 3,
+        "def_diff_cos": 0.5070297504464785,
+        "u_diff_cos": 0.5866819101075331,
+        "def_diff_lo": 0.5128464365998904,
+        "def_diff_hi": 0.5012130642930667,
+        "ratio_def_over_u": 0.8642327994897815,
+        "label": "conduit"
+      },
+      "P16L1MLP": {
+        "prior_role": "u_transmitter",
+        "kind": "mlp",
+        "target_digit": 3,
+        "def_diff_cos": 0.0038329968849817914,
+        "u_diff_cos": 1.3116998206824064,
+        "def_diff_lo": 0.0062939107418060304,
+        "def_diff_hi": 0.001372083028157552,
+        "ratio_def_over_u": 0.0029221601021989395,
+        "label": "combiner"
+      },
+      "P15L0H2": {
+        "prior_role": "make_carry",
+        "kind": "z",
+        "target_digit": 3,
+        "def_diff_cos": 4.90248203277588e-07,
+        "u_diff_cos": 4.74850336710612e-07,
+        "def_diff_lo": 4.778305689493816e-07,
+        "def_diff_hi": 5.026658376057943e-07,
+        "ratio_def_over_u": 1.0302571322456204,
+        "label": "inert"
+      },
+      "P16L0H2": {
+        "prior_role": "make_carry",
+        "kind": "z",
+        "target_digit": 3,
+        "def_diff_cos": 0.00017737150192260743,
+        "u_diff_cos": 0.0007524251937866211,
+        "def_diff_lo": 0.0001663506031036377,
+        "def_diff_hi": 0.00018839240074157714,
+        "ratio_def_over_u": 0.23573275809282607,
+        "label": "inert"
+      }
+    }
+  }
+}

@@ -1,11 +1,18 @@
 # Study: Pair-Sum Sufficiency at an ST Node (study-pair-sum-sufficiency.md)
 
-Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
+Read role and rules: [Study Notes](../thor-document-rules.md#study-notes)
 
-Agenda entry 1 in [maths-next-steps.md](../maths-next-steps.md). Pre-run
-sections written 2026-07-14, before any analysis was run. Competing reads are
-stated neutrally; this study is designed to classify where discretization
-happens, not to confirm A2.
+## Executive Summary #1
+
+**Verdict: `instrument failure` — A2 untested.** The assay mis-targeted
+and its headline `R²_sum/R²_pair` ratio (~0.20)
+proved non-discriminating.
+
+The one durable by-product (replicated over 6 nodes, 2 models, recorded as CE2):
+at those operand-fetch heads the value-path output is indistinguishable from
+linear transport of the weakly-circular digit embeddings — extending the
+digit-embedding "structure is a weak low-variance projection" motif to the value
+path. This line was frozen.
 
 ## Pre-run (write before the experiment)
 

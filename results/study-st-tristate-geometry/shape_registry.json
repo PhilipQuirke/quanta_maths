@@ -1,0 +1,32 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "shape_verdict_at_combiner_input": "R-other/ambiguous",
+    "u_offaxis": 0.228,
+    "offaxis_perm_p": 0.851,
+    "U_resolved_at_input": {
+      "d_c0_u0": 10.1,
+      "d_c1_u0": 29.5,
+      "d_c0_u1": 30.5,
+      "d_c1_u1": 13.3,
+      "U0vsU1_probe": 1.0
+    },
+    "committed0_lowercarry_move": 1.21,
+    "carry_in_decodable_on_committed": 0.98,
+    "reading": "U resolved to binary axis at combiner input (u0~c0,u1~c1); off-axis n.s.; BUT raw carry_in also ~linearly present (ingredients, not proven-upstream decision)"
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "shape_verdict_at_combiner_input": "R-scalar (U on the 0-1 line; not a third symbol)",
+    "u_offaxis": 0.187,
+    "offaxis_perm_p": 0.924,
+    "U_resolved_at_input": {
+      "d_c0_u0": 6.9,
+      "d_c1_u0": 27.3,
+      "d_c0_u1": 30.3,
+      "d_c1_u1": 9.0,
+      "U0vsU1_probe": 1.0
+    },
+    "committed0_lowercarry_move": 1.65,
+    "carry_in_decodable_on_committed": 0.94,
+    "reading": "U resolved to binary axis at combiner input (u0~c0,u1~c1); off-axis n.s.; BUT raw carry_in also ~linearly present (ingredients, not proven-upstream decision)"
+  }
+}

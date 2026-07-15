@@ -1,0 +1,12 @@
+{
+  "model": "add_d6_l2_h3_t20K_s173289",
+  "accuracy": 1.0,
+  "node_level_control": {
+    "node": "P15L0H2",
+    "digit": 4,
+    "binary_carry_A_n+1_flip": 1.0
+  },
+  "coarse_readout_control": {
+    "A_n+1_flip_on_U": 1.0
+  }
+}

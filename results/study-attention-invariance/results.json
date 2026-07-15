@@ -1,0 +1,2764 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "accuracy": 1.0,
+    "digit": 2,
+    "carry_relevant_positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "informative_cells": 93,
+    "informative_static": 20,
+    "informative_static_fraction": 0.21505376344086022,
+    "target_move_exceptions": {
+      "L1H1": [
+        14
+      ],
+      "L1H2": [
+        15
+      ]
+    },
+    "synthetic_control": {
+      "synthetic_target_move_rate": 1.0,
+      "detects": true
+    },
+    "stability": {
+      "0": {
+        "H0_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H0_Q1": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.36191013172268865,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q2": {
+          "top1_stability": 0.9825,
+          "top2_mass": 0.8808879256248474,
+          "mean_entropy": 0.831104043573141,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q3": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.7767437696456909,
+          "mean_entropy": 1.0997850687801838,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q4": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8368170857429504,
+          "mean_entropy": 0.9042644262313843,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q6": {
+          "top1_stability": 0.7175,
+          "top2_mass": 0.7057240009307861,
+          "mean_entropy": 1.3656810879707337,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q7": {
+          "top1_stability": 0.6775,
+          "top2_mass": 0.48762527108192444,
+          "mean_entropy": 1.863132438659668,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H0_Q8": {
+          "top1_stability": 0.4425,
+          "top2_mass": 0.406503289937973,
+          "mean_entropy": 2.0246770870685578,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q9": {
+          "top1_stability": 0.5125,
+          "top2_mass": 0.9423816800117493,
+          "mean_entropy": 0.7331260589137674,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H0_Q10": {
+          "top1_stability": 0.525,
+          "top2_mass": 0.996474027633667,
+          "mean_entropy": 0.2504491799269454,
+          "informative": false,
+          "modal_key": 2
+        },
+        "H0_Q11": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.830085277557373,
+          "mean_entropy": 0.980991459786892,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H0_Q12": {
+          "top1_stability": 0.3875,
+          "top2_mass": 0.6318455934524536,
+          "mean_entropy": 1.5949893295764923,
+          "informative": true,
+          "modal_key": 7
+        },
+        "H0_Q13": {
+          "top1_stability": 0.53,
+          "top2_mass": 0.9891631603240967,
+          "mean_entropy": 0.32563123370360697,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q14": {
+          "top1_stability": 0.5525,
+          "top2_mass": 0.9902945756912231,
+          "mean_entropy": 0.3214467242069077,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H0_Q15": {
+          "top1_stability": 0.53,
+          "top2_mass": 0.9926843047142029,
+          "mean_entropy": 0.2894613911073247,
+          "informative": false,
+          "modal_key": 3
+        },
+        "H0_Q16": {
+          "top1_stability": 0.5475,
+          "top2_mass": 0.9525114297866821,
+          "mean_entropy": 0.503176733078435,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H0_Q17": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.7636446952819824,
+          "mean_entropy": 1.4183801421523095,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H0_Q18": {
+          "top1_stability": 0.1775,
+          "top2_mass": 0.21560361981391907,
+          "mean_entropy": 2.8014676815271375,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H1_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H1_Q1": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.38272450570017097,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q2": {
+          "top1_stability": 0.94,
+          "top2_mass": 0.9175129532814026,
+          "mean_entropy": 0.8316635622084141,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q3": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8633343577384949,
+          "mean_entropy": 0.864063917696476,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q4": {
+          "top1_stability": 0.9975,
+          "top2_mass": 0.6749666333198547,
+          "mean_entropy": 1.3417828077077865,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q6": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9757328629493713,
+          "mean_entropy": 0.574880258962512,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q7": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8033888339996338,
+          "mean_entropy": 1.0790118481218816,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q8": {
+          "top1_stability": 0.4975,
+          "top2_mass": 0.44681835174560547,
+          "mean_entropy": 1.950245435833931,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q9": {
+          "top1_stability": 0.55,
+          "top2_mass": 0.9690120220184326,
+          "mean_entropy": 0.7976656024158001,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H1_Q10": {
+          "top1_stability": 0.61,
+          "top2_mass": 0.8751919269561768,
+          "mean_entropy": 1.2009248246252537,
+          "informative": true,
+          "modal_key": 9
+        },
+        "H1_Q11": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.844716489315033,
+          "mean_entropy": 1.0610495042800903,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H1_Q12": {
+          "top1_stability": 0.7,
+          "top2_mass": 0.767335057258606,
+          "mean_entropy": 1.4511503568291664,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q13": {
+          "top1_stability": 0.6075,
+          "top2_mass": 0.9613189101219177,
+          "mean_entropy": 0.9178499053418636,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q14": {
+          "top1_stability": 0.5975,
+          "top2_mass": 0.9651704430580139,
+          "mean_entropy": 0.8920864313840866,
+          "informative": true,
+          "modal_key": 7
+        },
+        "H1_Q15": {
+          "top1_stability": 0.5675,
+          "top2_mass": 0.9418490529060364,
+          "mean_entropy": 1.0089085079729556,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q16": {
+          "top1_stability": 0.51,
+          "top2_mass": 0.9695914387702942,
+          "mean_entropy": 0.871316694766283,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H1_Q17": {
+          "top1_stability": 0.5475,
+          "top2_mass": 0.969880998134613,
+          "mean_entropy": 0.8805594150722027,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H1_Q18": {
+          "top1_stability": 0.2275,
+          "top2_mass": 0.17511899769306183,
+          "mean_entropy": 2.888066199421883,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H2_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q1": {
+          "top1_stability": 0.8625,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.5153447156026959,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q2": {
+          "top1_stability": 0.5975,
+          "top2_mass": 0.8480294942855835,
+          "mean_entropy": 0.9610878969728947,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q3": {
+          "top1_stability": 0.7075,
+          "top2_mass": 0.7819923162460327,
+          "mean_entropy": 1.1555553695559502,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H2_Q4": {
+          "top1_stability": 0.52,
+          "top2_mass": 0.7988799214363098,
+          "mean_entropy": 1.1255200752615928,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q6": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9726492166519165,
+          "mean_entropy": 0.26228619934991004,
+          "informative": false,
+          "modal_key": 6
+        },
+        "H2_Q7": {
+          "top1_stability": 0.7675,
+          "top2_mass": 0.48606616258621216,
+          "mean_entropy": 1.8816489231586457,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H2_Q8": {
+          "top1_stability": 0.3475,
+          "top2_mass": 0.41544973850250244,
+          "mean_entropy": 2.0295786315202715,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q9": {
+          "top1_stability": 0.535,
+          "top2_mass": 0.7043361067771912,
+          "mean_entropy": 1.6080758649110793,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H2_Q10": {
+          "top1_stability": 0.53,
+          "top2_mass": 0.9693529009819031,
+          "mean_entropy": 0.6337872377224266,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q11": {
+          "top1_stability": 0.5625,
+          "top2_mass": 0.9993661642074585,
+          "mean_entropy": 0.14250370319825958,
+          "informative": false,
+          "modal_key": 4
+        },
+        "H2_Q12": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.7191711664199829,
+          "mean_entropy": 1.454024839103222,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H2_Q13": {
+          "top1_stability": 0.55,
+          "top2_mass": 0.6747061014175415,
+          "mean_entropy": 1.5015664827823638,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q14": {
+          "top1_stability": 0.53,
+          "top2_mass": 0.8243570923805237,
+          "mean_entropy": 1.3779830473661423,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H2_Q15": {
+          "top1_stability": 0.5075,
+          "top2_mass": 0.805603563785553,
+          "mean_entropy": 1.424095664024353,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H2_Q16": {
+          "top1_stability": 0.5025,
+          "top2_mass": 0.8168064951896667,
+          "mean_entropy": 1.3944835731387137,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q17": {
+          "top1_stability": 0.5075,
+          "top2_mass": 0.7146891951560974,
+          "mean_entropy": 1.7736011323332788,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H2_Q18": {
+          "top1_stability": 0.2575,
+          "top2_mass": 0.2342091053724289,
+          "mean_entropy": 2.7768472623825073,
+          "informative": true,
+          "modal_key": 6
+        }
+      },
+      "1": {
+        "H0_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H0_Q1": {
+          "top1_stability": 0.8025,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.5183650241047144,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q2": {
+          "top1_stability": 0.6775,
+          "top2_mass": 0.8751891255378723,
+          "mean_entropy": 0.8172602742165327,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q3": {
+          "top1_stability": 0.6075,
+          "top2_mass": 0.7645586133003235,
+          "mean_entropy": 1.0983329643309117,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q4": {
+          "top1_stability": 0.7825,
+          "top2_mass": 0.6901969313621521,
+          "mean_entropy": 1.2844801622629165,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q6": {
+          "top1_stability": 0.9675,
+          "top2_mass": 0.883863091468811,
+          "mean_entropy": 0.8508157201856374,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q7": {
+          "top1_stability": 0.7075,
+          "top2_mass": 0.848846435546875,
+          "mean_entropy": 0.9756028939038515,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q8": {
+          "top1_stability": 0.6225,
+          "top2_mass": 0.8459272980690002,
+          "mean_entropy": 0.996716761495918,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q9": {
+          "top1_stability": 0.5825,
+          "top2_mass": 0.9928926229476929,
+          "mean_entropy": 0.13829592660428225,
+          "informative": false,
+          "modal_key": 9
+        },
+        "H0_Q10": {
+          "top1_stability": 0.4775,
+          "top2_mass": 0.9414836764335632,
+          "mean_entropy": 0.5078367192670703,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H0_Q11": {
+          "top1_stability": 0.3925,
+          "top2_mass": 0.6488040089607239,
+          "mean_entropy": 1.6424451531469821,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H0_Q12": {
+          "top1_stability": 0.4225,
+          "top2_mass": 0.9685893058776855,
+          "mean_entropy": 0.507160393820086,
+          "informative": true,
+          "modal_key": 12
+        },
+        "H0_Q13": {
+          "top1_stability": 0.39,
+          "top2_mass": 0.9426615834236145,
+          "mean_entropy": 0.7183512102626264,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H0_Q14": {
+          "top1_stability": 0.4575,
+          "top2_mass": 0.9187033176422119,
+          "mean_entropy": 0.6277945553592371,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H0_Q15": {
+          "top1_stability": 0.4575,
+          "top2_mass": 0.949155867099762,
+          "mean_entropy": 0.41051214328501373,
+          "informative": true,
+          "modal_key": 15
+        },
+        "H0_Q16": {
+          "top1_stability": 0.52,
+          "top2_mass": 0.9589247107505798,
+          "mean_entropy": 0.4233302938219276,
+          "informative": true,
+          "modal_key": 16
+        },
+        "H0_Q17": {
+          "top1_stability": 0.865,
+          "top2_mass": 0.8790099620819092,
+          "mean_entropy": 0.8604534482024611,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H0_Q18": {
+          "top1_stability": 0.22,
+          "top2_mass": 0.7839754223823547,
+          "mean_entropy": 1.2040190949104725,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H1_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H1_Q1": {
+          "top1_stability": 0.95,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.43789379712194204,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q2": {
+          "top1_stability": 0.9825,
+          "top2_mass": 0.927418053150177,
+          "mean_entropy": 0.6256322816200555,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q3": {
+          "top1_stability": 0.9325,
+          "top2_mass": 0.8427317142486572,
+          "mean_entropy": 0.8684226708859205,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q4": {
+          "top1_stability": 0.9625,
+          "top2_mass": 0.8166179060935974,
+          "mean_entropy": 0.9990611291304231,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q6": {
+          "top1_stability": 0.7075,
+          "top2_mass": 0.7145817279815674,
+          "mean_entropy": 1.3307866621017457,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H1_Q7": {
+          "top1_stability": 0.6425,
+          "top2_mass": 0.9838362336158752,
+          "mean_entropy": 0.3695742674567737,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q8": {
+          "top1_stability": 0.5925,
+          "top2_mass": 0.9634075164794922,
+          "mean_entropy": 0.5004304874874651,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q9": {
+          "top1_stability": 0.9175,
+          "top2_mass": 0.8987776041030884,
+          "mean_entropy": 0.8315250357799232,
+          "informative": true,
+          "modal_key": 9
+        },
+        "H1_Q10": {
+          "top1_stability": 0.805,
+          "top2_mass": 0.8115684390068054,
+          "mean_entropy": 1.181629759669304,
+          "informative": true,
+          "modal_key": 10
+        },
+        "H1_Q11": {
+          "top1_stability": 0.5825,
+          "top2_mass": 0.7619879245758057,
+          "mean_entropy": 1.309182482138276,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H1_Q12": {
+          "top1_stability": 0.6975,
+          "top2_mass": 0.9985795617103577,
+          "mean_entropy": 0.20749730514409748,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H1_Q13": {
+          "top1_stability": 0.5775,
+          "top2_mass": 0.8788602948188782,
+          "mean_entropy": 0.76867202771944,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H1_Q14": {
+          "top1_stability": 0.6075,
+          "top2_mass": 0.7929791212081909,
+          "mean_entropy": 1.1507237585633994,
+          "informative": true,
+          "modal_key": 14
+        },
+        "H1_Q15": {
+          "top1_stability": 0.7625,
+          "top2_mass": 0.8156754374504089,
+          "mean_entropy": 1.0139016323909162,
+          "informative": true,
+          "modal_key": 15
+        },
+        "H1_Q16": {
+          "top1_stability": 0.6425,
+          "top2_mass": 0.8044671416282654,
+          "mean_entropy": 1.095930554913357,
+          "informative": true,
+          "modal_key": 16
+        },
+        "H1_Q17": {
+          "top1_stability": 0.4025,
+          "top2_mass": 0.7073071002960205,
+          "mean_entropy": 1.4778617565706371,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H1_Q18": {
+          "top1_stability": 0.435,
+          "top2_mass": 0.7650721073150635,
+          "mean_entropy": 1.232337328142021,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q1": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.18976303493604063,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q2": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9783756732940674,
+          "mean_entropy": 0.31070011313073337,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q3": {
+          "top1_stability": 0.9925,
+          "top2_mass": 0.9374304413795471,
+          "mean_entropy": 0.4800478630140424,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q4": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9514155387878418,
+          "mean_entropy": 0.42099564891308544,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q6": {
+          "top1_stability": 0.9,
+          "top2_mass": 0.9432211518287659,
+          "mean_entropy": 0.6085511048324406,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q7": {
+          "top1_stability": 0.62,
+          "top2_mass": 0.9753632545471191,
+          "mean_entropy": 0.3890150537730369,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q8": {
+          "top1_stability": 0.51,
+          "top2_mass": 0.9840739965438843,
+          "mean_entropy": 0.39155273623982795,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q9": {
+          "top1_stability": 0.535,
+          "top2_mass": 0.9692816138267517,
+          "mean_entropy": 0.30330789214069226,
+          "informative": true,
+          "modal_key": 9
+        },
+        "H2_Q10": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.8979922533035278,
+          "mean_entropy": 0.6890961042058188,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H2_Q11": {
+          "top1_stability": 0.65,
+          "top2_mass": 0.7023113965988159,
+          "mean_entropy": 1.3583020727708937,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q12": {
+          "top1_stability": 0.665,
+          "top2_mass": 0.9948955774307251,
+          "mean_entropy": 0.20334517744169375,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q13": {
+          "top1_stability": 0.4325,
+          "top2_mass": 0.985088050365448,
+          "mean_entropy": 0.23935222446883017,
+          "informative": false,
+          "modal_key": 13
+        },
+        "H2_Q14": {
+          "top1_stability": 0.475,
+          "top2_mass": 0.9534892439842224,
+          "mean_entropy": 0.45524216417983554,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H2_Q15": {
+          "top1_stability": 0.4675,
+          "top2_mass": 0.9604658484458923,
+          "mean_entropy": 0.35069638062777814,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H2_Q16": {
+          "top1_stability": 0.4125,
+          "top2_mass": 0.9505391716957092,
+          "mean_entropy": 0.5024872781905287,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H2_Q17": {
+          "top1_stability": 0.78,
+          "top2_mass": 0.896954357624054,
+          "mean_entropy": 0.7859740028262604,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H2_Q18": {
+          "top1_stability": 0.3925,
+          "top2_mass": 0.8554930090904236,
+          "mean_entropy": 0.8955852155794856,
+          "informative": true,
+          "modal_key": 0
+        }
+      }
+    },
+    "falsifier": {
+      "L0H0": {
+        "max_top1_move_rate": 0.8,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.06666666666666667,
+            "null_move": 0.6
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.4666666666666667
+          },
+          "9": {
+            "vm_top1_move": 0.36666666666666664,
+            "null_move": 0.5166666666666667
+          },
+          "10": {
+            "vm_top1_move": 0.1,
+            "null_move": 0.5166666666666667
+          },
+          "11": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.21666666666666667
+          },
+          "15": {
+            "vm_top1_move": 0.45,
+            "null_move": 0.4666666666666667
+          },
+          "16": {
+            "vm_top1_move": 0.36666666666666664,
+            "null_move": 0.5666666666666667
+          },
+          "17": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "18": {
+            "vm_top1_move": 0.8,
+            "null_move": 0.5333333333333333
+          }
+        }
+      },
+      "L0H1": {
+        "max_top1_move_rate": 0.5,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.6833333333333333
+          },
+          "9": {
+            "vm_top1_move": 0.2833333333333333,
+            "null_move": 0.45
+          },
+          "10": {
+            "vm_top1_move": 0.5,
+            "null_move": 0.35
+          },
+          "11": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.15,
+            "null_move": 0.5
+          },
+          "16": {
+            "vm_top1_move": 0.43333333333333335,
+            "null_move": 0.3
+          },
+          "17": {
+            "vm_top1_move": 0.3,
+            "null_move": 0.5833333333333334
+          },
+          "18": {
+            "vm_top1_move": 0.5,
+            "null_move": 0.6666666666666666
+          }
+        }
+      },
+      "L0H2": {
+        "max_top1_move_rate": 0.5666666666666667,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.6
+          },
+          "3": {
+            "vm_top1_move": 0.25,
+            "null_move": 0.2
+          },
+          "4": {
+            "vm_top1_move": 0.21666666666666667,
+            "null_move": 0.3
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.08333333333333333,
+            "null_move": 0.18333333333333332
+          },
+          "8": {
+            "vm_top1_move": 0.13333333333333333,
+            "null_move": 0.7166666666666667
+          },
+          "9": {
+            "vm_top1_move": 0.08333333333333333,
+            "null_move": 0.5
+          },
+          "10": {
+            "vm_top1_move": 0.43333333333333335,
+            "null_move": 0.4
+          },
+          "11": {
+            "vm_top1_move": 0.45,
+            "null_move": 0.5833333333333334
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.31666666666666665,
+            "null_move": 0.4666666666666667
+          },
+          "16": {
+            "vm_top1_move": 0.55,
+            "null_move": 0.5166666666666667
+          },
+          "17": {
+            "vm_top1_move": 0.5666666666666667,
+            "null_move": 0.4
+          },
+          "18": {
+            "vm_top1_move": 0.38333333333333336,
+            "null_move": 0.4666666666666667
+          }
+        }
+      },
+      "L1H0": {
+        "max_top1_move_rate": 0.7333333333333333,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.016666666666666666,
+            "null_move": 0.0
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "9": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "10": {
+            "vm_top1_move": 0.11666666666666667,
+            "null_move": 0.13333333333333333
+          },
+          "11": {
+            "vm_top1_move": 0.03333333333333333,
+            "null_move": 0.03333333333333333
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.3,
+            "null_move": 0.5
+          },
+          "15": {
+            "vm_top1_move": 0.7333333333333333,
+            "null_move": 0.5666666666666667
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.016666666666666666
+          },
+          "17": {
+            "vm_top1_move": 0.2,
+            "null_move": 0.5333333333333333
+          },
+          "18": {
+            "vm_top1_move": 0.7,
+            "null_move": 0.7333333333333333
+          }
+        }
+      },
+      "L1H1": {
+        "max_top1_move_rate": 0.8166666666666667,
+        "exception_positions": [
+          14
+        ],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.18333333333333332,
+            "null_move": 0.11666666666666667
+          },
+          "9": {
+            "vm_top1_move": 0.1,
+            "null_move": 0.43333333333333335
+          },
+          "10": {
+            "vm_top1_move": 0.05,
+            "null_move": 0.1
+          },
+          "11": {
+            "vm_top1_move": 0.4,
+            "null_move": 0.35
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.15,
+            "null_move": 0.2
+          },
+          "14": {
+            "vm_top1_move": 0.7166666666666667,
+            "null_move": 0.4
+          },
+          "15": {
+            "vm_top1_move": 0.8166666666666667,
+            "null_move": 0.7166666666666667
+          },
+          "16": {
+            "vm_top1_move": 0.7666666666666667,
+            "null_move": 0.7166666666666667
+          },
+          "17": {
+            "vm_top1_move": 0.8166666666666667,
+            "null_move": 0.7
+          },
+          "18": {
+            "vm_top1_move": 0.23333333333333334,
+            "null_move": 0.3333333333333333
+          }
+        }
+      },
+      "L1H2": {
+        "max_top1_move_rate": 1.0,
+        "exception_positions": [
+          15
+        ],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "6": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.06666666666666667,
+            "null_move": 0.016666666666666666
+          },
+          "8": {
+            "vm_top1_move": 0.016666666666666666,
+            "null_move": 0.05
+          },
+          "9": {
+            "vm_top1_move": 0.05,
+            "null_move": 0.016666666666666666
+          },
+          "10": {
+            "vm_top1_move": 0.03333333333333333,
+            "null_move": 0.0
+          },
+          "11": {
+            "vm_top1_move": 0.016666666666666666,
+            "null_move": 0.0
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.3,
+            "null_move": 0.48333333333333334
+          },
+          "15": {
+            "vm_top1_move": 1.0,
+            "null_move": 0.5333333333333333
+          },
+          "16": {
+            "vm_top1_move": 0.45,
+            "null_move": 0.48333333333333334
+          },
+          "17": {
+            "vm_top1_move": 0.4,
+            "null_move": 0.5666666666666667
+          },
+          "18": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.38333333333333336
+          }
+        }
+      }
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "accuracy": 1.0,
+    "digit": 3,
+    "carry_relevant_positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "informative_cells": 109,
+    "informative_static": 23,
+    "informative_static_fraction": 0.21100917431192662,
+    "target_move_exceptions": {
+      "L0H0": [
+        17
+      ],
+      "L1H1": [
+        11,
+        14,
+        17
+      ],
+      "L1H2": [
+        11,
+        17
+      ]
+    },
+    "synthetic_control": {
+      "synthetic_target_move_rate": 1.0,
+      "detects": true
+    },
+    "stability": {
+      "0": {
+        "H0_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H0_Q1": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.43667576275765896,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q2": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8987159729003906,
+          "mean_entropy": 0.7729699628800154,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q3": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8796616196632385,
+          "mean_entropy": 0.7926897800713778,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q4": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8801438808441162,
+          "mean_entropy": 0.8209441874176264,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q5": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9285183548927307,
+          "mean_entropy": 0.6715274814516305,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q7": {
+          "top1_stability": 0.9225,
+          "top2_mass": 0.6922383904457092,
+          "mean_entropy": 1.53668655782938,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q8": {
+          "top1_stability": 0.9975,
+          "top2_mass": 0.5357525944709778,
+          "mean_entropy": 1.8420605278015136,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q9": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.7068896293640137,
+          "mean_entropy": 1.4892299264669417,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q10": {
+          "top1_stability": 0.8425,
+          "top2_mass": 0.5724079012870789,
+          "mean_entropy": 1.8451834666728972,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q11": {
+          "top1_stability": 0.385,
+          "top2_mass": 0.36919066309928894,
+          "mean_entropy": 2.2501579904556275,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q12": {
+          "top1_stability": 0.54,
+          "top2_mass": 0.9825624227523804,
+          "mean_entropy": 0.5079552289377898,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H0_Q13": {
+          "top1_stability": 0.3,
+          "top2_mass": 0.21033643186092377,
+          "mean_entropy": 2.5920080012083053,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q14": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.724937915802002,
+          "mean_entropy": 1.4550382283329963,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H0_Q15": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.604971170425415,
+          "mean_entropy": 1.905061087012291,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q16": {
+          "top1_stability": 0.8625,
+          "top2_mass": 0.5193968415260315,
+          "mean_entropy": 2.053908946812153,
+          "informative": true,
+          "modal_key": 14
+        },
+        "H0_Q17": {
+          "top1_stability": 0.6075,
+          "top2_mass": 0.5201296210289001,
+          "mean_entropy": 2.223023064136505,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q18": {
+          "top1_stability": 0.345,
+          "top2_mass": 0.49768897891044617,
+          "mean_entropy": 2.167694492638111,
+          "informative": true,
+          "modal_key": 10
+        },
+        "H0_Q19": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.6974480152130127,
+          "mean_entropy": 1.6271881863474846,
+          "informative": true,
+          "modal_key": 14
+        },
+        "H0_Q20": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.7171276807785034,
+          "mean_entropy": 1.668952260017395,
+          "informative": true,
+          "modal_key": 14
+        },
+        "H0_Q21": {
+          "top1_stability": 0.44,
+          "top2_mass": 0.2150036096572876,
+          "mean_entropy": 2.929532056450844,
+          "informative": true,
+          "modal_key": 15
+        },
+        "H1_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H1_Q1": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.5519525100290775,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q2": {
+          "top1_stability": 0.72,
+          "top2_mass": 0.7808510065078735,
+          "mean_entropy": 1.0504574836790561,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q3": {
+          "top1_stability": 0.975,
+          "top2_mass": 0.6825535297393799,
+          "mean_entropy": 1.2739109349250795,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q4": {
+          "top1_stability": 0.465,
+          "top2_mass": 0.6184701323509216,
+          "mean_entropy": 1.4561542096734046,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q5": {
+          "top1_stability": 0.43,
+          "top2_mass": 0.5607837438583374,
+          "mean_entropy": 1.6208077904582023,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q7": {
+          "top1_stability": 0.525,
+          "top2_mass": 0.48116424679756165,
+          "mean_entropy": 1.8570576006174087,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q8": {
+          "top1_stability": 0.7825,
+          "top2_mass": 0.3330484628677368,
+          "mean_entropy": 2.13568575322628,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q9": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.3652685582637787,
+          "mean_entropy": 2.187199495434761,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q10": {
+          "top1_stability": 0.5625,
+          "top2_mass": 0.837050199508667,
+          "mean_entropy": 1.3389949741959573,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H1_Q11": {
+          "top1_stability": 0.64,
+          "top2_mass": 0.852112889289856,
+          "mean_entropy": 1.3263348442316056,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q12": {
+          "top1_stability": 0.5275,
+          "top2_mass": 0.9912946224212646,
+          "mean_entropy": 0.436352307992056,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H1_Q13": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9520846605300903,
+          "mean_entropy": 0.36718614064157007,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H1_Q14": {
+          "top1_stability": 0.605,
+          "top2_mass": 0.9625312089920044,
+          "mean_entropy": 0.6317381368950009,
+          "informative": true,
+          "modal_key": 7
+        },
+        "H1_Q15": {
+          "top1_stability": 0.5025,
+          "top2_mass": 0.8752313256263733,
+          "mean_entropy": 1.2175085067749023,
+          "informative": true,
+          "modal_key": 7
+        },
+        "H1_Q16": {
+          "top1_stability": 0.6125,
+          "top2_mass": 0.9409367442131042,
+          "mean_entropy": 1.0291371200978756,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H1_Q17": {
+          "top1_stability": 0.5275,
+          "top2_mass": 0.9514930844306946,
+          "mean_entropy": 0.9825771771371364,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H1_Q18": {
+          "top1_stability": 0.555,
+          "top2_mass": 0.9434214234352112,
+          "mean_entropy": 1.0252562342584133,
+          "informative": true,
+          "modal_key": 10
+        },
+        "H1_Q19": {
+          "top1_stability": 0.575,
+          "top2_mass": 0.9629767537117004,
+          "mean_entropy": 0.9249731341004371,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H1_Q20": {
+          "top1_stability": 0.525,
+          "top2_mass": 0.9685894846916199,
+          "mean_entropy": 0.8995831303298474,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q21": {
+          "top1_stability": 0.415,
+          "top2_mass": 0.23341381549835205,
+          "mean_entropy": 2.8875738841295244,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H2_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q1": {
+          "top1_stability": 0.695,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.6766193117201328,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q2": {
+          "top1_stability": 0.59,
+          "top2_mass": 0.7468971014022827,
+          "mean_entropy": 1.0705364549160004,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H2_Q3": {
+          "top1_stability": 0.95,
+          "top2_mass": 0.7227598428726196,
+          "mean_entropy": 1.2073222425580026,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H2_Q4": {
+          "top1_stability": 0.6875,
+          "top2_mass": 0.6364705562591553,
+          "mean_entropy": 1.4257312698662281,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q5": {
+          "top1_stability": 0.8925,
+          "top2_mass": 0.7646244764328003,
+          "mean_entropy": 1.1894092819094657,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q7": {
+          "top1_stability": 0.82,
+          "top2_mass": 0.4630908668041229,
+          "mean_entropy": 1.893255713880062,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q8": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.6599207520484924,
+          "mean_entropy": 1.5643515658378602,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q9": {
+          "top1_stability": 0.8975,
+          "top2_mass": 0.3893662393093109,
+          "mean_entropy": 2.1299356508255003,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q10": {
+          "top1_stability": 0.5125,
+          "top2_mass": 0.9652109742164612,
+          "mean_entropy": 0.7198199485987424,
+          "informative": true,
+          "modal_key": 9
+        },
+        "H2_Q11": {
+          "top1_stability": 0.5375,
+          "top2_mass": 0.9711108207702637,
+          "mean_entropy": 0.7074390566349029,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q12": {
+          "top1_stability": 0.5325,
+          "top2_mass": 0.9143836498260498,
+          "mean_entropy": 0.914128762036562,
+          "informative": true,
+          "modal_key": 12
+        },
+        "H2_Q13": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.920833945274353,
+          "mean_entropy": 0.5541277475655079,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H2_Q14": {
+          "top1_stability": 0.5075,
+          "top2_mass": 0.920855700969696,
+          "mean_entropy": 0.9767096677422523,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H2_Q15": {
+          "top1_stability": 0.57,
+          "top2_mass": 0.9458727240562439,
+          "mean_entropy": 0.8284658081084489,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H2_Q16": {
+          "top1_stability": 0.5325,
+          "top2_mass": 0.962575376033783,
+          "mean_entropy": 0.7909618639200926,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H2_Q17": {
+          "top1_stability": 0.5675,
+          "top2_mass": 0.9566868543624878,
+          "mean_entropy": 0.743002875186503,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H2_Q18": {
+          "top1_stability": 0.515,
+          "top2_mass": 0.8918477892875671,
+          "mean_entropy": 1.0446599125117064,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H2_Q19": {
+          "top1_stability": 0.5125,
+          "top2_mass": 0.9703169465065002,
+          "mean_entropy": 0.6097848187386989,
+          "informative": true,
+          "modal_key": 12
+        },
+        "H2_Q20": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.3871765434741974,
+          "mean_entropy": 2.601372381448746,
+          "informative": true,
+          "modal_key": 15
+        },
+        "H2_Q21": {
+          "top1_stability": 0.5475,
+          "top2_mass": 0.21998746693134308,
+          "mean_entropy": 2.9393996095657347,
+          "informative": true,
+          "modal_key": 9
+        }
+      },
+      "1": {
+        "H0_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H0_Q1": {
+          "top1_stability": 0.88,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.6148266461491585,
+          "informative": true,
+          "modal_key": 1
+        },
+        "H0_Q2": {
+          "top1_stability": 0.63,
+          "top2_mass": 0.792736291885376,
+          "mean_entropy": 1.0165295243263244,
+          "informative": true,
+          "modal_key": 2
+        },
+        "H0_Q3": {
+          "top1_stability": 0.61,
+          "top2_mass": 0.6827282905578613,
+          "mean_entropy": 1.26018433958292,
+          "informative": true,
+          "modal_key": 3
+        },
+        "H0_Q4": {
+          "top1_stability": 0.46,
+          "top2_mass": 0.6025679111480713,
+          "mean_entropy": 1.4597600843012333,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H0_Q5": {
+          "top1_stability": 0.53,
+          "top2_mass": 0.5543698072433472,
+          "mean_entropy": 1.6100354978442193,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H0_Q7": {
+          "top1_stability": 0.4275,
+          "top2_mass": 0.47460243105888367,
+          "mean_entropy": 1.863274040222168,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q8": {
+          "top1_stability": 0.435,
+          "top2_mass": 0.46440353989601135,
+          "mean_entropy": 1.9351992297172547,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H0_Q9": {
+          "top1_stability": 0.335,
+          "top2_mass": 0.4188813269138336,
+          "mean_entropy": 2.074856504201889,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H0_Q10": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9761837720870972,
+          "mean_entropy": 0.17888901890284614,
+          "informative": false,
+          "modal_key": 10
+        },
+        "H0_Q11": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9939007759094238,
+          "mean_entropy": 0.10597065027061035,
+          "informative": false,
+          "modal_key": 11
+        },
+        "H0_Q12": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9904926419258118,
+          "mean_entropy": 0.189530514676444,
+          "informative": false,
+          "modal_key": 12
+        },
+        "H0_Q13": {
+          "top1_stability": 0.3775,
+          "top2_mass": 0.31953004002571106,
+          "mean_entropy": 2.350491833686829,
+          "informative": true,
+          "modal_key": 6
+        },
+        "H0_Q14": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.99129319190979,
+          "mean_entropy": 0.12203370342729614,
+          "informative": false,
+          "modal_key": 14
+        },
+        "H0_Q15": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.9918216466903687,
+          "mean_entropy": 0.19120963457040488,
+          "informative": false,
+          "modal_key": 15
+        },
+        "H0_Q16": {
+          "top1_stability": 0.94,
+          "top2_mass": 0.9485011100769043,
+          "mean_entropy": 0.6863968323171139,
+          "informative": true,
+          "modal_key": 16
+        },
+        "H0_Q17": {
+          "top1_stability": 0.945,
+          "top2_mass": 0.9651858806610107,
+          "mean_entropy": 0.6733022383227945,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H0_Q18": {
+          "top1_stability": 0.9575,
+          "top2_mass": 0.9846145510673523,
+          "mean_entropy": 0.177520787314279,
+          "informative": false,
+          "modal_key": 18
+        },
+        "H0_Q19": {
+          "top1_stability": 0.9625,
+          "top2_mass": 0.9705088138580322,
+          "mean_entropy": 0.344734661122784,
+          "informative": true,
+          "modal_key": 19
+        },
+        "H0_Q20": {
+          "top1_stability": 0.925,
+          "top2_mass": 0.9821911454200745,
+          "mean_entropy": 0.24145378660643474,
+          "informative": false,
+          "modal_key": 20
+        },
+        "H0_Q21": {
+          "top1_stability": 0.725,
+          "top2_mass": 0.7478059530258179,
+          "mean_entropy": 1.3305849310010671,
+          "informative": true,
+          "modal_key": 21
+        },
+        "H1_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H1_Q1": {
+          "top1_stability": 0.72,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.5652209343016148,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q2": {
+          "top1_stability": 0.5075,
+          "top2_mass": 0.8637927174568176,
+          "mean_entropy": 0.8722744144685567,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q3": {
+          "top1_stability": 0.4025,
+          "top2_mass": 0.7437651753425598,
+          "mean_entropy": 1.158284828364849,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q4": {
+          "top1_stability": 0.4725,
+          "top2_mass": 0.6668755412101746,
+          "mean_entropy": 1.352873604595661,
+          "informative": true,
+          "modal_key": 4
+        },
+        "H1_Q5": {
+          "top1_stability": 0.4325,
+          "top2_mass": 0.5863810181617737,
+          "mean_entropy": 1.5615472295880317,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q7": {
+          "top1_stability": 0.31,
+          "top2_mass": 0.5490729212760925,
+          "mean_entropy": 1.7293408298492432,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H1_Q8": {
+          "top1_stability": 0.31,
+          "top2_mass": 0.4689295291900635,
+          "mean_entropy": 1.9174051493406297,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q9": {
+          "top1_stability": 0.2825,
+          "top2_mass": 0.5344477295875549,
+          "mean_entropy": 1.822018170207739,
+          "informative": true,
+          "modal_key": 5
+        },
+        "H1_Q10": {
+          "top1_stability": 0.4875,
+          "top2_mass": 0.9091143608093262,
+          "mean_entropy": 0.6491342451286937,
+          "informative": true,
+          "modal_key": 10
+        },
+        "H1_Q11": {
+          "top1_stability": 0.4725,
+          "top2_mass": 0.9256248474121094,
+          "mean_entropy": 0.5200932543633644,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H1_Q12": {
+          "top1_stability": 0.425,
+          "top2_mass": 0.851616382598877,
+          "mean_entropy": 0.8937211057691138,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H1_Q13": {
+          "top1_stability": 1.0,
+          "top2_mass": 0.8770588636398315,
+          "mean_entropy": 0.8653531463444233,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H1_Q14": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.8817805647850037,
+          "mean_entropy": 0.6589907521399436,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H1_Q15": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.9471615552902222,
+          "mean_entropy": 0.39789640377017577,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H1_Q16": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.9412895441055298,
+          "mean_entropy": 0.46122565815738603,
+          "informative": true,
+          "modal_key": 16
+        },
+        "H1_Q17": {
+          "top1_stability": 0.4725,
+          "top2_mass": 0.9357779622077942,
+          "mean_entropy": 0.49258103576845463,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H1_Q18": {
+          "top1_stability": 0.4775,
+          "top2_mass": 0.9686136841773987,
+          "mean_entropy": 0.236431411908153,
+          "informative": false,
+          "modal_key": 13
+        },
+        "H1_Q19": {
+          "top1_stability": 0.5225,
+          "top2_mass": 0.9890443682670593,
+          "mean_entropy": 0.10949347862028823,
+          "informative": false,
+          "modal_key": 19
+        },
+        "H1_Q20": {
+          "top1_stability": 0.9525,
+          "top2_mass": 0.9747647047042847,
+          "mean_entropy": 0.37726183934719304,
+          "informative": true,
+          "modal_key": 20
+        },
+        "H1_Q21": {
+          "top1_stability": 0.3675,
+          "top2_mass": 0.8419274687767029,
+          "mean_entropy": 0.8970354512013364,
+          "informative": true,
+          "modal_key": 12
+        },
+        "H2_Q0": {
+          "top1_stability": 1.0,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.0,
+          "informative": false,
+          "modal_key": 0
+        },
+        "H2_Q1": {
+          "top1_stability": 0.8075,
+          "top2_mass": 1.0,
+          "mean_entropy": 0.5877152422070503,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q2": {
+          "top1_stability": 0.715,
+          "top2_mass": 0.844066321849823,
+          "mean_entropy": 0.9104323995858431,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q3": {
+          "top1_stability": 0.5175,
+          "top2_mass": 0.7389960289001465,
+          "mean_entropy": 1.1669890682026745,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q4": {
+          "top1_stability": 0.4225,
+          "top2_mass": 0.6263724565505981,
+          "mean_entropy": 1.4291335827112197,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q5": {
+          "top1_stability": 0.38,
+          "top2_mass": 0.5515867471694946,
+          "mean_entropy": 1.6202285531163216,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q7": {
+          "top1_stability": 0.55,
+          "top2_mass": 0.5293561816215515,
+          "mean_entropy": 1.7789426684379577,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q8": {
+          "top1_stability": 0.3975,
+          "top2_mass": 0.453865647315979,
+          "mean_entropy": 1.9589054077863692,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q9": {
+          "top1_stability": 0.3975,
+          "top2_mass": 0.4864439368247986,
+          "mean_entropy": 1.9362282158434392,
+          "informative": true,
+          "modal_key": 0
+        },
+        "H2_Q10": {
+          "top1_stability": 0.6075,
+          "top2_mass": 0.9355365633964539,
+          "mean_entropy": 0.5245044257142581,
+          "informative": true,
+          "modal_key": 10
+        },
+        "H2_Q11": {
+          "top1_stability": 0.5025,
+          "top2_mass": 0.8735888004302979,
+          "mean_entropy": 0.7127878150489414,
+          "informative": true,
+          "modal_key": 11
+        },
+        "H2_Q12": {
+          "top1_stability": 0.845,
+          "top2_mass": 0.8734498023986816,
+          "mean_entropy": 0.8954450909030857,
+          "informative": true,
+          "modal_key": 12
+        },
+        "H2_Q13": {
+          "top1_stability": 0.6175,
+          "top2_mass": 0.3521094024181366,
+          "mean_entropy": 2.2918343961238863,
+          "informative": true,
+          "modal_key": 8
+        },
+        "H2_Q14": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.9504024982452393,
+          "mean_entropy": 0.41624038212848974,
+          "informative": true,
+          "modal_key": 13
+        },
+        "H2_Q15": {
+          "top1_stability": 0.4825,
+          "top2_mass": 0.988913893699646,
+          "mean_entropy": 0.15486844848486514,
+          "informative": false,
+          "modal_key": 13
+        },
+        "H2_Q16": {
+          "top1_stability": 0.475,
+          "top2_mass": 0.9712703227996826,
+          "mean_entropy": 0.34051904170199343,
+          "informative": true,
+          "modal_key": 16
+        },
+        "H2_Q17": {
+          "top1_stability": 0.4775,
+          "top2_mass": 0.9319499135017395,
+          "mean_entropy": 0.5225040927742145,
+          "informative": true,
+          "modal_key": 17
+        },
+        "H2_Q18": {
+          "top1_stability": 0.4775,
+          "top2_mass": 0.9826469421386719,
+          "mean_entropy": 0.20431484565109373,
+          "informative": false,
+          "modal_key": 13
+        },
+        "H2_Q19": {
+          "top1_stability": 0.505,
+          "top2_mass": 0.9620060920715332,
+          "mean_entropy": 0.3078380066484717,
+          "informative": true,
+          "modal_key": 19
+        },
+        "H2_Q20": {
+          "top1_stability": 0.975,
+          "top2_mass": 0.9349446296691895,
+          "mean_entropy": 0.5424893208791036,
+          "informative": true,
+          "modal_key": 20
+        },
+        "H2_Q21": {
+          "top1_stability": 0.165,
+          "top2_mass": 0.7397273182868958,
+          "mean_entropy": 1.2754964107536966,
+          "informative": true,
+          "modal_key": 13
+        }
+      }
+    },
+    "falsifier": {
+      "L0H0": {
+        "max_top1_move_rate": 1.0,
+        "exception_positions": [
+          17
+        ],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "5": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "9": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "10": {
+            "vm_top1_move": 0.25,
+            "null_move": 0.3333333333333333
+          },
+          "11": {
+            "vm_top1_move": 0.5666666666666667,
+            "null_move": 0.6166666666666667
+          },
+          "12": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.45
+          },
+          "13": {
+            "vm_top1_move": 0.3333333333333333,
+            "null_move": 0.7166666666666667
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "17": {
+            "vm_top1_move": 1.0,
+            "null_move": 0.0
+          },
+          "18": {
+            "vm_top1_move": 0.55,
+            "null_move": 0.5666666666666667
+          },
+          "19": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "20": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "21": {
+            "vm_top1_move": 0.23333333333333334,
+            "null_move": 0.25
+          }
+        }
+      },
+      "L0H1": {
+        "max_top1_move_rate": 0.6,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.4
+          },
+          "3": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "4": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.4166666666666667
+          },
+          "5": {
+            "vm_top1_move": 0.55,
+            "null_move": 0.7
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.5166666666666667
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.5333333333333333
+          },
+          "9": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "10": {
+            "vm_top1_move": 0.6,
+            "null_move": 0.4
+          },
+          "11": {
+            "vm_top1_move": 0.31666666666666665,
+            "null_move": 0.4166666666666667
+          },
+          "12": {
+            "vm_top1_move": 0.45,
+            "null_move": 0.4
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "17": {
+            "vm_top1_move": 0.48333333333333334,
+            "null_move": 0.48333333333333334
+          },
+          "18": {
+            "vm_top1_move": 0.48333333333333334,
+            "null_move": 0.35
+          },
+          "19": {
+            "vm_top1_move": 0.5166666666666667,
+            "null_move": 0.48333333333333334
+          },
+          "20": {
+            "vm_top1_move": 0.43333333333333335,
+            "null_move": 0.45
+          },
+          "21": {
+            "vm_top1_move": 0.11666666666666667,
+            "null_move": 0.08333333333333333
+          }
+        }
+      },
+      "L0H2": {
+        "max_top1_move_rate": 0.65,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.06666666666666667,
+            "null_move": 0.15
+          },
+          "4": {
+            "vm_top1_move": 0.5333333333333333,
+            "null_move": 0.6333333333333333
+          },
+          "5": {
+            "vm_top1_move": 0.16666666666666666,
+            "null_move": 0.11666666666666667
+          },
+          "7": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "9": {
+            "vm_top1_move": 0.05,
+            "null_move": 0.16666666666666666
+          },
+          "10": {
+            "vm_top1_move": 0.05,
+            "null_move": 0.48333333333333334
+          },
+          "11": {
+            "vm_top1_move": 0.65,
+            "null_move": 0.4666666666666667
+          },
+          "12": {
+            "vm_top1_move": 0.4166666666666667,
+            "null_move": 0.36666666666666664
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.21666666666666667
+          },
+          "17": {
+            "vm_top1_move": 0.5833333333333334,
+            "null_move": 0.55
+          },
+          "18": {
+            "vm_top1_move": 0.4,
+            "null_move": 0.6166666666666667
+          },
+          "19": {
+            "vm_top1_move": 0.4166666666666667,
+            "null_move": 0.45
+          },
+          "20": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "21": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.6333333333333333
+          }
+        }
+      },
+      "L1H0": {
+        "max_top1_move_rate": 0.55,
+        "exception_positions": [],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.7
+          },
+          "3": {
+            "vm_top1_move": 0.2833333333333333,
+            "null_move": 0.3
+          },
+          "4": {
+            "vm_top1_move": 0.5,
+            "null_move": 0.5833333333333334
+          },
+          "5": {
+            "vm_top1_move": 0.5333333333333333,
+            "null_move": 0.6166666666666667
+          },
+          "7": {
+            "vm_top1_move": 0.3333333333333333,
+            "null_move": 0.4166666666666667
+          },
+          "8": {
+            "vm_top1_move": 0.35,
+            "null_move": 0.5833333333333334
+          },
+          "9": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.5666666666666667
+          },
+          "10": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "11": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "12": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "13": {
+            "vm_top1_move": 0.55,
+            "null_move": 0.7333333333333333
+          },
+          "14": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "17": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "18": {
+            "vm_top1_move": 0.16666666666666666,
+            "null_move": 0.0
+          },
+          "19": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "20": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "21": {
+            "vm_top1_move": 0.4666666666666667,
+            "null_move": 0.5
+          }
+        }
+      },
+      "L1H1": {
+        "max_top1_move_rate": 1.0,
+        "exception_positions": [
+          11,
+          14,
+          17
+        ],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.3,
+            "null_move": 0.4
+          },
+          "4": {
+            "vm_top1_move": 0.6,
+            "null_move": 0.36666666666666664
+          },
+          "5": {
+            "vm_top1_move": 0.75,
+            "null_move": 0.6333333333333333
+          },
+          "7": {
+            "vm_top1_move": 0.2,
+            "null_move": 0.06666666666666667
+          },
+          "8": {
+            "vm_top1_move": 0.7,
+            "null_move": 0.7333333333333333
+          },
+          "9": {
+            "vm_top1_move": 0.5,
+            "null_move": 0.6833333333333333
+          },
+          "10": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "11": {
+            "vm_top1_move": 1.0,
+            "null_move": 0.03333333333333333
+          },
+          "12": {
+            "vm_top1_move": 0.03333333333333333,
+            "null_move": 0.016666666666666666
+          },
+          "13": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "14": {
+            "vm_top1_move": 0.9833333333333333,
+            "null_move": 0.05
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.5333333333333333,
+            "null_move": 0.48333333333333334
+          },
+          "17": {
+            "vm_top1_move": 1.0,
+            "null_move": 0.43333333333333335
+          },
+          "18": {
+            "vm_top1_move": 0.6166666666666667,
+            "null_move": 0.7666666666666667
+          },
+          "19": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "20": {
+            "vm_top1_move": 0.25,
+            "null_move": 0.36666666666666664
+          },
+          "21": {
+            "vm_top1_move": 0.8,
+            "null_move": 0.6166666666666667
+          }
+        }
+      },
+      "L1H2": {
+        "max_top1_move_rate": 1.0,
+        "exception_positions": [
+          11,
+          17
+        ],
+        "per_pos": {
+          "0": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "1": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "2": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "3": {
+            "vm_top1_move": 0.06666666666666667,
+            "null_move": 0.016666666666666666
+          },
+          "4": {
+            "vm_top1_move": 0.16666666666666666,
+            "null_move": 0.08333333333333333
+          },
+          "5": {
+            "vm_top1_move": 0.26666666666666666,
+            "null_move": 0.23333333333333334
+          },
+          "7": {
+            "vm_top1_move": 0.016666666666666666,
+            "null_move": 0.0
+          },
+          "8": {
+            "vm_top1_move": 0.2,
+            "null_move": 0.06666666666666667
+          },
+          "9": {
+            "vm_top1_move": 0.15,
+            "null_move": 0.15
+          },
+          "10": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "11": {
+            "vm_top1_move": 0.9833333333333333,
+            "null_move": 0.3
+          },
+          "12": {
+            "vm_top1_move": 0.06666666666666667,
+            "null_move": 0.16666666666666666
+          },
+          "13": {
+            "vm_top1_move": 0.2833333333333333,
+            "null_move": 0.4166666666666667
+          },
+          "14": {
+            "vm_top1_move": 0.016666666666666666,
+            "null_move": 0.06666666666666667
+          },
+          "15": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "16": {
+            "vm_top1_move": 0.0,
+            "null_move": 0.0
+          },
+          "17": {
+            "vm_top1_move": 1.0,
+            "null_move": 0.48333333333333334
+          },
+          "18": {
+            "vm_top1_move": 0.55,
+            "null_move": 0.35
+          },
+          "19": {
+            "vm_top1_move": 0.18333333333333332,
+            "null_move": 0.1
+          },
+          "20": {
+            "vm_top1_move": 0.03333333333333333,
+            "null_move": 0.03333333333333333
+          },
+          "21": {
+            "vm_top1_move": 0.6166666666666667,
+            "null_move": 0.6833333333333333
+          }
+        }
+      }
+    }
+  }
+}

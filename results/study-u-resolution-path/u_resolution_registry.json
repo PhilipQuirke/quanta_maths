@@ -1,0 +1,53 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "mechanism": "MLP layers (question-position L0 MLP + answer-position L1 MLP); heads alone sub-bar",
+    "bar": 0.9,
+    "u_flip_transmitters": [
+      {
+        "node": "P10L0MLP",
+        "target_digit": 2,
+        "u_flip": 1.0,
+        "regime_gap": 1.0,
+        "kind": "mlp"
+      },
+      {
+        "node": "P14L1MLP",
+        "target_digit": 2,
+        "u_flip": 1.0,
+        "regime_gap": 1.0,
+        "kind": "mlp"
+      }
+    ],
+    "combiner_vs_conduit": "UNRESOLVED: A-1b interaction gate vacuous (def_flip forced to 0 for all nodes incl trivial readout); these are U-flip TRANSMITTERS, role unconfirmed",
+    "distinct_from_CE3_make_carry": "yes: CE3 make-carry heads have U-flip 0.00"
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "mechanism": "MLP layers (question-position L0 MLP + answer-position L1 MLP); heads alone sub-bar",
+    "bar": 0.9,
+    "u_flip_transmitters": [
+      {
+        "node": "P11L0H2",
+        "target_digit": 3,
+        "u_flip": 1.0,
+        "regime_gap": 1.0,
+        "kind": "z"
+      },
+      {
+        "node": "P11L0MLP",
+        "target_digit": 3,
+        "u_flip": 1.0,
+        "regime_gap": 1.0,
+        "kind": "mlp"
+      },
+      {
+        "node": "P16L1MLP",
+        "target_digit": 3,
+        "u_flip": 1.0,
+        "regime_gap": 1.0,
+        "kind": "mlp"
+      }
+    ],
+    "combiner_vs_conduit": "UNRESOLVED: A-1b interaction gate vacuous (def_flip forced to 0 for all nodes incl trivial readout); these are U-flip TRANSMITTERS, role unconfirmed",
+    "distinct_from_CE3_make_carry": "yes: CE3 make-carry heads have U-flip 0.00"
+  }
+}

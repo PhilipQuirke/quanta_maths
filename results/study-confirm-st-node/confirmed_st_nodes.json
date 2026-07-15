@@ -1,0 +1,95 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "confirmed_make_carry_nodes": [
+      {
+        "node": "P13L0H0",
+        "target_digit": 3,
+        "flips": "A4",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9862688183784485
+      },
+      {
+        "node": "P14L0H0",
+        "target_digit": 2,
+        "flips": "A3",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9840911626815796
+      },
+      {
+        "node": "P15L0H0",
+        "target_digit": 1,
+        "flips": "A2",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9902095794677734
+      }
+    ],
+    "sa_node_example": "P14L0H1 (5-digit, flips A_n only)",
+    "note": "tri-state U-resolution NOT localized to these nodes (tristate patch flips 0.00)"
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "confirmed_make_carry_nodes": [
+      {
+        "node": "P14L0H1",
+        "target_digit": 5,
+        "flips": "A6",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9542185664176941
+      },
+      {
+        "node": "P15L0H2",
+        "target_digit": 4,
+        "flips": "A5",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.932356059551239
+      },
+      {
+        "node": "P16L0H2",
+        "target_digit": 3,
+        "flips": "A4",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9419057965278625
+      },
+      {
+        "node": "P17L0H2",
+        "target_digit": 2,
+        "flips": "A3",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.9435803294181824
+      },
+      {
+        "node": "P18L0H2",
+        "target_digit": 1,
+        "flips": "A2",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": 0.0,
+        "operand_attn": 0.8299201726913452
+      },
+      {
+        "node": "P19L0H2",
+        "target_digit": 0,
+        "flips": "A1",
+        "classification": "R-SC(binary)",
+        "local_A_n+1_flip": 1.0,
+        "tristate_A_n+1_flip": NaN,
+        "operand_attn": 0.929133415222168
+      }
+    ],
+    "sa_node_example": "P14L0H1 (5-digit, flips A_n only)",
+    "note": "tri-state U-resolution NOT localized to these nodes (tristate patch flips 0.00)"
+  }
+}

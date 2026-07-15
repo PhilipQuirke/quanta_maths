@@ -1,0 +1,16 @@
+{
+  "model": "add_d6_l2_h3_t20K_s173289",
+  "accuracy": 1.0,
+  "node_level_control": {
+    "node": "P20L0H1",
+    "digit": 0,
+    "A_n_flip": 0.9333333333333333,
+    "A_n+1_flip": 0.0,
+    "same_class_null_A_n": 0.0
+  },
+  "coarse_resid_eq_control": {
+    "A_n_flip": 0.0,
+    "A_n+1_flip": 0.0,
+    "any_flip": 0.0
+  }
+}

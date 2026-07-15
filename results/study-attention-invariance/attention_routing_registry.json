@@ -1,0 +1,78 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "carry_routing_nodes": [
+      {
+        "node": "L1H1",
+        "query": 14,
+        "vm_move": 0.72,
+        "null": 0.4,
+        "gap": 0.32,
+        "clean": false
+      },
+      {
+        "node": "L1H2",
+        "query": 15,
+        "vm_move": 1.0,
+        "null": 0.53,
+        "gap": 0.47,
+        "clean": false
+      }
+    ],
+    "synthetic_control_detects": true,
+    "informative_static_fraction": 0.22
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "carry_routing_nodes": [
+      {
+        "node": "L0H0",
+        "query": 17,
+        "vm_move": 1.0,
+        "null": 0.0,
+        "gap": 1.0,
+        "clean": true
+      },
+      {
+        "node": "L1H1",
+        "query": 11,
+        "vm_move": 1.0,
+        "null": 0.03,
+        "gap": 0.97,
+        "clean": true
+      },
+      {
+        "node": "L1H1",
+        "query": 14,
+        "vm_move": 0.98,
+        "null": 0.05,
+        "gap": 0.93,
+        "clean": true
+      },
+      {
+        "node": "L1H1",
+        "query": 17,
+        "vm_move": 1.0,
+        "null": 0.43,
+        "gap": 0.57,
+        "clean": false
+      },
+      {
+        "node": "L1H2",
+        "query": 11,
+        "vm_move": 0.98,
+        "null": 0.3,
+        "gap": 0.68,
+        "clean": false
+      },
+      {
+        "node": "L1H2",
+        "query": 17,
+        "vm_move": 1.0,
+        "null": 0.48,
+        "gap": 0.52,
+        "clean": false
+      }
+    ],
+    "synthetic_control_detects": true,
+    "informative_static_fraction": 0.21
+  }
+}

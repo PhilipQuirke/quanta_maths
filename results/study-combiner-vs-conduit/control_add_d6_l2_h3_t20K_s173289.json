@@ -1,0 +1,15 @@
+{
+  "model": "add_d6_l2_h3_t20K_s173289",
+  "accuracy": 1.0,
+  "n": 3,
+  "conduit_ref": {
+    "pos": 17,
+    "def_diff": 0.5199162915349007,
+    "u_diff": 0.5579992488026619
+  },
+  "inert_ref": {
+    "node": "P0L0H0",
+    "def_diff": 0.0,
+    "u_diff": 0.0
+  }
+}

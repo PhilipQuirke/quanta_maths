@@ -195,6 +195,24 @@ The two research-critical points behind this direction:
   stored in attention-pattern/KV structure rather than the residual stream.
 - **Confidence**: medium.
 
+### C4: Reflections on experiments 1 to 7
+
+Re study-combiner-vs-conduit.md says "the answer-position L1 MLP passes the combiner signature".
+
+I can accept that this answer-token MLP layer does combing work.
+However it is unlikely to be the full "U" mechanism. Two suspicions:
+There is no sense of the "cascade" of the "U" results in this study that the paper suggests.
+If there is no cascade then for the question 99999999+00000001=+100000000 the L1 MLP at each answer position needs to combine the ST values from all lower digits.
+For the first answer digit (1 in above example) this is combining 8 ST values. This seems unlikely.
+This study seems more applicable to combining SA with SC, and less with combining SA with SC and 8 cascading ST values.
+Study seemed to focus on answer tokens.
+
+Re study-earliest-tristate-site says "no dedicated `{0,1,U}` tri-state symbol at any answer-position residual site
+
+Study seemed to focus on answer tokens.
+Using 99999999+00000001=+100000000 example the tristate sites to calculate the first answer digit "1" must be at or before the `+` token.
+For the mixed addition/subtraction model, the tristate sites to calculate the first answer token as "+/-" must be at or before the `=` token.
+
 ## Notes
 
 - It is healthy for human and agent conjectures to disagree; that tension should

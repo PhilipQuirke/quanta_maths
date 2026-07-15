@@ -1,0 +1,98 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "any_unresolved_tristate": false,
+    "per_site": {
+      "L0.resid_pre": {
+        "label": "INFO-ABSENT",
+        "isU_perp_perm_p": 1.0,
+        "u0_nearest": "c1",
+        "u1_nearest": "c1"
+      },
+      "L0.mlp_in(ln2)": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.743,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L0.resid_post": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.519,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.resid_pre": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.541,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.attn_in(ln1)": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.419,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.resid_mid": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.583,
+        "u0_nearest": "c0",
+        "u1_nearest": "c1"
+      },
+      "L1.mlp_in(ln2)=combiner": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.709,
+        "u0_nearest": "c0",
+        "u1_nearest": "c1"
+      }
+    },
+    "verdict": "no dedicated {0,1,U} tri-state at any answer-position site; U resolution-split (u0~c0,u1~c1) at every carry-informative site"
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "any_unresolved_tristate": false,
+    "per_site": {
+      "L0.resid_pre": {
+        "label": "INFO-ABSENT",
+        "isU_perp_perm_p": 1.0,
+        "u0_nearest": "c1",
+        "u1_nearest": "c1"
+      },
+      "L0.mlp_in(ln2)": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 1.0,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L0.resid_post": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.116,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.resid_pre": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.11,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.attn_in(ln1)": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.098,
+        "u0_nearest": "c0",
+        "u1_nearest": "c0"
+      },
+      "L1.resid_mid": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.565,
+        "u0_nearest": "c0",
+        "u1_nearest": "c1"
+      },
+      "L1.mlp_in(ln2)=combiner": {
+        "label": "RESOLVED (U split toward committed axis)",
+        "isU_perp_perm_p": 0.557,
+        "u0_nearest": "c0",
+        "u1_nearest": "c1"
+      }
+    },
+    "verdict": "no dedicated {0,1,U} tri-state at any answer-position site; U resolution-split (u0~c0,u1~c1) at every carry-informative site"
+  }
+}

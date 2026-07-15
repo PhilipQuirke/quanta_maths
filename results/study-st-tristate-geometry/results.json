@@ -1,0 +1,169 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "accuracy": 1.0,
+    "digit": 2,
+    "combiner_pos": 14,
+    "primary_ln2": {
+      "geometry": {
+        "d_c0_c1": 32.32390594482422,
+        "d_c0_u": 17.64789581298828,
+        "d_c1_u": 17.86487579345703,
+        "u_offaxis_frac": 0.22750283777713776,
+        "angle_c0c1_c0u_deg": 24.626054763793945,
+        "d_u0_u1": 28.66057586669922,
+        "d_c0_u0": 10.064221382141113,
+        "d_c1_u0": 29.547813415527344,
+        "d_c0_u1": 30.533952713012695,
+        "d_c1_u1": 13.26456069946289
+      },
+      "resolution_probe_acc": 1.0,
+      "offaxis_perm": {
+        "observed": 0.22750283777713776,
+        "p_value": 0.8511488511488512
+      },
+      "between_var_share": 0.9067818522453308,
+      "shape": "R-other/ambiguous",
+      "committed_lowercarry_move": 1.207308292388916,
+      "precursor": {
+        "carry_in_decodable_on_committed": 0.9825000000000002
+      }
+    },
+    "secondary_resid_mid": {
+      "geometry": {
+        "d_c0_c1": 35.88478088378906,
+        "d_c0_u": 20.723329544067383,
+        "d_c1_u": 18.518783569335938,
+        "u_offaxis_frac": 0.2208683341741562,
+        "angle_c0c1_c0u_deg": 22.48604965209961,
+        "d_u0_u1": 31.534164428710938,
+        "d_c0_u0": 11.584668159484863,
+        "d_c1_u0": 31.475276947021484,
+        "d_c0_u1": 34.95582962036133,
+        "d_c1_u1": 13.87081527709961
+      },
+      "resolution_probe_acc": 1.0,
+      "offaxis_perm": {
+        "observed": 0.2208683341741562,
+        "p_value": 0.8711288711288712
+      },
+      "between_var_share": 0.8989789485931396,
+      "shape": "R-other/ambiguous"
+    },
+    "make_carry_site": {
+      "geometry": {
+        "d_c0_c1": 0.142206072807312,
+        "d_c0_u": 0.07404796779155731,
+        "d_c1_u": 0.0727568119764328,
+        "u_offaxis_frac": 0.128176748752594,
+        "angle_c0c1_c0u_deg": 14.250308990478516,
+        "d_u0_u1": 0.1003638431429863,
+        "d_c0_u0": 0.03279796242713928,
+        "d_c1_u0": 0.12024655193090439,
+        "d_c0_u1": 0.1221759244799614,
+        "d_c1_u1": 0.034121982753276825
+      },
+      "resolution_probe_acc": 0.785,
+      "offaxis_perm": {
+        "observed": 0.128176748752594,
+        "p_value": 1.0
+      },
+      "between_var_share": 0.04667102172970772,
+      "shape": "R-scalar (U on the 0-1 line; not a third symbol)"
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "accuracy": 1.0,
+    "digit": 3,
+    "combiner_pos": 16,
+    "primary_ln2": {
+      "geometry": {
+        "d_c0_c1": 28.497005462646484,
+        "d_c0_u": 16.366661071777344,
+        "d_c1_u": 14.078088760375977,
+        "u_offaxis_frac": 0.18738867342472076,
+        "angle_c0c1_c0u_deg": 19.042774200439453,
+        "d_u0_u1": 29.360973358154297,
+        "d_c0_u0": 6.921635150909424,
+        "d_c1_u0": 27.33289909362793,
+        "d_c0_u1": 30.312694549560547,
+        "d_c1_u1": 8.962767601013184
+      },
+      "resolution_probe_acc": 1.0,
+      "offaxis_perm": {
+        "observed": 0.18738867342472076,
+        "p_value": 0.9240759240759241
+      },
+      "between_var_share": 0.8544802665710449,
+      "shape": "R-scalar (U on the 0-1 line; not a third symbol)",
+      "committed_lowercarry_move": 1.6522232294082642,
+      "precursor": {
+        "carry_in_decodable_on_committed": 0.9425000000000001
+      }
+    },
+    "secondary_resid_mid": {
+      "geometry": {
+        "d_c0_c1": 35.47990417480469,
+        "d_c0_u": 21.001235961914062,
+        "d_c1_u": 17.11137580871582,
+        "u_offaxis_frac": 0.19497549533843994,
+        "angle_c0c1_c0u_deg": 19.232105255126953,
+        "d_u0_u1": 40.69233703613281,
+        "d_c0_u0": 10.11536693572998,
+        "d_c1_u0": 35.94813537597656,
+        "d_c0_u1": 40.096336364746094,
+        "d_c1_u1": 11.01195240020752
+      },
+      "resolution_probe_acc": 1.0,
+      "offaxis_perm": {
+        "observed": 0.19497549533843994,
+        "p_value": 0.8901098901098901
+      },
+      "between_var_share": 0.8426486849784851,
+      "shape": "R-scalar (U on the 0-1 line; not a third symbol)"
+    },
+    "make_carry_site": {
+      "geometry": {
+        "d_c0_c1": 0.1420406997203827,
+        "d_c0_u": 0.07471249997615814,
+        "d_c1_u": 0.07008190453052521,
+        "u_offaxis_frac": 0.09887821227312088,
+        "angle_c0c1_c0u_deg": 10.835161209106445,
+        "d_u0_u1": 0.10580164194107056,
+        "d_c0_u0": 0.04159228876233101,
+        "d_c1_u0": 0.11918267607688904,
+        "d_c0_u1": 0.12260094285011292,
+        "d_c1_u1": 0.03486303985118866
+      },
+      "resolution_probe_acc": 0.8024999999999999,
+      "offaxis_perm": {
+        "observed": 0.09887821227312088,
+        "p_value": 1.0
+      },
+      "between_var_share": 0.05394449830055237,
+      "shape": "R-scalar (U on the 0-1 line; not a third symbol)"
+    }
+  },
+  "_planted_controls": {
+    "scalar": {
+      "shape": "scalar",
+      "off_axis": 0.109,
+      "angle": 13.0,
+      "d_u0u1_norm": 0.86,
+      "perm_p": 1.0
+    },
+    "simplex": {
+      "shape": "simplex",
+      "off_axis": 0.854,
+      "angle": 58.0,
+      "d_u0u1_norm": 0.2,
+      "perm_p": 0.076
+    },
+    "square": {
+      "shape": "square",
+      "off_axis": 0.976,
+      "angle": 62.0,
+      "d_u0u1_norm": 0.95,
+      "perm_p": 0.004
+    }
+  }
+}

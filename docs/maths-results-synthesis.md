@@ -21,10 +21,13 @@ and the [study note](study-maths/study-digit-embedding-geometry.md)).
   baseline (0.23) and, by the positive control's own calibration (planted 0.40 →
   recovered 0.52), sits at the noise floor.
 - The one **training-induced** effect is a weak **circular ordering** of digit
-  values in the top-2 PC plane: permutation p = 0.0001 in 3 of 4 accurate models,
-  absent in the untrained control (p = 0.34). This is an ordering tendency, not
-  variance concentration, and is **provisional** pending the LN-aware secondary
-  analysis (A-9).
+  values in the top-2 PC plane: permutation p = 0.0001, absent in the untrained
+  control (p = 0.34). This is an ordering tendency, not variance concentration.
+  The LN-aware close-out (A-9, 2026-07-16) settled it: the ordering **survives
+  the LN-effective geometry** the computation reads — but LN is near-isometric
+  here (γ std ~0.005), so this is *weak* robustness, and the signal is
+  **seed-fragile** (holds in 2 of 3 independent seeds; fails s173289). No longer
+  provisional; now Low / LN-robust-weakly / seed-fragile.
 - The **unembedding** carries no comparable structure (R4 everywhere) and does
   not align with the embedding geometry (principal angles 36–88°).
 - **Decision-relevant read**: a clean geometric digit code was only ever one
@@ -60,11 +63,151 @@ and the [study note](study-maths/study-pair-sum-sufficiency.md)).
   (permutation, transport) and confirm the node's role independently, not read
   a projection at face value.
 
+## Q: Where is the carry computed, and is it the tri-state ST or a binary carry?
+
+Status after the 2026-07-14 confirm-ST-node study (causal path-patching; see
+[CE3](maths-claim-evidence.md#ce3-the-carry-is-computed-by-binary-make-carry-heads-at-answer-positions-dissociated-from-base-add-heads-the-tri-state-u-resolution-is-a-separate-unlocated-path)).
+
+- The per-digit carry is computed by **specific attention heads at the answer
+  token positions** (5-digit: `P13/P14/P15.L0.H0`; 6-digit: `P14.L0.H1`,
+  `P15–P19.L0.H2`), each causal for the *next-higher* answer digit `A_{n+1}`
+  (interchange flip 1.00, `A_n` untouched, null 0.00). A **clean head-role
+  dissociation** holds: at each answer position one head does the carry and a
+  different head does base-add (`SA`, flips `A_n`).
+- But these are **binary make-carry (`SC`) heads, not tri-state `ST`**: the
+  genuine `U` (sum=9) test flips nothing through them. The model *does* resolve
+  `U` correctly, so the **tri-state resolution runs on a separate path that is
+  not yet located** — the most important open thread now.
+- **Method wins**: the flip-signature (does patching move `A_n` vs `A_{n+1}`?)
+  cleanly dissociates SA from carry where the earlier variance-ratio could not;
+  and a node-level positive control + genuine-`U` battery were essential
+  (without the latter a binary carry node reads as tri-state).
+
+## Q: Where is the tri-state U-resolution computed? (partial answer)
+
+Status after the 2026-07-15 U-resolution study (positive-but-ambiguous; see
+[CE4](maths-claim-evidence.md#ce4-the-tri-state-u-resolution-flip-is-transmitted-by-an-mlp-heavy-l0l1-path-distinct-from-the-make-carry-heads-whether-it-is-combined-or-merely-relayed-is-unresolved)).
+
+- The U-resolution flip is causally **transmitted by an MLP-heavy L0/L1 path**
+  (5-digit `P10.L0.MLP`+`P14.L1.MLP`; 6-digit adds head `P11.L0.H2`), **distinct
+  from the CE3 make-carry heads** (U-flip 0.00) — so the "binary carry and
+  tri-state U run on separate components" picture is reconfirmed with named
+  nodes.
+- **But** whether any of these *combines* digit-`n`'s sum==9 flag with the lower
+  carry, or merely *relays* the resolved carry, is **unresolved**: the intended
+  U-regime-specificity discriminator was vacuous (a definite digit's `A_{n+1}`
+  has no lower-carry dependence, so the trivial readout also "passes").
+- **Method lesson (decision-relevant)**: an interaction gate only works if the
+  control arm has a signal for a *non*-target node to transmit. A real
+  combiner-vs-conduit test needs a *corruption* control (inject a lower-carry
+  inconsistent with a definite digit and check whether the answer is corrupted).
+
+## Q: Combiner vs conduit — answered (the L1 MLP combines)
+
+Status after the 2026-07-15 combiner-vs-conduit study (see
+[CE5](maths-claim-evidence.md#ce5-the-tri-state-u-combiner-is-the-answer-position-layer-1-mlp-layer-0-nodes-relay-the-running-carry-conduit)).
+
+- The **answer-position layer-1 MLP** (`P14.L1.MLP` 5-digit, `P16.L1.MLP`
+  6-digit) is the **tri-state `U`-combiner**: its output is invariant to
+  `carry_in` for a definite digit but varies in the `U` regime, and it routes to
+  the class-determined `carry_out` centroids — i.e. its output *is* the resolved
+  carry. Replicated in both models, and it survives a carry_out-centroid test
+  (rules out a "U-detector" artifact).
+- **Layer-0 nodes are conduits** (relay the running carry regardless of
+  digit-`n`'s class) — cleanly in the 6-digit model; the 5-digit L0 candidate is
+  borderline. So the emerging picture: **L0 conducts/computes the running carry,
+  the answer-position L1 MLP combines it with digit-`n`'s class to resolve `U`.**
+- **Full mechanistic chain so far**: digit embeddings (weak geometry, CE1) →
+  layer-0 attention heads compute base-add (`SA`) and binary make-carry
+  (CE3) → layer-0 nodes conduct the running carry (CE5) → **answer-position L1
+  MLP combines to resolve the tri-state `U`** (CE5) → answer readout. Distinct
+  binary-carry and tri-state paths (CE3/CE4/CE5).
+- **Method arc**: it took three iterations (instrument failure → vacuous cascade
+  battery → vacuous interaction gate) to find a *node-level, endpoint-independent*
+  discriminator that works — the lesson being that definite-digit
+  carry-independence defeats any endpoint-based test.
+
+## Q: ST tri-state geometry at the combiner input — answered (binary, no third symbol)
+
+Status after the 2026-07-15 tri-state-geometry study (see
+[CE6](maths-claim-evidence.md#ce6-at-the-u-combiners-input-the-carry-is-a-clean-binary-code--no-distinct-off-axis-tri-state-the-resolved-carry-is-already-linearly-present-there)).
+
+- At the L1-MLP combiner **input**, the carry is a clean **binary** linear code
+  on the committed-0↔committed-1 axis; the `U` cases are split by their
+  resolution (U→0≈committed-0, U→1≈committed-1) and the `U`-mean is **not**
+  off-axis (n.s. vs permutation null). **A3's "off-axis third symbol" is refuted
+  at this locus** — but only at this locus (a tri-state could exist upstream).
+- The resolved carry is already linearly present at the MLP *input* (narrowing
+  CE5's output finding), and the raw `carry_in` ingredient is ~98% decodable
+  here too — so the site holds ingredients; the assay cannot say whether the
+  U→{0,1} *decision* is completed upstream or in the MLP.
+- **Method lesson**: `U ≡ SA_n=9` is a fatal structural confound for the naive
+  geometry read; the *resolution variable* (U→0 vs U→1 via the lower carry) is
+  what makes the question answerable. And a site linearly separating an outcome
+  ≠ that site *computing* it (ingredients vs decision).
+- **Chain so far** (updated): embeddings (weak geometry, CE1) → L0 heads
+  (base-add + binary make-carry, CE3) → L0/L1 conduit + combiner path resolves
+  the carry (CE5) → by the L1-MLP combiner input the carry is a resolved binary
+  code (CE6) → answer readout.
+
+## Q: Does a dedicated `{0,1,U}` tri-state symbol exist? — answered (no, at answer positions)
+
+Status after the 2026-07-16 earliest-tri-state-site study (see
+[CE7](maths-claim-evidence.md#ce7-no-dedicated-01u-tri-state-symbol-at-any-answer-position-residual-site-u-is-resolved-to-binary-around-l1-attention)).
+
+- Sweeping 7 residual sites (embedding → combiner) at the answer position, there
+  is **no site where `U` is a dedicated, resolution-independent off-axis third
+  symbol** (is-U axis never significant vs the null). The carry is **binary
+  throughout**; the `U` cases are resolved toward the committed 0/1 axis, with
+  the binary resolution applied **around L1-attention** (U→1 flips from
+  committed-0-leaning to committed-1 at `L1.resid_mid`).
+- So the tri-state `U` of the Paper-2 *algorithm* is a **functional** description;
+  the model's **representation** is binary carry, resolving `U` implicitly rather
+  than storing a third symbol. This is *simpler* than A3 predicted.
+- **Method arc (7 studies)**: this is the fourth consecutive A3-family
+  refuted/untouched result (CE6 + CE7). Per the Evidence Rules streak signal, the
+  "U as a distinct symbol" frame is stale at answer positions — the productive
+  next move is question-position / multi-digit-cascade, not more answer-position
+  geometry.
+- **Full chain (updated)**: embeddings (weak geometry, CE1) → L0 heads
+  (base-add + binary make-carry, CE3) → L0/L1 conduit + L1-MLP combiner resolve
+  the carry (CE5) → carry is a **binary** code, `U` resolved around L1-attention,
+  no tri-state symbol (CE6, CE7) → readout.
+
+## Q: Is attention static positional wiring (A5)? — no, hybrid
+
+Status after the 2026-07-16 attention-invariance census (see
+[CE8](maths-claim-evidence.md#ce8-attention-routing-is-hybrid--a-few-heads-relocate-their-target-with-carry-state-6-digit-only-most-cells-are-target-static)).
+
+- **A5's strong "static positional wiring" form is falsified** (6-digit model):
+  a few heads — `L1.H1` (operand-read Q11 and answer Q14) and `L0.H0` (answer
+  Q17) — **relocate their attention target with the carry state** under a
+  value-matched contrast (strict null ≤0.08, Bonferroni-safe). This is A5's own
+  pre-registered falsifier. Routing is therefore **hybrid**: most (head,position)
+  cells target-static, a few content-routed by carry.
+- The cleanest cell is an **operand-read** position (Q11), so it is *not* the
+  trivial "answer digit depends on carry" — carry-state routing genuinely occurs
+  where the carry is being read, not only where it is emitted.
+- Scoped: clean in **6-digit only** (the 5-digit top-1-argmax is too tie-noisy —
+  null 0.40–0.53 — to adjudicate); representational, not causal. The routing
+  cells are candidate content-routed nodes for the cascade-tracing entry, to be
+  **confirmed causally** there.
+- **Method note**: value-matched contrast + strict null was essential — raw
+  pattern-variance and 3-way stratum TV are A5-consistent (a static head still
+  has value-dependent softmax weights), so only a *target-move under a
+  value-matched contrast* falsifies A5.
+
 ## Open empirical questions
 
-- Where is `ST`/carry actually computed, and does attention aggregate operands
-  or merely transport them? (Needs a **confirmed question-position ST node** via
-  path-patching to the `SV` cascade; the answer-position assay could not tell.)
+- Are the CE8 carry-routing L1 heads *causally* load-bearing (pattern-patching)?
+  (Cascade-tracing entry.)
+- Does a *transient* `{0,1,U}` tri-state exist at **question positions** (D'n)
+  before the answer position (the only regime A3 can still live)? Needs a
+  purpose-built question-position construction.
+- Does the tie-break economy (A6) hold for **multi-digit `...999` cascades**
+  (untested; single-digit U so far)? Two-site L0→L1 hand-off (B11)?
+- Does attention aggregate or transport operands at the carry node? (A2
+  re-test.)
 - Does the model *use* digit magnitude / circular ordering in its computation,
   regardless of a weak embedding geometry? (Causal; backlog B1.)
 - Is the tri-state `ST` code well-separated at a *confirmed* ST node in the full

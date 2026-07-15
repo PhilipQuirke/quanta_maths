@@ -1,0 +1,43 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "combiners": [
+      "P14L1MLP"
+    ],
+    "conduits": [
+      "P15L0H0"
+    ],
+    "inert": [
+      "P13L0H0",
+      "P14L0H0"
+    ],
+    "refs_separate": true,
+    "borderline": [
+      "P10L0MLP"
+    ]
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "combiners": [
+      "P16L1MLP"
+    ],
+    "conduits": [
+      "P11L0H2",
+      "P11L0MLP"
+    ],
+    "inert": [
+      "P15L0H2",
+      "P16L0H2"
+    ],
+    "refs_separate": true
+  },
+  "_combiner_evidence": {
+    "P14L1MLP": {
+      "def_norm": 30.7,
+      "U_norm": 31.9,
+      "cos_out0_out1": 1.274,
+      "cos_Ucarry_out1": 0.058,
+      "cos_Unocarry_out0": 0.045,
+      "note": "output=resolved carry_out; not a U-detector (fires equally for definite)"
+    }
+  },
+  "_two_site_replication": "combiner (L1 MLP) replicates both models; L0-conduit clean in 6-digit, borderline in 5-digit (only 1 L0 candidate)"
+}

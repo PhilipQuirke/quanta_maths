@@ -1,12 +1,22 @@
 # Study: Digit-Embedding Geometry Audit (study-digit-embedding-geometry.md)
 
-Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
+Read role and rules: [Study Notes](../thor-document-rules.md#study-notes)
 
-Was agenda entry 1 in [maths-next-steps.md](../maths-next-steps.md); **completed
-2026-07-14** and removed from the ranked queue after both skeptic gates passed
-(trail in the [results ledger](../maths-results-by-time.md)). Pre-run sections
-written 2026-07-14, before any analysis was run. Competing reads are stated
-neutrally; this study is designed to classify, not to confirm.
+## Executive Summary #3
+
+**Verdict: AMBIGUOUS — no clean geometric digit code at the token level.** Across
+four accurate addition models the digit **embedding** is near-isotropic in 9
+dimensions (participation ratio ≈ 8.7/9), *not* the low-dimensional circle/helix
+the direction hypothesised. A weak frequency-1 (circular) signal exists (~0.27 of
+centered variance, permutation p < 0.01 in 3 of 4 models) but sits in the
+sub-threshold 25–40% band and is only ~4 points above the untrained baseline
+(0.23); the unembedding is unstructured and misaligned with the embedding.
+
+The one training-induced signal is a weak circular **ordering** of digit values
+(significant in 3/4 models, absent in the untrained control), provisional pending
+the LN-aware close-out. Net: the strong "dominant digit geometry" reading (A1) is
+refuted at the token level; this became claim CE1 and redirected the thread from
+token-embedding geometry toward activation/MLP-level mechanism.
 
 ## Pre-run (write before the experiment)
 

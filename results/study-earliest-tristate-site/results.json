@@ -1,0 +1,544 @@
+{
+  "_planted": {
+    "resolved": {
+      "kind": "resolved",
+      "isU_perp_vs": 0.017,
+      "cos_isU_komm": 0.14,
+      "cos_isU_res": 0.2,
+      "between_vs": 0.05,
+      "c0c1_over_within": 0.51,
+      "perm_p": 0.455
+    },
+    "unresolved": {
+      "kind": "unresolved",
+      "isU_perp_vs": 0.074,
+      "cos_isU_komm": 0.02,
+      "cos_isU_res": 0.06,
+      "between_vs": 0.093,
+      "c0c1_over_within": 0.53,
+      "perm_p": 0.003
+    },
+    "ingredient": {
+      "kind": "ingredient",
+      "isU_perp_vs": 0.016,
+      "cos_isU_komm": 0.03,
+      "cos_isU_res": 0.95,
+      "between_vs": 0.075,
+      "c0c1_over_within": 0.51,
+      "perm_p": 0.761
+    },
+    "absent": {
+      "kind": "absent",
+      "isU_perp_vs": 0.016,
+      "cos_isU_komm": 0.23,
+      "cos_isU_res": 0.07,
+      "between_vs": 0.002,
+      "c0c1_over_within": 0.08,
+      "perm_p": 0.548
+    }
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "accuracy": 1.0,
+    "digit": 2,
+    "combiner_pos": 14,
+    "sites": {
+      "L0.resid_pre": {
+        "axes": {
+          "cos_isU_komm": 0.0,
+          "cos_isU_res": 0.0,
+          "cos_res_komm": 0.0,
+          "isU_varshare": 0.0,
+          "isU_perp_varshare": 0.0,
+          "res_varshare": 0.0,
+          "komm_varshare": 0.0,
+          "isU_perp_norm_frac": 0.0
+        },
+        "separability": {
+          "between_var_share": 0.0,
+          "d_c0_c1": 0.0,
+          "within_spread": 2.4201256110245595e-06,
+          "c0c1_over_within": 0.0
+        },
+        "isU_perp_perm_p": 1.0,
+        "per_class_distances": {
+          "d_c0_u0": 0.0,
+          "d_c1_u0": 0.0,
+          "d_c0_u1": 0.0,
+          "d_c1_u1": 0.0,
+          "d_c0_c1": 0.0,
+          "d_u0_u1": 0.0,
+          "u0_nearest": "c1",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.5,
+          "U_vs_committed_sep": 0.5,
+          "U_vs_committed_sep_partialled": 0.5
+        },
+        "label": "INFO-ABSENT"
+      },
+      "L0.mlp_in(ln2)": {
+        "axes": {
+          "cos_isU_komm": 0.19715005159378052,
+          "cos_isU_res": 0.16269060969352722,
+          "cos_res_komm": 0.21639800071716309,
+          "isU_varshare": 0.07514522969722748,
+          "isU_perp_varshare": 0.03970544412732124,
+          "res_varshare": 0.051915813237428665,
+          "komm_varshare": 0.8501001000404358,
+          "isU_perp_norm_frac": 0.9595738649368286
+        },
+        "separability": {
+          "between_var_share": 0.8546572327613831,
+          "d_c0_c1": 21.558082580566406,
+          "within_spread": 3.0544328689575195,
+          "c0c1_over_within": 7.0579657554626465
+        },
+        "isU_perp_perm_p": 0.7425149700598802,
+        "per_class_distances": {
+          "d_c0_u0": 10.61205005645752,
+          "d_c1_u0": 11.868457794189453,
+          "d_c0_u1": 10.644186019897461,
+          "d_c1_u1": 11.850321769714355,
+          "d_c0_c1": 21.558082580566406,
+          "d_u0_u1": 0.11931876838207245,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.6275000000000001,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L0.resid_post": {
+        "axes": {
+          "cos_isU_komm": 0.2632925510406494,
+          "cos_isU_res": 0.1861191838979721,
+          "cos_res_komm": 0.5764011144638062,
+          "isU_varshare": 0.23352238535881042,
+          "isU_perp_varshare": 0.18399202823638916,
+          "res_varshare": 0.2666761577129364,
+          "komm_varshare": 0.7678204774856567,
+          "isU_perp_norm_frac": 0.9162668585777283
+        },
+        "separability": {
+          "between_var_share": 0.9065279960632324,
+          "d_c0_c1": 29.0084171295166,
+          "within_spread": 3.370980978012085,
+          "c0c1_over_within": 8.605334281921387
+        },
+        "isU_perp_perm_p": 0.5189620758483033,
+        "per_class_distances": {
+          "d_c0_u0": 15.147089004516602,
+          "d_c1_u0": 19.598264694213867,
+          "d_c0_u1": 15.32033920288086,
+          "d_c1_u1": 19.511810302734375,
+          "d_c0_c1": 29.0084171295166,
+          "d_u0_u1": 0.2589564919471741,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.595,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.resid_pre": {
+        "axes": {
+          "cos_isU_komm": 0.2480430155992508,
+          "cos_isU_res": 0.20081867277622223,
+          "cos_res_komm": 0.7763766050338745,
+          "isU_varshare": 0.22904613614082336,
+          "isU_perp_varshare": 0.1706693023443222,
+          "res_varshare": 0.46300387382507324,
+          "komm_varshare": 0.7672058939933777,
+          "isU_perp_norm_frac": 0.9876698851585388
+        },
+        "separability": {
+          "between_var_share": 0.9119259119033813,
+          "d_c0_c1": 29.24830436706543,
+          "within_spread": 3.2977492809295654,
+          "c0c1_over_within": 8.869172096252441
+        },
+        "isU_perp_perm_p": 0.5409181636726547,
+        "per_class_distances": {
+          "d_c0_u0": 15.445072174072266,
+          "d_c1_u0": 19.735309600830078,
+          "d_c0_u1": 15.607698440551758,
+          "d_c1_u1": 19.551664352416992,
+          "d_c0_c1": 29.24830436706543,
+          "d_u0_u1": 0.2700590193271637,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.57,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.attn_in(ln1)": {
+        "axes": {
+          "cos_isU_komm": 0.2617111802101135,
+          "cos_isU_res": 0.17634186148643494,
+          "cos_res_komm": 0.3369280695915222,
+          "isU_varshare": 0.2963816523551941,
+          "isU_perp_varshare": 0.236973375082016,
+          "res_varshare": 0.10327386111021042,
+          "komm_varshare": 0.698447048664093,
+          "isU_perp_norm_frac": 0.9323689937591553
+        },
+        "separability": {
+          "between_var_share": 0.9085911512374878,
+          "d_c0_c1": 27.142818450927734,
+          "within_spread": 3.339068651199341,
+          "c0c1_over_within": 8.128859519958496
+        },
+        "isU_perp_perm_p": 0.41916167664670656,
+        "per_class_distances": {
+          "d_c0_u0": 15.192448616027832,
+          "d_c1_u0": 19.932125091552734,
+          "d_c0_u1": 15.38332462310791,
+          "d_c1_u1": 19.8752384185791,
+          "d_c0_c1": 27.142818450927734,
+          "d_u0_u1": 0.4428936243057251,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.5925,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.resid_mid": {
+        "axes": {
+          "cos_isU_komm": 0.15689292550086975,
+          "cos_isU_res": 0.2953045964241028,
+          "cos_res_komm": 0.8312939405441284,
+          "isU_varshare": 0.09911900013685226,
+          "isU_perp_varshare": 0.08026250451803207,
+          "res_varshare": 0.7186803221702576,
+          "komm_varshare": 0.7454226613044739,
+          "isU_perp_norm_frac": 0.9824508428573608
+        },
+        "separability": {
+          "between_var_share": 0.90049809217453,
+          "d_c0_c1": 35.74327850341797,
+          "within_spread": 5.538120269775391,
+          "c0c1_over_within": 6.454045295715332
+        },
+        "isU_perp_perm_p": 0.5828343313373253,
+        "per_class_distances": {
+          "d_c0_u0": 11.629539489746094,
+          "d_c1_u0": 31.318927764892578,
+          "d_c0_u1": 34.96839904785156,
+          "d_c1_u1": 13.973526000976562,
+          "d_c0_c1": 35.74327850341797,
+          "d_u0_u1": 31.520681381225586,
+          "u0_nearest": "c0",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.9824999999999999,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.mlp_in(ln2)=combiner": {
+        "axes": {
+          "cos_isU_komm": 0.014252545312047005,
+          "cos_isU_res": 0.15768977999687195,
+          "cos_res_komm": 0.8285602927207947,
+          "isU_varshare": 0.06294593214988708,
+          "isU_perp_varshare": 0.060546789318323135,
+          "res_varshare": 0.7100002765655518,
+          "komm_varshare": 0.7400728464126587,
+          "isU_perp_norm_frac": 0.9854980707168579
+        },
+        "separability": {
+          "between_var_share": 0.9035632610321045,
+          "d_c0_c1": 32.252357482910156,
+          "within_spread": 4.948084831237793,
+          "c0c1_over_within": 6.5181498527526855
+        },
+        "isU_perp_perm_p": 0.7085828343313373,
+        "per_class_distances": {
+          "d_c0_u0": 9.95206069946289,
+          "d_c1_u0": 29.499591827392578,
+          "d_c0_u1": 30.480581283569336,
+          "d_c1_u1": 13.085673332214355,
+          "d_c0_c1": 32.252357482910156,
+          "d_u0_u1": 28.608537673950195,
+          "u0_nearest": "c0",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.975,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      }
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "accuracy": 1.0,
+    "digit": 3,
+    "combiner_pos": 16,
+    "sites": {
+      "L0.resid_pre": {
+        "axes": {
+          "cos_isU_komm": 0.0,
+          "cos_isU_res": 0.0,
+          "cos_res_komm": 0.0,
+          "isU_varshare": 0.0,
+          "isU_perp_varshare": 0.0,
+          "res_varshare": 0.0,
+          "komm_varshare": 0.0,
+          "isU_perp_norm_frac": 0.0
+        },
+        "separability": {
+          "between_var_share": 0.0,
+          "d_c0_c1": 0.0,
+          "within_spread": 2.1499763533938676e-06,
+          "c0c1_over_within": 0.0
+        },
+        "isU_perp_perm_p": 1.0,
+        "per_class_distances": {
+          "d_c0_u0": 0.0,
+          "d_c1_u0": 0.0,
+          "d_c0_u1": 0.0,
+          "d_c1_u1": 0.0,
+          "d_c0_c1": 0.0,
+          "d_u0_u1": 0.0,
+          "u0_nearest": "c1",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.5,
+          "U_vs_committed_sep": 0.5,
+          "U_vs_committed_sep_partialled": 0.5
+        },
+        "label": "INFO-ABSENT"
+      },
+      "L0.mlp_in(ln2)": {
+        "axes": {
+          "cos_isU_komm": 0.17761769890785217,
+          "cos_isU_res": 0.33335691690444946,
+          "cos_res_komm": 0.2219146490097046,
+          "isU_varshare": 0.05235013738274574,
+          "isU_perp_varshare": 0.026606202125549316,
+          "res_varshare": 0.1307915598154068,
+          "komm_varshare": 0.29756176471710205,
+          "isU_perp_norm_frac": 0.9400023221969604
+        },
+        "separability": {
+          "between_var_share": 0.27846959233283997,
+          "d_c0_c1": 13.39281177520752,
+          "within_spread": 7.62617301940918,
+          "c0c1_over_within": 1.7561641931533813
+        },
+        "isU_perp_perm_p": 1.0,
+        "per_class_distances": {
+          "d_c0_u0": 6.69469690322876,
+          "d_c1_u0": 7.626921653747559,
+          "d_c0_u1": 6.745809555053711,
+          "d_c1_u1": 7.467198371887207,
+          "d_c0_c1": 13.39281177520752,
+          "d_u0_u1": 0.5211653709411621,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.625,
+          "U_vs_committed_sep": 0.9916666666666666,
+          "U_vs_committed_sep_partialled": 0.9916666666666666
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L0.resid_post": {
+        "axes": {
+          "cos_isU_komm": 0.198506698012352,
+          "cos_isU_res": 0.06743640452623367,
+          "cos_res_komm": 0.483312726020813,
+          "isU_varshare": 0.22366349399089813,
+          "isU_perp_varshare": 0.20331700146198273,
+          "res_varshare": 0.13292646408081055,
+          "komm_varshare": 0.38466501235961914,
+          "isU_perp_norm_frac": 0.9711372256278992
+        },
+        "separability": {
+          "between_var_share": 0.5570703744888306,
+          "d_c0_c1": 15.670896530151367,
+          "within_spread": 5.982839107513428,
+          "c0c1_over_within": 2.61930775642395
+        },
+        "isU_perp_perm_p": 0.1157684630738523,
+        "per_class_distances": {
+          "d_c0_u0": 10.040214538574219,
+          "d_c1_u0": 12.393762588500977,
+          "d_c0_u1": 10.168965339660645,
+          "d_c1_u1": 12.315069198608398,
+          "d_c0_c1": 15.670896530151367,
+          "d_u0_u1": 0.3001335859298706,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.6199999999999999,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.resid_pre": {
+        "axes": {
+          "cos_isU_komm": 0.17803290486335754,
+          "cos_isU_res": 0.13428832590579987,
+          "cos_res_komm": 0.37573349475860596,
+          "isU_varshare": 0.22614678740501404,
+          "isU_perp_varshare": 0.20826022326946259,
+          "res_varshare": 0.07690736651420593,
+          "komm_varshare": 0.3818624019622803,
+          "isU_perp_norm_frac": 0.9655593633651733
+        },
+        "separability": {
+          "between_var_share": 0.5598745346069336,
+          "d_c0_c1": 15.613887786865234,
+          "within_spread": 5.933387279510498,
+          "c0c1_over_within": 2.631530284881592
+        },
+        "isU_perp_perm_p": 0.10978043912175649,
+        "per_class_distances": {
+          "d_c0_u0": 10.169633865356445,
+          "d_c1_u0": 12.293912887573242,
+          "d_c0_u1": 10.324186325073242,
+          "d_c1_u1": 12.235075950622559,
+          "d_c0_c1": 15.613887786865234,
+          "d_u0_u1": 0.3929465115070343,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.6900000000000001,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.attn_in(ln1)": {
+        "axes": {
+          "cos_isU_komm": 0.1836857795715332,
+          "cos_isU_res": 0.055091846734285355,
+          "cos_res_komm": 0.3787335753440857,
+          "isU_varshare": 0.22758211195468903,
+          "isU_perp_varshare": 0.20833496749401093,
+          "res_varshare": 0.08286973834037781,
+          "komm_varshare": 0.38114500045776367,
+          "isU_perp_norm_frac": 0.9775270223617554
+        },
+        "separability": {
+          "between_var_share": 0.5613855719566345,
+          "d_c0_c1": 16.05307960510254,
+          "within_spread": 6.103680610656738,
+          "c0c1_over_within": 2.630065441131592
+        },
+        "isU_perp_perm_p": 0.09780439121756487,
+        "per_class_distances": {
+          "d_c0_u0": 10.474422454833984,
+          "d_c1_u0": 12.719376564025879,
+          "d_c0_u1": 10.595697402954102,
+          "d_c1_u1": 12.645401954650879,
+          "d_c0_c1": 16.05307960510254,
+          "d_u0_u1": 0.36445102095603943,
+          "u0_nearest": "c0",
+          "u1_nearest": "c0"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.6675,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.resid_mid": {
+        "axes": {
+          "cos_isU_komm": 0.29188692569732666,
+          "cos_isU_res": 0.28622883558273315,
+          "cos_res_komm": 0.9275060892105103,
+          "isU_varshare": 0.10409016162157059,
+          "isU_perp_varshare": 0.0825459435582161,
+          "res_varshare": 0.8177431225776672,
+          "komm_varshare": 0.7977087497711182,
+          "isU_perp_norm_frac": 0.9939088225364685
+        },
+        "separability": {
+          "between_var_share": 0.8456072211265564,
+          "d_c0_c1": 35.4178581237793,
+          "within_spread": 7.900641441345215,
+          "c0c1_over_within": 4.482909202575684
+        },
+        "isU_perp_perm_p": 0.564870259481038,
+        "per_class_distances": {
+          "d_c0_u0": 10.128692626953125,
+          "d_c1_u0": 36.3388557434082,
+          "d_c0_u1": 40.46975326538086,
+          "d_c1_u1": 11.173201560974121,
+          "d_c0_c1": 35.4178581237793,
+          "d_u0_u1": 41.56559371948242,
+          "u0_nearest": "c0",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.945,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      },
+      "L1.mlp_in(ln2)=combiner": {
+        "axes": {
+          "cos_isU_komm": 0.25150632858276367,
+          "cos_isU_res": 0.32368528842926025,
+          "cos_res_komm": 0.9159184694290161,
+          "isU_varshare": 0.11109592765569687,
+          "isU_perp_varshare": 0.08466639369726181,
+          "res_varshare": 0.7613472938537598,
+          "komm_varshare": 0.7623394131660461,
+          "isU_perp_norm_frac": 0.9905049800872803
+        },
+        "separability": {
+          "between_var_share": 0.8415212035179138,
+          "d_c0_c1": 28.442914962768555,
+          "within_spread": 6.067189693450928,
+          "c0c1_over_within": 4.68798828125
+        },
+        "isU_perp_perm_p": 0.5568862275449101,
+        "per_class_distances": {
+          "d_c0_u0": 7.465799331665039,
+          "d_c1_u0": 26.735652923583984,
+          "d_c0_u1": 30.080034255981445,
+          "d_c1_u1": 8.928627014160156,
+          "d_c0_c1": 28.442914962768555,
+          "d_u0_u1": 28.484947204589844,
+          "u0_nearest": "c0",
+          "u1_nearest": "c1"
+        },
+        "ingredient": {
+          "carry_in_decodable_committed": 0.9200000000000002,
+          "U_vs_committed_sep": 1.0,
+          "U_vs_committed_sep_partialled": 1.0
+        },
+        "label": "RESOLVED (U split toward committed axis)"
+      }
+    }
+  }
+}

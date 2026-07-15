@@ -1,0 +1,240 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "control": {
+      "model": "add_d5_l2_h3_t15K_s372001",
+      "accuracy": 1.0,
+      "node_level_control": {
+        "node": "P13L0H0",
+        "digit": 3,
+        "binary_carry_A_n+1_flip": 1.0
+      },
+      "coarse_readout_control": {
+        "A_n+1_flip_on_U": 1.0
+      }
+    },
+    "sweep": {
+      "accuracy": 1.0,
+      "bar": 0.9,
+      "screen_digit": 2,
+      "n_candidates": 5,
+      "nodes": {
+        "P10L0H2": {
+          "kind": "z",
+          "target_digit": 2,
+          "bar": 0.9,
+          "operand_attn": 0.0036233149003237486,
+          "u_flip": 0.7833333333333333,
+          "u_flip_rev": 0.7833333333333333,
+          "both_dir": 0.7833333333333333,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 0.7833333333333333,
+          "label": "none"
+        },
+        "P10L0MLP": {
+          "kind": "mlp",
+          "target_digit": 2,
+          "bar": 0.9,
+          "operand_attn": null,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P14L1H0": {
+          "kind": "z",
+          "target_digit": 2,
+          "bar": 0.9,
+          "operand_attn": 0.0008818238275125623,
+          "u_flip": 0.3,
+          "u_flip_rev": 0.0,
+          "both_dir": 0.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 0.3,
+          "label": "none"
+        },
+        "P14L1H2": {
+          "kind": "z",
+          "target_digit": 2,
+          "bar": 0.9,
+          "operand_attn": 6.918833969393745e-05,
+          "u_flip": 1.0,
+          "u_flip_rev": 0.7666666666666667,
+          "both_dir": 0.7666666666666667,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "none"
+        },
+        "P14L1MLP": {
+          "kind": "mlp",
+          "target_digit": 2,
+          "bar": 0.9,
+          "operand_attn": null,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        }
+      },
+      "joint": {
+        "P10L0H2+MLP": {
+          "target_digit": 2,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P14L1H0+MLP": {
+          "target_digit": 2,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P14L1H2+MLP": {
+          "target_digit": 2,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        }
+      }
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "control": {
+      "model": "add_d6_l2_h3_t20K_s173289",
+      "accuracy": 1.0,
+      "node_level_control": {
+        "node": "P15L0H2",
+        "digit": 4,
+        "binary_carry_A_n+1_flip": 1.0
+      },
+      "coarse_readout_control": {
+        "A_n+1_flip_on_U": 1.0
+      }
+    },
+    "sweep": {
+      "accuracy": 1.0,
+      "bar": 0.9,
+      "screen_digit": 3,
+      "n_candidates": 5,
+      "nodes": {
+        "P11L0H2": {
+          "kind": "z",
+          "target_digit": 3,
+          "bar": 0.9,
+          "operand_attn": 0.006684324238449335,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P11L0MLP": {
+          "kind": "mlp",
+          "target_digit": 3,
+          "bar": 0.9,
+          "operand_attn": null,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P16L1H1": {
+          "kind": "z",
+          "target_digit": 3,
+          "bar": 0.9,
+          "operand_attn": 0.0008723603677935898,
+          "u_flip": 0.21666666666666667,
+          "u_flip_rev": 0.4666666666666667,
+          "both_dir": 0.21666666666666667,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 0.21666666666666667,
+          "label": "none"
+        },
+        "P16L1H2": {
+          "kind": "z",
+          "target_digit": 3,
+          "bar": 0.9,
+          "operand_attn": 0.0008649361552670598,
+          "u_flip": 0.55,
+          "u_flip_rev": 0.7666666666666667,
+          "both_dir": 0.55,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 0.55,
+          "label": "none"
+        },
+        "P16L1MLP": {
+          "kind": "mlp",
+          "target_digit": 3,
+          "bar": 0.9,
+          "operand_attn": null,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        }
+      },
+      "joint": {
+        "P11L0H2+MLP": {
+          "target_digit": 3,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P16L1H1+MLP": {
+          "target_digit": 3,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        },
+        "P16L1H2+MLP": {
+          "target_digit": 3,
+          "u_flip": 1.0,
+          "u_flip_rev": 1.0,
+          "both_dir": 1.0,
+          "same_carry_null": 0.0,
+          "definite_regime_flip": 0.0,
+          "regime_specific_gap": 1.0,
+          "label": "combiner"
+        }
+      }
+    }
+  }
+}
