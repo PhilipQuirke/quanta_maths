@@ -213,6 +213,42 @@ Study seemed to focus on answer tokens.
 Using 99999999+00000001=+100000000 example the tristate sites to calculate the first answer digit "1" must be at or before the `+` token.
 For the mixed addition/subtraction model, the tristate sites to calculate the first answer token as "+/-" must be at or before the `=` token.
 
+### C5: The paper empirical results are reliable
+
+The paper empirical results and techniques are sound,but they are incomplete, especially for SV.
+
+Empirically, many of the ~40 models answer addition questions correctly in 99.999% of cases.
+
+In paper.tex, the table \label{tab:MathsPurposePerNodeAdd6D} description is:
+"For a sample 5-digit addition model,
+we show a compacted location map for the SA, SC and ST subtasks. Interestingly 1) the ST
+nodes are in a semi-random order 2) the second ST 1 node is redundant 3) the model uses
+SC nodes which are redundant 4) each SA subtask is shared across two attention heads" and
+shows where the ST nodes are (scattered across late prompt tokens and the "+" answer token.)
+This is solid (model-specific) information.
+
+These results are found by strong search techniques implemented in the \quanta_maths code base.
+The search techniques apply multiple strong criteria implied by the hypothesised algorithm.
+Nodes founds are then tested by strong intervetion techniques
+that make predictable changes in the model output based on the hypothesised algorithm.
+\notebooks\QMAnalyse.ipynb does the search/test. 
+The findings are stored (per-model) on https://huggingface.co/PhilipQuirke/VerifiedArithmetic
+e.g. https://huggingface.co/PhilipQuirke/VerifiedArithmetic/blob/main/add_d13_l2_h3_t50K_s572091/*.json
+\notebooks\QMAlgorithm.ipynb tests the JSON contents to see if all nodes required for the algorithm exist.
+Across many models the algorithm features are largely or completely exist.
+
+While there may be rare node-level variants, across ~40 models, the same algorithm is found.
+
+Our goal is to start with the information already known about an accurate addition model, then
+
+1) work out how each "output only" node (SA, ST, SC) stores/outputs information,
+2) locate the "compounding" (SV) mechanism
+3) understand how the SV mechanism gets input information, combines it, and outputs information.
+4) understand how the SV output information is used (together with SA, SC info) to generate answer digits.
+5) Document the (per-model) way the first non-static answer token is generated in  a hard edge case like 99999+00001=
+
+Then repeat these steps for an accurate "mixed" (addition and subtraction) model.
+
 ## Notes
 
 - It is healthy for human and agent conjectures to disagree; that tension should

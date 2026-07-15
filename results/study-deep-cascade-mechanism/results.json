@@ -1,0 +1,1685 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "accuracy": 1.0,
+    "n_top": 3,
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "bar": 0.5,
+    "seed": 20260716,
+    "behavioral_gate": {
+      "1": 0.975,
+      "2": 0.925,
+      "3": 0.925
+    },
+    "battery_A": {
+      "1": {
+        "deciding_digit": 2,
+        "dec_positions": [
+          2,
+          8
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "10": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "11": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A3@14.L1H0z": 0.0,
+          "A3@14.L1H1z": 0.0,
+          "A3@14.L1H2z": 0.0,
+          "A3@14.L1MLP": 0.5,
+          "A4@13.L1H0z": 0.0,
+          "A4@13.L1H1z": 0.0,
+          "A4@13.L1H2z": 0.425,
+          "A4@13.L1MLP": 0.5
+        },
+        "pure_state_hits": [],
+        "pure_state_nulls": {}
+      },
+      "2": {
+        "deciding_digit": 1,
+        "dec_positions": [
+          3,
+          9
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "10": {
+            "mean_flip": 0.6666666666666666,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 1.0,
+              "4": 1.0
+            },
+            "cell_type": "pure-state"
+          },
+          "11": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A2@15.L1H0z": 0.0,
+          "A2@15.L1H1z": 0.0,
+          "A2@15.L1H2z": 0.0,
+          "A2@15.L1MLP": 0.3333333333333333,
+          "A3@14.L1H0z": 0.0,
+          "A3@14.L1H1z": 0.0,
+          "A3@14.L1H2z": 0.19166666666666668,
+          "A3@14.L1MLP": 0.3333333333333333,
+          "A4@13.L1H0z": 0.0,
+          "A4@13.L1H1z": 0.0,
+          "A4@13.L1H2z": 0.325,
+          "A4@13.L1MLP": 0.3333333333333333
+        },
+        "pure_state_hits": [
+          10
+        ],
+        "pure_state_nulls": {
+          "10": 0.0
+        }
+      },
+      "3": {
+        "deciding_digit": 0,
+        "dec_positions": [
+          4,
+          10
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "10": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "11": {
+            "mean_flip": 0.75,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 1.0,
+              "3": 1.0,
+              "4": 1.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A1@16.L1H0z": 0.0,
+          "A1@16.L1H1z": 0.0,
+          "A1@16.L1H2z": 0.0,
+          "A1@16.L1MLP": 0.25,
+          "A2@15.L1H0z": 0.0,
+          "A2@15.L1H1z": 0.0,
+          "A2@15.L1H2z": 0.20625,
+          "A2@15.L1MLP": 0.25,
+          "A3@14.L1H0z": 0.0,
+          "A3@14.L1H1z": 0.0,
+          "A3@14.L1H2z": 0.18125,
+          "A3@14.L1MLP": 0.25,
+          "A4@13.L1H0z": 0.0,
+          "A4@13.L1H1z": 0.0,
+          "A4@13.L1H2z": 0.25,
+          "A4@13.L1MLP": 0.25
+        },
+        "pure_state_hits": [
+          11
+        ],
+        "pure_state_nulls": {
+          "11": 0.0
+        }
+      }
+    },
+    "intermediate_test": {
+      "2": {
+        "applicable": true,
+        "intermediate_digits": [
+          2
+        ],
+        "deciding_control_flip_at_eq": 0.0,
+        "control_ok": false,
+        "per_digit_result": {
+          "digit2": {
+            "intermediate_split_flip": 0.0
+          }
+        },
+        "eq_state_carries_intermediate_identity": false
+      },
+      "3": {
+        "applicable": true,
+        "intermediate_digits": [
+          1,
+          2
+        ],
+        "deciding_control_flip_at_eq": 0.75,
+        "control_ok": true,
+        "per_digit_result": {
+          "digit1": {
+            "intermediate_split_flip": 0.0
+          },
+          "digit2": {
+            "intermediate_split_flip": 0.0
+          }
+        },
+        "eq_state_carries_intermediate_identity": false
+      }
+    },
+    "tail_provenance": {
+      "1": {
+        "tail_positions": [
+          9,
+          10,
+          11
+        ],
+        "slab_resid_flip": 0.5125,
+        "slab_joint_flip": 0.025,
+        "local_tail_flip": 0.525,
+        "local_supports_R_tail": true
+      },
+      "2": {
+        "tail_positions": [
+          9,
+          10,
+          11
+        ],
+        "slab_resid_flip": 0.6666666666666666,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.6666666666666666,
+        "local_supports_R_tail": true
+      },
+      "3": {
+        "tail_positions": [
+          9,
+          10,
+          11
+        ],
+        "slab_resid_flip": 0.75,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.75,
+        "local_supports_R_tail": true
+      }
+    },
+    "tail_position_invariance": {
+      "var_across_deciding_position_fixed_carry": {
+        "hi": 0.5601756572723389,
+        "lo": 0.0019369603833183646
+      },
+      "var_across_carry_fixed_position": {
+        "1": 0.0011226095957681537,
+        "2": 0.002173525746911764,
+        "3": 0.6361104249954224
+      },
+      "mean_var_across_position": 0.2810563088278286,
+      "mean_var_across_carry": 0.21313552011270076,
+      "position_invariance_ratio": 1.3186741813872171,
+      "supports_R_tail_position_invariant": false
+    },
+    "tracking": {
+      "L1H0@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.125,
+            "top2_includes_units_end": 0.075,
+            "deciding_vs_units_gap": 0.05
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.05,
+            "top2_includes_units_end": 0.875,
+            "deciding_vs_units_gap": -0.825
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.025,
+            "top2_includes_units_end": 0.025,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 0,
+        "n_nondegenerate_depths": 2,
+        "tracks_deciding_digit": false
+      },
+      "L1H1@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.85,
+            "deciding_vs_units_gap": -0.85
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.9,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.9
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.125,
+            "top2_includes_units_end": 0.125,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 1,
+        "n_nondegenerate_depths": 2,
+        "tracks_deciding_digit": false
+      },
+      "L1H2@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -1.0
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.65,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -0.35
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.7,
+            "top2_includes_units_end": 0.7,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 0,
+        "n_nondegenerate_depths": 2,
+        "tracks_deciding_digit": false
+      }
+    },
+    "tracking_heads": [],
+    "any_head_tracks_deciding": false,
+    "pattern_patch_C2": {
+      "2": {
+        "instrument": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.0,
+          "redirect_to_irrelevant_move": 0.0,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        }
+      },
+      "3": {
+        "instrument": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.0,
+          "redirect_to_irrelevant_move": 0.0,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        }
+      }
+    },
+    "same_cell_tracks_and_selective": [],
+    "verdict": {
+      "read": "R-hybrid/ambiguous",
+      "reason": "controlled '=' patch shows NO intermediate-digit identity carried (against accumulated per-digit state); no genuine value-matched deciding-digit tracking (>=2 non-degenerate depths); real pure-state computed state near the question tail (graded, joint-flip 0); node/pattern-granularity tools cannot localize a single mechanism -> underpowered for a positive verdict"
+    }
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "accuracy": 1.0,
+    "n_top": 4,
+    "depths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "bar": 0.5,
+    "seed": 20260716,
+    "behavioral_gate": {
+      "1": 0.925,
+      "2": 0.975,
+      "3": 1.0,
+      "4": 0.925
+    },
+    "battery_A": {
+      "1": {
+        "deciding_digit": 3,
+        "dec_positions": [
+          2,
+          9
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "10": {
+            "mean_flip": 0.5,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 1.0
+            },
+            "cell_type": "pure-state"
+          },
+          "11": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "12": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "13": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A4@16.L1H0z": 0.0,
+          "A4@16.L1H1z": 0.0,
+          "A4@16.L1H2z": 0.0,
+          "A4@16.L1MLP": 0.5,
+          "A5@15.L1H0z": 0.0,
+          "A5@15.L1H1z": 0.0,
+          "A5@15.L1H2z": 0.475,
+          "A5@15.L1MLP": 0.5
+        },
+        "pure_state_hits": [
+          10
+        ],
+        "pure_state_nulls": {
+          "10": 0.0
+        }
+      },
+      "2": {
+        "deciding_digit": 2,
+        "dec_positions": [
+          3,
+          10
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "10": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "11": {
+            "mean_flip": 0.6666666666666666,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 1.0,
+              "5": 1.0
+            },
+            "cell_type": "pure-state"
+          },
+          "12": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "13": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A3@17.L1H0z": 0.0,
+          "A3@17.L1H1z": 0.0,
+          "A3@17.L1H2z": 0.0,
+          "A3@17.L1MLP": 0.3333333333333333,
+          "A4@16.L1H0z": 0.0,
+          "A4@16.L1H1z": 0.0,
+          "A4@16.L1H2z": 0.058333333333333334,
+          "A4@16.L1MLP": 0.3333333333333333,
+          "A5@15.L1H0z": 0.0,
+          "A5@15.L1H1z": 0.0,
+          "A5@15.L1H2z": 0.058333333333333334,
+          "A5@15.L1MLP": 0.3333333333333333
+        },
+        "pure_state_hits": [
+          11
+        ],
+        "pure_state_nulls": {
+          "11": 0.0
+        }
+      },
+      "3": {
+        "deciding_digit": 1,
+        "dec_positions": [
+          4,
+          11
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "10": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "11": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "12": {
+            "mean_flip": 0.75,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 1.0,
+              "4": 1.0,
+              "5": 1.0
+            },
+            "cell_type": "pure-state"
+          },
+          "13": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A2@18.L1H0z": 0.0,
+          "A2@18.L1H1z": 0.0,
+          "A2@18.L1H2z": 0.0,
+          "A2@18.L1MLP": 0.25,
+          "A3@17.L1H0z": 0.0,
+          "A3@17.L1H1z": 0.05,
+          "A3@17.L1H2z": 0.0,
+          "A3@17.L1MLP": 0.25,
+          "A4@16.L1H0z": 0.0,
+          "A4@16.L1H1z": 0.25,
+          "A4@16.L1H2z": 0.0,
+          "A4@16.L1MLP": 0.25,
+          "A5@15.L1H0z": 0.0,
+          "A5@15.L1H1z": 0.25,
+          "A5@15.L1H2z": 0.0,
+          "A5@15.L1MLP": 0.25
+        },
+        "pure_state_hits": [
+          12
+        ],
+        "pure_state_nulls": {
+          "12": 0.0
+        }
+      },
+      "4": {
+        "deciding_digit": 0,
+        "dec_positions": [
+          5,
+          12
+        ],
+        "coarse_resid_L0": {
+          "0": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "1": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "2": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "3": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "4": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "5": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "operand-content"
+          },
+          "6": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "7": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "8": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "9": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "10": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "11": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          },
+          "12": {
+            "mean_flip": 0.8,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 1.0,
+              "3": 1.0,
+              "4": 1.0,
+              "5": 1.0
+            },
+            "cell_type": "operand-content"
+          },
+          "13": {
+            "mean_flip": 0.0,
+            "joint_flip": 0.0,
+            "per_digit": {
+              "1": 0.0,
+              "2": 0.0,
+              "3": 0.0,
+              "4": 0.0,
+              "5": 0.0
+            },
+            "cell_type": "pure-state"
+          }
+        },
+        "consumer_L1": {
+          "A1@19.L1H0z": 0.0,
+          "A1@19.L1H1z": 0.0,
+          "A1@19.L1H2z": 0.0,
+          "A1@19.L1MLP": 0.2,
+          "A2@18.L1H0z": 0.0,
+          "A2@18.L1H1z": 0.0,
+          "A2@18.L1H2z": 0.03,
+          "A2@18.L1MLP": 0.2,
+          "A3@17.L1H0z": 0.0,
+          "A3@17.L1H1z": 0.0,
+          "A3@17.L1H2z": 0.015,
+          "A3@17.L1MLP": 0.2,
+          "A4@16.L1H0z": 0.0,
+          "A4@16.L1H1z": 0.18,
+          "A4@16.L1H2z": 0.0,
+          "A4@16.L1MLP": 0.2,
+          "A5@15.L1H0z": 0.0,
+          "A5@15.L1H1z": 0.2,
+          "A5@15.L1H2z": 0.0,
+          "A5@15.L1MLP": 0.2
+        },
+        "pure_state_hits": [],
+        "pure_state_nulls": {}
+      }
+    },
+    "intermediate_test": {
+      "2": {
+        "applicable": true,
+        "intermediate_digits": [
+          3
+        ],
+        "deciding_control_flip_at_eq": 0.0,
+        "control_ok": false,
+        "per_digit_result": {
+          "digit3": {
+            "intermediate_split_flip": 0.0
+          }
+        },
+        "eq_state_carries_intermediate_identity": false
+      },
+      "3": {
+        "applicable": true,
+        "intermediate_digits": [
+          2,
+          3
+        ],
+        "deciding_control_flip_at_eq": 0.0,
+        "control_ok": false,
+        "per_digit_result": {
+          "digit2": {
+            "intermediate_split_flip": 0.0
+          },
+          "digit3": {
+            "intermediate_split_flip": 0.0
+          }
+        },
+        "eq_state_carries_intermediate_identity": false
+      },
+      "4": {
+        "applicable": true,
+        "intermediate_digits": [
+          1,
+          2,
+          3
+        ],
+        "deciding_control_flip_at_eq": 0.0,
+        "control_ok": false,
+        "per_digit_result": {
+          "digit1": {
+            "intermediate_split_flip": 0.0
+          },
+          "digit2": {
+            "intermediate_split_flip": 0.0
+          },
+          "digit3": {
+            "intermediate_split_flip": 0.0
+          }
+        },
+        "eq_state_carries_intermediate_identity": false
+      }
+    },
+    "tail_provenance": {
+      "1": {
+        "tail_positions": [
+          11,
+          12,
+          13
+        ],
+        "slab_resid_flip": 0.0,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.0,
+        "local_supports_R_tail": false
+      },
+      "2": {
+        "tail_positions": [
+          11,
+          12,
+          13
+        ],
+        "slab_resid_flip": 0.6666666666666666,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.6666666666666666,
+        "local_supports_R_tail": true
+      },
+      "3": {
+        "tail_positions": [
+          11,
+          12,
+          13
+        ],
+        "slab_resid_flip": 0.75,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.75,
+        "local_supports_R_tail": true
+      },
+      "4": {
+        "tail_positions": [
+          11,
+          12,
+          13
+        ],
+        "slab_resid_flip": 0.8,
+        "slab_joint_flip": 0.0,
+        "local_tail_flip": 0.8,
+        "local_supports_R_tail": true
+      }
+    },
+    "tail_position_invariance": {
+      "var_across_deciding_position_fixed_carry": {
+        "hi": 0.000930386537220329,
+        "lo": 0.001349985133856535
+      },
+      "var_across_carry_fixed_position": {
+        "1": 0.000806011026725173,
+        "2": 0.0010869463440030813,
+        "3": 0.0006299521191976964,
+        "4": 0.0005659792805090547
+      },
+      "mean_var_across_position": 0.001140185835538432,
+      "mean_var_across_carry": 0.0007722221926087514,
+      "position_invariance_ratio": 1.476497787753067,
+      "supports_R_tail_position_invariant": false
+    },
+    "tracking": {
+      "L1H0@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.375,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.375
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 0,
+        "n_nondegenerate_depths": 3,
+        "tracks_deciding_digit": false
+      },
+      "L1H1@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 1.0
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.975,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -0.025000000000000022
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 1,
+        "n_nondegenerate_depths": 3,
+        "tracks_deciding_digit": false
+      },
+      "L1H2@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.025,
+            "deciding_vs_units_gap": -0.025
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 1.0
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 0.025,
+            "deciding_vs_units_gap": 0.975
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.075,
+            "top2_includes_units_end": 0.075,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_nondegenerate_depths_following": 2,
+        "n_nondegenerate_depths": 3,
+        "tracks_deciding_digit": true
+      }
+    },
+    "tracking_heads": [
+      "L1H2@15"
+    ],
+    "any_head_tracks_deciding": true,
+    "pattern_patch_C2": {
+      "2": {
+        "instrument": {
+          "redirect_to_deciding_move": 0.925,
+          "redirect_to_wrong_move": 0.425,
+          "redirect_to_irrelevant_move": 0.375,
+          "causal_pattern": true,
+          "selective": true,
+          "underpowered": false
+        },
+        "ce8_cell": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.0,
+          "redirect_to_irrelevant_move": 0.0,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        },
+        "tracking_L1H2@15": {
+          "redirect_to_deciding_move": 0.275,
+          "redirect_to_wrong_move": 0.95,
+          "redirect_to_irrelevant_move": 0.55,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": false
+        }
+      },
+      "3": {
+        "instrument": {
+          "redirect_to_deciding_move": 0.9,
+          "redirect_to_wrong_move": 0.55,
+          "redirect_to_irrelevant_move": 0.5,
+          "causal_pattern": true,
+          "selective": true,
+          "underpowered": false
+        },
+        "ce8_cell": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.0,
+          "redirect_to_irrelevant_move": 0.0,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        },
+        "tracking_L1H2@15": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.325,
+          "redirect_to_irrelevant_move": 0.025,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        }
+      },
+      "4": {
+        "instrument": {
+          "redirect_to_deciding_move": 0.55,
+          "redirect_to_wrong_move": 0.825,
+          "redirect_to_irrelevant_move": 0.475,
+          "causal_pattern": true,
+          "selective": false,
+          "underpowered": true
+        },
+        "ce8_cell": {
+          "redirect_to_deciding_move": 0.0,
+          "redirect_to_wrong_move": 0.0,
+          "redirect_to_irrelevant_move": 0.0,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": true
+        },
+        "tracking_L1H2@15": {
+          "redirect_to_deciding_move": 0.05,
+          "redirect_to_wrong_move": 0.025,
+          "redirect_to_irrelevant_move": 0.325,
+          "causal_pattern": false,
+          "selective": false,
+          "underpowered": false
+        }
+      }
+    },
+    "same_cell_tracks_and_selective": [],
+    "verdict": {
+      "read": "R-hybrid/ambiguous",
+      "reason": "D-7 intermediate test UNTESTABLE (no passing deciding control at the transmitting locus); tracking present but NOT on a cell that is also causally deciding-selective (no same-cell convergence); real pure-state computed state near the question tail (graded, joint-flip 0); node/pattern-granularity tools cannot localize a single mechanism -> underpowered for a positive verdict"
+    }
+  }
+}

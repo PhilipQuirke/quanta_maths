@@ -1,0 +1,25 @@
+{
+  "model": "add_d6_l2_h3_t20K_s173289",
+  "accuracy": 1.0,
+  "seed": 20260716,
+  "n_top": 4,
+  "control_behavioral_gate": {
+    "1": 0.925,
+    "2": 0.975,
+    "3": 0.925,
+    "4": 0.875
+  },
+  "control2_full_resid_mid": {
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0
+  },
+  "control5_additivity": {
+    "max_abs_reconstruction_error": 3.337860107421875e-06
+  },
+  "control1_edge_validity_directpath": {
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+  }
+}

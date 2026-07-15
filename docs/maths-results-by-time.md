@@ -208,3 +208,119 @@ live — not the current best story (that goes in
   2-layer, addition only.
 - **Linked study**:
   [study-maths/study-attention-invariance.md](study-maths/study-attention-invariance.md)
+
+### 2026-07-16 — Deep-cascade mechanism (deciding-digit patching; R-hybrid/ambiguous, instrument-limited)
+
+- **Covered**: Causal test of how multi-digit `...999` carry chains resolve, on
+  `add_d5_l2_h3_t15K_s372001` (chain top digit 3) and `add_d6_l2_h3_t20K_s173289`
+  (top digit 4), over graded chain depths `C(n,k,class)` with matched hi/lo pairs.
+  Batteries: A (spatial causal map — pure-state vs operand-content
+  `resid_post(L0)` cells + consumer-side L1 z/MLP), D-2/D-7 (controlled
+  intermediate all-9s digit patch at the transmitting `=` locus, with a
+  deciding-digit positive control), D-1 (tail-joint local decomposition +
+  position-invariance), C1/D-8 (genuine value-matched top-2 key-set deciding-digit
+  tracking with a units-end control, ≥2-non-degenerate-depth bar), C2/D-9 (causal
+  pattern-patch selection with deciding/wrong/irrelevant redirects + same-cell
+  requirement). 7 positive controls (harness-liveness conduit, computed-state CE5
+  combiner, SA-head bar+null, readout, SA pattern-redirect, consumer-L1 instrument,
+  per-depth behavioral gate).
+- **Artifacts** (local, no HF): `results/study-deep-cascade-mechanism/`:
+  `results.json`, `control_*.json`, `flip_heatmap_*.png`; scripts
+  `scripts/deep_cascade_mechanism.py`, `scripts/deep_cascade_batteries.py`.
+- **Caveats / coverage gaps**: **R-hybrid/ambiguous — node/pattern granularity is
+  underpowered to localize a single mechanism** (the finding *is* an instrument
+  limit). A9's predicted single-cell convergence is **absent**: a causally
+  deciding-selective consumer head (6-digit `L1.H0` Q14, dec 0.93/0.90 vs both
+  baselines at k=2,3) and a deciding-digit-tracking head (`L1.H2` Q15, 2/3 depths)
+  are **different** cells, and the CE8 routing cell `L1.H1` is causally **inert**
+  (0.00). Sequential per-digit state disfavored where the `=` control passes
+  (5-digit k=3) but untestable in 6-digit. Real graded operand-adjacent tail state
+  (joint-flip 0). 5-digit fully inconclusive (C2 inert). Two Gate-2 BLOCK rounds
+  corrected over-reach in both directions (unearned negative; then a non-implemented
+  value-matched metric + boundary-artifact tracking + mismatched-cell A9 claim).
+  Follow-up = edge path-patching (B11). 2-layer, addition, single seed per size.
+- **Linked study**:
+  [study-maths/study-deep-cascade-mechanism.md](study-maths/study-deep-cascade-mechanism.md)
+
+### 2026-07-16 — Deep-cascade hand-off: L1-head→combiner edge path-patch (one-depth causal crumb)
+
+- **Covered**: Edge path-patch of the `L1.head_h → L1-MLP combiner` edge at the
+  answer-position combiner (the CE5 site), on `add_d6_l2_h3_t20K_s173289` (primary)
+  and `add_d5_l2_h3_t15K_s372001`. Per-digit matched-pair chain patches at each
+  affected digit's own consuming position; three arms (raw `resid_mid`, LN-fair
+  [freeze `ln2` std], MLP-only [`ln2.hook_normalized`]); direct-path (`resid_post(L0)`)
+  edge; **per-cell power control** (direct edge scaled *down* to the cell's own
+  single-head-edge norm); selectivity (deciding vs same-class-diff-operand null vs
+  wrong-digit). Controls: additivity (exact decomposition), full-`resid_mid`
+  validity, behavioral gate.
+- **Artifacts** (local, no HF): `results/study-cascade-handoff-edge-patch/`:
+  `results.json`, `control_*.json`; script `scripts/cascade_handoff_edge_patch.py`.
+- **Caveats / coverage gaps**: **Scoped partial positive.** Edge decomposition
+  exact (additivity 3.3e-6); full-`resid_mid` patch flips 1.00. At **one depth**
+  (6-digit k=3) a **single head `L1.H1`** (the CE8 routing cell CE9 found inert)
+  carries the top cascade digit's **computed, deciding-selective** carry through the
+  combiner MLP input (dec 1.00 / same-class null 0.00 / wrong 0.00). But the
+  single-position edge battery is **underpowered at most cells** (6/9 6-digit, 3/9
+  5-digit — a single-head-magnitude direct edge can't flip them), no head meets the
+  ≥2-depth bar, and 5-digit has **live direct-path** cells (0.70–0.93). So A9's
+  attention-delivery is **circumstantial (one-depth), not confirmed**; A6's
+  residual-carry is **not refuted**. Two Gate-2 rounds: round 1 BLOCK (inverted
+  power control scaled the direct path UP ~20×, over-claiming an anti-A6 positive);
+  corrected → round 2 PASS WITH CONDITIONS. 2-layer, addition, single seed per size.
+- **Linked study**:
+  [study-maths/study-cascade-handoff-edge-patch.md](study-maths/study-cascade-handoff-edge-patch.md)
+
+### 2026-07-16 — Cross-position & cross-subtask probe transfer (ST is position-specific + entangled with SV)
+
+- **Covered**: Linear probes (logistic regression, balanced train+test) for the
+  per-digit question-position sub-tasks SA/ST/SV on `add_d6_l2_h3_t20K_s173289` and
+  `add_d5_l2_h3_t15K_s372001`. Read-site pre-flight over 5 candidate sites;
+  cross-position transfer matrix (raw + mean-centered) at the shared question site
+  `D'n`@resid_post(L0); same-position cross-subtask floor (class-mean-subspace
+  decodability, a label-correlation control); principal angles between class-mean
+  activation subspaces vs a label-correlation null; position-only decode null.
+- **Artifacts** (local, no HF): `results/study-probe-transfer/results.json`,
+  `transfer_*.png`; script `scripts/probe_transfer.py`.
+- **Caveats / coverage gaps**: **ST-scoped result.** `ST` (the only sub-task with a
+  strong diagonal at the question site) does **not** transfer across digit
+  positions (retention 0.10/0.12 ≪ 0.6 bar; off-diagonal ≈ chance; mean-centering
+  doesn't restore it) → **C2/A4 shared-template falsified for ST at question
+  positions**; and `ST`–`SV` are geometrically **entangled** beyond their
+  (independent) labels (angle 21° ≪ 64°/50° null, both models) → C2 orthogonality +
+  A8 interference challenged. **SA and SV are diag-weak at the question site**
+  (SA lives at the *answer* position, decodes 1.00 there — confirms CE2/CE3), so
+  their transfer is not-assessable here (not "no template"). Position decodes at
+  1.00 (a trivial positional-embedding fact, not the mechanism). Both models agree.
+  Linear probes; 2-layer addition; middle digits; answer-phase transfer
+  (tape-vs-register) untested → B4. Gate 2 PASS WITH CONDITIONS (narrowed the
+  falsification from all-subtasks to ST; demoted the position-1.00 gloss).
+- **Linked study**:
+  [study-maths/study-probe-transfer.md](study-maths/study-probe-transfer.md)
+
+### 2026-07-16 — Answer-position binding: tape vs register (SA register, SV present-at-= non-orthogonal)
+
+- **Covered**: Linear probes for the resolved answer-phase states `SA_n` (answer
+  digit) and `SV_n` (resolved carry into n) at `=` and each answer consuming
+  position, on `add_d6_l2_h3_t20K_s173289` and `add_d5_l2_h3_t15K_s372001`.
+  Coexistence census (decode at position vs an isolated-operand `Dn`/`D'n` baseline),
+  answer-side cross-position transfer (raw + centered, vs operand floor), per-digit
+  `SV` slot principal angles at `=` vs a label-correlation null. Reuses the
+  probe-transfer harness.
+- **Artifacts** (local, no HF): `results/study-answer-binding/results.json`,
+  `coexistence_*.png`; script `scripts/answer_binding.py`.
+- **Caveats / coverage gaps**: **Split layout, both models.** `SA` is a
+  just-in-time **register** — absent at `=` (raw acc ≈ chance), present 1.00 only at
+  its own answer position (A4 just-in-time supported). `SV` (carries) is
+  **resolved/present at `=`** for all digits (CE7-consistent) but its per-digit
+  slots are **not orthogonal** (6-digit 12–27°; 5-digit 2/3 pairs < 60°) → the
+  orthogonal-**tape** alternative is **refuted**. Both `SA`/`SV` **transfer across
+  answer positions** (a shared answer-side template — SV beats the operand floor;
+  SA transfer is caveated re-derivation), unlike the position-specific question-side
+  `ST` (CE11). Gate-2 corrections: the SV isolated-operand baseline is too weak to
+  claim "beyond re-derivation" (SV depends on all lower digits) → reframed
+  CE7-consistent, no "carry bus" claim; entanglement-below-null is 6-digit-only with
+  a 1-D binary-subspace caveat; AB-2 CIs / AB-5 lowvar not implemented (point
+  estimates). A6/C3 untouched (no storage/causal claim). Linear probes; middle
+  digits; SV_0 excluded; 2-layer addition.
+- **Linked study**:
+  [study-maths/study-answer-binding.md](study-maths/study-answer-binding.md)

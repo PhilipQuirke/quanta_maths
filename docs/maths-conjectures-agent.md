@@ -302,8 +302,28 @@ open fork.]*
   mechanism; demotes C2's orthogonality half at question positions (separation
   is positional there) and relocates the interesting version of the question
   to the answer phase.
-- **Confidence**: medium-high on template sharing; medium on just-in-time
-  fetch.
+- **Confidence**: **template-sharing sub-claim LOWERED 2026-07-16** by the
+  probe-transfer study ([CE11](maths-claim-evidence.md)): for the tri-state carry
+  `ST` at question positions, a probe trained at digit `i` **does not transfer** to
+  digit `j` (retention 0.10/0.12 ≪ 0.6, both models), and mean-centering does not
+  restore it — so **A4's "transfer-for-free" prediction is falsified for `ST`**, and
+  not even A4's per-position-offset form holds. The representation is
+  position-specific at the question site despite architectural weight sharing. A4's
+  positional-binding *spirit* (position is decodable/where-based) is not
+  contradicted, but its concrete transfer claim fails. Was medium-high on template
+  sharing → **low-medium** (question-position `ST`); the just-in-time-fetch half is
+  now the sharp open test at the **answer** position (B4). SA/SV template sharing at
+  their own home sites remains untested (SA lives at the answer position, CE2/CE3).
+  **Update 2026-07-16 (CE12, answer-binding):** the answer-phase binding was tested.
+  **Just-in-time fetch is SUPPORTED for `SA`** (absent at `=`, present only at its
+  own answer position) and the **orthogonal-tape alternative is REFUTED for `SV`**
+  (present at `=` but per-digit slots not orthogonal). And — unlike the
+  question-side `ST` — `SA`/`SV` **transfer across answer positions** (a shared
+  answer-side template), so A4's template claim is **position-of-computation
+  dependent** (fails question-side, holds answer-side). Net: **raise the
+  just-in-time-fetch sub-claim to medium-high**; the "orthogonal per-digit slots at
+  `=`" tape alternative A4 itself named is refuted; no *stored*-cascade claim (A6/C3
+  untouched — SV presence at `=` is CE7-consistent resolution, not shown stored).
 
 ### A5: Attention routing is static wiring; data-dependence lives in values and MLPs
 
@@ -344,7 +364,17 @@ open fork.]*
   pattern-patching test (cascade-tracing entry). **2026-07-15 note:** under A9
   those routing cells stop being a curiosity and become the *mechanism of
   deep-cascade resolution* (the target relocation = picking the deciding
-  digit); the causal pattern-patching test doubles as an A9 test.
+  digit); the causal pattern-patching test doubles as an A9 test. **Update
+  2026-07-16 (CE9): the causal pattern-patch ran, and the CE8 `L1.H1` routing
+  cell is causally INERT under a single-head redirect (0.00 answer-move) — so
+  CE8's routing stays *representational*, not shown load-bearing.** Hold A5 at
+  medium (the representational hybrid-routing finding stands; its causal role is
+  not established at this granularity — an edge path-patch is the open test).
+  **Update 2026-07-16 (CE10):** the edge path-patch shows `L1.H1` **is causally
+  load-bearing at the combiner edge at one depth** (6-digit k=3) — so the CE8
+  routing cell has a *causal* role after all, but only a one-depth crumb (the edge
+  instrument is underpowered at most cells). Note (do not raise) A5: hybrid routing
+  is causal at `L1.H1`/k=3, pending a less-damped multi-depth confirmation.
 
 ### A6: The carry cascade is carried state, but load-bearing only as a tie-breaker
 
@@ -397,7 +427,13 @@ open fork.]*
   mixed model's sign). Hold medium-high on the single-digit carried+combined
   core, but the multi-digit mechanism — sequential carried state (human lean)
   vs selection (A9) vs wide fetch — is now the thread's top fork and wholly
-  untested.
+  untested. **Update 2026-07-16 (CE9, deep-cascade study):** the deep-chain fork
+  was tested at node/pattern granularity and is **not resolvable there** — the
+  **sequential-accumulated** form is *disfavored where testable* (no
+  intermediate-digit identity carried in the cascade state at the one controlled
+  locus, 5-digit `=` k=3) but not refuted (untestable in 6-digit); the tie-break
+  economy sub-claim remains untested. So A6's deep-chain extrapolation is
+  **weakened but open**; the fork awaits an edge path-patch (B11).
 
 ### A7: Mixed models are one engine under low-rank `OPR`/`SGN` control, not parallel circuits
 
@@ -460,7 +496,15 @@ open fork.]*
   trained features. The core A8 claim is about *activation* effective dimension
   across the task (agenda entry 7), which remains **untouched**. Net: was
   medium-high; hold medium-high for the activation claim, but note the embedding
-  matrix is not itself low-rank.
+  matrix is not itself low-rank. **Interference half LOWERED 2026-07-16**
+  ([CE11](maths-claim-evidence.md)): the probe-transfer study found `ST` and `SV`
+  are **geometrically entangled** at question positions (principal angle 21° ≪
+  64°/50° label-correlation null, both models) despite being label-independent at
+  the same digit — i.e. the carry-family sub-tasks share overlapping directions
+  rather than occupying near-orthogonal dedicated subspaces. This challenges A8's
+  "unrelated sub-task readouts are near-orthogonal / low interference" prediction
+  for the carry family at question positions. The task-wide effective-dimension
+  claim (agenda entry 2) is still the untouched core test.
 
 ### A9: Deep `U`-cascades are resolved by one-hop attention selection, not sequential propagation
 
@@ -524,9 +568,34 @@ open fork.]*
   there is no ridden state at all, only stored per-digit bits plus a
   data-dependent fetch. C4's own leading-digit argument is *accepted* and is
   part of what forces a mechanism like this.
-- **Confidence**: low-medium (new; circumstantial support, mostly one model,
-  nothing causal). The deciding-digit patch test is cheap with the existing
-  patching harnesses and discriminates all three mechanisms in one design.
+- **Confidence**: **held at low-medium 2026-07-16** after the deep-cascade
+  mechanism study ([CE9](maths-claim-evidence.md)). The deciding-digit patch test
+  ran, but at node/attention-pattern granularity it is **underpowered to confirm
+  A9**: the two signatures A9 predicts to co-occur on one head land on *different*
+  cells (6-digit: a causally deciding-selective consumer head `L1.H0` Q14, and a
+  separate deciding-digit-tracking head `L1.H2` Q15), and the CE8 routing cell
+  `L1.H1` is causally **inert** (single-head pattern-redirect moves 0.00). So the
+  *ingredients* A9 needs exist (selective causal head; tracking head; no sequential
+  per-digit state carried where testable) but A9's specific single-cell selection
+  mechanism is **not demonstrated** — neither confirmed nor refuted. The
+  discriminating test is now an **edge path-patch** (candidate L1-head→L1-MLP-
+  combiner edge), not a single-head redirect (too blunt). Two skeptic rounds were
+  needed here: the first over-claimed A9 *refuted*, the second over-claimed A9
+  *confirmed via `L1.H1`* on a value-matched metric that had not actually been
+  implemented; the honest read is *pieces-present-convergence-unshown*. Still the
+  thread's top fork; the edge path-patch (B11) is promoted to the confirming test.
+  **Update 2026-07-16 (CE10, edge path-patch ran):** a **one-depth causal crumb,
+  not a confirmation** — at 6-digit k=3, `L1.H1` (the CE8 routing cell CE9 found
+  inert) **causally drives the combiner** with a computed, deciding-selective carry
+  through the combiner MLP input (dec 1.00 / same-class null 0.00 / wrong 0.00).
+  But the single-position edge instrument is **underpowered at most cells** (6/9
+  6-digit; LN renormalizes a single head's edge against the whole residual), no head
+  clears the ≥2-depth bar, and 5-digit has a **live direct residual path** — so A9's
+  attention-delivery is causally supported *at one cell* but **held at low-medium**
+  (not confirmed), and A6's residual-carry is **not refuted**. (Gate 2 round 1
+  BLOCKed an inverted-power-control over-claim of "A9 confirmed / A6 refuted"; this
+  crumb is the corrected read.) Follow-up: a less LN-damped / multi-position edge
+  instrument + a second depth (6-digit k=4).
 
 ## Sharpest forks
 
@@ -536,11 +605,14 @@ itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
 
 1. **Deep-cascade mechanism (A6 vs A9)** — sequential carried state (human
    lean, C4) vs one-hop selection of the deciding digit (agent lean, A9) vs
-   nonlinear wide fetch. The deciding-digit patch on `...999` chains
-   discriminates all three in one design, and the answer-sign position (the
-   leading digit's locus) is the natural stress case. Absorbs the old
-   "carried vs wide-fetch" fork and what remains of the `U`-shape fork
-   (question-position transient `U`, B12).
+   nonlinear wide fetch. **Still #1, but the instrument has moved
+   (2026-07-16, CE9):** the node/attention-pattern deciding-digit patch was run
+   and is *underpowered* — A9's tracking and causal-selectivity signatures land on
+   different heads, the CE8 cell is causally inert, and sequential state is only
+   weakly disfavored. The discriminating test is now an **edge path-patch** of the
+   candidate L1-head→L1-MLP-combiner edge (freeze the combiner's other inputs),
+   not a single-head redirect. B11 is the promoted confirming experiment; the
+   answer-sign position (leading digit) remains the natural stress case.
 2. **Where discretization happens (A2)** — pre-MLP sum-sufficiency at a
    question-position compute node is still a crisp untested yes/no (pair-sum
    line frozen pending a transport-null-aware design).
@@ -733,6 +805,86 @@ External:
   not transmit U-resolution, yet the model resolves `U` correctly. This splits
   A2/A3's implicit "one ST node does it all" picture and makes *locating the
   U-resolution path* the top mechanistic question.
+- **2026-07-16** — After the answer-position binding study (Gate 2 PASS WITH
+  CONDITIONS; [study note](study-maths/study-answer-binding.md),
+  [CE12](maths-claim-evidence.md)): the CE11 follow-up. **Answer phase is a split
+  layout**: `SA` (sum) is a just-in-time **register** (absent at `=`) — **A4
+  just-in-time fetch supported, raised to medium-high**; `SV` (carry) is
+  resolved/present at `=` (CE7-consistent) but its per-digit slots are **not
+  orthogonal** — **A4's orthogonal-tape alternative refuted**; both `SA`/`SV`
+  **transfer across answer positions** (shared answer-side template), unlike the
+  question-side `ST` (CE11), so A4's template claim is
+  **position-of-computation-dependent**. **C2/A8 non-orthogonality reinforced** (SV
+  slots not orthogonal, 6-digit entangled-below-null with a 1-D caveat). **A6/C3
+  untouched** (AB-3 gate: SV presence at `=` is resolution, not shown stored; no
+  causal test). Gate 2 caught an over-reach (a "coexistent carry bus beyond
+  re-derivation" claim resting on a too-weak isolated-operand baseline — SV depends
+  on all lower digits) and I reframed it CE7-consistent. Method lesson: a
+  binding/coexistence baseline must include *all* the label's causal determinants,
+  not just the same-index operands. Both models agree on the split. Next: the
+  effective-dimensionality breadth study (entry 1 now); a causal "is the `=` carry
+  used?" test is backlog.
+- **2026-07-16** — After the cross-position/cross-subtask probe-transfer study
+  (Gate 2 PASS WITH CONDITIONS; [study note](study-maths/study-probe-transfer.md),
+  [CE11](maths-claim-evidence.md)): a breadth study (cascade line paused for
+  breadth). **New structural fact for `ST`**: at question positions the tri-state
+  carry is **position-specific** (an `ST` probe does not transfer across digits;
+  mean-centering doesn't restore it) — **A4's transfer-for-free and C2's
+  shared-template halves falsified for `ST`** — and `ST`/`SV` are **geometrically
+  entangled** beyond their (independent) labels — **C2 orthogonality + A8
+  interference challenged**. **A4 template-sharing lowered to low-medium**; **A8
+  interference half lowered**; **C2 lowered for the ST question-position case**
+  (human-owned, noted). Scope: `ST`-only (SA/SV diag-weak at the question site; SA
+  lives at the answer position, confirming CE2/CE3); linear probes; both models
+  agree — a rare clean cross-model replication. Gate 2 narrowed an initial
+  over-reach (first draft claimed *all* sub-tasks position-specific + leaned on the
+  trivial "position decodes at 1.00"; corrected to ST-scoped, mechanism = the
+  centering-fails discriminator). The sharp follow-up is the **answer-phase** binding
+  (B4, tape-vs-register) — promoted. Method lesson: a "no transfer" verdict is only
+  valid where the diagonal probe passes; and a positional-embedding truism
+  (position decodes perfectly) must not be dressed as a mechanism.
+- **2026-07-16** — After the deep-cascade hand-off edge path-patch (Gate 2 PASS
+  WITH CONDITIONS after one BLOCK; [study note](study-maths/study-cascade-handoff-edge-patch.md),
+  [CE10](maths-claim-evidence.md)): the edge path-patch gives a **one-depth causal
+  crumb** — `L1.H1` (the CE8 cell CE9 found inert) causally drives the combiner at
+  6-digit k=3 with a computed, deciding-selective carry through the MLP. But the
+  single-position edge instrument is underpowered at most cells (LN renormalization
+  damps single-head edges), no head clears the ≥2-depth bar, and 5-digit has a live
+  direct residual path. **A9 held at low-medium** (first causal crumb, not
+  confirmed); **A6 held (not refuted)**; **A5 noted** (`L1.H1` causal at k=3, not
+  raised). Gate 2 round 1 BLOCKed an **inverted power control** (scaled the direct
+  path UP ~20×, over-claiming "A9 confirmed / A6 refuted / direct-path inert 0/9");
+  corrected (scale DOWN to per-cell head-edge norm) → 6/9 cells underpowered. This
+  is the **third** skeptic catch in the cascade line (CE9 ×2 + this), twice
+  positive-direction. Durable method lessons: (1) a power/underpower control must be
+  built at the *effect's own magnitude* and its scaling *direction verified*; (2) LN
+  renormalization makes single-head edge patches systematically underpowered — a
+  hand-off question needs a less-damped / multi-position edge instrument.
+- **2026-07-16** — After the deep-cascade mechanism study (Gate 2 PASS after two
+  BLOCK rounds; [study note](study-maths/study-deep-cascade-mechanism.md),
+  [CE9](maths-claim-evidence.md)): the deep `...999` fork — the thread's #1 — was
+  tested and found **not resolvable at node/attention-pattern granularity**.
+  **A9 held at low-medium** (its predicted single-cell tracking+causation
+  convergence is absent: causal-selective `L1.H0` and tracking `L1.H2` are
+  different heads; CE8 `L1.H1` causally inert); **A6's sequential-accumulated deep
+  form weakly disfavored** (no intermediate-digit identity where testable) but not
+  refuted; **A5's CE8 routing cell stays representational** (causally inert under
+  single-head redirect — the round-2 "load-bearing" over-claim withdrawn); **C3's
+  physical-cascade clause weakly disfavored where testable** (human-owned, noted).
+  Two skeptic rounds were decisive and instructive: round 1 caught a
+  **negative over-reach** (unearned refutations resting on an uncontrolled
+  intermediate-locus, an unimplemented tracking metric, and no selectivity
+  baseline); round 2 caught the symmetric **positive over-reach** (A9 "confirmed"
+  assembled from a value-matched metric asserted-but-not-coded, a units-end
+  boundary-artifact tracking gap, and three signatures pulled from three different
+  cells). Method lessons: (1) a null result needs a positive control *on the same
+  locus/unit* or it is `invalid`, not `negative`; (2) a metric named in a docstring
+  must be the metric in the code (integrity trap); (3) require a mechanism's
+  predicted signatures to converge on the *same* cell before scoring the
+  mechanism; (4) single-head uniform pattern-redirect is too blunt — the
+  selection→combiner hand-off needs an **edge path-patch** (B11, now the promoted
+  confirming test). No conjecture confidence raised on this study — the honest
+  outcome is an instrument limit, and the fork stays open.
 - **2026-07-15** — After the human's C4 reflections (all nine studies gated;
   no new empirical result — a conjecture-level update triggered by human
   review, with the human's answers to three clarifying questions recorded).

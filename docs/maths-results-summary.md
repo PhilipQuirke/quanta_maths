@@ -8,17 +8,32 @@ detail; do not turn this into a ledger.
 
 ## Executive summary
 
-Five studies complete. The thread has moved from representation to a causal
-mechanism for the carry. (1) Digit embeddings are **not** a clean circle/helix —
-near-isotropic in 9-D, only a weak circular *ordering* (CE1). (2) At operand-fetch
-heads the value path looks like linear *transport* of those weak embeddings
-(CE2). (3) The per-digit **binary carry** is computed by specific layer-0
-attention heads at answer positions, dissociated from base-add heads (CE3). (4–5)
-The **tri-state `U`-resolution runs on a separate path**: layer-0 nodes conduct
-the running carry and the **answer-position layer-1 MLP combines** it with the
-digit's sum-class to resolve `U` (CE5, replicated; supersedes the ambiguous CE4).
-The emerging chain: embeddings → L0 heads (base-add + binary carry) → L0 conduits
-→ **L1 MLP U-combiner** → readout.
+Thirteen studies complete. The thread has moved from representation to a causal
+mechanism for the single-digit carry, and has now probed the deep-chain regime and
+the question- and answer-position representation geometry.
+(1) Digit embeddings are **not** a clean circle/helix — near-isotropic in 9-D,
+only a weak circular *ordering* (CE1). (2) At operand-fetch heads the value path
+looks like linear *transport* of those weak embeddings (CE2). (3) The per-digit
+**binary carry** is computed by specific layer-0 attention heads at answer
+positions, dissociated from base-add heads (CE3). (4–5) The **tri-state
+`U`-resolution runs on a separate path**: layer-0 nodes conduct the running carry
+and the **answer-position layer-1 MLP combines** it with the digit's sum-class to
+resolve `U` (CE5, replicated; supersedes the ambiguous CE4). (6–7) There is **no
+dedicated `{0,1,U}` symbol** anywhere on the answer-position stream — the carry is
+binary throughout, `U` resolved around L1-attention (CE6/CE7). (8) Attention
+routing is **hybrid** — a few heads relocate their target with carry state
+(6-digit; representational) (CE8). (9) The **deep `...999` cascade mechanism is not
+localizable at node/attention-pattern granularity** (CE9): A9's one-hop-selection
+signatures do not converge on one cell, sequential per-digit state is disfavored
+where testable, and the CE8 routing cell is causally inert — an instrument limit
+pointing to an edge path-patch. (10) The edge path-patch (CE10) then found `L1.H1`
+(the CE8 cell) **does** causally drive the combiner at one depth (6-digit k=3) — a
+computed, deciding-selective carry through the combiner MLP — but the
+single-position edge instrument is underpowered at most cells, so A9 stays
+circumstantial and A6 is not refuted. The emerging single-digit chain: embeddings →
+L0 heads (base-add + binary carry) → L0 conduits → **L1 MLP U-combiner** → readout;
+the *deep-chain* resolver is partly localized (`L1.H1`→combiner at the top digit)
+but not fully.
 
 ## Top current claims
 
@@ -65,6 +80,36 @@ The emerging chain: embeddings → L0 heads (base-add + binary carry) → L0 con
   target-static. 6-digit only (5-digit inconclusive); representational not
   causal. Confidence Medium. See
   [maths-claim-evidence.md#ce8](maths-claim-evidence.md#ce8-attention-routing-is-hybrid--a-few-heads-relocate-their-target-with-carry-state-6-digit-only-most-cells-are-target-static).
+- **CE9** — the **deep `...999` cascade mechanism is not localizable** at
+  node/attention-pattern granularity: A9's selection signatures (a causally
+  deciding-selective consumer head, a deciding-digit-tracking head) land on
+  *different* cells, the CE8 routing cell is causally **inert**, sequential
+  per-digit state is disfavored where testable, and real tail state is graded (not
+  a stored bit). An **instrument limit** — the confirming test is an edge
+  path-patch. Confidence Medium (as an ambiguous/underpowered result). See
+  [maths-claim-evidence.md#ce9](maths-claim-evidence.md#ce9-at-nodeattention-pattern-granularity-the-deep-999-cascade-mechanism-is-not-localizable--no-single-cell-selection-no-sequential-per-digit-state-real-graded-tail-state).
+- **CE10** — the edge path-patch resolves CE9's null on `L1.H1`: at **one depth**
+  (6-digit k=3) `L1.H1` **causally drives the combiner** with a computed,
+  deciding-selective carry through the combiner MLP — but the single-position edge
+  instrument is **underpowered at most cells**, no head clears the ≥2-depth bar, and
+  the 5-digit direct residual path is live, so A9 stays **circumstantial (not
+  confirmed)** and A6 is **not refuted**. Confidence Low-Medium. See
+  [maths-claim-evidence.md#ce10](maths-claim-evidence.md#ce10-at-the-combiner-edge-a-single-l1-head-carries-the-top-cascade-digits-computed-carry-at-one-depth--a-causal-crumb-but-the-single-position-edge-instrument-is-underpowered).
+- **CE11** — the tri-state carry `ST` is **position-specific** at question positions
+  (an `ST` probe does not transfer across digits; mean-centering doesn't restore it)
+  and **entangled with `SV`** beyond their independent labels — **C2's
+  template-sharing + orthogonality halves, A4's transfer-for-free, and A8's
+  interference are all challenged for `ST`**. SA lives at the answer position (not
+  assessable at the question site). Confidence Medium (ST-scoped, cross-model). See
+  [maths-claim-evidence.md#ce11](maths-claim-evidence.md#ce11-the-tri-state-carry-st-is-position-specific-at-question-positions-no-cross-position-probe-transfer-and-geometrically-entangled-with-sv--c2a4-template-sharing-and-a8-interference-challenged-for-st).
+- **CE12** — the **answer phase is a split layout**: `SA` is a just-in-time
+  **register** (absent at `=`, present at its own answer position — A4 supported);
+  `SV` is **resolved/present at `=`** (CE7-consistent) but its per-digit slots are
+  **not orthogonal** (orthogonal-**tape** refuted); both share an **answer-side
+  template** that transfers across answer positions, unlike question-side `ST`
+  (CE11) — so template-sharing is position-of-computation-dependent. Confidence
+  Medium (cross-model split). See
+  [maths-claim-evidence.md#ce12](maths-claim-evidence.md#ce12-answer-phase-layout-is-split--sa-is-a-just-in-time-register-absent-at---sv-is-resolvedpresent-at--but-its-per-digit-slots-are-not-orthogonal-tape-refuted-both-share-an-answer-side-template).
 
 ## Strongest live caveats
 
@@ -79,10 +124,19 @@ The emerging chain: embeddings → L0 heads (base-add + binary carry) → L0 con
 
 ## Open questions shaping near-term work
 
-- Attention routing is **hybrid** (CE8): are the carry-routing L1 heads
-  *causally* load-bearing (pattern-patching, cascade-tracing entry)? The tri-state
-  `U` is **never a dedicated symbol** at answer positions (CE7); the remaining A3
-  remnant is only a *transient* `U` at question positions or a weak symbol.
-  Deeper: the multi-digit `...999` cascade (A6 tie-break), whether the model
-  causally uses digit geometry (B1), and A2 aggregate-vs-transport. See
-  [maths-next-steps.md](maths-next-steps.md).
+- The **deep `...999` cascade fork** (A6 sequential vs A9 selection) is the top
+  question but was shown (CE9) to be **unresolvable at node/attention-pattern
+  granularity** — the next instrument is an **edge path-patch** of the candidate
+  L1-head→L1-MLP-combiner edge (queue entry 1). Are the CE8 carry-routing L1 heads
+  *causally* load-bearing? — CE9 says the single-head pattern-redirect finds them
+  inert, so this needs the finer edge test.
+- **CE11/CE12 together**: the sub-task representation is **position-of-computation
+  dependent** — question-side `ST` is position-specific (no transfer) while
+  answer-side `SA`/`SV` share a transferable template; the answer phase is a
+  **just-in-time sum register + a non-orthogonal (not-tape) resolved-carry layout at
+  `=`**. Open: is the `=` carry actually *used* downstream (causal), and is SV
+  present beyond a full operand recompute (fair baseline)?
+- Still open: the tri-state `U` is **never a dedicated symbol** at answer positions
+  (CE7); the A3 remnant is only a *transient* `U` at question positions or a weak
+  symbol. Whether the model causally uses digit geometry (B1); A2
+  aggregate-vs-transport. See [maths-next-steps.md](maths-next-steps.md).

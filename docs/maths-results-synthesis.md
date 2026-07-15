@@ -197,15 +197,124 @@ Status after the 2026-07-16 attention-invariance census (see
   has value-dependent softmax weights), so only a *target-move under a
   value-matched contrast* falsifies A5.
 
+## Q: How is the deep `...999` cascade resolved (A6 sequential vs A9 selection)? — not localizable at this granularity
+
+Status after the 2026-07-16 deep-cascade mechanism study (see
+[CE9](maths-claim-evidence.md#ce9-at-nodeattention-pattern-granularity-the-deep-999-cascade-mechanism-is-not-localizable--no-single-cell-selection-no-sequential-per-digit-state-real-graded-tail-state)).
+
+- The deciding-digit patch across graded chain depths **ran**, but the
+  node/attention-pattern instrument is **too blunt** to resolve the fork.
+- **A9's predicted convergence is absent**: a causally deciding-selective consumer
+  head (6-digit `L1.H0` Q14 — redirect-to-deciding 0.93/0.90 beats both wrong and
+  irrelevant baselines) and a deciding-digit-*tracking* head (`L1.H2` Q15, top-2
+  key set follows the deciding position at ≥2 non-degenerate depths) are
+  **different cells**; the CE8 routing cell `L1.H1` is causally **inert** (0.00).
+  A9 needs one head that both tracks and delivers — not found here.
+- **Sequential per-digit state** is disfavored where testable (5-digit `=` k=3:
+  no intermediate-digit identity carried) but the test is untestable in 6-digit,
+  so this is not a refutation.
+- Real **graded** computed state sits near the question tail (pure-state cells,
+  null 0.00, joint-flip 0.00) — operand-adjacent, not a single stored resolved bit.
+- **Method note (two-directional over-reach — a strong instance of the skeptic
+  gate working)**: the first write-up over-claimed a *negative* (sequential
+  refuted, selection not found) on uncontrolled/unimplemented assays; the corrected
+  second write-up over-claimed a *positive* (A9 confirmed via `L1.H1`) on a
+  value-matched metric that was asserted in a docstring but never coded, a
+  boundary-artifact tracking gap, and three signatures pulled from three different
+  cells. Both were caught by post-result skeptic rounds. Durable lessons: a null
+  needs a positive control *on the same locus/unit*; the metric named must be the
+  metric coded; require a mechanism's signatures to converge on the *same* cell
+  before scoring it; single-head uniform pattern-redirect confounds selectivity
+  with generic disruption — use an **edge path-patch** for a hand-off question.
+
+### Q: Does an L1 head's output causally drive the combiner (A9 hand-off)? — one-depth crumb (CE10)
+
+Status after the 2026-07-16 edge-patch study
+([CE10](maths-claim-evidence.md#ce10-at-the-combiner-edge-a-single-l1-head-carries-the-top-cascade-digits-computed-carry-at-one-depth--a-causal-crumb-but-the-single-position-edge-instrument-is-underpowered)).
+
+- The edge path-patch (`L1.head → combiner MLP` edge, isolated via the exact
+  `resid_mid = resid_post(L0) + Σ_h z@W_O + b_O` decomposition) resolves CE9's
+  null: at **one depth** (6-digit k=3) **`L1.H1`** — the CE8 routing cell CE9
+  found inert — **causally drives the combiner**, carrying the top cascade digit's
+  **computed, deciding-selective** carry through the MLP input (dec 1.00 /
+  same-class-operand null 0.00 / wrong-digit 0.00).
+- But the **single-position edge instrument is underpowered** at most cells (6/9
+  6-digit, 3/9 5-digit — a single-head-magnitude direct edge cannot flip them, LN
+  renormalizes a single head's edge against the whole residual), **no head clears
+  the ≥2-depth bar**, and the **5-digit direct residual path is causally live**.
+  So A9's attention-delivery is **circumstantial, not confirmed**, and A6's
+  residual-carry is **not refuted**.
+- **Method note (third skeptic catch in this line, twice positive-direction)**: the
+  first edge-patch draft over-claimed "attention-delivered, not residual (0/9); A9
+  confirmed" — the power control was **inverted** (scaled the direct path UP ~20×,
+  disabling the underpower gate). Corrected (scale DOWN to per-cell head-edge norm),
+  6/9 cells are underpowered. Durable lesson: a power/underpower control must be
+  constructed at the *magnitude of the effect being tested* and its direction
+  verified; and LN renormalization makes single-head edge patches systematically
+  underpowered — use a multi-position or less-damped instrument.
+
+## Q: Do sub-tasks share a template across positions and stay orthogonal across sub-tasks (C2/A4/A8)? — no, for ST (CE11)
+
+Status after the 2026-07-16 probe-transfer study
+([CE11](maths-claim-evidence.md#ce11-the-tri-state-carry-st-is-position-specific-at-question-positions-no-cross-position-probe-transfer-and-geometrically-entangled-with-sv--c2a4-template-sharing-and-a8-interference-challenged-for-st)).
+
+- **Template sharing (C2/A4): falsified for `ST` at question positions.** An `ST`
+  probe trained at digit `i` does not transfer to digit `j` (retention 0.10/0.12 ≪
+  0.6; off-diagonal ≈ chance), and mean-centering does not restore it — so not even
+  A4's per-position-offset form. The tri-state carry representation is
+  position-specific at the question site, despite architectural weight sharing.
+- **Orthogonality (C2) / interference (A8): challenged.** `ST` and `SV` are
+  geometrically **entangled** (principal angle 21° ≪ 64°/50° label-correlation
+  null, both models) despite label-independence at the same digit — a genuine shared
+  direction, not a label near-identity.
+- **Scope**: `ST`-only (SA/SV are diag-weak at the question site; SA decodes 1.00 at
+  the *answer* position, confirming CE2/CE3). Both models agree. Linear probes.
+- **Method note (Gate-2 discipline held)**: the first draft over-claimed "all
+  sub-tasks position-specific + entangled" and leaned on "position decodes at 1.00";
+  Gate 2 narrowed it to `ST` (the only validly-assessable sub-task at the site) and
+  demoted the position-1.00 gloss (a trivial positional-embedding fact) in favor of
+  the centering-fails discriminator. The falsification is earned for `ST`.
+
+## Q: Answer-phase binding — tape or register (A4)? — split (CE12)
+
+Status after the 2026-07-16 answer-binding study
+([CE12](maths-claim-evidence.md#ce12-answer-phase-layout-is-split--sa-is-a-just-in-time-register-absent-at---sv-is-resolvedpresent-at--but-its-per-digit-slots-are-not-orthogonal-tape-refuted-both-share-an-answer-side-template)).
+
+- **`SA` (sum digit) = just-in-time register**: absent at `=` (raw acc ≈ chance),
+  present only at its own answer position — A4's just-in-time fetch supported.
+- **`SV` (resolved carry) = present at `=` but not an orthogonal tape**: `SV_n`
+  decodes at `=` for all digits (CE7-consistent resolution locus), but the per-digit
+  slots are **not orthogonal** (6-digit 12–27°; 5-digit 2/3 pairs < 60°) → the
+  orthogonal-tape alternative is refuted. Whether SV is present *beyond a full
+  operand recompute* is untested (weak isolated-operand baseline) — no storage/bus
+  claim; A6/C3 untouched.
+- **Answer-side template**: both `SA`/`SV` transfer across answer positions (SV
+  beats the operand floor), unlike the question-side `ST` (CE11) — so **template
+  sharing is position-of-computation dependent** (question side position-specific,
+  answer side shared).
+- **Method note (Gate-2 discipline)**: the first draft over-claimed a "coexistent
+  carry bus at `=` beyond re-derivation"; Gate 2 showed the SV isolated-operand
+  baseline is too weak (SV depends on all lower digits) so the claim restates CE7's
+  locus, not new binding — reframed CE7-consistent; entanglement scoped 6-digit.
+
 ## Open empirical questions
 
-- Are the CE8 carry-routing L1 heads *causally* load-bearing (pattern-patching)?
-  (Cascade-tracing entry.)
+- **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at
+  each answer position? And is `SV` present at `=` *beyond a full operand recompute*
+  (a fair digits-`0..n` baseline)? — the causal/fair-baseline follow-ups to CE12.
+- **Raise power on the hand-off**: a less LN-damped / multi-position edge
+  instrument + a second depth (6-digit k=4) to test whether `L1.H1`→combiner
+  delivery holds at ≥2 depths (CE10 got one depth). Neuron-level (B2) on how
+  `L1.H1` + the combiner MLP compute `carry_out`.
+- Why do 5-digit and 6-digit **differ** in delivery (5-digit direct path live,
+  6-digit not)? Cross-seed/size (B5).
 - Does a *transient* `{0,1,U}` tri-state exist at **question positions** (D'n)
   before the answer position (the only regime A3 can still live)? Needs a
   purpose-built question-position construction.
-- Does the tie-break economy (A6) hold for **multi-digit `...999` cascades**
-  (untested; single-digit U so far)? Two-site L0→L1 hand-off (B11)?
+- Does the tie-break economy (A6) hold for **multi-digit `...999` cascades**?
+  CE9 showed the *mechanism* is not localizable at node/pattern granularity;
+  sequential accumulated state is disfavored where testable. Two-site L0→L1
+  single-digit hand-off (B11) and the deep-chain edge path-patch (entry 1) remain.
 - Does attention aggregate or transport operands at the carry node? (A2
   re-test.)
 - Does the model *use* digit magnitude / circular ordering in its computation,

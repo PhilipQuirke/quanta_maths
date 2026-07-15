@@ -1,0 +1,51 @@
+{
+  "model": "add_d5_l2_h3_t15K_s372001",
+  "accuracy": 1.0,
+  "seed": 20260716,
+  "control5_behavioral_gate": {
+    "n_top": 3,
+    "per_depth_pass": {
+      "1": 0.975,
+      "2": 0.925,
+      "3": 0.925
+    }
+  },
+  "control1_harness_liveness": {
+    "conduit": "P10L0MLP",
+    "digit": 2,
+    "A_n+1_flip": 1.0
+  },
+  "control6_computed_state": {
+    "combiner": "P14L1MLP",
+    "digit": 2,
+    "A_n+1_flip": 1.0
+  },
+  "control2_sa_head_bar": {
+    "node": "P14L0H1",
+    "digit": 3,
+    "A_n_flip": 0.975,
+    "A_n+1_flip": 0.0,
+    "same_class_null_A_n": 0.0
+  },
+  "control3_readout": {
+    "A2@15": 1.0,
+    "A3@14": 1.0,
+    "A4@13": 1.0
+  },
+  "control4_7_pattern_patch": {
+    "control4_sa_pattern_moves": {
+      "node": "P14L0H1",
+      "serves_digit": 3,
+      "redirect_to_digit": 1,
+      "any_move_rate": 0.9
+    },
+    "control7_routing_pattern_moves": {
+      "consumer_l1_instrument": {
+        "node": "L1H0Q13",
+        "redirect_to_digit": 3,
+        "any_move_rate": 0.0
+      },
+      "c2_valid": false
+    }
+  }
+}

@@ -1,0 +1,492 @@
+{
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "accuracy": 1.0,
+    "n_top": 4,
+    "gate": {
+      "1": 0.925,
+      "2": 0.975,
+      "3": 0.925,
+      "4": 0.875
+    },
+    "seed": 20260716,
+    "edge_battery": {
+      "1": {
+        "H0_raw": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_lnfair": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_mlp_only": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_raw": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_lnfair": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_mlp_only": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H2_raw": {
+          "4": 0.0,
+          "5": 0.875
+        },
+        "H2_lnfair": {
+          "4": 0.0,
+          "5": 0.825
+        },
+        "H2_mlp_only": {
+          "4": 0.0,
+          "5": 0.9
+        },
+        "direct_full": {
+          "4": 0.0,
+          "5": 0.0
+        },
+        "direct_scaled_percell": {
+          "4": 0.0,
+          "5": 0.0
+        }
+      },
+      "2": {
+        "H0_raw": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_lnfair": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_mlp_only": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_raw": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_lnfair": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_mlp_only": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H2_raw": {
+          "3": 0.0,
+          "4": 0.075,
+          "5": 0.275
+        },
+        "H2_lnfair": {
+          "3": 0.0,
+          "4": 0.1,
+          "5": 0.175
+        },
+        "H2_mlp_only": {
+          "3": 0.0,
+          "4": 0.075,
+          "5": 0.25
+        },
+        "direct_full": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "direct_scaled_percell": {
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        }
+      },
+      "3": {
+        "H0_raw": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_lnfair": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H0_mlp_only": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H1_raw": {
+          "2": 0.0,
+          "3": 0.175,
+          "4": 1.0,
+          "5": 1.0
+        },
+        "H1_lnfair": {
+          "2": 0.0,
+          "3": 0.1,
+          "4": 1.0,
+          "5": 1.0
+        },
+        "H1_mlp_only": {
+          "2": 0.0,
+          "3": 0.075,
+          "4": 1.0,
+          "5": 1.0
+        },
+        "H2_raw": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H2_lnfair": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "H2_mlp_only": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "direct_full": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        },
+        "direct_scaled_percell": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0
+        }
+      },
+      "4": {
+        "skipped": "gate 0.875"
+      }
+    },
+    "selectivity": {
+      "L1H0_k2": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": true
+      },
+      "L1H1_k2": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": false
+      },
+      "L1H2_k2": {
+        "deciding_flip": 0.225,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": true,
+        "is_ce9_head": true
+      },
+      "L1H0_k3": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": true
+      },
+      "L1H1_k3": {
+        "deciding_flip": 1.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": true,
+        "deciding_selective": true,
+        "is_ce9_head": false
+      },
+      "L1H2_k3": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": true
+      }
+    },
+    "verdict": {
+      "read": "R-attention-partial (top digits head-carried; lower digits not localized)",
+      "reason": "3/9 cells carry via a single L1 attention head edge; 0/9 via the direct residual path; 0/9 neither (powered); 6/9 underpowered",
+      "n_head_carried": 3,
+      "n_direct_carried": 0,
+      "n_none": 0,
+      "n_underpowered": 6,
+      "total": 9
+    }
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "accuracy": 1.0,
+    "n_top": 3,
+    "gate": {
+      "1": 0.95,
+      "2": 0.975,
+      "3": 0.95
+    },
+    "seed": 20260716,
+    "edge_battery": {
+      "1": {
+        "H0_raw": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_lnfair": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_mlp_only": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_raw": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_lnfair": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_mlp_only": {
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H2_raw": {
+          "3": 0.0,
+          "4": 0.775
+        },
+        "H2_lnfair": {
+          "3": 0.0,
+          "4": 0.725
+        },
+        "H2_mlp_only": {
+          "3": 0.0,
+          "4": 0.725
+        },
+        "direct_full": {
+          "3": 0.925,
+          "4": 0.0
+        },
+        "direct_scaled_percell": {
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "2": {
+        "H0_raw": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_lnfair": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_mlp_only": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_raw": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_lnfair": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_mlp_only": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H2_raw": {
+          "2": 0.0,
+          "3": 0.625,
+          "4": 0.975
+        },
+        "H2_lnfair": {
+          "2": 0.0,
+          "3": 0.25,
+          "4": 0.925
+        },
+        "H2_mlp_only": {
+          "2": 0.0,
+          "3": 0.275,
+          "4": 0.9
+        },
+        "direct_full": {
+          "2": 0.8,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "direct_scaled_percell": {
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "3": {
+        "H0_raw": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_lnfair": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H0_mlp_only": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_raw": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_lnfair": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H1_mlp_only": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "H2_raw": {
+          "1": 0.0,
+          "2": 0.775,
+          "3": 0.775,
+          "4": 1.0
+        },
+        "H2_lnfair": {
+          "1": 0.0,
+          "2": 0.225,
+          "3": 0.35,
+          "4": 1.0
+        },
+        "H2_mlp_only": {
+          "1": 0.0,
+          "2": 0.25,
+          "3": 0.35,
+          "4": 1.0
+        },
+        "direct_full": {
+          "1": 0.7,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        },
+        "direct_scaled_percell": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        }
+      }
+    },
+    "selectivity": {
+      "L1H0_k2": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": false
+      },
+      "L1H1_k2": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": false
+      },
+      "L1H2_k2": {
+        "deciding_flip": 0.925,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": true,
+        "deciding_selective": true,
+        "is_ce9_head": false
+      },
+      "L1H0_k3": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": false
+      },
+      "L1H1_k3": {
+        "deciding_flip": 0.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": false,
+        "deciding_selective": false,
+        "is_ce9_head": false
+      },
+      "L1H2_k3": {
+        "deciding_flip": 1.0,
+        "same_class_null": 0.0,
+        "wrong_digit_flip": 0.0,
+        "carries_computed_carry": true,
+        "deciding_selective": true,
+        "is_ce9_head": false
+      }
+    },
+    "verdict": {
+      "read": "R-mixed/distributed",
+      "reason": "3/9 cells carry via a single L1 attention head edge; 3/9 via the direct residual path; 0/9 neither (powered); 3/9 underpowered",
+      "n_head_carried": 3,
+      "n_direct_carried": 3,
+      "n_none": 0,
+      "n_underpowered": 3,
+      "total": 9
+    }
+  }
+}

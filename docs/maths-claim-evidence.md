@@ -241,3 +241,141 @@ Confidence labels:
   effect is *not* merely "answer digit depends on carry"; but co-location with
   the CE5 answer-position L1-MLP combiner is *suggestive, not established*.
   top-1-argmax is tie-sensitive (top-k-mass follow-up). 2-layer, addition only.
+- **Causal follow-up result (2026-07-16, deep-cascade bundle / CE9)**: the
+  causal pattern-patch this claim flagged has now run. The `L1.H1` routing cell is
+  **causally inert** under a single-head pattern redirect (answer-move 0.00 at
+  every chain depth) — so CE8's routing signal **stays representational**; it is
+  not shown load-bearing for deep-cascade resolution at node/pattern granularity
+  (a finer edge path-patch is needed). Confidence unchanged (still Medium,
+  representational).
+
+### CE9: At node/attention-pattern granularity the deep `...999` cascade mechanism is not localizable — no single-cell selection, no sequential per-digit state, real graded tail state
+
+- **Confidence**: **Medium** as an *instrument-limit / ambiguous* result (both
+  models agree it is not localizable here; two independent skeptic rounds
+  enforced the scope). Low confidence on any specific positive mechanism.
+- **What it establishes**: (1) **A9's predicted convergence is absent** — a
+  causally deciding-selective consumer head (6-digit `L1.H0` Q14: redirect-to-
+  deciding moves the answer 0.93/0.90 at k=2,3 vs redirect-to-wrong 0.42/0.55 and
+  redirect-to-irrelevant 0.38/0.50) and a deciding-digit-*tracking* head
+  (`L1.H2` Q15, top-2 key set follows the deciding position at ≥2 non-degenerate
+  depths) are **different cells**, and the CE8 cell `L1.H1` is causally inert.
+  A9 needs one head that both tracks and delivers; that is not found at this
+  granularity. (2) **No sequential per-digit state** where testable: at the one
+  transmitting locus with a passing deciding-digit control (5-digit `=`, k=3, ctrl
+  0.75), the cascade state does not carry intermediate-digit identity. (3) **Real
+  graded computed state** near the question tail (pure-state `resid_post(L0)` cells,
+  null 0.00) but operand-adjacent and joint-flip 0.00 — not a single stored
+  resolved bit.
+- **Supporting evidence**: 2026-07-16 deep-cascade bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-deep-cascade-mechanism.md](study-maths/study-deep-cascade-mechanism.md),
+  `results/study-deep-cascade-mechanism/results.json`). All 7 positive controls
+  pass (5-digit Battery C2 pre-registered `invalid` — no causal L1 pattern).
+- **Caveats**: the result is an **instrument limit**, not a mechanism verdict —
+  single-site interchange and single-head uniform pattern-redirect are too blunt
+  for a mechanism split across heads or graded across positions. A9 (one-hop
+  selection) is *weakly consistent with* the pieces (selective head + tracking head
+  + no sequential identity) but **not confirmed**; the human's sequential-cascade
+  lean is *disfavored where testable* but **not refuted** (untestable in 6-digit).
+  The confirming follow-up is an **edge path-patch** (candidate L1-head→combiner
+  edge, freezing the combiner's other inputs). 5-digit inconclusive (matches CE8).
+  2-layer, addition only.
+- **Edge-patch follow-up (2026-07-16, CE10)**: the edge path-patch ran. It found
+  `L1.H1` (this CE8/CE9 cell) **causally drives the combiner at one depth** (6-digit
+  k=3) — resolving CE9's "inert" null on `L1.H1` — but the single-position edge
+  instrument is underpowered at most cells, so this is a one-depth crumb, not a
+  broad confirmation (see CE10). CE9's instrument-limit framing stands.
+
+### CE10: At the combiner edge, a single L1 head carries the top cascade digit's computed carry at one depth — a causal crumb, but the single-position edge instrument is underpowered
+
+- **Confidence**: **Low-Medium** — one clean isolated cell per model; underpowered
+  at most cells; one-depth (fails the ≥2-depth bar); two Gate-2 rounds (first BLOCK
+  for an inverted power control over-claiming anti-A6).
+- **What it establishes**: (1) the answer-position combiner residual is causal
+  (full `resid_mid` edge patch flips 1.00); (2) at 6-digit k=3 a **single head
+  `L1.H1`** — the CE8 carry-routing cell CE9 found causally inert under pattern-
+  redirect — carries the top cascade digit's carry through the combiner **MLP
+  input**, and does so with a **computed, deciding-selective** signature
+  (deciding-class flip 1.00, same-class-operand null 0.00, wrong-digit 0.00);
+  similarly 5-digit `L1.H2` at k=2,3. The finer edge path-patch thus resolves what
+  CE9's blunt redirect could not.
+- **What it does NOT establish**: the single-position edge battery is **underpowered**
+  at most cells (6/9 6-digit, 3/9 5-digit: a single-head-magnitude direct edge
+  cannot flip them), **no head carries at ≥2 depths** (fails the pre-registered
+  R-edge-selective bar), and the **5-digit direct residual path is causally live**
+  (0.70–0.93). So A9's attention-delivery is **circumstantial, not confirmed**, and
+  A6's residual-carry is **not refuted**. The edge-carrier (`L1.H1`/`L1.H2`) is not
+  the CE9 selective/tracking head A9 predicts convergence on — a *partial,
+  reconfigured* A9.
+- **Supporting evidence**: 2026-07-16 edge-patch bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-cascade-handoff-edge-patch.md](study-maths/study-cascade-handoff-edge-patch.md),
+  `results/study-cascade-handoff-edge-patch/results.json`). Controls: additivity
+  3.3e-6; full-`resid_mid` flip 1.00.
+- **Caveats**: a less LN-damped / multi-position edge instrument and a second depth
+  (6-digit k=4) are needed to raise power; neuron-level (B2) on `L1.H1`+combiner and
+  the 5-digit/6-digit divergence (B5) are the follow-ups. 2-layer, addition only.
+
+### CE11: The tri-state carry `ST` is position-specific at question positions (no cross-position probe transfer) and geometrically entangled with `SV` — C2/A4 template-sharing and A8 interference challenged for `ST`
+
+- **Confidence**: **Medium** — clean and cross-model-replicated for `ST` (the one
+  sub-task with a strong diagonal at the question site); linear-probe / question-
+  position scoped.
+- **What it establishes** (for `ST` at the question site `D'n`@resid_post(L0)):
+  (1) an `ST` probe trained at digit `i` does **not** transfer to digit `j`
+  (chance-relative retention 0.10/0.12 ≪ 0.6; transfer matrix strong diagonal,
+  off-diagonal ≈ chance), and **mean-centering does not restore it** (positional-
+  offset gain ≤ 0.09) — so **C2's shared-template and A4's transfer-for-free
+  predictions are falsified for `ST`**, and not even A4's per-position-offset form
+  holds. (2) `ST` and `SV` occupy **geometrically entangled** subspaces (principal
+  angle 21° ≪ label-correlation null 64°/50°, both models) despite being
+  label-*independent* at the same digit (MI≈0) — challenging C2's cross-subtask
+  orthogonality and A8's low-interference for the carry family.
+- **What it does NOT establish**: SA and SV template sharing — both are **diag-weak
+  at the question site** (SA near chance at `D'n`; it decodes 1.00 only at the
+  **answer position**, confirming CE2/CE3's base-add locus), so their transfer is
+  not-assessable here. The answer-phase "tape vs register" binding question (do
+  SA/SV transfer across *answer* positions; A4 just-in-time fetch) is untested (B4).
+  "Position decodes at 1.00" is corroborating but a trivial positional-embedding
+  consequence, not the mechanism.
+- **Supporting evidence**: 2026-07-16 probe-transfer bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-probe-transfer.md](study-maths/study-probe-transfer.md),
+  `results/study-probe-transfer/results.json`). Positive control: the diagonal
+  (self-position) `ST` probe decodes well above chance (gain 0.31/0.39); the
+  class-mean subspaces occupy 11–41% of variance (not a low-variance artifact).
+- **Caveats**: linear probes; question-position + `ST`-scoped; 2-layer addition,
+  middle digits, two models (agree). "Position-specific" = not linearly transferable
+  at this site; weight sharing is still architectural (the model applies shared
+  weights per digit — the *representation* at the read site is position-tied).
+
+### CE12: Answer-phase layout is split — `SA` is a just-in-time register (absent at `=`); `SV` is resolved/present at `=` but its per-digit slots are not orthogonal (tape refuted); both share an answer-side template
+
+- **Confidence**: **Medium** — the SA/SV split and the answer-side-template
+  contrast replicate across both models; linear-probe / answer-phase scoped.
+- **What it establishes**: (1) **`SA` (answer digit) is a register**: absent at `=`
+  (raw balanced acc ≈ chance 0.10), present at 1.00 only at its own answer position
+  → just-in-time fetch (A4). (2) **`SV` (resolved carry) is present at `=`** for all
+  middle digits (decodes ~0.60–1.00), consistent with CE7's resolution locus. (3)
+  **The `SV` per-digit slots at `=` are NOT orthogonal** (6-digit 12–27°; 5-digit
+  2/3 pairs < 60°) → the orthogonal-"tape" layout (A4's own alternative) is
+  **refuted**; the 6-digit slots are additionally more aligned than a
+  label-correlation null (entangled), with a 1-D binary-subspace caveat. (4) Both
+  `SA` and `SV` **transfer across answer positions** (a shared answer-side template
+  — SV beats the operand floor + centering; SA transfer is caveated as operand
+  re-derivation), in contrast to the position-specific question-side `ST` (CE11) —
+  so template-sharing is **position-of-computation-dependent**.
+- **What it does NOT establish**: whether `SV` presence at `=` is *beyond a full
+  operand recompute* (the isolated-operand `Dn`/`D'n` baseline omits the
+  carry-determining lower digits, so it is too weak; a digits-`0..n` baseline is the
+  future test); whether the `=` carries are *used* downstream (no causal test) — so
+  A6/C3 are **untouched** and no "storage/bus" claim is made.
+- **Supporting evidence**: 2026-07-16 answer-binding bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-answer-binding.md](study-maths/study-answer-binding.md),
+  `results/study-answer-binding/results.json`). Positive control: diagonal SA/SV
+  decode ≈ 1.00 at own answer positions.
+- **Caveats**: linear decodability, not causal use; SV isolated-operand baseline is
+  weak (F1); entanglement 6-digit-only + 1-D caveat; one 5-digit `SA_1` exception
+  (+0.19 at `=`); middle digits, SV_0 excluded; 2-layer addition, two models.
