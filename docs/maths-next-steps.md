@@ -28,8 +28,9 @@ reference docs, without this thread's conversation context.
 - Rank by information-per-cost against the sharpest live human/agent forks
   listed in
   [maths-conjectures-agent.md](maths-conjectures-agent.md#sharpest-forks):
-  geometry-vs-lookup, where discretization happens, the `U` shape, and
-  carried-vs-wide-fetch cascade.
+  the deep-cascade mechanism (sequential vs selection vs wide-fetch), where
+  discretization happens, causal use of digit geometry, and the mixed-model
+  shared engine.
 - Front-load quick wins that double as instrument calibration
   (weights-only or small forward-pass studies on existing Hugging Face
   artifacts) before building patching harnesses or training anything.
@@ -37,33 +38,67 @@ reference docs, without this thread's conversation context.
   [maths-conjectures-human.md](maths-conjectures-human.md#model-scope-for-this-direction).
 - Every entry names the conjecture predictions it bears on
   ([C1–C3](maths-conjectures-human.md#current-conjectures),
-  [A1–A8](maths-conjectures-agent.md#current-conjectures)) so post-run
+  [A1–A9](maths-conjectures-agent.md#current-conjectures)) so post-run
   prediction scoring is mechanical.
 
 ## Ranked queue
 
 | Priority | Status | Experiment | Updates |
 | --- | --- | --- | --- |
-| 1 | ready | [Cross-position and cross-subtask probe transfer](#1-cross-position-and-cross-subtask-probe-transfer) | C2, A4, A8 |
-| 2 | ready | [Cascade tracing and inter-position patching](#2-cascade-tracing-and-inter-position-patching) | A6, C3, A4 |
+| 1 | ready | [Deep-cascade mechanism: deciding-digit patching and cascade tracing](#1-deep-cascade-mechanism-deciding-digit-patching-and-cascade-tracing) | A6, A9, C3, A4 |
+| 2 | ready | [Cross-position and cross-subtask probe transfer](#2-cross-position-and-cross-subtask-probe-transfer) | C2, A4, A8 |
 | 3 | ready | [Task-wide effective dimensionality and dictionary recovery](#3-task-wide-effective-dimensionality-and-dictionary-recovery) | A8, C1 |
 | 4 | sequenced | [Mixed-model shared-engine geometry](#4-mixed-model-shared-engine-geometry) | A7, C2 |
 
-Entry-order note (2026-07-16 rerank #9, after the attention-invariance census):
-the census is **complete** — **A5's strong static-wiring form is falsified /
-narrowed to hybrid**: a few heads (`L1.H1` operand-read Q11 & answer Q14;
-`L0.H0` answer Q17) relocate their attention target with the carry state
-(value-matched contrast, clean & Bonferroni-safe in the 6-digit model; 5-digit
-inconclusive; representational not causal) ([CE8](maths-claim-evidence.md)). This
-is a **genuine new structural fact** (breaking the A3-family refutation streak).
-The carry-routing cells become candidate content-routed nodes for the
-**cascade-tracing** entry, which must confirm them *causally* (pattern-patching).
-Cross-position/cross-subtask probe transfer (C2/A4/A8) promotes to #1 — a compact
-assay-shared study scoring three conjectures. Trail in the
-[results ledger](maths-results-by-time.md) and
-[study note](study-maths/study-attention-invariance.md).
+Entry-order note (2026-07-15 rerank #10, after the human C4 reflections and
+the resulting conjecture revision — no new empirical result): C4 exposed that
+all `U` evidence (CE4–CE7) is single-digit-`U` at middle answer digits, and
+that the leading answer digit forces full cascade resolution by the
+answer-sign position. The agent's new
+[A9](maths-conjectures-agent.md#a9-deep-u-cascades-are-resolved-by-one-hop-attention-selection-not-sequential-propagation)
+(one-hop selection of the deciding digit) now opposes the human's recorded
+sequential-cascade lean on the same fork. The re-scoped deep-cascade entry
+(absorbing the old cascade-tracing entry and B11's multi-digit half) promotes
+to #1 as the fork's direct discriminator; probe transfer drops to #2 otherwise
+unchanged. Trail: [C4](maths-conjectures-human.md#c4-reflections-on-experiments-1-to-7)
+and the 2026-07-15 entry in the agent
+[reflection log](maths-conjectures-agent.md#reflection-log-optional).
 
-### 1. Cross-position and cross-subtask probe transfer
+### 1. Deep-cascade mechanism: deciding-digit patching and cascade tracing
+
+Determine how multi-digit `...999` carry chains are physically resolved — the
+top fork after the human C4 reflections
+([maths-conjectures-human.md](maths-conjectures-human.md#c4-reflections-on-experiments-1-to-7)):
+sequential carried state riding the residual stream (A6's core reading and
+the human lean), one-hop attention *selection* of the deciding digit
+([A9](maths-conjectures-agent.md#a9-deep-u-cascades-are-resolved-by-one-hop-attention-selection-not-sequential-propagation)),
+or a nonlinear wide fetch. All `U` evidence so far (CE4–CE7) is single-digit
+`U` at a middle answer digit, so this regime is wholly untested; it is also
+the direct test of C3's central propagation claim and of A6's tie-break
+economy (selective harm to cascade questions, sparing carry-free ones).
+
+The mechanisms make divergent predictions on chains of graded depth: patching
+the chain's *deciding* digit (the highest lower digit with pair-sum ≠ 9)
+versus an intermediate all-9s digit gives opposite dependence patterns under
+selection vs sequential stories, and the CE8 carry-routing cells (6-digit
+`L1.H1` Q11/Q14, `L0.H0` Q17;
+[registry](../results/study-attention-invariance/attention_routing_registry.json))
+should track the deciding digit's position under A9 — they must in any case
+be **confirmed causally** here by patching the *attention pattern* (CE8 is
+representational only), without inheriting the "CE5-combiner-locus" gloss
+(CE8's cleanest cell is an operand-read position). Include the
+**leading-digit locus** (human C4): the top answer digit is predicted from
+the answer-sign position (the mixed model's sign from `=`), where no later
+position can rescue an unresolved carry — no study has probed it. Retains the
+old cascade entry's tracing half: at which positions/layers cascade state is
+decodable at all, if anywhere.
+
+Done when: the patch-dependence pattern, routing-target tracking, and
+leading-digit-locus results jointly select sequential / selection /
+wide-fetch (or explicitly none), scored against A6, A9, C3, and A4's
+just-in-time-fetch prediction.
+
+### 2. Cross-position and cross-subtask probe transfer
 
 Test C2's two halves separately. First, template sharing: does a linear
 readout for `ST` trained at one digit position transfer to other positions
@@ -78,40 +113,10 @@ separation there is positional.
 The transfer matrix plus angle table is a compact, largely assay-shared
 deliverable that scores C2, A4, and the interference half of A8 in one study.
 Disagreement between its two halves (templates shared but sub-tasks
-entangled, or vice versa) would be the first genuinely new structural fact
-this thread produces.
+entangled, or vice versa) would be a genuinely new structural fact.
 
 Done when: the transfer and angle results give explicit verdicts on both
 halves of C2 and on A4's template claim, scored accordingly.
-
-### 2. Cascade tracing and inter-position patching
-
-Trace where the carry-cascade state lives and when it matters. First, trace:
-at which token positions and layers the running `ST`/`SV` cascade state is
-decodable, and whether its `U` component vanishes by `=` as both C3 and A6
-predict. Second, intervene: patch the residual stream between `ST` producers
-and downstream `SV` consumers, separately on `U`-cascade questions (long
-`...999 + 1`-style chains) and carry-free questions.
-
-The per-question-class effect pattern discriminates three live stories: A6's
-tie-break-only economy (carried state matters only on `U`-cascade questions),
-a pure pipeline (carried state matters everywhere), and the wide-fetch
-alternative (no meaningful inter-position state; one late node computes the
-whole cascade at `=`) — the carried-vs-wide-fetch fork. It is also the direct
-test of C3's central claim and its falsifier. This is the heaviest
-addition-model entry (patching harness plus question-class construction), so
-it sits after the cheap studies that supply its node maps and question sets.
-**New input from CE8**: the attention-invariance census found **carry-state
-target-routing** heads (6-digit `L1.H1` Q11/Q14, `L0.H0` Q17;
-[registry](../results/study-attention-invariance/attention_routing_registry.json)) —
-these are candidate content-routed cascade nodes and should be **confirmed
-causally** here by patching the *attention pattern* (not just the value path).
-Do not inherit the "CE5-combiner-locus" gloss unchallenged (CE8's cleanest cell
-is an operand-read position, not an answer position).
-
-Done when: decodability-by-position tracing plus per-class patching effects
-jointly select one of the three cascade stories (or explicitly none), scored
-against A6, C3, and A4's just-in-time-fetch prediction.
 
 ### 3. Task-wide effective dimensionality and dictionary recovery
 
@@ -209,15 +214,16 @@ Promote by swapping into the queue.
   for whichever geometry the queue confirms. Updates all of A1–A6.
 - **B10 — One-layer model contrast.** The `add_d5_l1_h3_t30K`-style one-layer
   model cannot pipeline the cascade across layers the same way deeper models
-  can. Analyze how it resolves the nines cascade — a forced wide-fetch would
-  be an existence proof for A6's main alternative. Updates A6.
+  can. Analyze how it resolves the nines cascade — a forced wide-fetch or
+  one-hop selection would be an existence proof for A6's alternatives
+  (including A9). Updates A6, A9.
 - **B11 — L0→L1 U-resolution hand-off path-patch.** CE5 shows layer-0 nodes
   conduct the running carry and the answer-position L1 MLP combines it. Directly
   test the hand-off with an edge path-patch (freeze the L1 MLP's other inputs,
   vary only the L0-conduit→L1-MLP edge) to confirm the two-site "compute-low,
   apply-at-answer" mechanism — clean in 6-digit, borderline in 5-digit, so worth
-  a direct edge test. Also test A6's **tie-break economy** on multi-digit
-  `...999` cascades (single-digit `U` only so far). Updates A6, A2.
+  a direct edge test. (The multi-digit `...999` tie-break test moved into
+  queue entry 1.) Updates A6, A2.
 - **B12 — Question-position transient `U` probe.** CE6/CE7 refuted a dedicated
   `{0,1,U}` symbol across *answer-position* residual sites (carry is binary,
   resolved around L1-attention). The only live A3 remnant is a *transient* `U`
@@ -225,7 +231,9 @@ Promote by swapping into the queue.
   resolution-split — needs a purpose-built construction (the answer-position
   4-class assay does not place the pre-resolution carry state at question
   positions). Low expected yield given the four-study streak, but it is the one
-  regime where A3 can still live. Updates A3 (final disposition).
+  regime where A3 can still live. The deep-chain constructions built for
+  queue entry 1 are the natural stimulus base for this probe. Updates A3
+  (final disposition).
 
 ## Frozen lines
 

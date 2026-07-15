@@ -31,7 +31,12 @@ My expected end-to-end story for how a trained addition model computes
    categorical sub-task outputs: the
    [SA_n](thor-glossary.md#s-addition-sub-tasks-sa-sc-ss-st-sv) digit and the
    [ST_n](thor-glossary.md#st) tri-state (A2, A3). This division of labor is
-   why ablating either the head or its MLP breaks the node.
+   why ablating either the head or its MLP breaks the node. *[2026-07-15:
+   partially revised — the discretization target is not a stored tri-state: no
+   dedicated `{0,1,U}` symbol exists anywhere along the answer-position stream
+   (CE6/CE7); the nonlinear carry-class combination is real but lives in the
+   answer-position L1 MLP (CE5); pre-MLP sum-sufficiency remains untested (CE2
+   instrument failure).]*
 3. **Position-addressed storage.** A sub-task's output is written into a small
    subspace of the residual stream *at a specific token position* — a
    position-addressed register. The feature template is shared across digit
@@ -42,7 +47,14 @@ My expected end-to-end story for how a trained addition model computes
    [SV](thor-glossary.md#sv) carry cascade rides the residual stream token by
    token, but mostly as a tie-breaker: positions recompute `ST` locally where
    they can and consult the carried state only to resolve `U` (A6). All `U` is
-   resolved by the `=` token.
+   resolved by the `=` token. *[2026-07-15: revised — routing is hybrid, not
+   fully static (CE8: a few L1/L0 heads relocate targets with carry state);
+   single-digit `U` is resolved at the answer position around L1-attention
+   (CE5/CE7), not at `=`; and the human C4 leading-digit argument means
+   deep-cascade resolution must be complete by the answer-sign position (by
+   `=` for the mixed model's sign). How deep chains resolve is now the top
+   fork: sequential carried state (A6, human lean) vs one-hop selection
+   (A9).]*
 5. **Answer emission.** Each answer position fetches its `SA_n` and resolved
    carry just in time; an MLP computes `(SA_n + carry) % 10`; the logits are
    read off the same digit geometry the embeddings started with (A1).
@@ -59,6 +71,10 @@ are **represented** as small linear subspaces whose content may be curved
 interference across unrelated sub-tasks; **stored** as position-addressed
 registers in the residual stream; **propagated** by static positional
 attention, with the cascade carried forward as compact tie-breaking state.
+*[2026-07-15: the propagation clause is the part now most in doubt — routing
+is mostly-static with carry-routed exceptions (CE8), and whether any cascade
+state is carried at all (vs per-digit bits fetched on demand, A9) is the top
+open fork.]*
 
 ## Relation to human conjectures
 
@@ -79,6 +95,25 @@ attention, with the cascade carried forward as compact tie-breaking state.
   arithmetic* (it performs the sum in embedding space, not mere transport)
   (A2), and the routing is static wiring (A5). A6 adds a tie-break economy and
   a "wide fetch" alternative C3's framing could miss.
+- **C4 (reflections on studies #1–#7)** — two points accepted, one lean
+  contested. Accepted: (1) every `U` result so far (CE4–CE7) is single-digit
+  `U` at a *middle* answer digit, where `carry_in` is one make-carry bit — so
+  CE5's combiner evidence says nothing about deep `...999` chains, and reading
+  it as "the whole `U` mechanism" would indeed be wrong; (2) the leading
+  answer digit is predicted from the answer-sign position (and the mixed
+  model's sign from `=`), so the *full* cascade must be resolved at or before
+  that position — a locus none of the nine studies probed. Contested: the
+  human lean (recorded 2026-07-15) is that the missing piece is the paper's
+  *sequential* TriAdd cascade riding the residual stream. I think a 2-layer
+  model cannot iterate a chain sequentially, and the deep carry is available
+  in one hop as a *selection* — fetch the deciding digit, the highest lower
+  digit with pair-sum ≠ 9; CE7 (resolution applied around L1-attention) and
+  CE8 (carry-state target-relocation at a few heads) are circumstantially
+  consistent with selection. Formalized as A9; the deciding-digit patch
+  discriminates the two leans cheaply (agenda entry 1). I also endorse C4's
+  "combining 8 cascading `ST` values in one MLP is implausible" — that
+  implausibility cuts against *both* the naive-combiner reading and the
+  wide-fetch alternative, which is part of why I lean selection.
 
 ## Current conjectures
 
@@ -179,7 +214,16 @@ attention, with the cascade carried forward as compact tie-breaking state.
   metric (see agenda). One incidental datapoint: at operand-fetch heads the
   value path looks like pure transport of weakly-circular embeddings (CE2),
   which weakly cautions against over-reading attention as adding "extra"
-  structure, but does not bear on A2's ST-node claim.
+  structure, but does not bear on A2's ST-node claim. **Update 2026-07-15
+  (CE5, CE6/CE7):** the *discretize* half is now supported at the `U`-combine
+  step — the nonlinear carry-class combination is localized to the
+  answer-position L1 MLP ([CE5](maths-claim-evidence.md)). The *aggregate*
+  half (pre-MLP sum-sufficiency at a question-position compute node) remains
+  untested. One prediction revision: the discretization target at answer
+  positions is the **binary carry** (plus the answer digit), not a stored
+  `{0,1,U}` tri-state — no dedicated `U` symbol appears anywhere along the
+  answer-position stream (CE6/CE7), so "the MLP snaps the arc into the `ST`
+  tri-state" should read "into the resolved binary classes".
 
 ### A3: The `ST` tri-state is a 2D categorical code, with `U` off the 0–1 axis
 
@@ -217,7 +261,13 @@ attention, with the cascade carried forward as compact tie-breaking state.
   separation, below the detection floor) and a *transient* `U` at **question
   positions** (D'n, descoped) — the only regimes where A3's remnant can still
   live. A3 is not globally dead, but the "U as a dedicated symbol" frame is
-  strongly disfavored (see streak note in the reflection log).
+  strongly disfavored (see streak note in the reflection log). **2026-07-15
+  note:** the human C4 leading-digit argument independently motivates the
+  question-position remnant (B12): the top answer digit is predicted from the
+  answer-sign position, so whatever carry information feeds it must already
+  exist at or before that position — a deep `...999` chain at question
+  positions is the one regime where a transient `U`-like state would earn its
+  keep (though A9 predicts even there it is skipped by selection).
 
 ### A4: Features are position-addressed: shared templates plus positional binding
 
@@ -291,7 +341,10 @@ attention, with the cascade carried forward as compact tie-breaking state.
   wiring" as an unqualified statement is refuted. **Reword the belief to: mostly
   static positional wiring, with genuine carry-state target-routing at a few L1
   (and one L0) heads.** The routing cells are candidate nodes for a causal
-  pattern-patching test (cascade-tracing entry).
+  pattern-patching test (cascade-tracing entry). **2026-07-15 note:** under A9
+  those routing cells stop being a curiosity and become the *mechanism of
+  deep-cascade resolution* (the target relocation = picking the deciding
+  digit); the causal pattern-patching test doubles as an A9 test.
 
 ### A6: The carry cascade is carried state, but load-bearing only as a tie-breaker
 
@@ -318,10 +371,12 @@ attention, with the cascade carried forward as compact tie-breaking state.
 - **Falsifier**: Carried state is equally load-bearing for all questions (a
   pure pipeline with no local recompute), or there is no inter-position
   cascade state at all (pure recompute — C3's own falsifier).
-- **Alternatives**: "Wide fetch": one late node attends to all `ST_n`
-  positions at once and computes the whole cascade in a single nonlinear step
-  at `=`. Shallow models permit this within the ordering constraints, so it
-  stays live.
+- **Alternatives**: (a) "wide fetch": one late MLP reads all lower digit
+  pairs at once and computes the whole cascade in a single nonlinear step;
+  (b) **selection (A9)**: an attention head fetches the single *deciding*
+  digit's carry bit — no sequential state and no big nonlinear combine.
+  Shallow models permit both within the ordering constraints, so both stay
+  live.
 - **Tension with human**: Agrees with C3's storage/propagation core; adds the
   tie-break economy and the wide-fetch alternative.
 - **Confidence**: medium; **carried+combined sub-claim SUPPORTED (refined)
@@ -333,6 +388,16 @@ attention, with the cascade carried forward as compact tie-breaking state.
   sub-claim (selective harm to multi-digit `...999` cascades) remains
   **untested** (single-digit `U` only). Raise confidence on the
   carried+combined core to medium-high; hold the tie-break economy at medium.
+  **Scoping update 2026-07-15 (human C4):** the CE5 support covers only
+  single-digit `U` at a middle answer digit, where `carry_in` is one
+  make-carry bit — evidence that cannot distinguish "the cascade rides the
+  stream" from "there is no cascade to ride". The load-bearing untested case
+  is the deep `...999` chain, plus the leading-digit constraint (full
+  resolution must be available at the answer-sign position; at `=` for the
+  mixed model's sign). Hold medium-high on the single-digit carried+combined
+  core, but the multi-digit mechanism — sequential carried state (human lean)
+  vs selection (A9) vs wide fetch — is now the thread's top fork and wholly
+  untested.
 
 ### A7: Mixed models are one engine under low-rank `OPR`/`SGN` control, not parallel circuits
 
@@ -397,20 +462,93 @@ attention, with the cascade carried forward as compact tie-breaking state.
   medium-high; hold medium-high for the activation claim, but note the embedding
   matrix is not itself low-rank.
 
+### A9: Deep `U`-cascades are resolved by one-hop attention selection, not sequential propagation
+
+- **Belief**: For a carry chain of any depth, the resolved carry into digit
+  `n+1` equals the make-carry bit of the **deciding digit** — the highest
+  digit `m ≤ n` with `Dm + D'm ≠ 9` (0 if there is none). The model
+  implements this as a *selection*: at the position that needs the carry
+  (each answer position; the answer-sign position for the leading digit), an
+  L1 attention head relocates its target to the deciding digit's stored
+  information (make-carry / L0-conduit outputs) and delivers that one bit;
+  the L1-MLP combiner (CE5) combines it with the local sum-class. No
+  `{0,1,U}` symbol is ever stored and no carry state propagates
+  token-to-token — the paper's "cascade" is a *functional* description of
+  this selection, not a physical process.
+- **Why**: (1) Depth: a 2-layer model cannot iterate `TriAdd` over even a
+  5-deep chain sequentially across layers, and asking one MLP to combine
+  many cascading `ST` values (the human C4 objection) is equally
+  implausible — but "first non-9 below me" is exactly the kind of
+  content-dependent selection attention does in one hop. (2) Parsimony with
+  the negative streak: selection explains at once why no dedicated `U`
+  symbol exists at any answer-position site (CE6/CE7 — nothing needs
+  deferring if the deciding bit is fetched directly), why the binary
+  resolution appears exactly at L1-attention (CE7's trajectory), and why a
+  few L1 heads relocate targets with carry state while most routing stays
+  static (CE8 / hybrid A5).
+- **Support** (circumstantial, none causal): CE7 — `U→1` flips to the
+  committed-1 side only at `L1.resid_mid`, i.e. the resolution is *applied*
+  by L1-attention; CE8 — value-matched carry-state target-relocation at
+  `L1.H1` (operand-read Q11, answer Q14) and `L0.H0` (Q17), clean in the
+  6-digit model; CE5 — the combiner needs only `carry_in` + local class;
+  CE3 — per-digit binary make-carry bits exist as selectable sources. Paper
+  2's own fallback observation (`P14` recomputes `ST1` and consults
+  `P10.ST2` only when they differ) already reads like conditional fetching.
+- **Prediction**: (1) **Deciding-digit patch**: in a `...999`-chain question,
+  patching the deciding digit's make-carry information flips *all* cascade
+  answer digits above it at once, while patching an intermediate all-9s
+  digit's nodes does ~nothing; a sequential cascade predicts the opposite
+  (patching an intermediate link breaks everything downstream of it).
+  (2) **Target tracking**: the CE8 routing heads' attention targets track
+  the deciding digit's *position* as chain depth is varied. (3) **Depth
+  invariance**: accuracy and mechanism are ~flat in chain depth up to
+  attention precision, and errors look like selection errors (fetching the
+  wrong digit), not accumulation errors. (4) The same selection signature
+  appears at the answer-sign position for the leading digit
+  (`99999+00001`-type questions).
+- **Falsifier**: patching an intermediate `9`-digit's question-position
+  nodes in a long chain breaks higher answer digits (stepwise dependence =
+  genuine sequential carried state); or routing-head targets do not track
+  the deciding digit; or the combiner input on deep chains carries
+  multi-digit `ST` information beyond the one deciding bit.
+- **Alternatives**: (a) the paper's sequential `TriAdd` cascade across token
+  positions (the human's recorded C4 lean) — would require each question
+  position's L0 to wide-fetch all lower pairs, or state to hop layer-by-layer;
+  (b) nonlinear wide fetch: one MLP reads all lower pairs at once (A6's
+  original alternative); (c) hybrid by depth: selection for short chains,
+  memorized patches for rare deep ones (deep cascades are exponentially rare
+  in random training data); (d) per-model idiosyncrasy (Paper 2 documents
+  node-level variability).
+- **Tension with human**: Direct — C3/C4 read the cascade as sequential
+  carried state riding the residual stream and resolved by `=`; A9 says
+  there is no ridden state at all, only stored per-digit bits plus a
+  data-dependent fetch. C4's own leading-digit argument is *accepted* and is
+  part of what forces a mechanism like this.
+- **Confidence**: low-medium (new; circumstantial support, mostly one model,
+  nothing causal). The deciding-digit patch test is cheap with the existing
+  patching harnesses and discriminates all three mechanisms in one design.
+
 ## Sharpest forks
 
 Where discriminating evidence would most cheaply reshape this file (ranking
-itself belongs in [maths-next-steps.md](maths-next-steps.md)):
+itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
+2026-07-15 after the human C4 reflections:
 
-1. **Geometry vs lookup (A1)** — decides the vocabulary the whole "how" story
-   is written in; every other conjecture reads differently under each branch.
-2. **Where discretization happens (A2)** — pair-sum sufficiency before the MLP
-   is a crisp yes/no that also explains the known head-plus-MLP joint
-   necessity.
-3. **`U`'s shape (A3)** — scalar vs two-bit square vs simplex: three discrete
-   geometries with different downstream readings.
-4. **Carried vs wide-fetch cascade (A6)** — distinguishes rival answers to the
-   human's propagation question.
+1. **Deep-cascade mechanism (A6 vs A9)** — sequential carried state (human
+   lean, C4) vs one-hop selection of the deciding digit (agent lean, A9) vs
+   nonlinear wide fetch. The deciding-digit patch on `...999` chains
+   discriminates all three in one design, and the answer-sign position (the
+   leading digit's locus) is the natural stress case. Absorbs the old
+   "carried vs wide-fetch" fork and what remains of the `U`-shape fork
+   (question-position transient `U`, B12).
+2. **Where discretization happens (A2)** — pre-MLP sum-sufficiency at a
+   question-position compute node is still a crisp untested yes/no (pair-sum
+   line frozen pending a transport-null-aware design).
+3. **Causal use of digit geometry (A1, B1)** — the embedding-level geometry
+   question is settled (near-isotropic; weak seed-fragile ordering); what
+   remains is whether the computation *uses* the ordering at all.
+4. **Mixed-model shared engine (A7 vs C2)** — the one fork where human and
+   agent conjectures make opposite predictions on the same measurement.
 
 ## Supporting literature
 
@@ -595,3 +733,22 @@ External:
   not transmit U-resolution, yet the model resolves `U` correctly. This splits
   A2/A3's implicit "one ST node does it all" picture and makes *locating the
   U-resolution path* the top mechanistic question.
+- **2026-07-15** — After the human's C4 reflections (all nine studies gated;
+  no new empirical result — a conjecture-level update triggered by human
+  review, with the human's answers to three clarifying questions recorded).
+  C4 makes two points this file accepts: the `U` evidence base (CE4–CE7) is
+  single-digit-`U`, middle-answer-digit only, so the CE5 combiner is not shown
+  to be "the whole `U` mechanism"; and the leading answer digit forces full
+  cascade resolution at or before the answer-sign position (mixed-model sign:
+  at or before `=`) — a locus no study probed. Changes: **A6** support
+  explicitly scoped to single-digit `U`, deep-chain mechanism reopened as the
+  top fork; **A9 added** — deep cascades resolved by one-hop attention
+  selection of the deciding digit (agent lean), against the human's recorded
+  sequential-cascade lean; **A2** confidence updated in place (CE5 U-combine
+  support; discretization target revised to binary carry per CE6/CE7);
+  **A3/A5** annotated (leading-digit motivation for B12; CE8 routing cells as
+  candidate A9 machinery); overall-picture stages 2/4 annotated; sharpest
+  forks reranked (deep-cascade mechanism now #1). Note: C4 was written before
+  studies #8–#9 landed; CE8's carry-state routing in fact supplies candidate
+  machinery for the very cascade C4 found missing — convergent pressure
+  toward the same fork from human reflection and agent data.
