@@ -76,6 +76,14 @@ is mostly-static with carry-routed exceptions (CE8), and whether any cascade
 state is carried at all (vs per-digit bits fetched on demand, A9) is the top
 open fork.]*
 
+*[2026-07-15 (C5): the paper's per-model verified maps name the physical
+instantiation of stages 2–5 for both studied models: `ST` at question-tail
+and sign-token L0 heads, `SA`/`SC` at answer-position L0 heads, and the
+compounding at SP-tagged answer-position L1 heads (attending `=` + the ST
+sites) feeding the answer-position L1 MLPs. The open questions are the
+*content and combination rule on those named wires* — C5 steps 1–5 — not the
+location of the nodes, which this thread wastefully re-derived. See A10.]*
+
 ## Relation to human conjectures
 
 - **C1 (simple, near-linear, low-dimensional)** — agree on simple and
@@ -114,6 +122,31 @@ open fork.]*
   "combining 8 cascading `ST` values in one MLP is implausible" — that
   implausibility cuts against *both* the naive-combiner reading and the
   wide-fetch alternative, which is part of why I lean selection.
+- **C5 (the paper's empirical results are reliable; build on them)** —
+  **accepted, with a self-correction.** The per-model verified node maps on
+  Hugging Face (`<model>/behaviors.json` + `features.json`: ablation `Fail%`,
+  per-answer-digit `Impact`, attention targets, `Algo:` role assignments, `SP`
+  tri-state-PCA tags) are the anchor this thread should have started from and
+  mostly did not — studies #2–#13 re-located nodes from scratch with narrower
+  stimuli, effectively re-deriving (parts of) the paper's map at high cost.
+  Worse: the confirm-ST-node study dismissed the paper's question-position ST
+  candidates using a **no-lower-carry stimulus — the one regime where ST's
+  cascade role cannot matter** — while the maps (now read for both studied
+  models) show those nodes failing 14–23% of *random* questions with
+  multi-digit `Impact` (5-digit `P11L0H2` = A0.ST, Impact A5..A1; 6-digit
+  `P12L0H1` = A1.ST, Impact A6..A2). CE3's "P8/P9/P11 not causal" reading is
+  therefore suspect and must be formally re-examined (next gated study) before
+  it is leaned on again. The maps also *already name the candidate SV wiring*
+  the last four studies groped toward: at every answer position an SP-tagged
+  L1 head attends `=` plus the question-tail ST sites and feeds the
+  high-`Fail%` L1 MLP — CE5/CE8/CE10's protagonists, rediscovered. Where I
+  still push back (mildly, and in agreement with C5's own "incomplete"
+  caveat): the map is an **anchor, not a ceiling** — ablation-based `Impact`
+  misses redundant nodes (the 5-digit map lists no A2.SC node; CE3's
+  interchange found `P14L0H0` doing exactly that job at flip 1.00), so
+  interchange/path methods complement the map rather than merely re-verify
+  it. A10 operationalizes C5's five-step program; the agenda is reworked
+  around it.
 
 ## Current conjectures
 
@@ -595,32 +628,98 @@ open fork.]*
   (not confirmed), and A6's residual-carry is **not refuted**. (Gate 2 round 1
   BLOCKed an inverted-power-control over-claim of "A9 confirmed / A6 refuted"; this
   crumb is the corrected read.) Follow-up: a less LN-damped / multi-position edge
-  instrument + a second depth (6-digit k=4).
+  instrument + a second depth (6-digit k=4). **2026-07-15 map note (C5):** the
+  paper's verified maps show the consumer L1 heads attending a *set* of ST
+  sites plus `=` with moderate mass (e.g. 6-digit `P16L1H1`: P16=32, P13=24,
+  P12=17, P11=13), so A9's "relocate to one deciding target" sharpens to
+  **selection *within* the fetched ST-site cluster** (A10 variant b); the rival
+  is a static weighted read over the cluster with the MLP arbitrating (A10
+  variant c). Same fork, now scoped to named nodes.
+
+### A10: The SV compounding mechanism is the map-named answer-position L1 fetch-and-combine over the question-tail ST cluster
+
+- **Belief**: For each answer digit `A_{n+1}`: the tri-state `ST` values are
+  computed and written by the map-named L0 `ST` nodes clustered at the
+  question-tail `D'` positions and the sign token (5-digit P6/P9/P10/P11/P12;
+  6-digit P10–P12/P14, per the HF `behaviors.json`/`features.json` for the
+  two studied models). The **compounding (`SV`) step** — C5 steps 2–3 — is
+  performed at the answer position by the **SP-tagged L1 head(s)**, which
+  attend `=` plus several ST sites and deliver carry information into the
+  high-`Fail%` answer-position **L1 MLP**, which combines it with the local
+  `SA`/`SC` information to emit the digit (C5 step 4). The **leading digit**
+  (C5 step 5) is the same mechanism executed at the sign position (5-digit
+  `P12L1H0`/`P12L1H2`; 6-digit `P14L1H0`/`P14L1H1`), whose ST inputs include
+  the sign-token L0 ST nodes (A4/A5.ST).
+- **Why**: This is what the verified map says when read as wiring: ST nodes
+  carry multi-digit `Impact` (their outputs feed all higher answers — the
+  compounding structure C4 found missing from our studies); the only useful
+  L1 heads at answer positions carry `SP` (tri-state-PCA) feature tags and
+  attend exactly {`=`, ST-site cluster}; the L1 MLPs are the highest-`Fail%`
+  answer-position nodes; and CE5/CE7/CE10 independently landed on the same
+  L1-attention→MLP locus from the activation side without knowing the map.
+- **Support**: the HF per-model maps (backlink:
+  [hugging_models.md](hugging_models.md)); CE5 (combiner), CE7 (resolution
+  applied around L1-attention), CE10 (one-depth causal crumb on the
+  `L1.H1`→MLP edge at the map-named head), CE8 (carry-state target moves at
+  these heads); Paper 2's ordering constraints.
+- **Prediction**: (1) **Value content**: the SP-tagged L1 heads' value inputs
+  at the attended ST sites carry the tri-state/carry information (decodable
+  there, and transported by the head's OV path into the combiner input).
+  (2) **Deciding-digit propagation**: in a deep `...999` chain, patching the
+  map-named ST node of the *deciding* digit moves exactly its `Impact`-tagged
+  answer digits, and the change reaches the combiner through the SP-head edge
+  (extends CE10 beyond one depth). (3) **Selective economy**: ablating an
+  SP-tagged L1 head harms cascade questions and spares carry-free ones (A6's
+  economy, tested at the named node). (4) The heads' large `=`-token mass
+  either carries necessary content or is shown to be a sink — either way
+  resolving what `=` contributes (the maps list no useful nodes at `=`, yet
+  every consumer attends it).
+- **Falsifier**: the SP heads' value path carries no tri-state/carry content
+  (their ST-site attention is incidental); or deep-chain ST-node patches
+  bypass the SP-head edge entirely (carry arrives only via the direct
+  residual path — then the L1 "fetch" is a red herring and the compounding
+  is elsewhere, e.g. already accumulated at the ST nodes' own outputs).
+- **Alternatives**: (a) **direct-path compounding**: the answer-position
+  residual carries the compound carry without the L1 heads (5-digit CE10
+  hints a live direct path); (b) **selection-within-cluster** (A9's sharpened
+  form): the SP head's mass relocates *within* the ST-site cluster to the
+  deciding digit (CE8's moves); (c) **static weighted read** over the whole
+  cluster with the MLP arbitrating. (b) vs (c) is the surviving
+  A9-vs-wide-fetch question; (a) vs (b/c) is the surviving A6-vs-A9 question
+  — all now scoped to named nodes.
+- **Tension with human**: none on direction — this is C5's program stated as
+  a mechanism conjecture. The human's sequential-cascade lean maps onto
+  variants (a)/(c) (accumulated state, read statically); my selection lean
+  onto (b).
+- **Confidence**: medium — the wiring is the paper's verified map plus four
+  convergent activation studies; the value-content, multi-depth-causal, and
+  economy predictions are untested.
 
 ## Sharpest forks
 
 Where discriminating evidence would most cheaply reshape this file (ranking
 itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
-2026-07-15 after the human C4 reflections:
+2026-07-15 after the human C5 reflections — the frame is now the C5 five-step
+program executed at the **map-named nodes**, not generic mechanism taxonomy:
 
-1. **Deep-cascade mechanism (A6 vs A9)** — sequential carried state (human
-   lean, C4) vs one-hop selection of the deciding digit (agent lean, A9) vs
-   nonlinear wide fetch. **Still #1, but the instrument has moved
-   (2026-07-16, CE9):** the node/attention-pattern deciding-digit patch was run
-   and is *underpowered* — A9's tracking and causal-selectivity signatures land on
-   different heads, the CE8 cell is causally inert, and sequential state is only
-   weakly disfavored. The discriminating test is now an **edge path-patch** of the
-   candidate L1-head→L1-MLP-combiner edge (freeze the combiner's other inputs),
-   not a single-head redirect. B11 is the promoted confirming experiment; the
-   answer-sign position (leading digit) remains the natural stress case.
-2. **Where discretization happens (A2)** — pre-MLP sum-sufficiency at a
-   question-position compute node is still a crisp untested yes/no (pair-sum
-   line frozen pending a transport-null-aware design).
-3. **Causal use of digit geometry (A1, B1)** — the embedding-level geometry
-   question is settled (near-isotropic; weak seed-fragile ordering); what
-   remains is whether the computation *uses* the ordering at all.
-4. **Mixed-model shared engine (A7 vs C2)** — the one fork where human and
-   agent conjectures make opposite predictions on the same measurement.
+1. **What the map-named ST/SA/SC nodes write (C5 step 1; A2, A3 remnant, A10
+   input side)** — the output encoding of the *verified* nodes as a function
+   of their sub-task value, measured at their own sites with
+   cascade-exercising stimuli. This is also where A2's pre-MLP
+   sum-sufficiency finally gets its right locus (the named question-position
+   ST heads — fixing the pair-sum freeze's reopen condition) and where A3's
+   question-position transient-`U` remnant lives (the ST nodes *are* the
+   question-position sites).
+2. **The SV compounding rule at the map-named wires (C5 steps 2–4; A10 with
+   A6/A9 as variants a/b/c)** — value content of the SP-tagged L1 heads,
+   deciding-digit propagation through the head→MLP edge across depths, and
+   the selective-economy test. The answer-sign position (leading digit, C5
+   step 5) is the stress case.
+3. **Mixed-model shared engine (A7 vs C2)** — the one fork where human and
+   agent conjectures make opposite predictions on the same measurement;
+   C5's "then repeat for mixed" endpoint.
+4. **Causal use of digit geometry (A1, B1)** — demoted: interesting but not
+   on the C5 critical path.
 
 ## Supporting literature
 
@@ -904,3 +1003,28 @@ External:
   studies #8–#9 landed; CE8's carry-state routing in fact supplies candidate
   machinery for the very cascade C4 found missing — convergent pressure
   toward the same fork from human reflection and agent data.
+- **2026-07-15** — After the human's C5 reflections (studies #10–#13 gated; a
+  conjecture-level update triggered by human review, plus a direct read of the
+  paper's per-model verified maps — `behaviors.json`/`features.json` from
+  `PhilipQuirke/VerifiedArithmetic` — for both studied models). **C5 accepted
+  with a self-correction**: the thread spent much of studies #2–#13
+  re-locating nodes the maps already name, and the last four studies
+  (CE9–CE12) rediscovered the SP-tagged answer-position L1 wiring the maps
+  record outright; worse, CE3's dismissal of the paper's question-position ST
+  candidates used a no-lower-carry stimulus that removes exactly the regime
+  where ST matters, while the maps show those nodes failing 14–23% of random
+  questions with multi-digit Impact — that dismissal is flagged suspect and
+  must be re-examined in a gated study before it is relied on again (CE docs
+  untouched pending that study; conjecture-level flag only). Changes: **A10
+  added** (map-anchored SV mechanism: question-tail/sign L0 ST nodes →
+  SP-tagged answer-position L1 heads attending `=`+ST sites → L1-MLP combine;
+  A6/A9 recast as its variants a/b/c); **A9 sharpened** to
+  selection-within-the-fetched-ST-cluster; **C5 relation bullet added**
+  (anchor-not-ceiling caveat: interchange fills map gaps, e.g. the unlisted
+  5-digit A2.SC role at `P14L0H0`); **overall picture annotated** (the maps
+  name stages 2–5's physical instantiation; the open work is the content and
+  combination rule on named wires); **sharpest forks reworked** to the C5
+  five-step program; **agenda reworked** accordingly (effective-dim/SAE
+  breadth entry demoted to backlog — not on the C5 critical path). Method
+  lesson recorded: consult the project's own verified artifacts before
+  designing de-novo assays; re-verification is a by-product, not a goal.
