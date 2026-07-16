@@ -212,6 +212,17 @@ model (entry 2).
   linear probe (rotated-frame L0 not excluded); L0 at `=` (ST/sign via CE17/CE19);
   own causal battery invalid (locus per CE16). Dual-gated (CLV2-1..6 + F1–F7). See
   [maths-claim-evidence.md#ce24](maths-claim-evidence.md).
+- **CE24 TF addendum (token-time)** — **LAZY propagation + eager local**: closing
+  the token-time question (CE24 settled the layer). The propagated canonical carry
+  (cross-deciding-position transfer, run-break-decorrelated, 9-free) appears **only
+  at the sign token, L1** — ~chance at every operand token and at `=`, never at L0 —
+  a **~2-token deferral past full input availability (D'_0)** and past the `=`
+  gather (chance; `=`-is-a-depot). The **local single-step make-carry is eager
+  in-place at L0** (CE13). So: single-step computed eagerly in place (L0);
+  multi-digit propagation represented lazily at the answer read (L1). Reusable
+  cross-model tool `quanta_maths/maths_temporal_finalization.py` (may differ by
+  model — run the zoo). Linear-probe; coarse tail; both models. See
+  [maths-claim-evidence.md#ce24](maths-claim-evidence.md).
 
 ## Strongest live caveats
 

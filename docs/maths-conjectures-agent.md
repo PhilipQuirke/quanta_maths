@@ -978,6 +978,20 @@ mode.
   retired.** Backlink:
   [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md),
   `results/study-compounding-locus-v2/results.json`, CE24.
+- **Update 2026-07-16 (CE24 TF addendum, token-time; dual-gated): the propagated
+  carry is finalized LAZILY at the answer read (L1), single-step eagerly in-place
+  (L0).** Closing the token-time question (CE24 settled the layer): the canonical
+  propagated carry (cross-deciding-position transfer, run-break-decorrelated,
+  9-free) appears **only at the sign token, L1** — ~chance at every operand token
+  and at `=`, never at L0 — a **~2-token deferral past full input availability
+  (D'_0)** and past the `=` gather (chance; `=`-is-a-depot, CE16). The **local
+  single-step make-carry is eager in-place at L0 at its own token** (0.76–0.94,
+  CE13). The make-carry-token→D'_0 span is information-availability (MSD-first
+  layout, CE19), not laziness. A11 unchanged (rejected/low; TF reinforces the
+  L1-read locus). Reusable cross-model tool
+  `quanta_maths/maths_temporal_finalization.py` (may differ by model — run the zoo).
+  Backlink: [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md#addendum--battery-tf-temporal-finalization--token-time--run-2026-07-16),
+  `results/study-compounding-locus-tf/results.json`.
 
 ### A12: The SV interface generalizes across model sizes, and the implementation tightens as n grows
 

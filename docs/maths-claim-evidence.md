@@ -922,9 +922,26 @@ Confidence labels:
   TF/LP not-run + `=`-site scope). Reuses CE16 carry axis + edge.
 - **Caveats**: linear probe (rotated-frame L0 carry not excluded — Procrustes
   overfit); L0 tested at `=` only (ST/sign via CE17/CE19); own causal battery
-  invalid (causal locus per CE16); nuisance transfers are point estimates; TF/LP
-  (temporal eager-vs-lazy, LP local ceiling) not run. 2-layer/3-head addition, two
-  models.
+  invalid (causal locus per CE16); nuisance transfers are point estimates.
+  2-layer/3-head addition, two models.
+- **TF addendum (token-time, run 2026-07-16, dual-gated)**: Battery TF (deferred
+  from the main run) closes the *token-time* question (CE24 settled the *layer*).
+  Using 9-free graded chains with a run-break (so `carry_out(top) = make-carry AND
+  run-intact`, decorrelated from the local make-carry) and **cross-deciding-position
+  transfer** at each (token position × layer): **LAZY (representational) propagation
+  + eager local**, both models. The propagated canonical carry appears **only at the
+  sign token, layer L1** (transfer→1.0; ~chance at every operand token and at `=`),
+  **never canonical at L0** — a genuine **~2-token deferral past full input
+  availability (D'_0)** and past the `=` gather (chance; consistent with
+  `=`-is-a-depot). The **local single-step make-carry is eager, in-place at layer 0
+  at its own token** (0.76–0.94; CE13). Post-result gate correction: the
+  make-carry-token→D'_0 span is information-availability (MSD-first layout, CE19),
+  **not** laziness. Reusable cross-model code:
+  `quanta_maths/maths_temporal_finalization.py` (unit-tested); artifact
+  `results/study-compounding-locus-tf/results.json`. Net picture: **single-step
+  resolution computed eagerly in-place (L0); multi-digit propagation represented
+  lazily at the answer read (L1)** — the token-time complement to CE24. Caveats:
+  linear-probe; point estimates; coarse tail; may differ by model (run the zoo).
 
 ### CE25: Mixed model — the class-dependent carry/borrow delivery pathway holds across cascade depths 2–4 (ADD residual-only; SUB/NEG residual + last-layer attention), carry/borrow-specific; reusable cross-model sweep promoted to the library
 

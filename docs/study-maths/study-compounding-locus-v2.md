@@ -384,5 +384,54 @@ decisive battery; LC corroborates; LP + TF secondary.*
   from CE19's hedge to a clean both-model layer-localization). Append router docs.
 
 - **Next read**: router-doc updates + paper hand-off refresh; then (optional,
-  post-deadline) the TF temporal battery (eager-local vs lazy-propagation) and a
-  non-linear/rotated-frame L0 backstop.
+  post-deadline) a non-linear/rotated-frame L0 backstop.
+
+## Addendum — Battery TF (temporal finalization / token-time) — RUN 2026-07-16
+
+TF (deferred from the main run) was requested to close the **token-time** question
+(the layer question is settled: canonical carry emerges in the L1 read). "When, in
+token order, does each SVn finalize — eager in-place or lazy at the answer region?"
+
+- **Design**: 9-free graded chains (per the `66666+33334`/`33433` insight) with a
+  make-carry at deciding digit `d` and a U-run above that is sometimes **broken**
+  (so `carry_out(top) = make-carry AND run-intact`, decorrelated from the local
+  make-carry). The **propagated** canonical carry is read via **cross-deciding-
+  position transfer** (train `d_lo`, test `d_hi`) at each (token position × layer)
+  — a fixed-local-digit reader can't transfer, only a canonical carry does. The
+  **local** make-carry is a within-position decode (CE13-backed reference).
+  Dual-gated (pre-launch CLV2-5 conditions; post-result gate below).
+- **Result (both models)**: **LAZY (representational) propagation + eager local.**
+  - Propagated canonical carry: onset only at the **sign token, layer L1** (6d
+    pos 14; 5d pos 12), transfer → 1.00; **~chance at every operand token and at
+    the `=` gather** (13/11), and **never canonical at L0** (onset None, max ≈ 0.78).
+  - The onset is **~2 tokens past FULL input availability** (D'_0, pos 12/10 — the
+    units of operand B, after which `carry_out(top)` is determinable), and **past
+    the `=` gather** (which is chance — consistent with CE16 `=`-is-a-depot). A
+    genuine (if coarse) deferral to the answer read.
+  - **Local single-step make-carry**: present **in-place at layer 0 at its own
+    make-carry token** (decode 0.76–0.94), corroborating CE13's eager-local.
+  - **Important correction (post-result gate F1)**: the make-carry-token → D'_0
+    span (~3 tokens) is **information-availability** (MSD-first operand layout /
+    LSD-first carry — the CE19 architectural insight), **NOT laziness**. The
+    genuine deferral is the ~2 tokens from D'_0 to the answer onset.
+- **Interpretation**: the model computes **single-step resolution eagerly, in place
+  at each digit's own token (L0)**, but represents the **multi-digit propagated
+  carry only at the answer region (the sign/consuming position, L1)** — deferred
+  ~2 tokens past when it becomes determinable and past the `=` gather. This is the
+  token-time complement to CE24's layer result and matches the SV picture (the
+  carry is delivered at the answer position by the L1 consumer read).
+- **Caveats** (post-result gate): linear-probe transfer; point estimates (no CIs
+  here — cite CE24 for the L1-vs-L0 CIs and the answer-agnostic carry-axis
+  carry-specificity); onset is the sign token where the leading answer digit is a
+  constant 0, so the onset transfer is a genuine prospective carry (not the answer
+  digit); coarse token tail (2-layer, two small models). The eager-vs-lazy answer
+  **may differ by model** — see the cross-model tooling below.
+- **Code (reusable, cross-model)**: ported to the package as
+  **`quanta_maths/maths_temporal_finalization.py`** (`run_temporal_finalization(
+  model_name)`; layer-general, package-native loader/encoder; unit-tested in
+  `tests/test_temporal_finalization.py`). Thin CLI:
+  `scripts/compounding_locus_tf.py`. Artifact
+  `results/study-compounding-locus-tf/results.json`. Intended to be run across the
+  model zoo to see whether the eager/lazy split holds or varies by size/seed.
+- **Doc updates**: CE24 extended with the TF token-time result (below); A11
+  unchanged (still rejected/low — TF reinforces the L1-read locus).

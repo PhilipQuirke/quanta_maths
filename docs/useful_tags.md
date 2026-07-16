@@ -57,3 +57,24 @@ P9L0M0 ['Fail:11', 'Impact:A765', 'MathAdd:S12345', 'MathSub:M123']
 ```
 
 This JSON format can be extended with addition categorises of facts.
+
+## Analysis-technique tags (`quanta_maths/maths_hf_update.py`)
+
+Reusable, cross-model analysis *techniques* (registered in
+`maths_hf_update.TECHNIQUES`) emit inline minor tags into the per-model
+`behaviors.json` (non-`Algo` tags) / `features.json` (`Algo:` tags) on HuggingFace.
+Model-level scalars ride as a numeric `=NN` suffix. Currently registered:
+
+| Tag | File | Meaning | Source |
+|---|---|---|---|
+| `Algo:A{d}.STC` | features | Answer-position last-layer MLP that combines the resolved **carry** into digit `A{d}` | CE5 |
+| `Algo:A{d}.MTC` | features | Subtraction parallel of STC (combines the resolved **borrow**) | sub |
+| `Probe:A{d}.LINXFER=NN` | behaviors | Operand digit is linearly decodable (balanced-acc `NN`%) at its first-layer fetch site | CE2 |
+| `Probe:A{top}.CARRYLAYER=NN` | behaviors | Layer at which the canonical **propagated carry** first becomes cross-deciding-position transfer-decodable (the "read" layer) | CE24 TF |
+| `Probe:A{top}.CARRYDEFER=NN` | behaviors | Token-time deferral of the propagated carry past full input availability (`D'_0`): `0`=eager, `>0`=lazy/deferred to the answer region | CE24 TF |
+
+Run across the model zoo via `python -m quanta_maths.maths_hf_update` (dry-run
+default; `--execute` to upload). Techniques are idempotent and gated by
+`applies_to(cfg)` (operation/size). Adding a technique: see the
+technique-authoring contract in
+[maths-code-migration-plan.md](maths-code-migration-plan.md).

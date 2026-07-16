@@ -98,6 +98,11 @@ def _run_linxfer(model, cfg, nodes):
     return tag_linxfer_nodes(model, cfg, nodes)
 
 
+def _run_carry_finalization(model, cfg, nodes):
+    from quanta_maths.maths_temporal_finalization import tag_carry_finalization_nodes
+    return tag_carry_finalization_nodes(model, cfg, nodes)
+
+
 def _minus():
     from quanta_maths.maths_constants import MathsToken
     return MathsToken.MINUS
@@ -128,6 +133,16 @@ TECHNIQUES: List[Technique] = [
         owns_tag=lambda t: t.startswith("Probe:") and ".LINXFER" in t,
         run=_run_linxfer,
         description="Operand digit is linearly decodable at its first-layer fetch site (CE2).",
+    ),
+    Technique(
+        name="carry_temporal_finalization_CARRY",
+        target=BEHAVIORS_FILE,
+        applies_to=_applies_add,
+        owns_tag=lambda t: t.startswith("Probe:") and ".CARRY" in t,
+        run=_run_carry_finalization,
+        description=("Token-time finalization of the propagated carry (CE24 TF): "
+                     "Probe:A{top}.CARRYLAYER (read layer) + .CARRYDEFER (tokens past "
+                     "full input availability; 0=eager, >0=lazy). Run across models."),
     ),
 ]
 

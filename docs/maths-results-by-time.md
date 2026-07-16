@@ -647,6 +647,36 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md)
 
+### 2026-07-16 — Compounding locus TF: token-time finalization (CE24 addendum; addition; LAZY propagation + eager local; dual-gated)
+
+- **Covered**: closes the token-time question left open by CE24 (which settled the
+  LAYER = L1 read). "At which TOKEN POSITION does each carry SVn finalize — eager
+  in-place at its make-carry token, or lazy at the answer region?" Battery TF:
+  9-free graded chains (66666+33334/33433 insight) with a **run-break** (so
+  `carry_out(top)=make-carry AND run-intact`, decorrelated from local make-carry);
+  **cross-deciding-position transfer** at each (token position × layer) for the
+  propagated carry; within-position decode for the local make-carry (CE13 ref).
+- **Result** (both models): **LAZY (representational) propagation + eager local.**
+  Propagated canonical carry appears **only at the sign token, L1** (transfer→1.0),
+  ~chance at every operand token and at `=`, never at L0 — a **~2-token deferral
+  past full input availability (D'_0)** and past the `=` gather (chance;
+  `=`-is-a-depot, CE16). Local single-step make-carry **eager in-place at L0 at its
+  own token** (0.76–0.94, CE13). Correction (post-result gate): the
+  make-carry-token→D'_0 span is information-availability (MSD-first layout, CE19),
+  not laziness. Net: single-step eager in-place (L0); multi-digit propagation lazy
+  at the answer read (L1).
+- **Artifacts / reusable cross-model code**: **`quanta_maths/maths_temporal_finalization.py`**
+  (`run_temporal_finalization(model_name)`, layer-general, package-native;
+  unit-tested `tests/test_temporal_finalization.py`); thin CLI
+  `scripts/compounding_locus_tf.py`; `results/study-compounding-locus-tf/results.json`.
+  Built to run across the model zoo (answers may differ by model).
+- **Caveats**: linear-probe; point estimates (CIs via CE24); coarse token tail;
+  onset = sign token (leading answer digit is constant 0 there, so the onset is a
+  genuine prospective carry). Dual-gated (CLV2-5 pre-launch; post-result F1–F6).
+  2-layer/3-head addition, two models.
+- **Linked study**:
+  [study-maths/study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md#addendum--battery-tf-temporal-finalization--token-time--run-2026-07-16)
+
 ### 2026-07-16 — Mixed model: ≥2-depth carry/borrow delivery sweep (entry 2(i)): CE25
 
 - **Bundle**: extends CE20's single-step delivery to cascade depths 2/3/4 on

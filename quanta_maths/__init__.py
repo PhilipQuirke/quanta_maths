@@ -46,3 +46,7 @@ from quanta_maths.maths_hf_update import (Technique, TECHNIQUES, register_techni
 
 from quanta_maths.maths_cascade import (make_cascade_operands, cascade_answer_digit,
     cascade_question, combiner_delivery_flip, combiner_delivery_sweep, CLASS_OP)
+
+from quanta_maths.maths_diagram import (capture_role_registry, token_layout_md,
+    node_inventory_md, logical_mechanism_mermaid, implementation_mermaid,
+    build_mechanism_markdown)

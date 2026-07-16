@@ -453,7 +453,10 @@ Rules the runner relies on:
 - **`applies_to(cfg)`** gates by operation/size (e.g. `perc_add`, `perc_sub`, `n_digits`).
 
 Currently registered: `add_combiner_STC` (features), `sub_combiner_MTC` (features),
-`operand_linear_transfer_LINXFER` (behaviors).
+`operand_linear_transfer_LINXFER` (behaviors), `carry_temporal_finalization_CARRY`
+(behaviors — CE24 TF: `Probe:A{top}.CARRYLAYER` + `.CARRYDEFER`, from
+`quanta_maths/maths_temporal_finalization.tag_carry_finalization_nodes`; layer-general,
+runs on any addition-capable model).
 
 **Validation (dry-run samples):** add model → STC+LINXFER; sub model → MTC only;
 mix model → all three (STC 6 / MTC 5 / LINXFER 11). `behaviors.json` Algo-pollution

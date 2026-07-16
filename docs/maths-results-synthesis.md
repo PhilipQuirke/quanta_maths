@@ -500,6 +500,21 @@ abstraction. A11 rejected/low. Caveats: linear probe; L0 at `=` (ST/sign via
 CE17/CE19); own causal battery invalid (locus per CE16). The CE19 account below is
 retained for provenance.
 
+**Token-time (CE24 TF addendum):** having settled the *layer* (L1 read), TF closes
+the *when-by-token* question. Using 9-free graded chains with a run-break (so the
+top carry is decorrelated from the local make-carry) and cross-deciding-position
+transfer at each (token position × layer): **LAZY (representational) propagation +
+eager local**, both models. The propagated canonical carry appears only at the
+**sign token, L1** (~chance at every operand token and at `=`, never at L0) — a
+**~2-token deferral past full input availability (D'_0)** and past the `=` gather
+(chance; consistent with `=`-is-a-depot). The **local single-step make-carry is
+eager, in-place at L0 at its own token** (CE13). The make-carry-token→D'_0 span is
+information-availability (MSD-first layout, CE19), not laziness. Net picture:
+**single-step resolution computed eagerly in place (L0); multi-digit propagation
+represented lazily at the answer read (L1).** Reusable cross-model tool shipped in
+the package (`quanta_maths/maths_temporal_finalization.py`) — the eager/lazy split
+may differ by model, so run the zoo. Linear-probe; coarse tail; two small models.
+
 ### (superseded) Q: … — L1-read, not a relay (CE19)
 
 CE17 left this R-mixed; CE18 showed scale won't sharpen it. CE19 settled it with a

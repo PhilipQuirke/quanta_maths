@@ -346,3 +346,42 @@ def run_temporal_finalization(
     tf["n_digits"] = cfg.n_digits
     tf["verdict"] = summarize(tf)
     return tf
+
+
+# ===========================================================================
+# HF-update technique: emit the token-time finding as inline node tags
+# ===========================================================================
+
+def tag_carry_finalization_nodes(model, cfg, nodes, n_q: int = 400) -> int:
+    """Add ``Probe:A{top}.CARRYLAYER=NN`` and ``Probe:A{top}.CARRYDEFER=NN`` to the
+    leading-digit combiner node (last-layer node at A_top's consuming position),
+    encoding the token-time finalization of the propagated carry:
+
+      * CARRYLAYER = the layer at which the canonical propagated carry first
+        becomes cross-deciding-position transfer-decodable (the "read" layer).
+      * CARRYDEFER = tokens the onset sits PAST full input availability (D'_0);
+        0 = eager (present as soon as inputs arrive), >0 = lazy/deferred to the
+        answer region. Clamped at 0 (negatives -> 0).
+
+    Both are the token-time complement to the carry's layer-localization; run across
+    models to see whether the eager/lazy split holds or shifts with size. Returns
+    the number of tags added (0 if the propagated carry is not found).
+    """
+    tf = temporal_finalization_map(model, cfg, n_q=n_q)
+    v = summarize(tf)
+    onset_layer = v.get("propagated_onset_layer")
+    onset_pos = v.get("propagated_onset_pos")
+    if onset_layer is None or onset_pos is None:
+        return 0
+    defer = max(0, int(v.get("genuine_deferral_tokens") or 0))
+    top = cfg.n_digits - 1                       # leading answer digit index
+    produce_pos = consuming_pos(cfg, top)
+    last_layer = int(model.cfg.n_layers) - 1
+    added = 0
+    for node in nodes.nodes:
+        if node.is_head:
+            continue
+        if node.position == produce_pos and node.layer == last_layer:
+            added += node.add_tag("Probe", f"A{top}.CARRYLAYER={int(onset_layer)}")
+            added += node.add_tag("Probe", f"A{top}.CARRYDEFER={defer}")
+    return added

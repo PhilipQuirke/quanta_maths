@@ -286,11 +286,21 @@ Promote by swapping into the queue.
 - **B13 — Task-wide effective dimensionality and dictionary recovery.**
   *(Demoted from the queue 2026-07-15 after C5 — not on the C5 critical path.)*
   Measure residual-stream effective dimensionality across the task per
-  layer/position against the known feature inventory, and check whether a
-  dictionary-learning decomposition (`QMSAE` infrastructure) recovers that
-  inventory without heavy splitting. Direct test of A8 and C1's
-  low-dimensionality half; revisit once the C5 steps land (its interpretation
-  will then have the named-node encodings to compare against). Updates A8, C1.
+   layer/position against the known feature inventory, and check whether a
+   dictionary-learning decomposition (`QMSAE` infrastructure) recovers that
+   inventory without heavy splitting. Direct test of A8 and C1's
+   low-dimensionality half; revisit once the C5 steps land (its interpretation
+   will then have the named-node encodings to compare against). Updates A8, C1.
+- **B14 — Temporal finalization (TF) across the model zoo.** The token-time
+  eager-vs-lazy result (CE24 TF addendum: single-step eager in-place at L0,
+  multi-digit propagation lazy at the answer read L1) is on two small addition
+  models; the human flagged the answer may differ by model/size. The reusable
+  cross-model tool ships in the package —
+  `quanta_maths.maths_temporal_finalization.run_temporal_finalization(model_name)`
+  (layer-general, unit-tested) — so run it across d7/d8/d9/d10/d13 (and the mixed
+  model) and compare the deferral/onset-layer. Cheap (forward passes + linear
+  probes, no training). Updates A11/A12 (does the eager/lazy split tighten or
+  shift with size?).
 
 ## Frozen lines
 
