@@ -138,12 +138,10 @@ def resolution_probe(acts, folds=5):
     """CV linear probe U->0 vs U->1 (the resolution). High accuracy = the input
     already encodes the eventual resolution (informative). acts: dict with
     'u0','u1' arrays."""
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import cross_val_score
+    from quanta_maths.maths_probe import cross_val_probe_accuracy
     X = np.vstack([acts["u0"], acts["u1"]])
     y = np.r_[np.zeros(len(acts["u0"])), np.ones(len(acts["u1"]))]
-    clf = LogisticRegression(max_iter=2000, C=1.0)
-    return float(cross_val_score(clf, X, y, cv=folds).mean())
+    return cross_val_probe_accuracy(X, y, folds=folds, C=1.0)
 
 
 def perm_null_offaxis(all_acts, n_perm=1000):
@@ -260,8 +258,7 @@ def precursor_vs_decision(model, cfg, n, pos, hook, n_q=200):
     (b) the sum==9 (is-U) flag: U vs committed. If BOTH carry_in and is-U are
     separately decodable here, the site holds the *ingredients*, not necessarily
     a completed U->{0,1} decision made upstream."""
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import cross_val_score
+    from quanta_maths.maths_probe import cross_val_probe_accuracy
     # carry_in probe: among U cases, u1 (carry) vs u0 (no carry) == resolution,
     # but also test carry_in on COMMITTED digits (where it does NOT change carry_out)
     # -> if carry_in is decodable on committed digits, the raw carry_in bit is present.
@@ -286,8 +283,7 @@ def precursor_vs_decision(model, cfg, n, pos, hook, n_q=200):
                 _, c = model.run_with_cache(q.unsqueeze(0))
             bucket.append(c[hook][0, pos, :].numpy())
     Xc = np.vstack([cc, cn]); yc = np.r_[np.ones(len(cc)), np.zeros(len(cn))]
-    carryin_on_committed = float(cross_val_score(
-        LogisticRegression(max_iter=2000), Xc, yc, cv=5).mean())
+    carryin_on_committed = cross_val_probe_accuracy(Xc, yc, folds=5)
     return {"carry_in_decodable_on_committed": carryin_on_committed}
 
 

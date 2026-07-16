@@ -49,22 +49,29 @@ def _download_behavior_nodes(model_name: str, hf_repo: str, local_dir: str):
     return nodes, raw_path
 
 
-def _stc_is_causal(model, cfg, produce_pos: int, impact_digit: int,
-                   mlp_layer: int) -> bool:
+def _combiner_is_causal(model, cfg, produce_pos: int, impact_digit: int,
+                        mlp_layer: int, operation=None) -> bool:
     """Return True if ablating the answer-position MLP flips answer digit A_k on a
-    carry-bearing addition (the CE5 combiner signature)."""
+    carry-bearing (addition) / borrow-bearing (subtraction) question -- the
+    combiner signature (CE5 for addition; its subtraction parallel)."""
     from quanta_maths.maths_edge_patch import answer_positions
     from quanta_maths.maths_utilities import make_a_maths_question_and_answer
     from quanta_maths.maths_constants import MathsToken
 
-    base = int(("2" * cfg.n_digits))
-    a = base + 7 * 10 ** max(0, impact_digit - 1)
-    b = base + 7 * 10 ** max(0, impact_digit - 1)
+    if operation is None:
+        operation = MathsToken.PLUS
     lim = 10 ** cfg.n_digits
-    a %= lim
-    b %= lim
+    if operation == MathsToken.MINUS:
+        # positive-answer subtraction with a borrow into digit k:
+        # minuend 8..8 with lower digit dropped below the 3..3 subtrahend.
+        a = int("8" * cfg.n_digits) - 8 * 10 ** max(0, impact_digit - 1)
+        b = int("3" * cfg.n_digits)
+    else:
+        base = int("2" * cfg.n_digits)
+        a = (base + 7 * 10 ** max(0, impact_digit - 1)) % lim
+        b = (base + 7 * 10 ** max(0, impact_digit - 1)) % lim
     q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
-    make_a_maths_question_and_answer(cfg, q, 0, a, b, MathsToken.PLUS)
+    make_a_maths_question_and_answer(cfg, q, 0, a, b, operation)
     q = q[0]
     ap = answer_positions(cfg)
     with torch.no_grad():
@@ -81,17 +88,27 @@ def _stc_is_causal(model, cfg, produce_pos: int, impact_digit: int,
     return not torch.equal(clean, abl)
 
 
-def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None) -> int:
-    """Add ``Algo:A{d}.STC`` to answer-position MLP nodes that pass the causal check.
+def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None,
+                  operation=None) -> int:
+    """Add the combiner tag (``Algo:A{d}.STC`` for addition, ``Algo:A{d}.MTC`` for
+    subtraction) to answer-position last-layer MLP nodes that pass the causal check.
 
-    ``mlp_layer`` defaults to the penultimate layer (the combiner layer in the
-    2-layer models is L1). Returns the number of tags added.
+    ``mlp_layer`` defaults to the LAST layer (``n_layers - 1``); on 2-layer models
+    that is L1, on 3-/4-layer models it is L2/L3. ``operation`` defaults to the
+    model's own operation (PLUS unless the config is pure subtraction).
+    Returns the number of tags added.
     """
     from QuantaMechInterp import QType
     from quanta_maths.maths_search_add import add_stc_functions
+    from quanta_maths.maths_search_sub import sub_mtc_functions
+    from quanta_maths.maths_constants import MathsToken
 
+    if operation is None:
+        operation = MathsToken.MINUS if cfg.perc_sub == 100 else MathsToken.PLUS
     if mlp_layer is None:
         mlp_layer = cfg.n_layers - 1
+
+    tag_fn = sub_mtc_functions.tag if operation == MathsToken.MINUS else add_stc_functions.tag
 
     added = 0
     for k in range(cfg.n_digits + 1):
@@ -101,35 +118,41 @@ def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None) -> int:
                 continue
             if node.position != produce_pos or node.layer != mlp_layer:
                 continue
-            if _stc_is_causal(model, cfg, produce_pos, k, mlp_layer):
-                added += node.add_tag(QType.ALGO.value, add_stc_functions.tag(k))
+            if _combiner_is_causal(model, cfg, produce_pos, k, mlp_layer, operation):
+                added += node.add_tag(QType.ALGO.value, tag_fn(k))
     return added
 
 
-def _collect_operand_digit_labels(model, cfg, n_q, digits, rng):
-    """Gather operand-2 residual activations at each digit's own L0 fetch site,
+def _collect_operand_digit_labels(model, cfg, n_q, digits, rng, operation=None,
+                                  fetch_layer=None):
+    """Gather operand-2 residual activations at each digit's own fetch site,
     labelled by the operand-2 DIGIT VALUE (0..9) -- the quantity CE2 says is
-    linearly transported. Returns (acts, labs) keyed by digit index n.
+    linearly transported. Fetch happens at the FIRST layer. Returns (acts, labs)
+    keyed by digit index n.
     """
     from quanta_maths.maths_utilities import make_a_maths_question_and_answer
     from quanta_maths.maths_constants import MathsToken
-    from quanta_maths.maths_probe import site_hook_and_pos
+    from quanta_maths.maths_probe import site_hook_and_pos, first_layer
 
+    if operation is None:
+        operation = MathsToken.PLUS
+    if fetch_layer is None:
+        fetch_layer = first_layer(cfg)
     acts = {n: [] for n in digits}
     labs = {n: [] for n in digits}
     lim = 10 ** cfg.n_digits
-    hook = "blocks.0.hook_resid_post"
+    hook = f"blocks.{fetch_layer}.hook_resid_post"
     for _ in range(n_q):
         a = int(rng.integers(0, lim // 2))
         b = int(rng.integers(0, lim // 2))
         q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
-        make_a_maths_question_and_answer(cfg, q, 0, a, b, MathsToken.PLUS)
+        make_a_maths_question_and_answer(cfg, q, 0, a, b, operation)
         bd = [int(d) for d in str(b).zfill(cfg.n_digits)]
         with torch.no_grad():
             _, c = model.run_with_cache(
                 q, names_filter=lambda nm: nm == hook)
         for n in digits:
-            _, pos = site_hook_and_pos(cfg, "Dpn_L0", n)
+            _, pos = site_hook_and_pos(cfg, "Dpn", n, layer=fetch_layer)
             acts[n].append(c[hook][0, pos, :].numpy())
             labs[n].append(bd[cfg.n_digits - 1 - n])  # operand-2 digit value at n
     return ({n: np.asarray(v) for n, v in acts.items()},
@@ -137,17 +160,20 @@ def _collect_operand_digit_labels(model, cfg, n_q, digits, rng):
 
 
 def tag_linxfer_nodes(model, cfg, nodes, digits: Optional[List[int]] = None,
-                      n_q: int = 800, seed: int = 0) -> int:
+                      n_q: int = 800, seed: int = 0, operation=None) -> int:
     """Add ``Probe:A{d}.LINXFER=NN`` to operand-fetch head nodes when the operand-2
-    DIGIT VALUE is linearly decodable at its L0 fetch site (CE2 linear transport).
-    ``NN`` is the balanced-accuracy percentage. Returns tags added.
+    DIGIT VALUE is linearly decodable at its first-layer fetch site (CE2 linear
+    transport). ``NN`` is the balanced-accuracy percentage. Returns tags added.
     """
-    from quanta_maths.maths_probe import probe_accuracy_with_null
+    from quanta_maths.maths_probe import probe_accuracy_with_null, first_layer
 
     if digits is None:
         digits = list(range(1, cfg.n_digits - 1))
     rng = np.random.default_rng(seed)
-    acts, labs = _collect_operand_digit_labels(model, cfg, n_q, digits, rng)
+    fetch_layer = first_layer(cfg)
+    acts, labs = _collect_operand_digit_labels(model, cfg, n_q, digits, rng,
+                                               operation=operation,
+                                               fetch_layer=fetch_layer)
 
     added = 0
     for n in digits:
@@ -157,7 +183,7 @@ def tag_linxfer_nodes(model, cfg, nodes, digits: Optional[List[int]] = None,
             pct = int(round(out["observed_acc"] * 100))
             fetch_pos = int(cfg.ddn_to_position_name(n)[1:])
             for node in nodes.nodes:
-                if node.position == fetch_pos and node.layer == 0 and node.is_head:
+                if node.position == fetch_pos and node.layer == fetch_layer and node.is_head:
                     added += node.add_tag("Probe", f"A{n}.LINXFER={pct}")
     return added
 

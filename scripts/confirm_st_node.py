@@ -48,38 +48,19 @@ def load_model(model_name):
         return load_maths_model_from_hf(model_name, device="cpu", use_train_json=False)
 
 
+# Thin re-exports of the library run helpers (quanta_maths.maths_run). Kept here
+# because ~15 scripts do `from scripts.confirm_st_node import make_q, ...`.
+from quanta_maths.maths_run import answer_positions, predict_answer
+
+
 def make_q(cfg, a, b):
-    from quanta_maths.maths_utilities import make_a_maths_question_and_answer
-    from quanta_maths.maths_constants import MathsToken
-    q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
-    make_a_maths_question_and_answer(cfg, q, 0, a, b, MathsToken.PLUS)
-    return q[0]
-
-
-def answer_positions(cfg):
-    na = cfg.n_digits + 2
-    return list(range(cfg.n_ctx - na, cfg.n_ctx))  # sign, A_top..A0
-
-
-def predict_answer(model, cfg, q):
-    """Return predicted answer tokens (na of them) for a single question row."""
-    with torch.no_grad():
-        logits = model(q.unsqueeze(0))
-    ap = answer_positions(cfg)
-    return logits[0, [p - 1 for p in ap]].argmax(-1)  # (na,)
+    from quanta_maths.maths_run import make_question
+    return make_question(cfg, a, b)
 
 
 def verify_accuracy(model, cfg, n=64):
-    lim = 10 ** cfg.n_digits
-    ok = 0
-    for _ in range(n):
-        a = int(RNG.integers(0, lim // 2)); b = int(RNG.integers(0, lim // 2))
-        q = make_q(cfg, a, b)
-        pred = predict_answer(model, cfg, q)
-        true = q[answer_positions(cfg)]
-        if torch.equal(pred, true):
-            ok += 1
-    return ok / n
+    from quanta_maths.maths_run import verify_accuracy as _va
+    return _va(model, cfg, n=n, rng=RNG)
 
 
 # ---------------------------------------------------------------------------

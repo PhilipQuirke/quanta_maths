@@ -80,6 +80,14 @@ class TestProbeControls(unittest.TestCase):
         self.assertLess(out["observed_acc"], 0.5)
         self.assertGreater(out["null_p"], 0.05)
 
+    def test_cross_val_probe_accuracy(self):
+        from quanta_maths.maths_probe import cross_val_probe_accuracy
+        y = self.rng.integers(0, 2, size=200)
+        X_sig = y[:, None] * 3 + self.rng.standard_normal((200, 6))
+        X_noise = self.rng.standard_normal((200, 6))
+        self.assertGreater(cross_val_probe_accuracy(X_sig, y), 0.9)
+        self.assertLess(cross_val_probe_accuracy(X_noise, y), 0.65)
+
 
 class TestSubspaceGeometry(unittest.TestCase):
     def test_identical_subspaces_zero_angle(self):

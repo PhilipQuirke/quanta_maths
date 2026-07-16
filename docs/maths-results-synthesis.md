@@ -407,6 +407,41 @@ confirmed wiring ([CE16](maths-claim-evidence.md)):
   bugs (value-only R patch under-read; raw residual scale-confound) surfaced in a
   fast smoke run and fixed before the full run.
 
+## Q: Where is the multi-digit carry compounded (L0 relay vs L1 read), and what is the combiner's form? — combiner is a STEP; locus is R-mixed (CE17)
+
+Building on CE16's puzzle (a canonical resolved carry on the wire, assembled from
+sources that individually hold only single-step resolution, CE13):
+- **The combiner is a STEP function** (A10 item iv, the last A10 detail): an
+  on-manifold α-sweep — interpolating the *real* captured head-pair edge
+  contribution and substituting it PRE-LN, endpoint-gated to CE16's 0/1 (fixing
+  CE16's dead Battery F) — flips the digit sharply at threshold **α*≈0.75** in
+  both models while the carry-axis projection rises linearly. A hard
+  discretization, not a graded dial.
+- **The L0 tail-relay (A11) is only a single-site representational trace.** In
+  the 6d model one question-tail ST site (P11H2, horizon m=1) decodes the resolved
+  carry (bacc 1.00) exactly at the depth where it can see the deciding digit — the
+  A11 horizon prediction — but it fails at an adjacent depth and does not replicate
+  in 5d.
+- **The relay is causally undetermined.** Twin-interchange of the tail-ST writes
+  flips the leading digit 0.00 at every depth, both models. The instrument is
+  valid (reproduces CE13's ablation load-bearing) but tests a *different
+  unit/target* than the interchange, so the null cannot distinguish redundancy
+  (CE13 interchange=0.00) from interchange-too-weak-for-this-target (the CE16-F1
+  trap). And the L1 edge output reconstructs from **local class alone**
+  (r²≈0.95–0.99), so nothing forces the relay account.
+- **Dispositions**: A10 iv RESOLVED (step, α*≈0.75); A11 → **low** (representational
+  hint, unreplicated, causally undetermined); A9 **stays retired** (no causal
+  selection at either locus); A6/C3 human sequential-cascade lean **not
+  adjudicated** (only signal is the single unreplicated cell). **R-mixed, leaning
+  L1-local-sufficient.** This is the last mechanism study before the paper
+  hand-off (agenda entry 2). Dual-gated (CA-1..CA-6 pre-launch; F1/F2 post-result
+  downgraded H-"replication" and Y-"redundancy-masked" over-claims).
+- **Method note**: a fast smoke run caught two real bugs before the full run (a
+  broken 5d horizon-inversion at the `=`/sign positions; a Battery-Y ablation
+  control that under-measured until switched to CE13's exact `_mean_ablate_acc`
+  unit); the pre-launch gate caught an invalid depth (k=4→d=−1 at n=3) fixed by
+  re-pinning the chain-top to n_top=4.
+
 ## Open empirical questions
 
 - **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at

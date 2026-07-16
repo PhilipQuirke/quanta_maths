@@ -132,26 +132,30 @@ def run_multi_head_edge_patch(model, cfg, target_q: torch.Tensor,
     """Patch several heads' OV messages at once onto the receiver's MLP input.
 
     ``patches`` is a list of ``(cpos, layer, head, z_row)`` where ``z_row`` is the
-    SOURCE head-z to inject. Deltas are summed and applied LN-fair at
-    ``ln2.hook_normalized`` of ``recv_layer``.
+    SOURCE head-z to inject. Deltas are summed PER consuming position and applied
+    LN-fair at ``ln2.hook_normalized`` of ``recv_layer`` (supports patches spread
+    across several positions).
     """
     L = recv_layer
-    total = None
-    cpos_ref = patches[0][0]
+    gamma = model.blocks[L].ln2.w
+    # accumulate the OV delta per consuming position
+    deltas = {}
     for (cpos, layer, head, z_row) in patches:
         zt = tgt_cache[f"blocks.{layer}.attn.hook_z"][0, cpos, head, :]
         zsrc = torch.as_tensor(z_row, dtype=zt.dtype)
         d = (zsrc - zt) @ model.blocks[layer].attn.W_O[head]
-        total = d if total is None else total + d
-    rm = tgt_cache[f"blocks.{L}.hook_resid_mid"][0, cpos_ref, :]
-    xm, std = ln_scale(rm)
-    gamma = model.blocks[L].ln2.w
-    norm_clean = xm / std
-    xm2 = (rm + total) - (rm + total).mean()
-    add = (xm2 / std - norm_clean) * gamma
+        deltas[cpos] = d if cpos not in deltas else deltas[cpos] + d
+
+    # convert each position's delta into an LN-fair additive term at that position
+    adds = {}
+    for cpos, total in deltas.items():
+        rm = tgt_cache[f"blocks.{L}.hook_resid_mid"][0, cpos, :]
+        xm, std = ln_scale(rm)
+        adds[cpos] = ((rm + total) - (rm + total).mean()) / std * gamma - xm / std * gamma
 
     def hook(act, hook):
-        act[:, cpos_ref, :] = act[:, cpos_ref, :] + add
+        for cpos, a in adds.items():
+            act[:, cpos, :] = act[:, cpos, :] + a
         return act
     with torch.no_grad():
         logits = model.run_with_hooks(
@@ -200,3 +204,71 @@ def synthetic_redirect_prediction(model, cfg, target_q: torch.Tensor, layer: int
     with torch.no_grad():
         logits = model.run_with_hooks(target_q.unsqueeze(0), fwd_hooks=[(name, hook)])
     return _read_answer(model, cfg, logits)
+
+
+# ===========================================================================
+# Head mean-ablation + causal flip-rate measurement (CE16 SV-implementation)
+# ===========================================================================
+
+def mean_ablate_heads_prediction(model, cfg, q: torch.Tensor, cpos: int,
+                                 heads: Sequence[int], mean_z, layer: int) -> torch.Tensor:
+    """Replace the given heads' ``z`` at ``cpos`` with their mean value and predict.
+
+    ``mean_z`` maps head index -> mean z vector (numpy or tensor, shape [d_head]).
+    Used for CLASS-necessity tests: mean-ablate a head pair jointly and see which
+    question families break (CE16 class-necessity battery).
+    """
+    def hook(act, hook):
+        for h in heads:
+            act[:, cpos, h, :] = torch.as_tensor(mean_z[h], dtype=act.dtype)
+        return act
+    with torch.no_grad():
+        logits = model.run_with_hooks(
+            q.unsqueeze(0), fwd_hooks=[(f"blocks.{layer}.attn.hook_z", hook)])
+    return _read_answer(model, cfg, logits)
+
+
+def flip_rate_with_matched_null(model, cfg, pair_builder, patch_fn, answer_digit: int,
+                                n_pairs: int = 40, null_builder=None):
+    """Measure a causal patch's per-digit flip rate against a matched null.
+
+    This is the generic form of the CE16 PC1 measurement: over ``n_pairs`` matched
+    (source, target) pairs, apply ``patch_fn`` and count how often answer digit
+    ``answer_digit`` changes vs the clean target prediction. Optionally repeat with
+    a ``null_builder`` (e.g. a same-class / re-drawn-operand partner) to get the
+    matched-null flip rate that a genuine effect must exceed.
+
+    Args:
+      pair_builder() -> (source_q, target_q)  matched intervention pair
+      patch_fn(source_q, target_q) -> predicted answer tokens (uses maths_edge_patch)
+      answer_digit: which answer digit A_k to score (0 = units)
+      null_builder() -> (null_source_q, target_q)  matched-null pair (optional)
+
+    Returns a dict with ``flip`` (mean_ci) and, if ``null_builder`` given, ``null``.
+    """
+    from quanta_maths.maths_stats import mean_ci
+
+    ap = answer_positions(cfg)
+    idx = len(ap) - 1 - answer_digit
+
+    def clean_pred(tq):
+        with torch.no_grad():
+            logits = model(tq.unsqueeze(0))
+        return logits[0, [p - 1 for p in ap]].argmax(-1)
+
+    flips, nulls = [], []
+    for _ in range(n_pairs):
+        sq, tq = pair_builder()
+        clean = clean_pred(tq)
+        patched = patch_fn(sq, tq)
+        flips.append(float(patched[idx] != clean[idx]))
+        if null_builder is not None:
+            nsq, ntq = null_builder()
+            nclean = clean_pred(ntq)
+            npatched = patch_fn(nsq, ntq)
+            nulls.append(float(npatched[idx] != nclean[idx]))
+
+    out = {"flip": mean_ci(flips), "answer_digit": answer_digit}
+    if null_builder is not None:
+        out["null"] = mean_ci(nulls)
+    return out

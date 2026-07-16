@@ -36,12 +36,12 @@ from __future__ import annotations
 import json, os, sys, math
 import numpy as np
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import balanced_accuracy_score
 
 from scripts.confirm_st_node import (
     load_model, make_q, answer_positions, predict_answer, verify_accuracy,
 )
+from quanta_maths.maths_stats import wilson_ci, mean_ci
+from quanta_maths.maths_probe import fit_probe as _lib_fit_probe, probe_balanced_accuracy
 from scripts.deep_cascade_mechanism import (
     build_chain, consuming_pos, ak_pos, affected_digits, dn_pos, dpn_pos,
     behavioral_gate, RNG,
@@ -67,30 +67,15 @@ Z_NAMES = ("blocks.1.attn.hook_z", "blocks.1.attn.hook_pattern",
 # small helpers
 # ---------------------------------------------------------------------------
 
-def wilson_ci(k, n, z=1.96):
-    if n == 0:
-        return (float("nan"), float("nan"))
-    p = k / n
-    d = 1 + z * z / n
-    c = p + z * z / (2 * n)
-    h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
-    return ((c - h) / d, (c + h) / d)
-
-
-def mean_ci(vals):
-    a = np.asarray(vals, float)
-    n = len(a)
-    m = float(a.mean()) if n else float("nan")
-    lo, hi = wilson_ci(int(round(a.sum())), n) if n else (float("nan"), float("nan"))
-    return {"rate": m, "ci": [lo, hi], "n": n}
+# wilson_ci / mean_ci imported from quanta_maths.maths_stats.
 
 
 def fit(X, y):
-    return LogisticRegression(max_iter=2000, C=0.5).fit(X, y)
+    return _lib_fit_probe(X, y, C=0.5)
 
 
 def bacc(clf, X, y):
-    return float(balanced_accuracy_score(y, clf.predict(X)))
+    return probe_balanced_accuracy(clf, X, y)
 
 
 def cache_full(model, q):

@@ -224,3 +224,179 @@ files) were NOT touched.
    hooks but is not pushed down into `QuantaMechInterp`.
 5. **Thread boundary** — experiments `#17`, `#18`, … are owned by another thread. This
    migration must **not** touch those scripts.
+
+## Experiment #17 review (sv_implementation.py, landed in b4c9eab)
+
+Experiment #17 is the SV parameter-estimation study (batteries M/R/P/F on the confirmed
+SV wiring, CE13–CE15). Reviewed for migration candidates. It is now committed, so it may be
+refactored like the other scripts (Tier B/C rules apply).
+
+### Tier B — #17 re-uses helpers the library ALREADY has (consolidate)
+`scripts/sv_implementation.py` still imports patching helpers from `scripts/sv_compounding.py`
+that duplicate the Stage-3 library API. These should be redirected to `quanta_maths.maths_edge_patch`:
+
+| `sv_compounding` helper (imported by #17) | Library replacement |
+|---|---|
+| `head_ov(model, z, layer, head)` | `maths_edge_patch.head_ov` (identical) |
+| `_ln_norm(vec)` | `maths_edge_patch.ln_scale` (identical) |
+| `edge_patch_pred(model, cfg, tq, patches, tc)` | `maths_edge_patch.run_multi_head_edge_patch` (same LN-fair multi-head OV patch on `ln2.hook_normalized`) |
+| `_direct_patch_pred(model, cfg, tq, cpos, delta, tc)` | `maths_edge_patch.run_edge_patch(..., arm="raw")` |
+| `fit` / `bacc` (LogisticRegression C=0.5 + balanced_accuracy) | `maths_probe.fit_probe` / `probe_balanced_accuracy` |
+
+Refactoring `sv_compounding.py` (the shared hub) would also update `#17` transitively. Doing so
+is a follow-up (needs the #17 owner's sign-off since it is their active study surface).
+
+### Tier A — genuinely NEW reusable primitives in #17 (promote)
+These have no library equivalent and are broadly useful for the SV account across models:
+
+1. **Activation steering / injection.** `battery_P.inject_pred` (add `mag * unit` to
+   `resid_post(L0)` at a position) and `battery_F` (α-sweep of a carry axis at the combiner
+   input `ln2.hook_normalized`). Promote a general
+   `steer_along_axis(model, cfg, q, hook, pos, vector, alpha)` +
+   `axis_alpha_sweep(...)` into `maths_edge_patch.py`. Enables causal power controls and
+   step-vs-graded combiner tests on any model.
+2. **Committed carry-axis extraction.** `carry_axis` (c1−c0 mean-difference at the combiner
+   input, unit-normalized, with a class-mean separation anchor). Promote
+   `class_mean_axis(model, cfg, hook, pos, class_question_fn)` into `maths_probe.py` (it is a
+   supervised direction, complementing the existing `class_mean_subspace`).
+3. **Measured-direction estimator.** `_measure_skip_carry_dir` (mean twin resid-diff direction
+   + per-pair carry magnitude) — generalize to
+   `mean_difference_direction(activations_hi, activations_lo)` in `maths_probe.py`.
+4. **Edge → LN-fair projection onto an axis.** `lnfair_project` (push an OV edge delta through
+   clean-frozen-std LN, then project onto an axis). Promote as
+   `maths_edge_patch.lnfair_edge_projection(model, cfg, rm_clean, delta, axis, recv_layer)`.
+5. **Statistical helpers.** `wilson_ci` and `mean_ci` (Wilson-interval rate + CI reporting) —
+   promote to a small `quanta_maths/maths_stats.py`; every battery reports rates and should
+   share one CI implementation.
+
+### Tier C — leave in the script (study-specific, not reusable)
+Battery orchestration and verdict logic (`battery_M/R/P/F`, `derive_verdict`, `pc1_regression`,
+`_class_necessity`, `_key_groups`, `_domain_null_transfer`, `_residual_family_decode`) are
+specific to the SV parameter-estimation design. The per-model constants
+(`CONSUMER_HEADS`, `INSTRUMENT_HEAD`, `EQ_POS`, `GEO_CFG`) are found facts, not tooling; when
+the full refresh lands they should become `Algo:`/`Attn:` node tags read back from JSON rather
+than hard-coded dicts.
+
+### Recommendation
+Promote the 5 Tier-A primitives (steering, class-mean axis, mean-difference direction,
+LN-fair projection, Wilson CI) in a **Stage 7** that mirrors Stages 1–6 (positive/negative
+controls, `pytest tests` green). Defer the Tier-B `sv_compounding` refactor until the #17
+owner signs off, since it touches their active study hub. No changes made yet — this is a
+review only.
+
+## Scaling + subtraction validation (10-digit add, 6-digit sub)
+
+Requested checks that the library scales and generalizes beyond the 2-layer 5/6-digit
+addition models it was built on.
+
+### Task 1 — 10-digit addition (`add_d10_l2_h3_t40K_s572091`)
+- Loader: `n_digits=10`, `n_ctx=34`, `d_model=510`; 100% accuracy on random additions.
+- Probe: ST decodable ~1.00 at the last layer; edge-patch `synthetic_redirect` moves answers.
+- Batch: **9 `Algo:A{d}.STC`** tags across A1–A9 at the correct answer-producing positions
+  (P23–P31). Scales cleanly.
+
+### Multi-layer bug found & fixed (human-flagged)
+The `_L0`/`_L1` suffixes in `site_hook_and_pos` were **literal layer indices** tuned for
+2-layer models. On 3-/4-layer models (`mix_*_l3`, `ins2_*_l4`) they silently probed
+non-final layers and never reached the real combiner (`blocks.2`+). Fixes:
+- `site_hook_and_pos(cfg, site, n, layer=None)` — spatial role (`Dpn/Dn/ans/eq`) is now
+  decoupled from layer; `layer=` overrides the suffix and is **bounds-checked** against
+  `cfg.n_layers` (raises instead of silently mis-probing).
+- Added `first_layer(cfg)` / `last_layer(cfg)` semantic helpers; callers meaning "where the
+  answer is combined" pass `last_layer(cfg)`.
+- `collect_site_activations(..., layer=)`, `maths_batch.tag_stc_nodes(..., mlp_layer=n_layers-1)`,
+  and `tag_linxfer_nodes` (fetch at `first_layer`) all now depth-relative, not literal-0/1.
+- Legacy 2-layer `Dpn_L1`-style calls remain backward-compatible.
+
+### Task 2 — 6-digit subtraction (`sub_d6_l2_h3_t30K_s372001`) + parallel functions
+- Loader recognises `perc_sub=100`; 100% accuracy on the sampled subtractions.
+- `sub_labels(a, b, nd, operation=MathsToken.MINUS)` — new **borrow cascade** parallel to the
+  addition carry cascade: `SA=(Dn-D'n)%10`, `ST=1 borrow / 0 no-borrow / 2 U (Dn==D'n)`,
+  `SV=borrow-in`. Verified (52−47 → units ST=1, tens SV=1).
+- Subtraction ST (borrow) decodable 0.91–0.99 at the last layer; edge-patch moves answers.
+- New **`sub_mtc_functions`** (`MathsTask.MTC_TAG="MTC"`, `Algo:A{d}.MTC`) — the subtraction
+  MT-combiner, the exact parallel of addition's `add_stc_functions`/STC. Verified causal at
+  answer digits and batch-taggable (4 `Algo:A{d}.MTC` tags on the sub model).
+- `maths_batch` combiner tagging is now operation-aware (auto-selects MTC for pure-sub configs).
+
+### CPU cost note
+`do_linxfer=True` (800 forward passes over a 34-token context) is slow on CPU for 10-digit
+models; the batch's LINXFER pass should be run with reduced `n_q` or GPU at that scale. STC/MTC
+tagging is cheap and scales fine.
+
+**Tests:** `tests/test_scaling_and_sub.py` (11 offline + 5 HF) added; full suite
+**57 passed / 14 skipped** offline, all HF-integration tests pass under `RUN_HF_TESTS=1`.
+
+## Review of study-sv-implementation.md (CE16) — promoted primitives
+
+Reviewed the skeptic-passed CE16 SV-implementation study for validated, reusable
+measurement tools. Promoted the generic, model-agnostic ones (the study-specific
+battery orchestration + per-model constants stay in the script per Tier C):
+
+| Promoted | Source (CE16) | Target module |
+|---|---|---|
+| `wilson_ci(k, n)`, `mean_ci(vals)` | `wilson_ci` / `mean_ci` (every headline number's CI) | new `quanta_maths/maths_stats.py` |
+| `mean_ablate_heads_prediction(...)` | `_mean_ablate_pred` (class-necessity battery) | `maths_edge_patch.py` |
+| `flip_rate_with_matched_null(...)` | PC1 regression pattern (flip rate + matched null) | `maths_edge_patch.py` |
+
+`flip_rate_with_matched_null` is the generic form of the study's positive control
+PC1 (a causal patch's per-digit flip rate measured against a matched null that must
+be exceeded); it takes user `pair_builder` / `patch_fn` / `null_builder` callables so
+any future causal study reports flip±CI vs null consistently.
+
+**Deferred (Stage 7, study-specific / needs #17-owner sign-off):** the axis-extraction
+(`carry_axis` -> `class_mean_axis`), measured-direction + power-matched injection
+(SI-1 steering), the R-battery per-key-group contribution decomposition (SI-8), and
+the arm-sum composition brackets (SI-4). These are tied to the SV batteries and are
+better promoted alongside the `sv_compounding` consolidation.
+
+**Science surfaced by the controls (kept honest):** on the 5-digit model, single-
+position L1 answer-head ablation is redundant/non-load-bearing (zero-ablating all L1
+heads at an answer position does not move the answer) — matching CE16's "5-digit had
+no clean causal L1 head". The primitive tests therefore assert the measurement's
+INVARIANTS (self-patch null == 0.0; load-bearing swap > null; CI/n reported) rather
+than a stimulus-dependent magnitude, which is the study's job to design.
+
+**Tests:** `tests/test_stats_and_necessity.py` (5 offline + 2 HF). Full suite
+**62 passed / 17 skipped** offline; all HF-integration tests pass.
+
+## Historic-study de-duplication sweep (exp #1–#17)
+
+Policy (human, 2026-07-16): where a historic study's code *could* use a library
+function, it *should* — to minimise repo size and stop future experiments copying an
+out-of-date study approach instead of the library. Git history absorbs any residual
+risk of breaking a historic study.
+
+Swept all 19 scripts; refactored duplicated harness code to library shims/imports
+(**net −177 lines** in `scripts/`, behavior preserved & numerically verified):
+
+- **Run helpers** — promoted `make_question` / `predict_answer` / `verify_accuracy` /
+  `answer_positions` into new `quanta_maths/maths_run.py`; `confirm_st_node` (the shared
+  hub imported by ~15 scripts) now re-exports them, so all dependents pick up the library
+  versions transitively.
+- **Probe helpers** — `fit` / `bacc` / `balance(_idx)` in `answer_binding`,
+  `node_output_encoding`, `sv_compounding`, `sv_implementation`, `probe_transfer` now
+  shim to `maths_probe.fit_probe` / `probe_balanced_accuracy` / `balance_idx`.
+- **Edge/OV patching** — `sv_compounding`'s `head_ov` / `_ln_norm` / `edge_patch_pred` /
+  `_direct_patch_pred` now use `maths_edge_patch` (`run_multi_head_edge_patch` was
+  generalised to multi-position; verified byte-identical output to the old inline code).
+  `sv_implementation` and `compounding_arithmetic` inherit this via their imports.
+- **Statistics** — `sv_implementation`'s `wilson_ci` / `mean_ci` now import from
+  `maths_stats`.
+- **DFT/geometry toolkit** — `digit_embedding_geometry`'s `real_dft_basis`,
+  `marginal_dft_spectrum`, `freq1_plane_share`, `unique_linear_share`,
+  `angular_order_stat`, `wraparound_ratio`, PC-plane coords now import from `maths_probe`
+  (positive/negative-control run reproduced: planted circle -> R1 sig; noise -> R4).
+- **New `cross_val_probe_accuracy`** in `maths_probe` — consolidates the
+  `cross_val_score(LogisticRegression(...))` pattern; refactored `st_tristate_geometry`
+  (2 sites) and `earliest_tristate_site` (3 sites).
+
+Left in scripts (no 1:1 library equivalent / study-specific): `compounding_arithmetic`'s
+seeded-RNG `_cv_bacc` + `LinearRegression`/`r2_score`; `sv_implementation`'s `carry_axis`
+/ `lnfair_project` / `_measure_skip_carry_dir` (single-use SV batteries; Stage-7
+candidates); per-study stimulus builders (`make_pair`, `build_class_question`) and
+per-model constant dicts (`CONSUMER_HEADS` etc.).
+
+**Verification:** all 19 scripts import cleanly; `pytest tests` = **62 passed / 17
+skipped** offline; **77 passed** under `RUN_HF_TESTS=1`. New test:
+`test_probe.py::test_cross_val_probe_accuracy`.

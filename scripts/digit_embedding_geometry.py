@@ -42,30 +42,14 @@ RNG = np.random.default_rng(20260714)
 
 
 # ---------------------------------------------------------------------------
-# Fourier / linear basis over the 10 digit indices
+# Fourier / linear / ordering statistics -- now imported from the library
+# (quanta_maths.maths_probe). Only the freq1-plane coords + adjacency descriptor
+# (not exposed by the library) remain local.
 # ---------------------------------------------------------------------------
 
-def real_dft_basis() -> tuple[np.ndarray, list[str]]:
-    """Orthonormal real DFT basis over 10 points, excluding the constant.
-
-    Columns: freq k = 1..4 (cos, sin each) + k = 5 (cos only) = 9 columns,
-    which together with the constant span the full 10-dim label space.
-    """
-    cols, names = [], []
-    d = DIGITS
-    for k in range(1, 5):
-        cols.append(np.cos(2 * np.pi * k * d / 10))
-        names.append(f"cos{k}")
-        cols.append(np.sin(2 * np.pi * k * d / 10))
-        names.append(f"sin{k}")
-    cols.append(np.cos(2 * np.pi * 5 * d / 10))  # = (-1)^d, alternating
-    names.append("cos5")
-    B = np.stack(cols, axis=1).astype(float)
-    # center + orthonormalize (QR) so variance shares are well defined
-    B = B - B.mean(axis=0, keepdims=True)
-    Q, _ = np.linalg.qr(B)
-    return Q, names
-
+from quanta_maths.maths_probe import (
+    real_dft_basis, marginal_dft_spectrum, freq1_plane_share, unique_linear_share,
+    angular_order_stat, wraparound_ratio, pc_plane_coords)
 
 DFT_Q, DFT_NAMES = real_dft_basis()
 
@@ -74,93 +58,15 @@ def centered(M: np.ndarray) -> np.ndarray:
     return M - M.mean(axis=0, keepdims=True)
 
 
-def total_var(M: np.ndarray) -> float:
-    Mc = centered(M)
-    return float((Mc ** 2).sum())
-
-
-def marginal_dft_spectrum(M: np.ndarray) -> dict:
-    """Variance share captured by each DFT frequency component (marginal)."""
-    Mc = centered(M)
-    tv = (Mc ** 2).sum()
-    shares = {}
-    # group columns by frequency
-    freq_of = {}
-    for i, nm in enumerate(DFT_NAMES):
-        k = int(nm[-1])
-        freq_of.setdefault(k, []).append(i)
-    for k, idxs in freq_of.items():
-        proj = DFT_Q[:, idxs] @ (DFT_Q[:, idxs].T @ Mc)
-        shares[f"k{k}"] = float((proj ** 2).sum() / tv) if tv > 0 else 0.0
-    return shares
-
-
-def freq1_plane_share(M: np.ndarray) -> float:
-    """Variance share in the frequency-1 (cos1, sin1) plane. R1 statistic."""
-    Mc = centered(M)
-    tv = (Mc ** 2).sum()
-    if tv == 0:
-        return 0.0
-    idx = [DFT_NAMES.index("cos1"), DFT_NAMES.index("sin1")]
-    P = DFT_Q[:, idx]
-    proj = P @ (P.T @ Mc)
-    return float((proj ** 2).sum() / tv)
-
-
-def unique_linear_share(M: np.ndarray) -> float:
-    """Variance share of the centered linear ramp d, after orthogonalizing
-    it against the frequency-1 plane (R3 / helix statistic). A-2."""
-    Mc = centered(M)
-    tv = (Mc ** 2).sum()
-    if tv == 0:
-        return 0.0
-    lin = (DIGITS - DIGITS.mean()).astype(float)
-    idx = [DFT_NAMES.index("cos1"), DFT_NAMES.index("sin1")]
-    P = DFT_Q[:, idx]
-    lin_res = lin - P @ (P.T @ lin)  # part of the ramp not in the freq-1 plane
-    nrm = np.linalg.norm(lin_res)
-    if nrm < 1e-12:
-        return 0.0
-    u = (lin_res / nrm).reshape(-1, 1)
-    proj = u @ (u.T @ Mc)
-    return float((proj ** 2).sum() / tv)
-
-
-# ---------------------------------------------------------------------------
-# Ordering / wrap-around statistics (A-4, A-5)
-# ---------------------------------------------------------------------------
-
 def _plane_coords(M: np.ndarray, plane: str) -> np.ndarray:
-    Mc = centered(M)
     if plane == "pc":
-        U, S, Vt = np.linalg.svd(Mc, full_matrices=False)
-        return U[:, :2] * S[:2]
+        return pc_plane_coords(M)
     elif plane == "freq1":
+        Mc = centered(M)
         idx = [DFT_NAMES.index("cos1"), DFT_NAMES.index("sin1")]
         P = DFT_Q[:, idx]
-        return P.T @ Mc @ np.linalg.pinv(P.T @ P) if False else (P.T @ Mc).T
+        return (P.T @ Mc).T
     raise ValueError(plane)
-
-
-def angular_order_stat(coords2d: np.ndarray) -> float:
-    """Sum of squared angular gaps between value-consecutive digits.
-
-    Low when digits sit in circular value order in the plane.
-    """
-    ang = np.arctan2(coords2d[:, 1], coords2d[:, 0])
-    order = np.argsort(DIGITS)  # 0..9 by value
-    a = ang[order]
-    gaps = np.diff(np.concatenate([a, a[:1]]))
-    gaps = (gaps + np.pi) % (2 * np.pi) - np.pi
-    return float((gaps ** 2).sum())
-
-
-def wraparound_ratio(coords2d: np.ndarray) -> float:
-    """distance(9,0) / mean adjacent-by-value distance. ~1 if 9 sits next to 0."""
-    d = coords2d
-    adj = [np.linalg.norm(d[i + 1] - d[i]) for i in range(9)]
-    d90 = np.linalg.norm(d[0] - d[9])
-    return float(d90 / (np.mean(adj) + 1e-12))
 
 
 def adjacency_violations(coords2d: np.ndarray) -> int:

@@ -448,3 +448,36 @@ live — not the current best story (that goes in
   PASS-WITH-CORRECTIONS (F1/F2/F3). 2-layer addition, two models.
 - **Linked study**:
   [study-maths/study-sv-implementation.md](study-maths/study-sv-implementation.md)
+
+### 2026-07-16 — SV compounding arithmetic (CE17; A10 iv resolved = STEP; A11 low; R-mixed; dual-gated)
+
+- **Covered**: The compounding locus (A11 positional-L0-relay vs L1-read) + the
+  last A10 detail (item iv, combiner transfer), both models. Battery **H**
+  (horizon decode: does each chain-ST L0 write decode the resolved carry up to its
+  position-visibility horizon m? boundary cells at n_top=4: P10 m=2, P11 m=1);
+  Battery **Y** (relay causality: twin-interchange of tail-ST OV writes,
+  deepest-sufficient/insufficient/joint arms, L1 re-attends; CE13-ablation instrument
+  control); Battery **L** (L1-read reconstruction: nested φ_local ⊂ φ_horizon,
+  ΔR² over permutation null); Battery **T** (combiner transfer on-manifold, PRE-LN
+  interpolation of real c0/c1 edge captures, endpoint-gated to CE16 0/1).
+- **Result**: **A10 iv RESOLVED — combiner is a STEP** (α*≈0.75 both models; flip
+  0→0.42→1 across α .25/.5/.75; carry-proj linear). **A11 = single-site
+  representational trace** (6d P11H2 bacc 1.00 at the horizon-visible depth) that
+  **fails at k=3 and does not replicate in 5d**; relay **causally undetermined**
+  (Y interchange 0.00 everywhere, valid ablation instrument but different
+  unit/target — redundancy vs weak-interchange unresolved); L1 edge output
+  **local-class-sufficient** (r²≈0.95–0.99, horizon adds no held-out gain). **A11
+  → low; A9 stays retired; R-mixed, leaning L1-local.**
+- **Artifacts** (local, no HF): `results/study-compounding-arithmetic/results.json`;
+  script `scripts/compounding_arithmetic.py` (reuses CE13 `_mean_ablate_acc`/ST_NODES
+  + CE16 patch/axis machinery).
+- **Caveats / coverage gaps**: A11 trace one strong-writing site per model (deeper
+  sites write ~0); Y null causally undetermined (interchange vs ablation-target
+  mismatch — CE16-F1 trap, flagged); L local-sufficiency may reflect
+  local↔resolved-carry correlation + a reconstruction ceiling; T interpolation
+  un-regressed (co-rider caveat; step rests on the endpoint gate + linear
+  carry-proj). Dual-gated: pre-launch PASS-WITH-CONDITIONS (CA-1..CA-6, incl.
+  n_top=4 re-pin for real horizon crossings) + post-result PASS-WITH-CORRECTIONS
+  (F1 H-not-replicated, F2 Y-causally-undetermined). 2-layer addition, two models.
+- **Linked study**:
+  [study-maths/study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md)

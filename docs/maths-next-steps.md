@@ -62,53 +62,60 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Experiment | Updates |
 | --- | --- | --- | --- |
-| 1 | ready | [SV implementation sprint: edge message, source, path shares, necessity](#1-sv-implementation-sprint-edge-message-source-path-shares-necessity) | A10, A9, A6 |
+| 1 | ready | [SV compounding arithmetic: tail-relay vs L1-read, and combiner transfer](#1-sv-compounding-arithmetic-tail-relay-vs-l1-read-and-combiner-transfer) | A11, A10, A9, A6 |
 | 2 | ready | [Paper hand-off consolidation and referee checkpoint](#2-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
 | 3 | sequenced | [Mixed-model shared-engine geometry](#3-mixed-model-shared-engine-geometry) | A7, C2 |
 
-Entry-order note (2026-07-16 sprint rerank — deadline-driven, after the human's
-over-caution feedback): a paper revision is due in ~40 hours (~2026-07-18) and
-must include **details of the SV mechanism** and **insights into the
-latent-space representation of intermediate results**. The C5 addition-model
-program is complete (CE13 output encodings → CE14 SV compounding → CE15
-leading-digit walkthrough; trails in the ledger and study notes), and the
-[working axioms](maths-conjectures-agent.md#working-axioms) now govern framing
-(attribution not existence; redundancy is the norm) — under them A10's core
-wiring was raised to medium-high by cross-study aggregation (see the
-2026-07-16 reflection-log entry). CE14's three open follow-ups become sprint
-**entry 1** (they are exactly what turns the wiring diagram into an
-implementation description); the contract-mandated referee checkpoint merges
-into the paper hand-off consolidation (**entry 2**); mixed-model defers past
-the deadline (**entry 3**).
+Entry-order note (2026-07-16 rerank after CE16; ~37 h to the paper deadline,
+paper work deferred by the human for now): the SV-implementation sprint **ran**
+([CE16](maths-claim-evidence.md),
+[study note](study-maths/study-sv-implementation.md)) — A10 items i–iii are
+resolved (canonical format-invariant carry message; source = the distributed
+question-tail ST cluster, **never `=`**; head-pair effective and
+class-necessary carrier, skip carries negligible carry). Two things remain
+between here and a complete implementation story, and they are the new
+**entry 1**: (a) the **compounding locus** — CE16 created a sharp puzzle by
+showing a *canonical* carry assembled from ST sources that individually hold
+only *single-step* resolution (CE13); the new
+[A11](maths-conjectures-agent.md#a11-multi-digit-compounding-is-a-positional-l0-relay-across-the-question-tail-st-sites)
+(visibility-horizon relay at L0) vs L1-value-read fork decides it; (b) the
+**combiner transfer function** (A10 iv), whose Battery-F instrument failed —
+redesigned on-manifold so it cannot dead-zero again. Paper hand-off stays
+entry 2 (human-deferred; trigger no later than ~T-12h); mixed-model entry 3.
 
-### 1. SV implementation sprint: edge message, source, path shares, necessity
+### 1. SV compounding arithmetic: tail-relay vs L1-read, and combiner transfer
 
-Turn the confirmed SV wiring (CE13–CE15, A10 at medium-high) into an
-**implementation description** for the paper — A10's four open items, all
-reusing the CE14 harness (hours each, parallelizable; frame per the working
-axioms — these estimate parameters of a mechanism known to exist):
+Close the last two gaps in the SV implementation story (frame per the
+[working axioms](maths-conjectures-agent.md#working-axioms) — the cascade is
+computed *somewhere*; these batteries locate and characterize it):
 
-- **Edge message decode (A10 item i)**: the causal head→combiner edge flips
-  answers carry-specifically (CE14); decode what the edge *contribution*
-  carries — compound carry vs deciding-digit class vs U-flag — against the
-  CE5/CE6 carry axes at the combiner input.
-- **Source attribution (A10 item ii)**: where do the heads read it?
-  Key-source ablation / per-source decomposition over `=` vs the deciding ST
-  site vs distributed. CE12 found all-digit `SV` decodable at `=` and every
-  consumer head attends `=` heavily — if the message is read off `=`, the
-  compounding largely happens pre-L1 and `=` is the carry depot (the
-  human/paper lean); if off the deciding ST site, A9 selection revives.
-- **Path shares + class-level necessity (A10 item iii)**: the powered
-  carry-specific direct-path arm and the paired H1+H2 ablation (CE14's
-  mandated follow-ups) — replace "not excluded"/"not necessary" with numbers
-  (head-pair share vs direct share; joint necessity of the head class).
-- **Stretch — combiner functional form (A10 item iv, B2-lite)**: fit
-  `carry_out = f(delivered carry, local sum class)` at the combiner MLP;
-  report neuron sparsity if time allows.
+- **Horizon decode (A11 prediction 1)**: for each map-named chain-ST site, on
+  chains of graded depth, decode from the site's L0 *write* (CE13 capture
+  machinery) the resolved carry at increasing depths and compare against the
+  site's position-derived **visibility horizon** (which digit pairs the causal
+  mask lets it see — map-relative, per model). A11 predicts decoded depth =
+  horizon; the L1-read alternative predicts flat single-step everywhere.
+- **Relay causality (A11 prediction 2)**: patch chain-ST writes per site —
+  most-resolved-visible vs shallower — with deciding-matched nulls and joint
+  arms (relays may be redundant, per axiom 2); under A11 the deepest visible
+  relay carries the flip, shallower ones only when deeper ones are ablated.
+- **L1-read reconstruction (the alternative's own test)**: can the consumer
+  head's edge output be linearly reconstructed from attention weights × the
+  per-site *local-class-only* content? If yes with local-only content, the L1
+  read does the compounding; if reconstruction needs multi-step site content,
+  the relay does. (Cheap — runs on Battery-R captures from CE16.)
+- **Combiner transfer, on-manifold (A10 iv)**: interpolate the combiner input
+  between *real captured* head-pair edge contributions,
+  `edge(α) = (1−α)·edge_c0 + α·edge_c1`, α ∈ {−0.5, 0, 0.25, 0.5, 0.75, 1,
+  1.5}; the endpoints are the real patches CE16 measured at 0.00/1.00 flip, so
+  instrument validity is built in (Battery F's dead-zero cannot recur). Read
+  flip probability and carry_out projection vs α (step vs linear; threshold
+  location) and top-k neuron share (B2 seed).
 
-Done when: the SV account states, with numbers, what message flows on which
-edges from which sources with what path shares and class-level necessity —
-scored against A10 (items i–iv), A9 (revived or retired), A6.
+Done when: the compounding locus is attributed (relay / L1-read / mixed, with
+horizon-decode + relay-patch + reconstruction agreeing or the split stated)
+and the combiner transfer class is estimated with its neuron sparsity —
+scored against A11, A10 iv, A9 (final disposition), A6.
 
 ### 2. Paper hand-off consolidation and referee checkpoint
 

@@ -152,6 +152,18 @@ but not fully.
   (pre-launch SI-1..SI-10 + post-result F1/F2/F3). Confidence Medium-high for the
   three resolved items. See
   [maths-claim-evidence.md#ce16](maths-claim-evidence.md).
+- **CE17** — **SV compounding arithmetic (A10 iv resolved; A11 low; R-mixed)**:
+  the **combiner is a STEP function** (threshold α*≈0.75, both models; on-manifold
+  α-sweep endpoint-gated to CE16's 0/1) — the last A10 item resolved. The **L0
+  tail-relay (A11) is a single-site, unreplicated representational trace** (6d
+  P11H2 decodes the resolved carry only where it sees the deciding digit, but
+  fails at an adjacent depth and does not replicate in 5d); the relay is
+  **causally undetermined** (twin-interchange of tail-ST writes flips the leading
+  digit 0.00 everywhere, valid ablation instrument but a different unit/target —
+  redundancy vs weak-interchange unresolved); the L1 edge output is
+  **local-class-sufficient**. **A11 → low; A9 stays retired; A6/C3 sequential lean
+  not adjudicated.** Dual-gated (CA-1..CA-6 + F1/F2). Confidence Medium-high
+  (combiner), low (A11). See [maths-claim-evidence.md#ce17](maths-claim-evidence.md).
 
 ## Strongest live caveats
 

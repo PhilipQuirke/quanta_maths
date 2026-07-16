@@ -41,6 +41,27 @@ class TestBatchHF(unittest.TestCase):
             for n in stc:
                 self.assertFalse(n["is_head"])
 
+    def test_subtraction_model_batch_writes_mtc_inline(self):
+        from QuantaMechInterp.model_train_json import download_huggingface_json
+        name = "sub_d6_l2_h3_t30K_s372001"
+        orig = download_huggingface_json(
+            "PhilipQuirke/VerifiedArithmetic", f"{name}_behavior.json")
+        orig_tags = {(n["position"], n["layer"], n["is_head"], n["num"]): n["tags"]
+                     for n in orig}
+        with tempfile.TemporaryDirectory() as d:
+            summary = run_batch(models=[name], local_dir=d, do_linxfer=False)
+            self.assertGreater(summary[name]["stc_tags"], 0)  # MTC counted here
+            nodes = json.load(open(os.path.join(d, f"{name}_maths.json")))
+            mtc = [n for n in nodes if any("MTC" in t for t in n["tags"])]
+            self.assertGreater(len(mtc), 0, "no MTC tags on subtraction model")
+            for n in mtc:
+                # subtraction combiner is an MLP
+                self.assertFalse(n["is_head"])
+                # inline: original published tags preserved, MTC appended
+                key = (n["position"], n["layer"], n["is_head"], n["num"])
+                for t in orig_tags.get(key, []):
+                    self.assertIn(t, n["tags"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -23,13 +23,15 @@ from __future__ import annotations
 import json, os, sys
 import numpy as np
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import balanced_accuracy_score
 
 from scripts.confirm_st_node import load_model, make_q, answer_positions, predict_answer, verify_accuracy
 from scripts.deep_cascade_mechanism import (
     build_chain, consuming_pos, affected_digits, dn_pos, dpn_pos, behavioral_gate, RNG,
 )
+# Shared probe + edge/OV primitives now live in the library.
+from quanta_maths.maths_probe import fit_probe as _lib_fit_probe, probe_balanced_accuracy, balance_idx as _lib_balance_idx
+from quanta_maths.maths_edge_patch import (head_ov, ln_scale as _ln_norm,
+    run_multi_head_edge_patch as _lib_edge_patch, run_edge_patch as _lib_run_edge_patch)
 
 RESULT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                           "results", "study-sv-compounding")
@@ -53,54 +55,24 @@ EQ_POS = {"add_d6_l2_h3_t20K_s173289": 13, "add_d5_l2_h3_t15K_s372001": 11}
 
 
 def fit(X, y):
-    return LogisticRegression(max_iter=2000, C=0.5).fit(X, y)
+    return _lib_fit_probe(X, y, C=0.5)
 
 def bacc(clf, X, y):
-    return float(balanced_accuracy_score(y, clf.predict(X)))
+    return probe_balanced_accuracy(clf, X, y)
 
 def balance(y):
-    cl = np.unique(y); per = max(np.bincount(y, minlength=int(cl.max())+1))
-    idx = []
-    for c in cl:
-        ci = np.where(y == c)[0]; idx.extend(RNG.choice(ci, size=per, replace=len(ci) < per))
-    return np.array(idx)
+    return _lib_balance_idx(y, RNG)
 
 
 # ===========================================================================
-# less-damped edge patch (SV-2): patch head contribution via ln2.hook_normalized
-# (MLP-only, skip-clean), single-position or joint (same head, >=2 positions).
+# less-damped edge patch (SV-2) -- thin shims over quanta_maths.maths_edge_patch.
+# This study always receives at L1 (recv_layer=1); head_ov / _ln_norm imported.
 # ===========================================================================
-
-def _ln_norm(vec, eps=1e-5):
-    xm = vec - vec.mean(); std = torch.sqrt(xm.var(unbiased=False) + eps)
-    return xm, std
-
-def head_ov(model, z_row, layer, head):
-    return z_row @ model.blocks[layer].attn.W_O[head]
 
 def edge_patch_pred(model, cfg, target_q, patches, tgt_cache):
-    """patches: list of (cpos, layer, head, z_source_row). Patch each head's OV
-    contribution into ln2.hook_normalized at cpos, freezing ln2 std to clean
-    (less-damped, MLP-only). Returns predicted answers."""
-    ap = answer_positions(cfg)
-    gamma = model.blocks[1].ln2.w
-    adds = {}  # cpos -> add vector
-    for (cpos, layer, head, zsrc) in patches:
-        rm = tgt_cache["blocks.1.hook_resid_mid"][0, cpos, :]
-        zt = tgt_cache["blocks.1.attn.hook_z"][0, cpos, head, :]
-        delta = head_ov(model, torch.tensor(zsrc), layer, head) - head_ov(model, zt, layer, head)
-        xm, std = _ln_norm(rm)
-        nc = xm / std
-        xm2 = (rm + delta) - (rm + delta).mean(); nf = xm2 / std
-        adds.setdefault(cpos, torch.zeros_like(gamma))
-        adds[cpos] = adds[cpos] + (nf - nc) * gamma
-    def hook(act, hook):
-        for cpos, a in adds.items():
-            act[:, cpos, :] = act[:, cpos, :] + a
-        return act
-    with torch.no_grad():
-        lg = model.run_with_hooks(target_q.unsqueeze(0), fwd_hooks=[("blocks.1.ln2.hook_normalized", hook)])
-    return lg[0, [p - 1 for p in ap]].argmax(-1)
+    """patches: list of (cpos, layer, head, z_source_row). Delegates to the library
+    multi-head LN-fair OV edge patch at recv_layer=1."""
+    return _lib_edge_patch(model, cfg, target_q, patches, recv_layer=1, tgt_cache=tgt_cache)
 
 
 def cache_qs(model, sq, tq):
@@ -182,12 +154,8 @@ def battery_D(model, cfg, mn, n_top, depths, n_pairs=40):
 
 
 def _direct_patch_pred(model, cfg, target_q, cpos, delta, tc):
-    ap = answer_positions(cfg)
-    def hook(act, hook):
-        act[:, cpos, :] = act[:, cpos, :] + delta; return act
-    with torch.no_grad():
-        lg = model.run_with_hooks(target_q.unsqueeze(0), fwd_hooks=[("blocks.1.hook_resid_mid", hook)])
-    return lg[0, [p - 1 for p in ap]].argmax(-1)
+    """Add delta to resid_mid(L1) at cpos and predict -- library raw edge patch."""
+    return _lib_run_edge_patch(model, cfg, target_q, cpos, delta, recv_layer=1, arm="raw")
 
 
 # ===========================================================================

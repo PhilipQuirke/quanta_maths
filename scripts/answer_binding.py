@@ -20,11 +20,10 @@ from __future__ import annotations
 import json, os, sys
 import numpy as np
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import balanced_accuracy_score
-
 from scripts.confirm_st_node import load_model, make_q, verify_accuracy
 from scripts.probe_transfer import sub_labels, class_mean_subspace, principal_angle_deg
+from quanta_maths.maths_probe import (fit_probe as _lib_fit_probe,
+    probe_balanced_accuracy, balance_idx as _lib_balance_idx)
 
 RESULT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                           "results", "study-answer-binding")
@@ -63,21 +62,15 @@ def chance(task):
 
 
 def fit(X, y):
-    return LogisticRegression(max_iter=2000, C=C_REG).fit(X, y)
+    return _lib_fit_probe(X, y, C=C_REG)
 
 
 def bacc(clf, X, y):
-    return float(balanced_accuracy_score(y, clf.predict(X)))
+    return probe_balanced_accuracy(clf, X, y)
 
 
 def balance_idx(y, rng):
-    classes = np.unique(y)
-    per = max(np.bincount(y, minlength=int(classes.max()) + 1))
-    idx = []
-    for cl in classes:
-        ci = np.where(y == cl)[0]
-        idx.extend(rng.choice(ci, size=per, replace=len(ci) < per))
-    return np.array(idx)
+    return _lib_balance_idx(y, rng)
 
 
 # ===========================================================================

@@ -136,8 +136,7 @@ def perm_null_isU(acts, n_perm=500):
 def carry_in_partial(model, cfg, n, pos, hook, acts, n_q=200):
     """Contrastive ingredient probe (A-3): (1) carry_in decodable on COMMITTED
     digits; (2) does U-vs-committed separability SURVIVE partialling carry_in?"""
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import cross_val_score
+    from quanta_maths.maths_probe import cross_val_probe_accuracy
     # committed-0 with vs without lower carry -> carry_in direction
     cc, cn = [], []
     for _ in range(n_q):
@@ -163,14 +162,14 @@ def carry_in_partial(model, cfg, n, pos, hook, acts, n_q=200):
                 _, c = model.run_with_cache(q.unsqueeze(0))
             bucket.append(c[hook][0, pos, :].numpy())
     Xc = np.vstack([cc, cn]); yc = np.r_[np.ones(len(cc)), np.zeros(len(cn))]
-    carryin_acc = float(cross_val_score(LogisticRegression(max_iter=2000), Xc, yc, cv=5).mean())
+    carryin_acc = cross_val_probe_accuracy(Xc, yc, folds=5)
     carry_dir = unit(np.array(cc).mean(0) - np.array(cn).mean(0))
     # U vs committed separability, before and after partialling carry_dir
     Xu = np.vstack([acts["u0"], acts["u1"]]); Xk = np.vstack([acts["c0"], acts["c1"]])
     def partial(M): return M - np.outer(M @ carry_dir, carry_dir)
     def sep(A, B):
         X = np.vstack([A, B]); y = np.r_[np.ones(len(A)), np.zeros(len(B))]
-        return float(cross_val_score(LogisticRegression(max_iter=2000), X, y, cv=5).mean())
+        return cross_val_probe_accuracy(X, y, folds=5)
     return {"carry_in_decodable_committed": carryin_acc,
             "U_vs_committed_sep": sep(Xu, Xk),
             "U_vs_committed_sep_partialled": sep(partial(Xu), partial(Xk))}

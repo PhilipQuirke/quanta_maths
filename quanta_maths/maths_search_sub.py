@@ -1,5 +1,5 @@
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
-    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
+    FilterAnd, FilterHead, FilterNeuron, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 
 from quanta_maths.maths_constants import MathsToken, MathsBehavior, MathsTask 
 from quanta_maths.maths_search_mix import run_intervention_core, run_strong_intervention, run_weak_intervention, SubTaskBaseMath
@@ -363,5 +363,57 @@ class neg_nb_functions(SubTaskBaseMath):
 
         if success:
             print( "Test confirmed", acfg.ablate_node_names, "perform", neg_nb_functions.tag(alter_digit), "impacting", intervention_impact, "accuracy.", "" if strong else "Weak")
+
+        return success
+
+# Subtraction "MT-Combiner" (MTC) sub-task -- the subtraction parallel of the
+# addition ST-combiner (add_stc_functions). The answer-position last-layer MLP
+# that COMBINES the resolved borrow (tri-state MT) into the final answer digit An.
+# Unlike the MT head (which computes the borrow tri-state at early question
+# tokens), the MTC node lives at the answer-producing position and is an MLP.
+# Causal signature: two questions with the SAME base-difference at digit n but
+# DIFFERENT borrow-in yield different An; patching this node flips An.
+class sub_mtc_functions(SubTaskBaseMath):
+
+    @staticmethod
+    def operation():
+        return MathsToken.MINUS
+
+    @staticmethod
+    def tag(impact_digit):
+        return answer_name(impact_digit) + "." + MathsTask.MTC_TAG.value
+
+    @staticmethod
+    def prereqs(cfg, position, impact_digit):
+        # Is an MLP neuron, at the position that PRODUCES An, after the +/- token,
+        # impacting An. MLPs cannot attend, so no AttendsTo clause.
+        produce_pos = int(cfg.an_to_position_name(impact_digit)[1:]) - 1
+        return FilterAnd(
+            FilterNeuron(),
+            FilterPosition(position_name(produce_pos)),
+            FilterPosition(position_name(cfg.num_question_positions + 1), QCondition.MIN),
+            FilterImpact(answer_name(impact_digit)))
+
+    @staticmethod
+    def test(cfg, acfg, impact_digit, strong):
+        alter_digit = impact_digit - 1
+        if alter_digit < 0 or impact_digit > cfg.n_digits:
+            acfg.reset_intervention()
+            return False
+
+        # store_question: force a BORROW into digit n (Dn-1 < D'n-1 at the lower digit).
+        # base minuend 8..8, subtrahend 3..3 (positive answer), then set lower digit
+        # of the minuend below the subtrahend to trigger a borrow into digit n.
+        store_question = [cfg.repeat_digit(8), cfg.repeat_digit(3)]
+        store_question[0] -= (8 - 0) * (10 ** alter_digit)  # minuend lower digit -> 0 < 3 => borrow
+
+        # clean_question: no borrow into digit n (same base-difference digit n = 8-3)
+        clean_question = [cfg.repeat_digit(8), cfg.repeat_digit(3)]
+
+        success = run_weak_intervention(cfg, acfg, store_question, clean_question)
+
+        if success:
+            description = acfg.ablate_node_names + " perform " + sub_mtc_functions.tag(impact_digit) + " = Combine(borrow -> A" + str(impact_digit) + ")"
+            print("Test confirmed", description, "Impact:", acfg.intervened_impact, "" if strong else "Weak")
 
         return success

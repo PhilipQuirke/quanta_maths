@@ -818,8 +818,9 @@ mode.
   a sufficient-magnitude injection was not tested); and the pair is **class-
   necessary** (joint H1+H2 ablation collapses cascade acc, spares carry-free,
   over a ~0 untagged baseline; necessity-over-baseline 1.07 6d / 0.85 5d).
-  **Item (iv) combiner form — OPEN:** Battery F instrument invalid (combiner
-  α-sweep produced no flips); unestimated → B2 stands. **A9 (selection): stays
+   **Item (iv) combiner form — OPEN (RESOLVED later by CE17: STEP function,
+   α*≈0.75 — see the A11/CE17 block).** Battery F instrument invalid (combiner
+   α-sweep produced no flips); unestimated → B2 stands. **A9 (selection): stays
   RETIRED at the selection-mechanism level** — deciding-ST is dominant at only 1
   independent depth (6d k3) vs the ≥2 needed, and the CE14 same-cell
   tracking+edge bar remains unmet. **A6 economy: RAISED to class level.** Net:
@@ -831,28 +832,104 @@ mode.
   [study-sv-implementation.md](study-maths/study-sv-implementation.md),
   `results/study-sv-implementation/results.json`, CE16.
 
+### A11: Multi-digit compounding is a positional L0 relay across the question-tail ST sites
+
+- **Belief**: The compounding that turns per-digit tri-states into a resolved
+  carry happens **at layer 0, sequentially in position space across the
+  question-tail ST sites**. Under the causal mask each later tail position
+  sees one more digit pair (the ST node for digit `n` sits at/after `D'n`,
+  where digit `n−1`'s pair is already visible; the sign-token ST nodes see
+  the whole question), so each site's L0 write carries the carry **resolved
+  up to its visibility horizon** — CE13's "single-step co-resolution" is the
+  horizon-1 case of this, not an anomaly. The consumer L1 pair then merely
+  **fetches the most-resolved relay(s)** available for its digit; it does not
+  itself compute the cascade.
+- **Why**: (1) The causal mask forces the horizon structure: lower-digit
+  operands appear later in token order, and the map's ST nodes are strung
+  across the tail (6-digit P10→P11→P12→P14), each position one step deeper.
+  (2) One picture reconciles all current evidence: CE13 single-step
+  co-resolution (horizon-1); CE16-M's canonical format-invariant carry on the
+  wire (a most-resolved relay *is* the canonical carry); CE16-R's
+  depth-dependent distributed source mass (which relay suffices depends on
+  depth); CE12's SV-decodable-at-`=` presence (deep-horizon writes sit in the
+  tail region) alongside CE16's `=`-not-a-value-source (consumers read the ST
+  sites directly). (3) It gives the L1 pair the cheap job (fetch), matching
+  the combiner's carry-specific, format-invariant input.
+- **Prediction**: (1) **Horizon decode**: on depth-`k` chains, each chain-ST
+  site's L0 write decodes the resolved carry up to exactly its
+  position-determined visibility horizon — not merely local class ± one step.
+  (2) **Relay causality**: patching the *most-resolved visible* chain-ST
+  write flips the consumer's digit; shallower relays matter only when deeper
+  ones are ablated (redundant-relay structure, tested jointly per the
+  axioms). (3) CE16-R's per-depth source weighting tracks which site is the
+  shallowest sufficient relay at that depth. (4) Sign-token ST writes (full
+  horizon) alone suffice for the leading digit.
+- **Falsifier**: chain-ST writes on deep chains carry only local class +
+  single-step resolution regardless of position (horizon decode flat at 1) —
+  then multi-digit compounding must happen **inside the L1 read**
+  (attention-weighted value combination), reviving an A9-flavored L1
+  computation.
+- **Alternatives**: (a) L1 value-path combination (the head's weighted sum
+  over local writes implements the cascade select); (b) mixed — partial relay
+  plus L1 finishing; (c) per-model idiosyncrasy (the paper's "ST nodes in
+  semi-random order" means horizons vary per model — the prediction is
+  map-relative, not position-absolute).
+- **Tension with human**: partially **vindicates** the human's
+  sequential-cascade lean (C3/C4) — sequential compounding would be real, but
+  in *position space at L0 across the tail*, not as state riding
+  token-to-token and read off `=` (that value-source reading is causally
+  refuted by CE16). Retires my one-hop-selection A9 as an L1 computation if
+  confirmed; revives its spirit at L0 if refuted.
+- **Confidence**: medium — the visibility logic is architecturally forced and
+  four independent observations fit it, but the horizon decode and relay
+  patches are untested (agenda entry 1).
+- **Update 2026-07-16 (CE17, compounding-arithmetic; dual-gated): LOWERED to
+  low.** The horizon decode + relay patches were run (chain-top n_top=4,
+  k∈{2,3,4}). A horizon-consistent decode appears in **exactly one m>0 boundary
+  site (6d P11H2 at k=2/d=2, carry-bacc 1.00 over baseline 0.70)** — resolved only
+  where it can see the deciding digit — but its own within-site prediction **fails
+  at k=3** and **5d does not replicate** (its only m>0 site is null). The relay is
+  **not causally isolable**: twin-interchange of the tail-ST OV writes (deepest-
+  sufficient, insufficient, joint-all arms) flips the leading digit **0.00 at every
+  depth, both models**, with a valid CE13-ablation instrument (low-digit impact
+  0.067/0.05 over ~0 baseline) — but because that control tests a different
+  unit/target than the interchange, the null is **causally undetermined**
+  (redundancy vs interchange-too-weak; the CE16-F1 trap, flagged). And the L1 edge
+  output reconstructs from **local class alone** (r²≈0.95–0.99; horizon features
+  add no held-out gain over a permutation null). Net: **A11's horizon mechanism is
+  a single-site representational trace, neither replicated nor causally shown; the
+  balance leans L1-local-sufficient. A11 → low.** A9 stays retired (no causal
+  selection at either locus). The human's sequential-cascade lean (A6/C3) is
+  **not adjudicated** by this study (the only positional-sequential signal is the
+  single unreplicated cell). Post-result gate downgraded two over-claims (H
+  "replication"; Y "redundancy-masked" → "causally undetermined"). Backlink:
+  [study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md),
+  `results/study-compounding-arithmetic/results.json`, CE17.
+
 ## Sharpest forks
 
 Where discriminating evidence would most cheaply reshape this file (ranking
 itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
-2026-07-16 for the paper-revision sprint (deadline ~2026-07-18): the C5
-program is complete (CE13–CE15); what remains are the **implementation
-details** of the confirmed SV wiring — A10's consolidation items i–iv:
+2026-07-16 after CE16 (A10 items i–iii resolved — canonical carry message;
+distributed ST-cluster source, never `=`; head-pair effective and
+class-necessary carrier; trails in the A10 confidence block):
 
-1. ~~The edge message (A10 item i)~~ — **RESOLVED (CE16)**: canonical
-   format-invariant resolved carry + non-causal position co-rider.
-2. ~~The message's source (A10 item ii)~~ — **RESOLVED (CE16)**: source is the
-   distributed question-tail ST cluster, never `=` (`=` is a depot, not a value
-   source — adjudicated AGAINST the "`=` carry depot read as value" lean and
-   toward distributed ST). A9 selection stays retired (1 dominant depth < 2).
-3. ~~Path shares and class-level necessity (A10 item iii)~~ — **RESOLVED
-   (CE16)**: head-pair (SV) path effective; skip carries negligible carry (not
-   formally excluded); pair class-necessary (necessity-over-baseline 1.07/0.85).
-4. **Combiner functional form (A10 item iv; B2)** — how the MLP computes
-   `carry_out`/digit from the delivered message. **STILL OPEN** — Battery F
-   instrument invalid in CE16 (needs a working combiner-input driver). This is
-   now the sole remaining A10 implementation item. Post-deadline: the
-   mixed-model shared engine (A7 vs C2).
+1. ~~The compounding locus (A11 vs L1-read)~~ — **ATTEMPTED (CE17), inconclusive
+   (R-mixed).** Horizon decode + relay patches ran: A11's horizon structure is a
+   single-site, unreplicated representational trace (6d P11H2 only); the relay is
+   not causally isolable (Y interchange null, cause undetermined); the L1 edge
+   output is local-class-sufficient. Leans L1-local but not cleanly separable.
+   A11 → low; A9 stays retired. A deeper causal relay test (a stronger
+   interchange unit / more strong-writing boundary sites) would be needed to
+   settle it — post-deadline.
+2. ~~The combiner transfer function (A10 item iv; B2)~~ — **RESOLVED (CE17)**: the
+   combiner is a **STEP** (threshold α*≈0.75, both models), via the on-manifold
+   redesign (real-capture interpolation, endpoint-gated to CE16's 0.00/1.00 — the
+   Battery-F dead-zero fixed). A10 items i–iv now all resolved. Neuron-level
+   sparsity (B2) remains for the mixed-model work.
+3. **Paper hand-off timing** — deferred by the human 2026-07-16; must trigger
+   no later than ~12 h before the deadline. Post-deadline: the mixed-model
+   shared engine (A7 vs C2).
 
 ## Supporting literature
 
@@ -1251,3 +1328,26 @@ External:
   combined pass per study, proposed to the human) rather than dropping it —
   the over-caution was in the framing (existence tests; refusing cross-study
   aggregation), not in having adversarial review.
+- **2026-07-16** — After the SV-implementation sprint (CE16; combined gate
+  PASS-WITH-CORRECTIONS; the working thread applied the A10 annotations —
+  this entry back-fills the log and adds the synthesis). CE16 settles A10
+  items i–iii: **canonical format-invariant carry** on the head→combiner
+  edge (deciding position decodable as a non-causal co-rider); source = the
+  **question-tail ST cluster, distributed, never `=`**; the **head pair is
+  the effective and class-necessary carrier** (skip carries ≈200×-smaller
+  carry; power-matched injection at that magnitude moves nothing). Human-lean
+  scoring, honest in both directions: the "`=` as carry depot *read as a
+  value source*" reading is **causally refuted** (CE12's SV-at-`=` was
+  presence-not-use), which damages the paper's "resolved at `=`" delivery
+  story — but the new **A11** (added now) partially revives the sequential
+  lean: the causal mask plus the map's tail ST placements force each later
+  site to see one more digit pair, so compounding plausibly proceeds
+  **sequentially across L0 tail positions** (CE13's single-step
+  co-resolution = horizon-1), with L1 fetching the most-resolved relay. A9
+  stays retired at the L1-selection level; A11's falsifier would partially
+  revive its spirit at L1. Forks rewritten (compounding locus #1; combiner
+  transfer #2, redesigned on-manifold so the Battery-F dead-instrument
+  failure cannot recur). Agenda: completed sprint entry deleted; new entry 1
+  = compounding-arithmetic + combiner-transfer study (both batteries reuse
+  CE16/CE13 artifacts); paper hand-off held at entry 2 per the human's defer,
+  trigger no later than ~T-12h.

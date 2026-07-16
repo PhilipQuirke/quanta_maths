@@ -29,18 +29,42 @@ DIGITS = np.arange(10)
 # Per-digit sub-task labels (SA / ST / SV cascade)
 # ===========================================================================
 
-def sub_labels(a: int, b: int, n_digits: int) -> Tuple[dict, dict, dict]:
-    """Per-digit SA, ST, SV labels for ``a + b``.
+def sub_labels(a: int, b: int, n_digits: int, operation=None) -> Tuple[dict, dict, dict]:
+    """Per-digit SA, ST, SV labels for ``a + b`` (addition) or ``a - b`` (subtraction).
 
     Digits indexed 0 (units) .. n_digits-1 (top). Returns three dicts keyed by
-    digit index:
+    digit index. The addition and subtraction cases are structural parallels:
+
+    Addition (carry cascade):
       * SA[n] = (Dn + D'n) mod 10            -- base-sum digit
       * ST[n] = 0 (sum<=8) / 1 (sum>=10) / 2 (sum==9, the ambiguous 'U' class)
       * SV[n] = carry INTO digit n           -- 0 or 1
+
+    Subtraction (borrow cascade; parallel roles):
+      * SA[n] = (Dn - D'n) mod 10            -- base-difference digit
+      * ST[n] = 1 (Dn<D'n, will borrow) / 0 (Dn>D'n, no borrow) / 2 (Dn==D'n, the
+                ambiguous 'U' class where the borrow depends on the lower digit)
+      * SV[n] = borrow INTO digit n          -- 0 or 1
     """
+    from quanta_maths.maths_constants import MathsToken
+    if operation is None:
+        operation = MathsToken.PLUS
     da = [int(d) for d in str(a).zfill(n_digits)]
     db = [int(d) for d in str(b).zfill(n_digits)]
     SA, ST, SV = {}, {}, {}
+
+    if operation == MathsToken.MINUS:
+        borrow = 0
+        for n in range(n_digits):
+            x = da[n_digits - 1 - n]
+            y = db[n_digits - 1 - n]
+            diff = x - y
+            SA[n] = (x - y) % 10
+            ST[n] = 1 if diff < 0 else (0 if diff > 0 else 2)  # 2 == U (x==y)
+            SV[n] = borrow
+            borrow = 1 if (x - y - borrow) < 0 else 0
+        return SA, ST, SV
+
     carry = 0
     for n in range(n_digits):
         x = da[n_digits - 1 - n]
@@ -68,60 +92,114 @@ def _pos_index(position_name: str) -> int:
     return int(position_name[1:])
 
 
-def site_hook_and_pos(cfg, site: str, n: int) -> Tuple[str, int]:
+# ---------------------------------------------------------------------------
+# Semantic layer helpers.
+#
+# IMPORTANT (multi-layer models): the ``_L0`` / ``_L1`` suffix in the legacy site
+# names is a LITERAL layer index, tuned for the 2-layer models where L0 == "early
+# / operand-fetch" and L1 == "late / combiner". On 3- and 4-layer models
+# (mix_*_l3, ins2_*_l4, ...) those literal indices are NOT the combiner: the
+# combiner is the LAST layer. Callers that mean "read where the answer is
+# combined" must pass the last layer explicitly (site suffix does not track depth).
+# ---------------------------------------------------------------------------
+
+def first_layer(cfg) -> int:
+    """The earliest transformer layer (operand-fetch / low-level features)."""
+    return 0
+
+
+def last_layer(cfg) -> int:
+    """The final transformer layer (where the answer is combined)."""
+    return cfg.n_layers - 1
+
+
+def _site_role_pos(cfg, role: str, n: int) -> int:
+    """Token position for a spatial role (independent of layer)."""
+    if role == "Dpn":
+        return _pos_index(cfg.ddn_to_position_name(n))
+    if role == "Dn":
+        return _pos_index(cfg.dn_to_position_name(n))
+    if role == "ans":
+        return _pos_index(cfg.an_to_position_name(n)) - 1  # position that PRODUCES A_n
+    if role == "eq":
+        return 2 * cfg.n_digits + 1  # '=' token
+    raise ValueError(f"unknown site role {role!r}")
+
+
+def site_hook_and_pos(cfg, site: str, n: int, layer: int = None) -> Tuple[str, int]:
     """Return ``(hook_name, token_pos)`` for a sub-task read site at digit ``n``.
 
-    Positions come from the MathsConfig helpers so they stay correct across
-    digit counts / operators:
-      * Dpn_* -> operand-2 digit position (ddn_to_position_name)
-      * Dn_L0 -> operand-1 digit position (dn_to_position_name)
-      * ans_L0 -> the position that PRODUCES A_n (= pos(A_n) - 1)
-      * eq_L1 -> the '=' token position, layer-1 residual
+    Token positions come from the MathsConfig helpers so they are correct across
+    digit counts / operators. Site spatial roles:
+      * ``Dpn`` -> operand-2 digit position (ddn_to_position_name)
+      * ``Dn``  -> operand-1 digit position (dn_to_position_name)
+      * ``ans`` -> the position that PRODUCES A_n (= pos(A_n) - 1)
+      * ``eq``  -> the '=' token position
+
+    Layer resolution:
+      * If ``layer`` is given, it overrides everything and is bounds-checked
+        against ``cfg.n_layers`` (raises on out-of-range). PREFER this on
+        multi-layer models.
+      * Otherwise the legacy ``_L{k}`` suffix is used as a literal layer index and
+        is likewise bounds-checked (so ``Dpn_L1`` on a 1-layer model raises rather
+        than silently reading a wrong layer).
     """
-    if site == "Dpn_L0":
-        return "blocks.0.hook_resid_post", _pos_index(cfg.ddn_to_position_name(n))
-    if site == "Dpn_L1":
-        return "blocks.1.hook_resid_post", _pos_index(cfg.ddn_to_position_name(n))
-    if site == "Dn_L0":
-        return "blocks.0.hook_resid_post", _pos_index(cfg.dn_to_position_name(n))
-    if site == "ans_L0":
-        return "blocks.0.hook_resid_post", _pos_index(cfg.an_to_position_name(n)) - 1
-    if site == "eq_L1":
-        # '=' is the token right after operand-2 digit 0: pos = 2*n_digits + 1
-        return "blocks.1.hook_resid_post", 2 * cfg.n_digits + 1
-    raise ValueError(f"unknown site {site!r}")
+    # Split "Dpn_L1" -> role "Dpn", suffix layer 1.
+    if "_L" in site:
+        role, suffix = site.split("_L")
+        suffix_layer = int(suffix)
+    else:
+        role, suffix_layer = site, None
+
+    resolved_layer = layer if layer is not None else suffix_layer
+    if resolved_layer is None:
+        raise ValueError(f"site {site!r} has no layer suffix; pass layer=")
+    if not (0 <= resolved_layer < cfg.n_layers):
+        raise ValueError(
+            f"layer {resolved_layer} out of range for a {cfg.n_layers}-layer model "
+            f"(site {site!r}). On deeper models pass an explicit valid layer= "
+            f"(e.g. last_layer(cfg)={cfg.n_layers - 1}).")
+
+    pos = _site_role_pos(cfg, role, n)
+    return f"blocks.{resolved_layer}.hook_resid_post", pos
 
 
 def collect_site_activations(
     model, cfg, n_q: int, digits: Sequence[int], sites: Sequence[str],
-    rng: np.random.Generator,
+    rng: np.random.Generator, operation=None, layer: int = None,
 ) -> Tuple[dict, dict]:
     """Gather residual activations at ``(site, digit)`` + SA/ST/SV labels.
 
     Returns ``(acts, labs)`` where ``acts[(site, n)]`` is ``[n_q, d_model]`` and
     ``labs[task][n]`` is ``[n_q]``.
+
+    ``operation`` selects the token (defaults to PLUS; pass ``MathsToken.MINUS``
+    for subtraction models). ``layer`` (optional) overrides the site's ``_L``
+    suffix for every site -- use ``last_layer(cfg)`` on multi-layer models.
     """
     import torch
     from quanta_maths.maths_utilities import make_a_maths_question_and_answer
     from quanta_maths.maths_constants import MathsToken
 
+    if operation is None:
+        operation = MathsToken.PLUS
     nd = cfg.n_digits
     acts = {(s, n): [] for s in sites for n in digits}
     labs = {t: {n: [] for n in digits} for t in ("SA", "ST", "SV")}
-    hooks_needed = sorted({site_hook_and_pos(cfg, s, digits[0])[0] for s in sites})
+    hooks_needed = sorted({site_hook_and_pos(cfg, s, digits[0], layer=layer)[0] for s in sites})
     lim = 10 ** nd
     for _ in range(n_q):
         a = int(rng.integers(0, lim // 2))
         b = int(rng.integers(0, lim // 2))
         q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
-        make_a_maths_question_and_answer(cfg, q, 0, a, b, MathsToken.PLUS)
+        make_a_maths_question_and_answer(cfg, q, 0, a, b, operation)
         with torch.no_grad():
             _, c = model.run_with_cache(
                 q, names_filter=lambda nm: nm in hooks_needed)
-        SA, ST, SV = sub_labels(a, b, nd)
+        SA, ST, SV = sub_labels(a, b, nd, operation=operation)
         for s in sites:
             for n in digits:
-                hook, pos = site_hook_and_pos(cfg, s, n)
+                hook, pos = site_hook_and_pos(cfg, s, n, layer=layer)
                 acts[(s, n)].append(c[hook][0, pos, :].numpy())
         for n in digits:
             labs["SA"][n].append(SA[n])
@@ -166,6 +244,21 @@ def fit_probe(X: np.ndarray, y: np.ndarray, C: float = 1.0):
 def probe_balanced_accuracy(clf, X: np.ndarray, y: np.ndarray) -> float:
     from sklearn.metrics import balanced_accuracy_score
     return float(balanced_accuracy_score(y, clf.predict(X)))
+
+
+def cross_val_probe_accuracy(X: np.ndarray, y: np.ndarray, folds: int = 5,
+                             C: float = 1.0, balanced: bool = False) -> float:
+    """K-fold cross-validated linear-probe accuracy.
+
+    Consolidates the ``cross_val_score(LogisticRegression(...))`` pattern used by
+    several studies. ``balanced=True`` uses balanced accuracy (recommended for
+    class-imbalanced labels); default matches sklearn's plain accuracy scorer.
+    """
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import cross_val_score
+    clf = LogisticRegression(max_iter=2000, C=C)
+    scorer = "balanced_accuracy" if balanced else None
+    return float(cross_val_score(clf, X, y, cv=folds, scoring=scorer).mean())
 
 
 def probe_accuracy_with_null(

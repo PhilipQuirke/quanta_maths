@@ -549,3 +549,60 @@ Confidence labels:
 - **Caveats**: combiner form unestimated (F failed); skip not formally excluded
   (power matched to skip's own magnitude); source distributed not localized; 2×
   power arm does not lift "excluded"; 2-layer addition, two models.
+
+### CE17: SV compounding arithmetic — combiner is a STEP function (A10 iv resolved); the L0 tail-relay (A11) is a single-site, unreplicated representational trace, causally undetermined; L1 edge output is local-class-sufficient — R-mixed
+
+- **Confidence**: **Medium-high** for the combiner-step result (A10 iv; dual-gated,
+  both models, endpoint-gated instrument); **low** for A11 (single-cell trace,
+  unreplicated, causally undetermined). Parameter-estimation/attribution study on
+  the confirmed SV wiring (working-axioms mode), not an existence test.
+- **What it establishes** (both models, acc 1.000; controls: Y-ablation
+  instrument reproduces CE13 low-digit impact 0.067 6d / 0.05 5d over ~0 untagged
+  baseline; carry-axis anchor + behavioral gates pass):
+  - **(A10 iv) Combiner transfer = STEP.** On-manifold α-sweep — interpolate the
+    real captured consumer head-pair edge contribution `edge(α)=(1−α)z_c0+α·z_c1`
+    substituted PRE-LN at the consuming position, endpoints gated to CE16's
+    0.00/1.00 (the CE16 Battery-F dead-zero does NOT recur) — flips the leading
+    digit sharply: 6d {α .25: 0.00, .5: 0.42, .75: 1.00}, 5d {.5: 0.17, .75:
+    0.83, 1: 1.00}, threshold **α*≈0.75** both models, while the carry-axis
+    projection rises linearly (α parameterizes the carry axis; readout is
+    thresholded). A hard discretization, not a graded pass-through.
+  - **(A11, representational) A single horizon-consistent trace.** In the 6d
+    model, one question-tail ST site (**P11H2, horizon m=1**) decodes the resolved
+    chain carry at **bacc 1.00 exactly at the depth where it can see the deciding
+    digit** (k=2, d=2≥1) — the A11 horizon prediction — over its wrole/shuffled
+    baselines by ≥0.2.
+- **What it does NOT establish**:
+  - **A11 is NOT replicated or causally shown.** The P11H2 trace fails its own
+    within-site prediction at k=3 (d=1≥m=1 should resolve, decodes 0.59=NO), and
+    5d has no strong-writing m>0 boundary site (null). Twin-**interchange** of the
+    tail-ST OV writes (deepest-sufficient, insufficient, joint-all) flips the
+    leading digit **0.00 at every depth, both models** — but because the valid
+    control tests a different unit/target (mean-**ablation**, all-digits, random
+    Qs) than the interchange, this null is **causally UNDETERMINED** (redundancy
+    per CE13's interchange=0.00, vs interchange-too-weak-for-the-leading-digit —
+    the CE16-F1 trap; F2 correction). The consumer edge output reconstructs from
+    per-site **local class alone** (r²≈0.95–0.99; horizon features add no
+    held-out gain over a permutation null — 6d ΔR² −0.05, 5d +0.02 no-winner at
+    ceiling). So nothing forces the L0-relay account.
+- **Relation to conjectures**: **A10 iv RESOLVED — step, α*≈0.75** (A10 items
+  i–iv now all resolved). **A11 LOWERED to low** — representational hint at one
+  site, unreplicated, causally undetermined; the balance **leans L1-local-
+  sufficient**. **A9 stays RETIRED** (no causal selection at either L0-relay or
+  L1-read locus). **A6/C3 (human sequential-cascade lean) NOT adjudicated** (the
+  only positional-sequential signal is the single unreplicated cell). **R-mixed.**
+- **Supporting evidence**: 2026-07-16 compounding-arithmetic sprint
+  ([results-by-time](maths-results-by-time.md), study
+  [study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md),
+  `results/study-compounding-arithmetic/results.json`). Dual-gated (combined
+  sprint pass): pre-launch PASS-WITH-CONDITIONS (CA-1..CA-6, incl. re-pin to
+  n_top=4 for genuine horizon crossings + the CE13-ablation Y control) +
+  post-result PASS-WITH-CORRECTIONS (F1 H-not-replicated, F2 Y-causally-
+  undetermined, F3/F4/F5 calibration). Reuses CE13 `_mean_ablate_acc`/ST_NODES +
+  CE16 patch/axis machinery.
+- **Caveats**: A11 horizon trace rests on ONE strong-writing site per model
+  (deeper sites write ~0); Y null causally undetermined (interchange vs
+  ablation-target mismatch); L local-sufficiency may reflect local↔resolved-carry
+  correlation on chain stimuli + a reconstruction ceiling; T z-interpolation is
+  un-regressed (CE16 co-rider rides in the blend — "step" rests on the endpoint
+  gate + linear carry-proj); 2-layer addition, two models.

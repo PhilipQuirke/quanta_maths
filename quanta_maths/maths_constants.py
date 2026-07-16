@@ -62,6 +62,7 @@ class MathsTask(Enum):
     STC_TAG = "STC" # Addition - ST-Combiner: answer-position MLP that combines the resolved carry into An (CE5)
   
     MT_TAG = "MT" # Subtraction - TriCase (Dn, D'n)
+    MTC_TAG = "MTC" # Subtraction - MT-Combiner: answer-position MLP that combines the resolved borrow into An (parallel to add STC)
     GT_TAG = "GT" # Subtraction - GreaterThan node that helps calculate Dn > D'n, and impacts sign of answer 
   
     MD_TAG = "MD" # Positive-answer Subtraction - Difference (Dn, D'n)
