@@ -50,23 +50,39 @@ def _download_behavior_nodes(model_name: str, hf_repo: str, local_dir: str):
 
 
 def _combiner_is_causal(model, cfg, produce_pos: int, impact_digit: int,
-                        mlp_layer: int, operation=None) -> bool:
+                        mlp_layer: int, operation=None, cls: str = None) -> bool:
     """Return True if ablating the answer-position MLP flips answer digit A_k on a
-    carry-bearing (addition) / borrow-bearing (subtraction) question -- the
-    combiner signature (CE5 for addition; its subtraction parallel)."""
+    cascade-bearing question -- the combiner signature (CE5 for addition; its
+    positive-answer (MTC) and negative-answer (NTC) subtraction parallels).
+
+    ``cls`` in {"ADD","SUB","NEG"} selects the question class explicitly (needed
+    for MIXED models, where ``operation`` alone cannot distinguish SUB from NEG).
+    If ``cls`` is None it is inferred from ``operation`` (PLUS->ADD, MINUS->SUB)
+    for backward compatibility with the pure-model callers.
+    """
     from quanta_maths.maths_edge_patch import answer_positions
     from quanta_maths.maths_utilities import make_a_maths_question_and_answer
     from quanta_maths.maths_constants import MathsToken
 
     if operation is None:
         operation = MathsToken.PLUS
+    if cls is None:
+        cls = "SUB" if operation == MathsToken.MINUS else "ADD"
     lim = 10 ** cfg.n_digits
-    if operation == MathsToken.MINUS:
-        # positive-answer subtraction with a borrow into digit k:
+    if cls == "SUB":
+        # positive-answer subtraction (D>=D') with a borrow into digit k:
         # minuend 8..8 with lower digit dropped below the 3..3 subtrahend.
+        operation = MathsToken.MINUS
         a = int("8" * cfg.n_digits) - 8 * 10 ** max(0, impact_digit - 1)
         b = int("3" * cfg.n_digits)
+    elif cls == "NEG":
+        # negative-answer subtraction (D<D') with a neg-borrow into digit k:
+        # minuend 3..3, subtrahend 8..8 with lower digit dropped below the minuend.
+        operation = MathsToken.MINUS
+        a = int("3" * cfg.n_digits)
+        b = int("8" * cfg.n_digits) - 8 * 10 ** max(0, impact_digit - 1)
     else:
+        operation = MathsToken.PLUS
         base = int("2" * cfg.n_digits)
         a = (base + 7 * 10 ** max(0, impact_digit - 1)) % lim
         b = (base + 7 * 10 ** max(0, impact_digit - 1)) % lim

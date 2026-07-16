@@ -77,6 +77,31 @@ def sub_labels(a: int, b: int, n_digits: int, operation=None) -> Tuple[dict, dic
     return SA, ST, SV
 
 
+def neg_labels(a: int, b: int, n_digits: int) -> Tuple[dict, dict, dict]:
+    """Per-digit NEGATIVE-answer subtraction labels for ``a - b`` with ``a < b``.
+
+    NEG questions (``D < D'``) have answer ``-(D' - D)``; the model emits the
+    digits of the magnitude ``D' - D``. This is the third task family (ND/NB/NV,
+    the parallel of the addition SV cascade and the positive-answer MV cascade):
+
+      * SA[n] (== ND) = nth digit of ``(D' - D)``          -- emitted answer digit
+      * ST[n] (== NT) = 1 (D'n<Dn, will borrow) / 0 (D'n>Dn) / 2 (D'n==Dn, U)
+      * SV[n] (== NV) = neg-borrow INTO digit n            -- 0 or 1
+
+    Implemented as the positive-answer borrow cascade on the SWAPPED operands
+    (``D' - D``), which is exactly what makes the emitted digits come out right;
+    the (SA, ST, SV) dict signature is kept so the probe collectors stay
+    class-agnostic. Verified against the model's emitted digits in
+    ``tests/test_scaling_and_sub.py``.
+
+    Raises if ``a >= b`` (not a negative-answer question).
+    """
+    if a >= b:
+        raise ValueError(f"neg_labels requires a < b (D < D'); got {a} >= {b}")
+    from quanta_maths.maths_constants import MathsToken
+    return sub_labels(b, a, n_digits, operation=MathsToken.MINUS)
+
+
 TASK_CHANCE = {"SA": 0.10, "ST": 1.0 / 3.0, "SV": 0.5}
 
 

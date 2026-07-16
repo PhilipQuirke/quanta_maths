@@ -96,6 +96,16 @@ the edge message's content, its source (`=` depot vs deciding ST site),
 path shares/class necessity, and the combiner's functional form — see A10's
 consolidation and the sprint agenda.]*
 
+*[2026-07-16 (terminology, per the human): the L0/L1 indices in this picture
+are the 2-layer instantiation. Phrase the account layer-generally — **writer
+layer(s)** (early layers computing ST/SA/SC at question-tail/sign positions),
+**consumer layer** (the final layer's answer-position heads fetching the
+carry), **combiner** (the final-layer answer-position MLP, now known to be a
+step-function discretizer, CE17) — so it transfers to the deeper mixed models
+(l3/l4) and the larger zoo. Size scope per C6/A12: the redundancy woven
+through this picture is a 5/6-digit observation; tightness at n=10+ is
+untested.]*
+
 ## Relation to human conjectures
 
 - **C1 (simple, near-linear, low-dimensional)** — agree on simple and
@@ -159,6 +169,19 @@ consolidation and the sprint agenda.]*
   interchange/path methods complement the map rather than merely re-verify
   it. A10 operationalizes C5's five-step program; the agenda is reworked
   around it.
+- **C6 (verbal prior, 2026-07-16: redundancy is small-model slack; larger n
+  forces a tighter algorithm)** — accepted as the working read of the
+  recurring redundancy findings, and it makes a testable prediction this file
+  adopts as A12. The human's reasoning: a 6-digit model has capacity slack, so
+  duplicate carry circuits are cheap; at n=10+ the number of sequential steps
+  that must *all* work for accuracy squeezes that slack, so the implementation
+  should be tighter. This retro-explains why our sharpest nulls (CE13/CE17
+  interchange 0.00 despite ablation impact; CE14 single-head harmlessness)
+  keep landing on *small* models — redundancy blurs single-node causality —
+  and it predicts the same assays give sharper verdicts at n=10/13. The human
+  also directed (same date) that the account be phrased **layer-generally**
+  (writer-layer / consumer-layer / combiner roles, not "L0/L1"), since larger
+  and mixed models have more layers; adopted throughout new text.
 
 ## Working axioms
 
@@ -180,7 +203,11 @@ existence test of any of them is mis-framed.
    the *expected* outcome and is not evidence against a mechanism. The
    evidential standard is sufficiency + specificity (matched nulls) +
    replication, with necessity tested at the **class** level (paired/grouped
-   ablation), not per node.
+   ablation), not per node. **Size scope (C6, 2026-07-16)**: this axiom is an
+   observation about the *small* (5/6-digit) models studied so far; the
+   human's C6 prior predicts redundancy thins as n grows, making single-node
+   interventions sharper at n=10+ — claims are size-scoped and re-tested per
+   A12 before generalizing across the zoo.
 3. **The map is trusted wiring** (C5): the paper's per-model node maps are
    verified anchors; interchange complements them (fills redundancy gaps) but
    does not overturn them without map-consistent stimuli.
@@ -905,6 +932,101 @@ mode.
   "replication"; Y "redundancy-masked" → "causally undetermined"). Backlink:
   [study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md),
   `results/study-compounding-arithmetic/results.json`, CE17.
+- **Update 2026-07-16 (CE19, compounding-locus; dual-gated): A11 NOT SUPPORTED,
+  held at low (not formally rejected).** A redesigned assay used a natural
+  **decorrelation** (a chain-ST site inside the 999-run has local class fixed at U
+  while the resolved carry varies) and split cells into VISIBLE-decorrelated (site
+  can see the deciding digit — self-computable) vs **INVISIBLE-decorrelated**
+  (deciding digit below the site's horizon — a carry there could only be RELAYED,
+  the sole discriminator). Decorrelation control passes exactly (local-class decode
+  0.50). At the invisible-decorrelated cells the resolved carry decodes at **chance
+  in both models**; where the write is **readable at that depth** (5d P9H1 k3, a
+  per-depth readability control passes) chance = a genuine **"no relayed carry"**
+  → **R-L1-read** (the multi-digit compounding is completed in the L1 consumer
+  read, not by an L0 positional relay); at 6d the deep-chain writes **wash out**
+  (per-depth control fails) → underpowered, neither supports nor refutes. A
+  class-level knock-out shows the ST class is carry-**necessary** (all-ablate breaks
+  differentially over 0.00 specificity-null + 0.00 untagged baseline) but does not
+  itself discriminate relay from local resolution (DH is load-bearing). Net: **no
+  positive evidence of a cross-position L0 relay anywhere; A11's positional relay
+  is unsupported** — the compounding is an L1-read computation (5d proven, 6d
+  consistent-but-underpowered), then discretized by the step combiner (CE17).
+  Caveats: **linear probe** (a non-linear/different-subspace relay not excluded);
+  6d underpowered; rests on one readable invisible cell. **A11 → low (not
+  supported, not rejected); A9 stays retired; the human's C3/sequential-cascade
+  lean is not supported at the L0 tail** (with caveats). This escapes CE17's two
+  blockers and substantially settles the compounding-locus fork against a relay.
+  Post-result gate corrections F1 (softened "refuted"→"not supported"), F2 (added
+  per-depth readability control → 6d underpowered), F3 (dropped 5d
+  "self-computation" over-label), F4 (KO is necessity-only, DH load-bearing).
+  Backlink: [study-compounding-locus.md](study-maths/study-compounding-locus.md),
+  `results/study-compounding-locus/results.json`, CE19.
+
+### A12: The SV interface generalizes across model sizes, and the implementation tightens as n grows
+
+- **Belief**: Phrased layer-generally, the SV account holds across the
+  addition-model zoo: **early-layer ST writers** at question-tail/sign
+  positions (local class + visibility-bounded resolution), **final-layer
+  consumer heads** at each answer position fetching a canonical resolved
+  carry from the ST cluster (never from `=` as a value source), and a
+  **step-function combiner MLP** at each answer position discretizing the
+  delivered carry into the digit. And, per the human's C6 prior, the
+  *implementation tightens with n*: at n=10+ the sequential-accuracy pressure
+  strips the duplicate circuits that small models afford, so the redundancy
+  census shrinks and single-node interventions become decisive — including
+  exactly the interventions (site-write interchange, single-head edges) that
+  nulled at 5/6-digit.
+- **Why**: C6's capacity argument; Paper 2's zoo-wide algorithm claim (the
+  same sub-task structure is found across ~40 models — C5); and the pattern
+  of our own nulls, which concentrate where redundancy is cheapest.
+- **Prediction**: on `add_d10_l2_h3_t40K_s572091` (and d13): (1) the HF map
+  shows the same roles (question-tail/sign ST writers with multi-digit
+  Impact; answer-position consumer heads attending the ST cluster;
+  high-`Fail%` answer-position combiner MLPs); (2) the per-role duplicate
+  count (map `Fail%`/`Impact` census + interchange decisiveness) is **lower**
+  than at 5/6-digit; (3) the CE16 batteries transfer (carry-specific
+  head-class delivery, class necessity, `=`-not-a-source); (4) where
+  tightness permits, the CE17 compounding-locus assays (horizon decode,
+  relay interchange) give the sharp verdict the 6-digit redundancy blurred —
+  the best remaining lever on A11-vs-L1-read.
+- **Falsifier**: d10+ shows equal or greater redundancy than 6-digit
+  (C6 refuted; redundancy is not capacity slack), or the interface roles do
+  not appear in the larger maps (the account is size-specific — a major
+  scope restriction for the paper).
+- **Alternatives**: (a) tightness varies by role (e.g. ST writers tighten,
+  consumers stay duplicated); (b) larger models change *mechanism*, not just
+  tightness (e.g. genuinely sequential multi-layer relay in deeper mixed
+  models — where the extra layers exist).
+- **Tension with human**: none — this operationalizes C6; disagreements would
+  only emerge from the data.
+- **Confidence**: medium on role transfer (the zoo maps + Paper 2 support
+  it); low-medium on monotone tightening (plausible capacity argument,
+  untested).
+- **Update 2026-07-16 (CE18, cross-size-sv; dual-gated): role-transfer +
+  step-combiner RAISED to medium-high; tightening/C6 NOT SUPPORTED (→ low);
+  large-n source-fork untested.** Ran d5/d6/d10/d13 (all acc 1.000), registries
+  built from the published maps (d10/d13 have ST-writer + combiner-MLP tags but
+  NO L1 consumer-head tags — consumer role identified empirically, itself a
+  role-transfer datapoint). **Confirmed (robust):** all three roles present at
+  d10/d13; the **combiner is a STEP at every size** (endpoint-gated to each
+  model's real 0/1, α*≈0.5–0.75 — CE17 generalizes); PC2b (ST class ablation >
+  untagged baseline) passes at d10/d13. **NOT reproduced at large n
+  (probe-limited):** the CE16 causal source signatures — the carry axis collapses
+  to sep ~6 (vs ~30 at d5/d6) and both the `=` arm and the deciding-ST arm flip
+  0.00, so `=`-not-a-source sits on a null background and the source-fork is
+  UNTESTED at n≥10, not confirmed. **C6 (redundancy = small-model slack) NOT
+  SUPPORTED:** single-node ST ablation ~0 at every size and the class-vs-single
+  redundancy gap does NOT shrink across d5→d6→d10 ({0.056, 0.116, 0.324} —
+  increasing); **d13 inconclusive** (whole-class ST ablation 0.040 ≈ CE13
+  single-node magnitude — "very redundant" vs "ST-ablation ineffective at n_ctx
+  43" not separated). Redundancy reads **intrinsic, not capacity slack** —
+  A12's tightening sub-claim → **low** (not refuted; d13 can't separate). A11 was
+  **not** rescued by scale (single-node null everywhere; Battery L untriggered).
+  Post-result gate downgraded two over-claims (F1 transfer "confirmed" → "role +
+  combiner confirmed, source probe-limited"; F2 C6 "refuted" → "not supported, d13
+  inconclusive"). Backlink:
+  [study-cross-size-sv.md](study-maths/study-cross-size-sv.md),
+  `results/study-cross-size-sv/results.json`, CE18.
 
 ## Sharpest forks
 
@@ -914,7 +1036,11 @@ itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
 distributed ST-cluster source, never `=`; head-pair effective and
 class-necessary carrier; trails in the A10 confidence block):
 
-1. ~~The compounding locus (A11 vs L1-read)~~ — **ATTEMPTED (CE17), inconclusive
+1. ~~The compounding locus (A11 vs L1-read)~~ — **SETTLED (CE19): L1-read, not
+   an L0 relay** (5d proven via the invisible-decorrelated discriminator with a
+   per-depth readability control; 6d underpowered; linear-probe caveat). A11 not
+   supported → low; A9 stays retired. Superseding the CE17 note below:
+1b. ~~The compounding locus (A11 vs L1-read)~~ — **ATTEMPTED (CE17), inconclusive
    (R-mixed).** Horizon decode + relay patches ran: A11's horizon structure is a
    single-site, unreplicated representational trace (6d P11H2 only); the relay is
    not causally isolable (Y interchange null, cause undetermined); the L1 edge
@@ -927,9 +1053,16 @@ class-necessary carrier; trails in the A10 confidence block):
    redesign (real-capture interpolation, endpoint-gated to CE16's 0.00/1.00 — the
    Battery-F dead-zero fixed). A10 items i–iv now all resolved. Neuron-level
    sparsity (B2) remains for the mixed-model work.
-3. **Paper hand-off timing** — deferred by the human 2026-07-16; must trigger
+3. **Cross-size tightness and role transfer (A12 / C6) — the new #1.** Does
+   the layer-general SV interface hold at n=10/13, and does the redundancy
+   census shrink as C6 predicts? This is also the best remaining lever on the
+   parked compounding-locus fork: if larger models are tighter, the CE17
+   assays that nulled under 6-digit redundancy (relay interchange, horizon
+   decode) may finally discriminate A11-relay from L1-read there. Serves the
+   paper's generalization claim directly.
+4. **Paper hand-off timing** — deferred by the human 2026-07-16; must trigger
    no later than ~12 h before the deadline. Post-deadline: the mixed-model
-   shared engine (A7 vs C2).
+   shared engine (A7 vs C2) and the neuron-level combiner decomposition (B2).
 
 ## Supporting literature
 
@@ -1351,3 +1484,62 @@ External:
   = compounding-arithmetic + combiner-transfer study (both batteries reuse
   CE16/CE13 artifacts); paper hand-off held at entry 2 per the human's defer,
   trigger no later than ~T-12h.
+- **2026-07-16** — After the compounding-arithmetic study (CE17; combined gate
+  PASS-WITH-CORRECTIONS; A11/A10-iv/fork annotations applied by the working
+  thread — this entry adds the log record and the human's new input). CE17's
+  verdict is **R-mixed**: the combiner is a **step** (α*≈0.75, both models —
+  A10 iv resolved, all four implementation items now closed); A11's horizon
+  relay shows a single-cell, unreplicated representational trace and is
+  **causally undetermined** (relay interchange 0.00 everywhere, but the
+  control validates a different unit, so redundancy vs weak-instrument cannot
+  be split — the CE16-F1 trap, correctly not over-read); the consumer edge
+  output is local-class-sufficient (with a stated ceiling caveat). **A11 →
+  low; A9 stays retired; the human's sequential lean is neither vindicated
+  nor refuted.** New human input recorded: **C6** (redundancy is small-model
+  slack; n=10+ forces a tighter algorithm) + the layer-generality directive
+  (phrase roles, not L0/L1). Adopted: axiom-2 size-scoped; **A12 added**
+  (cross-size role transfer + tightening — its sharpest implication is that
+  the compounding-locus fork, unresolvable under 6-digit redundancy, may be
+  resolvable at n=10/13); overall picture annotated layer-generally; forks
+  reranked (cross-size tightness is the new #1); agenda rebuilt (entry 1 =
+  cross-size SV validation + tightness census on d10/d13, absorbing backlog
+  B5's addition-side; paper hand-off trigger unchanged at ~T-12h).
+- **2026-07-16** — After the mixed-model SV replication (entry 2, parallel
+  thread; CE20 + CE21; combined sprint gate; studies
+  [study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
+  [study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md); plan
+  [study-mixed-plan.md](study-maths/study-mixed-plan.md)). The addition→mixed
+  generalization the paper needs. **A12 → confirmed onto a new axis** (3-layer/
+  4-head architecture + the borrow/neg-borrow task families, not just size): the
+  SV *representation* replicates on `ins1_mix_d6_l3_h4_t40K_s372001` across all
+  three classes — writers encode the tri-state (ST/MT/NT ~1.00 vs untrained
+  ~chance, CE13) and the resolved carry/borrow is a clean binary at the
+  last-layer combiner input (SV/MV/NV ~1.00, CE6/CE7). **A10 → confirmed at the
+  representation level, refined on delivery**: the resolved cascade reaches the
+  combiner carry/borrow-specifically (deciding-matched null 0.00), but the
+  *pathway is class-dependent* — ADD (the inserted addition circuit) delivers via
+  the **residual only** (last-layer attention inert), while SUB/NEG (learned
+  fresh) also deliver via **last-layer attention** (the 2-layer CE14 picture). So
+  the extra layer relocates ADD's delivery earlier — a layer-general refinement
+  of "attention delivers", not a contradiction. **A10 extended to the sign
+  (CE15 analog)**: SGN is the top-of-cascade `D≥D'` comparison delivered to the
+  `=` combiner (boundary flip 1.00; sign binary-decodable 1.00 at `=`; sign edge
+  flip 1.00, deciding null 0.00). **C5 → confirmed on a new model** (map ST/MT/NT
+  writers, SLT selector, L2 combiner MLPs all borne out). **A7 and C2 both take
+  damage (hybrid verdict)**: the operator is broadcast-decodable everywhere (A7's
+  low-D-signal-available-broadly half, FOR) but is **not an additive rank-1
+  control at the combiner** (a norm-20.6 add−sub steer flips 0.00 — consumed
+  upstream at the SLT selector, AGAINST A7's steer-the-readout form); and on the
+  shared SA/MD/ND heads the per-operation readouts are **more separated than a
+  random-init control for ADD-vs-subtraction** (68–71° vs 46–50°; C2-leaning) yet
+  **overlapping for SUB-vs-NEG** (48°≈46°; A7-leaning). Net: shared heads
+  (structural A7) with operation-specific readout rotations — strong A7 (heavy
+  overlap / rank-1 steer) and strong C2 (near-orthogonal) both refuted; A7/C2
+  held at **medium, hybrid**. Library: added `neg_labels`, `neg_ntc_functions`
+  (NTC), `NT`/`NTC` tags, class-aware `_combiner_is_causal` (all tested). Gate
+  caught two errors, both corrected before scoring: a label-alignment bug in the
+  M4 operator decode (0.49→1.00) and the temptation to read `full_resid`/
+  zero-ablation as trained-structure evidence (the deciding-matched null and the
+  A/C-vs-untrained separation carry it instead). Open (post-deadline): an
+  SLT-sited operator steer (proper A7 test), a ≥2-depth delivery sweep on the
+  subtraction classes, and the d3 writer-locus pin.

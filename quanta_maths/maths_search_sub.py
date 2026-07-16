@@ -417,3 +417,56 @@ class sub_mtc_functions(SubTaskBaseMath):
             print("Test confirmed", description, "Impact:", acfg.intervened_impact, "" if strong else "Weak")
 
         return success
+
+
+# Negative-answer subtraction "NT-Combiner" (NTC) sub-task -- the third-family
+# parallel of the addition ST-combiner (STC) and positive-answer MT-combiner (MTC).
+# The answer-position last-layer MLP that COMBINES the resolved neg-borrow
+# (tri-state NT of the D'-D cascade) into the negative-answer digit An, on NEG
+# questions (D < D', answer negative). Causal signature: two NEG questions with
+# the SAME base neg-difference at digit n but DIFFERENT neg-borrow-in yield a
+# different An; patching this node flips An.
+class neg_ntc_functions(SubTaskBaseMath):
+
+    @staticmethod
+    def operation():
+        return MathsToken.MINUS
+
+    @staticmethod
+    def tag(impact_digit):
+        return answer_name(impact_digit) + "." + MathsTask.NTC_TAG.value
+
+    @staticmethod
+    def prereqs(cfg, position, impact_digit):
+        # Is an MLP neuron, at the position that PRODUCES An, after the +/- token,
+        # impacting An. MLPs cannot attend, so no AttendsTo clause.
+        produce_pos = int(cfg.an_to_position_name(impact_digit)[1:]) - 1
+        return FilterAnd(
+            FilterNeuron(),
+            FilterPosition(position_name(produce_pos)),
+            FilterPosition(position_name(cfg.num_question_positions + 1), QCondition.MIN),
+            FilterImpact(answer_name(impact_digit)))
+
+    @staticmethod
+    def test(cfg, acfg, impact_digit, strong):
+        alter_digit = impact_digit - 1
+        if alter_digit < 0 or impact_digit > cfg.n_digits:
+            acfg.reset_intervention()
+            return False
+
+        # NEG questions: minuend 3..3, subtrahend 8..8 (D < D' => answer -(555555)).
+        # store_question: force a NEG-borrow into digit n by dropping the subtrahend's
+        # lower digit below the minuend's (D'_{n-1}=0 < D_{n-1}=3 => borrow into n).
+        store_question = [cfg.repeat_digit(3), cfg.repeat_digit(8)]
+        store_question[1] -= (8 - 0) * (10 ** alter_digit)
+
+        # clean_question: no borrow into digit n (same base neg-difference at digit n).
+        clean_question = [cfg.repeat_digit(3), cfg.repeat_digit(8)]
+
+        success = run_weak_intervention(cfg, acfg, store_question, clean_question)
+
+        if success:
+            description = acfg.ablate_node_names + " perform " + neg_ntc_functions.tag(impact_digit) + " = Combine(neg-borrow -> A" + str(impact_digit) + ")"
+            print("Test confirmed", description, "Impact:", acfg.intervened_impact, "" if strong else "Weak")
+
+        return success

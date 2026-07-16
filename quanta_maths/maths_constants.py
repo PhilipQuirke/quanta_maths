@@ -70,6 +70,8 @@ class MathsTask(Enum):
 
     ND_TAG = "ND" # Negative-answer Subtraction - Difference (Dn, D'n)
     NB_TAG = "NB" # Negative-answer Subtraction - Borrow One (Dn, D'n)
+    NT_TAG = "NT" # Negative-answer Subtraction - TriCase (Dn, D'n) (parallel to ST/MT)
+    NTC_TAG = "NTC" # Negative-answer Subtraction - NT-Combiner: answer-position MLP that combines the resolved neg-borrow into An (parallel to add STC / sub MTC)
 
     OPR_TAG = "OPR" # Add/Sub - Attends to operation token (in the middle of the question)
     SGN_TAG = "SGN" # Add/Sub - Attends to answer sign (+/-) token (at the start of the answer)

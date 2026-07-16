@@ -1,0 +1,1503 @@
+{
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "n_digits": 6,
+    "n_top": 4,
+    "decorrelated_cells": [
+      {
+        "pos": 10,
+        "head": 2,
+        "digit": 3,
+        "m": 2,
+        "visible": [
+          2
+        ],
+        "invisible": [
+          3,
+          4
+        ]
+      },
+      {
+        "pos": 11,
+        "head": 2,
+        "digit": 2,
+        "m": 1,
+        "visible": [
+          3
+        ],
+        "invisible": [
+          4
+        ]
+      },
+      {
+        "pos": 12,
+        "head": 1,
+        "digit": 1,
+        "m": 0,
+        "visible": [
+          4
+        ],
+        "invisible": []
+      },
+      {
+        "pos": 14,
+        "head": 2,
+        "digit": 4,
+        "m": 0,
+        "visible": [
+          2,
+          3,
+          4
+        ],
+        "invisible": []
+      }
+    ],
+    "n_discriminating_sites": 2,
+    "battery_DH": {
+      "P10H2_d3_m2": {
+        "m": 2,
+        "digit": 3,
+        "per_depth": {
+          "2": {
+            "depth": 2,
+            "d": 2,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.6214060469115986,
+              "ci": [
+                0.533671947945845,
+                0.6982431824473976
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.7655291859409905,
+              "ci": [
+                0.67416051935869,
+                0.8379178823366872
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.510722697006984,
+              "ci": [
+                0.42047917539048696,
+                0.5888176406926408
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.512423142122135,
+              "ci": [
+                0.4307250508899212,
+                0.6003453174284124
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.6236873815800794,
+            "depth_readable": false,
+            "decodes": false
+          },
+          "3": {
+            "depth": 3,
+            "d": 1,
+            "kind": "invisible",
+            "carry": {
+              "bacc": 0.4461916435140912,
+              "ci": [
+                0.37548185207914303,
+                0.5102925494644823
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5169037007044723,
+              "ci": [
+                0.4171517470624614,
+                0.6041844790241678
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.47819148903855996,
+              "ci": [
+                0.39833102065988285,
+                0.5520907738095238
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4870677115387624,
+              "ci": [
+                0.3905346138275382,
+                0.5804280082804792
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.6114804040570729,
+            "depth_readable": false,
+            "decodes": false
+          },
+          "4": {
+            "depth": 4,
+            "d": 0,
+            "kind": "invisible",
+            "carry": {
+              "bacc": 0.5184088416878153,
+              "ci": [
+                0.4374375,
+                0.59874992875057
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5473543257468663,
+              "ci": [
+                0.4691970531469371,
+                0.6397099673202614
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.523789666843644,
+              "ci": [
+                0.4345976291918046,
+                0.6071428571428572
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.47366014622541597,
+              "ci": [
+                0.37521985728001567,
+                0.5577141421953612
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.6088518293118216,
+            "depth_readable": false,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 1,
+          "carry_bacc": 0.9994749229300123,
+          "ci": [
+            0.9877808087291399,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P11H2_d2_m1": {
+        "m": 1,
+        "digit": 2,
+        "per_depth": {
+          "3": {
+            "depth": 3,
+            "d": 1,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.6049906889279733,
+              "ci": [
+                0.507998249839774,
+                0.6979741612554113
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.8899830402405751,
+              "ci": [
+                0.8273244190020506,
+                0.9483291992686402
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.4869774804395894,
+              "ci": [
+                0.39266507475083057,
+                0.5687257205513785
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.5117507719811951,
+              "ci": [
+                0.4299729530797438,
+                0.5882198984526112
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.5893040644953622,
+            "depth_readable": false,
+            "decodes": false
+          },
+          "4": {
+            "depth": 4,
+            "d": 0,
+            "kind": "invisible",
+            "carry": {
+              "bacc": 0.5737998588496847,
+              "ci": [
+                0.4719440990645652,
+                0.6569204746362028
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5858939286055781,
+              "ci": [
+                0.507959618450712,
+                0.6637056086337467
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.5475238430574396,
+              "ci": [
+                0.46126136280764823,
+                0.6264434924913362
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4893183069823925,
+              "ci": [
+                0.3738610062418202,
+                0.5632365841073271
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.5330810545874156,
+            "depth_readable": false,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 2,
+          "carry_bacc": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P12H1_d1_m0": {
+        "m": 0,
+        "digit": 1,
+        "per_depth": {
+          "4": {
+            "depth": 4,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5640278423904532,
+              "ci": [
+                0.47637574814787786,
+                0.6637137049941928
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.6128693250998173,
+              "ci": [
+                0.5198866779861496,
+                0.7004468201754387
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.4886178528785565,
+              "ci": [
+                0.41614505247376316,
+                0.5650619017507316
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.49614207790016757,
+              "ci": [
+                0.407399577167019,
+                0.5655395299145299
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.8620946719030583,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 3,
+          "carry_bacc": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P14H2_d4_m0": {
+        "m": 0,
+        "digit": 4,
+        "per_depth": {
+          "2": {
+            "depth": 2,
+            "d": 2,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5387431292847205,
+              "ci": [
+                0.4443771887507147,
+                0.6118839644737388
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5985129759394888,
+              "ci": [
+                0.502828610586784,
+                0.7023793663946966
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.5045125470433206,
+              "ci": [
+                0.42971259892534847,
+                0.5830810302783986
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.5162285571723325,
+              "ci": [
+                0.4359307101218866,
+                0.6025715076728365
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.8465202760167116,
+            "depth_readable": true,
+            "decodes": false
+          },
+          "3": {
+            "depth": 3,
+            "d": 1,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5173416434137849,
+              "ci": [
+                0.42157147976247356,
+                0.6256577966393302
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5695133394186332,
+              "ci": [
+                0.4843699277165797,
+                0.6521266122133429
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.47962303618172625,
+              "ci": [
+                0.3854513487649862,
+                0.5576070248066494
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4557727601401679,
+              "ci": [
+                0.3746957552428677,
+                0.5244062113481757
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.8367445474865888,
+            "depth_readable": true,
+            "decodes": false
+          },
+          "4": {
+            "depth": 4,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5521789036974127,
+              "ci": [
+                0.4277223069105691,
+                0.6629229797979798
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5435721150863683,
+              "ci": [
+                0.4441665014757059,
+                0.6323979591836735
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.49121112762093877,
+              "ci": [
+                0.401671626984127,
+                0.5681080301685892
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4992934568269186,
+              "ci": [
+                0.41325571895424834,
+                0.5706900681700242
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.8365846355863786,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": false
+        }
+      }
+    },
+    "battery_KO": {
+      "per_depth": {
+        "2": {
+          "d": 2,
+          "invisible_decorrelated_depth": false,
+          "deepest_m": 2,
+          "n_sufficient": 5,
+          "untagged_all_ablate_flip": {
+            "rate": 0.0,
+            "ci": [
+              -3.310477807631166e-18,
+              0.0458197362645751
+            ],
+            "n": 80
+          },
+          "all_ablate": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_deepest_in": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_shallowest_in": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          }
+        },
+        "3": {
+          "d": 1,
+          "invisible_decorrelated_depth": true,
+          "deepest_m": 1,
+          "n_sufficient": 4,
+          "untagged_all_ablate_flip": {
+            "rate": 0.0,
+            "ci": [
+              -3.310477807631166e-18,
+              0.0458197362645751
+            ],
+            "n": 80
+          },
+          "all_ablate": {
+            "flip": {
+              "rate": 0.3125,
+              "ci": [
+                0.2215025832784764,
+                0.4206798178207392
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.3125
+          },
+          "leave_deepest_in": {
+            "flip": {
+              "rate": 0.3,
+              "ci": [
+                0.21064429162615705,
+                0.407683602879673
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.3
+          },
+          "leave_shallowest_in": {
+            "flip": {
+              "rate": 0.0,
+              "ci": [
+                -3.310477807631166e-18,
+                0.0458197362645751
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0
+          }
+        },
+        "4": {
+          "d": 0,
+          "invisible_decorrelated_depth": true,
+          "deepest_m": 0,
+          "n_sufficient": 3,
+          "untagged_all_ablate_flip": {
+            "rate": 0.0,
+            "ci": [
+              -3.310477807631166e-18,
+              0.0458197362645751
+            ],
+            "n": 80
+          },
+          "all_ablate": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_deepest_in": {
+            "flip": {
+              "rate": 0.0,
+              "ci": [
+                -3.310477807631166e-18,
+                0.0458197362645751
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0
+          },
+          "leave_shallowest_in": {
+            "flip": {
+              "rate": 0.0,
+              "ci": [
+                -3.310477807631166e-18,
+                0.0458197362645751
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0
+          }
+        }
+      }
+    },
+    "battery_RC": {
+      "visible": {
+        "r2_local": 0.0,
+        "r2_horizon": 0.9478488972553493,
+        "delta_r2": 0.9389816315032865,
+        "n": 250
+      },
+      "invisible": {
+        "r2_local": 0.0,
+        "r2_horizon": 0.9924716148240084,
+        "delta_r2": 0.9930055420510633,
+        "n": 250
+      }
+    },
+    "verdict": {
+      "sites_correlated_readable": {
+        "P10H2_d3_m2": true,
+        "P11H2_d2_m1": true,
+        "P12H1_d1_m0": true,
+        "P14H2_d4_m0": false
+      },
+      "n_invisible_readable_cells": 0,
+      "n_invisible_underpowered_cells": 3,
+      "local_class_control_max": 0.5,
+      "decorrelation_ok": true,
+      "invisible_decode_cells": [
+        [
+          "P10H2_d3_m2",
+          3,
+          false,
+          0.45,
+          false
+        ],
+        [
+          "P10H2_d3_m2",
+          4,
+          false,
+          0.52,
+          false
+        ],
+        [
+          "P11H2_d2_m1",
+          4,
+          false,
+          0.57,
+          false
+        ]
+      ],
+      "visible_decode_cells": [
+        [
+          "P10H2_d3_m2",
+          2,
+          false,
+          0.62,
+          false
+        ],
+        [
+          "P11H2_d2_m1",
+          3,
+          false,
+          0.6,
+          false
+        ],
+        [
+          "P12H1_d1_m0",
+          4,
+          false,
+          0.56,
+          true
+        ],
+        [
+          "P14H2_d4_m0",
+          2,
+          false,
+          0.54,
+          true
+        ],
+        [
+          "P14H2_d4_m0",
+          3,
+          false,
+          0.52,
+          true
+        ],
+        [
+          "P14H2_d4_m0",
+          4,
+          false,
+          0.55,
+          true
+        ]
+      ],
+      "KO_all_ablate_breaks_differentially": true,
+      "KO_deepest_survives_at_invisible": false,
+      "RC_invisible_delta_r2": 0.9930055420510633,
+      "read": "inconclusive/UNDERPOWERED: no invisible-decorrelated cell whose write is readable AT ITS OWN depth (F2 per-depth control) \u2014 DH cannot separate relay from L1-read; A11 stays low"
+    },
+    "accuracy": 1.0
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "n_digits": 5,
+    "n_top": 3,
+    "decorrelated_cells": [
+      {
+        "pos": 9,
+        "head": 1,
+        "digit": 2,
+        "m": 1,
+        "visible": [
+          2
+        ],
+        "invisible": [
+          3
+        ]
+      },
+      {
+        "pos": 10,
+        "head": 0,
+        "digit": 2,
+        "m": 0,
+        "visible": [
+          2,
+          3
+        ],
+        "invisible": []
+      },
+      {
+        "pos": 10,
+        "head": 1,
+        "digit": 1,
+        "m": 0,
+        "visible": [
+          3
+        ],
+        "invisible": []
+      },
+      {
+        "pos": 10,
+        "head": 2,
+        "digit": 1,
+        "m": 0,
+        "visible": [
+          3
+        ],
+        "invisible": []
+      },
+      {
+        "pos": 12,
+        "head": 1,
+        "digit": 3,
+        "m": 0,
+        "visible": [
+          2,
+          3
+        ],
+        "invisible": []
+      }
+    ],
+    "n_discriminating_sites": 1,
+    "battery_DH": {
+      "P9H1_d2_m1": {
+        "m": 1,
+        "digit": 2,
+        "per_depth": {
+          "2": {
+            "depth": 2,
+            "d": 1,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5243235820446437,
+              "ci": [
+                0.41843688144153984,
+                0.6205796876623667
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.665684316188252,
+              "ci": [
+                0.5743048924115101,
+                0.7600397484575226
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.4593356342424797,
+              "ci": [
+                0.3606352172841535,
+                0.5275280926909106
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4974732441280828,
+              "ci": [
+                0.4077287296037296,
+                0.5834235590628482
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.7082997858301183,
+            "depth_readable": true,
+            "decodes": false
+          },
+          "3": {
+            "depth": 3,
+            "d": 0,
+            "kind": "invisible",
+            "carry": {
+              "bacc": 0.5659822472647137,
+              "ci": [
+                0.4745870386632366,
+                0.6500741239892183
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5572362956791928,
+              "ci": [
+                0.47414469980226404,
+                0.6506870567375885
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.4969382507807954,
+              "ci": [
+                0.412514802826353,
+                0.5774450870031337
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.4899943699059757,
+              "ci": [
+                0.40046428571428566,
+                0.5758936838624339
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.7691767491147968,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 1,
+          "carry_bacc": 0.98489003445679,
+          "ci": [
+            0.9371772918132315,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P10H0_d2_m0": {
+        "m": 0,
+        "digit": 2,
+        "per_depth": {
+          "2": {
+            "depth": 2,
+            "d": 1,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5006201862456373,
+              "ci": [
+                0.4135800185013876,
+                0.5716791279519938
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.9926625147950031,
+              "ci": [
+                0.9574463267036694,
+                1.0
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.48874637339218147,
+              "ci": [
+                0.41483654581440327,
+                0.5765731292517006
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.5109606428147996,
+              "ci": [
+                0.42927589539354666,
+                0.5997695035460994
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.9130318234788705,
+            "depth_readable": true,
+            "decodes": false
+          },
+          "3": {
+            "depth": 3,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5194712198510092,
+              "ci": [
+                0.4082662066752246,
+                0.6118711686257519
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.7120775357316461,
+              "ci": [
+                0.6262984981226533,
+                0.7808360631811105
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.4585883953027359,
+              "ci": [
+                0.38004546112448845,
+                0.5393399701343952
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.46742645713470765,
+              "ci": [
+                0.3913178120711398,
+                0.5451814524004844
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.8930489944081172,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 1,
+          "carry_bacc": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P10H1_d1_m0": {
+        "m": 0,
+        "digit": 1,
+        "per_depth": {
+          "3": {
+            "depth": 3,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.6492482955257854,
+              "ci": [
+                0.5322334529505581,
+                0.7533257575757576
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.4666278772848395,
+              "ci": [
+                0.3814867424242424,
+                0.5557481650644223
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.47399393834813075,
+              "ci": [
+                0.37765658146473957,
+                0.546161750483559
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.46466080415359023,
+              "ci": [
+                0.38284346513919687,
+                0.5344172077922079
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.7767221988815214,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 2,
+          "carry_bacc": 0.9915209305969417,
+          "ci": [
+            0.9610630982341508,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P10H2_d1_m0": {
+        "m": 0,
+        "digit": 1,
+        "per_depth": {
+          "3": {
+            "depth": 3,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5655847597732224,
+              "ci": [
+                0.4718043884220355,
+                0.6625072674418604
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5156668306762578,
+              "ci": [
+                0.4233208857442348,
+                0.5964820410883354
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.49698488819939945,
+              "ci": [
+                0.4119375,
+                0.5803714667685256
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.5023799905516362,
+              "ci": [
+                0.4153144591169801,
+                0.5819703898743533
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.956175348542064,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": true,
+          "k": 2,
+          "carry_bacc": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "instrument_can_read": true
+        }
+      },
+      "P12H1_d3_m0": {
+        "m": 0,
+        "digit": 3,
+        "per_depth": {
+          "2": {
+            "depth": 2,
+            "d": 1,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5688729319881445,
+              "ci": [
+                0.46818848117493583,
+                0.6595581592320724
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5542484415031311,
+              "ci": [
+                0.48282402206951236,
+                0.6284932301740812
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.5287527346252063,
+              "ci": [
+                0.4502093269740328,
+                0.616760281394844
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.48579684662969597,
+              "ci": [
+                0.3875965192278462,
+                0.5700579277310075
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.9983371357564681,
+            "depth_readable": true,
+            "decodes": false
+          },
+          "3": {
+            "depth": 3,
+            "d": 0,
+            "kind": "visible",
+            "carry": {
+              "bacc": 0.5551552207476808,
+              "ci": [
+                0.45632353570439727,
+                0.6667169401544403
+              ],
+              "n": 250
+            },
+            "wrole_baseline": {
+              "bacc": 0.5400655662394256,
+              "ci": [
+                0.43550310541099335,
+                0.6304755434782608
+              ],
+              "n": 250
+            },
+            "shuffled_null": {
+              "bacc": 0.5029550526197168,
+              "ci": [
+                0.42381650361833284,
+                0.5893775309036658
+              ],
+              "n": 250
+            },
+            "value_shuffled_null": {
+              "bacc": 0.5006069161675629,
+              "ci": [
+                0.41899250219632633,
+                0.5942883022774327
+              ],
+              "n": 250
+            },
+            "local_class_control": 0.5,
+            "depth_readability_bacc": 0.9999444444444444,
+            "depth_readable": true,
+            "decodes": false
+          }
+        },
+        "instrument_control": {
+          "testable": false
+        }
+      }
+    },
+    "battery_KO": {
+      "per_depth": {
+        "2": {
+          "d": 1,
+          "invisible_decorrelated_depth": false,
+          "deepest_m": 1,
+          "n_sufficient": 6,
+          "untagged_all_ablate_flip": {
+            "rate": 0.0,
+            "ci": [
+              -3.310477807631166e-18,
+              0.0458197362645751
+            ],
+            "n": 80
+          },
+          "all_ablate": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_deepest_in": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_shallowest_in": {
+            "flip": {
+              "rate": 0.0625,
+              "ci": [
+                0.02698897769798554,
+                0.1381032915335177
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0625
+          }
+        },
+        "3": {
+          "d": 0,
+          "invisible_decorrelated_depth": true,
+          "deepest_m": 0,
+          "n_sufficient": 5,
+          "untagged_all_ablate_flip": {
+            "rate": 0.0,
+            "ci": [
+              -3.310477807631166e-18,
+              0.0458197362645751
+            ],
+            "n": 80
+          },
+          "all_ablate": {
+            "flip": {
+              "rate": 0.5,
+              "ci": [
+                0.392972274311075,
+                0.6070277256889249
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.5
+          },
+          "leave_deepest_in": {
+            "flip": {
+              "rate": 0.0,
+              "ci": [
+                -3.310477807631166e-18,
+                0.0458197362645751
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0
+          },
+          "leave_shallowest_in": {
+            "flip": {
+              "rate": 0.0,
+              "ci": [
+                -3.310477807631166e-18,
+                0.0458197362645751
+              ],
+              "n": 80
+            },
+            "specificity_null": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "differential": 0.0
+          }
+        }
+      }
+    },
+    "battery_RC": {
+      "visible": {
+        "r2_local": 0.0,
+        "r2_horizon": 0.984756911977496,
+        "delta_r2": 0.9868176181376566,
+        "n": 250
+      },
+      "invisible": {
+        "r2_local": 0.0,
+        "r2_horizon": 0.997043688318598,
+        "delta_r2": 0.9975390410909175,
+        "n": 250
+      }
+    },
+    "verdict": {
+      "sites_correlated_readable": {
+        "P9H1_d2_m1": true,
+        "P10H0_d2_m0": true,
+        "P10H1_d1_m0": true,
+        "P10H2_d1_m0": true,
+        "P12H1_d3_m0": false
+      },
+      "n_invisible_readable_cells": 1,
+      "n_invisible_underpowered_cells": 0,
+      "local_class_control_max": 0.5,
+      "decorrelation_ok": true,
+      "invisible_decode_cells": [
+        [
+          "P9H1_d2_m1",
+          3,
+          false,
+          0.57,
+          true
+        ]
+      ],
+      "visible_decode_cells": [
+        [
+          "P9H1_d2_m1",
+          2,
+          false,
+          0.52,
+          true
+        ],
+        [
+          "P10H0_d2_m0",
+          2,
+          false,
+          0.5,
+          true
+        ],
+        [
+          "P10H0_d2_m0",
+          3,
+          false,
+          0.52,
+          true
+        ],
+        [
+          "P10H1_d1_m0",
+          3,
+          false,
+          0.65,
+          true
+        ],
+        [
+          "P10H2_d1_m0",
+          3,
+          false,
+          0.57,
+          true
+        ],
+        [
+          "P12H1_d3_m0",
+          2,
+          false,
+          0.57,
+          true
+        ],
+        [
+          "P12H1_d3_m0",
+          3,
+          false,
+          0.56,
+          true
+        ]
+      ],
+      "KO_all_ablate_breaks_differentially": true,
+      "KO_deepest_survives_at_invisible": true,
+      "RC_invisible_delta_r2": 0.9975390410909175,
+      "read": "R-L1-read: no L0 site (readable) carries the resolved carry on decorrelated stimuli \u2014 resolution is not at the ST writes"
+    },
+    "accuracy": 1.0
+  }
+}
