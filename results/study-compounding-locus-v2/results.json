@@ -1,0 +1,420 @@
+{
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "n_digits": 6,
+    "carry_axis_digit": 3,
+    "carry_axis_sep": 28.448495864868164,
+    "TR_9free": {
+      "nine": false,
+      "depths": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "carry": {
+        "L0_gather": {
+          "xdepth": 0.6515531917199326,
+          "ceiling": 0.8133421455165193,
+          "xdepth_procrustes": 0.5083746737389575,
+          "boot": {
+            "lo2hi": {
+              "mean": 0.5067142857142857,
+              "ci": [
+                0.5,
+                0.5171428571428571
+              ]
+            },
+            "hi2lo": {
+              "mean": 0.5311676646706586,
+              "ci": [
+                0.5179640718562875,
+                0.5479041916167665
+              ]
+            }
+          }
+        },
+        "L1_full": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        "L1_carryaxis_edge": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        }
+      },
+      "nuisance": {
+        "magnitude_L1_full": 0.6376977578869082,
+        "sumall_L1_full": 0.6753242473682936,
+        "answertop_L1_full": 0.7823363639365427,
+        "answertop_L1_axis": 0.12411642236408087,
+        "magnitude_L0": 0.6466054861323295
+      }
+    },
+    "TR_9containing": {
+      "nine": true,
+      "depths": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "carry": {
+        "L0_gather": {
+          "xdepth": 0.6692569302121766,
+          "ceiling": 0.8430747209745659,
+          "xdepth_procrustes": 0.5088198998083864,
+          "boot": {
+            "lo2hi": {
+              "mean": 0.5063714285714285,
+              "ci": [
+                0.5013571428571428,
+                0.52
+              ]
+            },
+            "hi2lo": {
+              "mean": 0.5570833333333334,
+              "ci": [
+                0.5476190476190477,
+                0.5684523809523809
+              ]
+            }
+          }
+        },
+        "L1_full": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        "L1_carryaxis_edge": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        }
+      },
+      "nuisance": {
+        "magnitude_L1_full": 0.7195079483632486,
+        "sumall_L1_full": 0.7730869081883118,
+        "answertop_L1_full": 0.7772596341921117,
+        "answertop_L1_axis": 0.14146629056404772,
+        "magnitude_L0": 0.6391792382228644
+      }
+    },
+    "LC": {
+      "site": "P14H1(sign)",
+      "consumer_attn_on_site": 6.919531580606986e-06,
+      "within_depth_same_unit_flip": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "carry_matched_null": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "cross_depth_carry_flip": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "instrument_ok": false
+    },
+    "verdict": {
+      "L0_gather_xdepth": 0.6515531917199326,
+      "L0_gather_xdepth_procrustes_UNRELIABLE": 0.5083746737389575,
+      "L0_ceiling": 0.8133421455165193,
+      "L0_magnitude_nuisance_xdepth": 0.6466054861323295,
+      "L1_carryaxis_xdepth": 1.0,
+      "L1_full_xdepth": 1.0,
+      "nuisance_answertop_L1_axis": 0.12411642236408087,
+      "nuisance_magnitude_L1_full": 0.6376977578869082,
+      "nuisance_sumall_L1_full": 0.6753242473682936,
+      "L1_canonical_carry": true,
+      "L0_no_carry_specific_canonical_code": true,
+      "LC_instrument_ok": false,
+      "LC_note": "corroborating-only; OV-write patch is washout-prone (CE19). Causal backing for the L1 read is CE16's head-pair edge patch (flip 1.00).",
+      "read": "CANONICAL-CARRY-IS-AN-L1-PROPERTY (representational): the answer-agnostic carry axis transfers cross-depth ~1.0 at the L1 combiner input (answer-digit decorrelated) while L0's output at the `=` gather position has NO carry-specific canonical code (extreme-pair transfer ~chance with CIs; weak all-pairs transfer no larger than the magnitude nuisance). Combined with CE16's causal head-pair delivery, the L1 read is the causal locus. Caveats: linear-probe; L0 tested at `=` (ST/sign sites: CE17/CE19); this study's LC causal instrument is invalid; rotated-frame L0 carry not excluded by a reliable test."
+    },
+    "accuracy": 1.0
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "n_digits": 5,
+    "carry_axis_digit": 2,
+    "carry_axis_sep": 32.28310012817383,
+    "TR_9free": {
+      "nine": false,
+      "depths": [
+        1,
+        2,
+        3
+      ],
+      "carry": {
+        "L0_gather": {
+          "xdepth": 0.455618634034896,
+          "ceiling": 0.9111259908673702,
+          "xdepth_procrustes": 0.6694449521621578,
+          "boot": {
+            "lo2hi": {
+              "mean": 0.12668449197860962,
+              "ci": [
+                0.07346256684491978,
+                0.18195187165775395
+              ]
+            },
+            "hi2lo": {
+              "mean": 0.5,
+              "ci": [
+                0.5,
+                0.5
+              ]
+            }
+          }
+        },
+        "L1_full": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        "L1_carryaxis_edge": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        }
+      },
+      "nuisance": {
+        "magnitude_L1_full": 0.6711064756687506,
+        "sumall_L1_full": 0.7836852281330541,
+        "answertop_L1_full": 0.7845810531113924,
+        "answertop_L1_axis": 0.12975011803535488,
+        "magnitude_L0": 0.5335607361309083
+      }
+    },
+    "TR_9containing": {
+      "nine": true,
+      "depths": [
+        1,
+        2,
+        3
+      ],
+      "carry": {
+        "L0_gather": {
+          "xdepth": 0.4738249385793405,
+          "ceiling": 0.888322261375088,
+          "xdepth_procrustes": 0.5821115767649906,
+          "boot": {
+            "lo2hi": {
+              "mean": 0.14256906077348064,
+              "ci": [
+                0.09668508287292818,
+                0.19205801104972375
+              ]
+            },
+            "hi2lo": {
+              "mean": 0.5,
+              "ci": [
+                0.5,
+                0.5
+              ]
+            }
+          }
+        },
+        "L1_full": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        },
+        "L1_carryaxis_edge": {
+          "xdepth": 1.0,
+          "ceiling": 1.0,
+          "boot": {
+            "lo2hi": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            },
+            "hi2lo": {
+              "mean": 1.0,
+              "ci": [
+                1.0,
+                1.0
+              ]
+            }
+          }
+        }
+      },
+      "nuisance": {
+        "magnitude_L1_full": 0.6696461216555366,
+        "sumall_L1_full": 0.7928529258466163,
+        "answertop_L1_full": 0.8053357209353212,
+        "answertop_L1_axis": 0.11990662382266393,
+        "magnitude_L0": 0.5652345640252001
+      }
+    },
+    "LC": {
+      "site": "P12H1(sign)",
+      "consumer_attn_on_site": 8.122642334456032e-05,
+      "within_depth_same_unit_flip": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "carry_matched_null": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "cross_depth_carry_flip": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      },
+      "instrument_ok": false
+    },
+    "verdict": {
+      "L0_gather_xdepth": 0.455618634034896,
+      "L0_gather_xdepth_procrustes_UNRELIABLE": 0.6694449521621578,
+      "L0_ceiling": 0.9111259908673702,
+      "L0_magnitude_nuisance_xdepth": 0.5335607361309083,
+      "L1_carryaxis_xdepth": 1.0,
+      "L1_full_xdepth": 1.0,
+      "nuisance_answertop_L1_axis": 0.12975011803535488,
+      "nuisance_magnitude_L1_full": 0.6711064756687506,
+      "nuisance_sumall_L1_full": 0.7836852281330541,
+      "L1_canonical_carry": true,
+      "L0_no_carry_specific_canonical_code": true,
+      "LC_instrument_ok": false,
+      "LC_note": "corroborating-only; OV-write patch is washout-prone (CE19). Causal backing for the L1 read is CE16's head-pair edge patch (flip 1.00).",
+      "read": "CANONICAL-CARRY-IS-AN-L1-PROPERTY (representational): the answer-agnostic carry axis transfers cross-depth ~1.0 at the L1 combiner input (answer-digit decorrelated) while L0's output at the `=` gather position has NO carry-specific canonical code (extreme-pair transfer ~chance with CIs; weak all-pairs transfer no larger than the magnitude nuisance). Combined with CE16's causal head-pair delivery, the L1 read is the causal locus. Caveats: linear-probe; L0 tested at `=` (ST/sign sites: CE17/CE19); this study's LC causal instrument is invalid; rotated-frame L0 carry not excluded by a reliable test."
+    },
+    "accuracy": 1.0
+  }
+}

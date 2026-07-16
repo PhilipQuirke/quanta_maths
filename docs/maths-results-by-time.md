@@ -586,3 +586,86 @@ live — not the current best story (that goes in
   [study-maths/study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
   [study-maths/study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md),
   [study-maths/study-mixed-plan.md](study-maths/study-mixed-plan.md)
+
+### 2026-07-16 — Mixed model: SV-implementation batteries + SLT-sited A7 test (entry 2a/2b): CE22 + CE23
+
+- **Bundle**: completes entry 2's "Done when" — the SV *mechanism* batteries
+  (CE16/CE17) per class and the decisive A7-vs-C2 shared-engine test, on
+  `ins1_mix_d6_l3_h4_t40K_s372001`.
+- **Result (CE22, 2a)**: across ADD/SUB/NEG the combiner is a **STEP** (α-sweep
+  α*≈0.5, endpoints gated — CE17/A10 iv generalizes), the resolved carry/borrow is
+  a **canonical format-invariant** code (cross-digit probe transfer 1.00 — CE16 i),
+  and **`=` is not the middle-digit source** (`=`-patch flip 0 / combiner control
+  1 — CE16 ii). Class-necessity (A6) **not scored** — redundancy-blurred
+  (writer-class ablation == truly-untagged baseline for ADD/SUB; NEG confounded by
+  cascade-stimulus triviality).
+- **Result (CE23, 2b)**: the L1 selector-stage residual is decisive (full patch
+  flips to the correct ADD digit **0.96**) so the **L2 combiner is shared**, but a
+  **rank-1 operator steer flips 0.00** at the selector (as at the combiner, CE21)
+  and the **single SLT head never selects** (0.00). **A7's low-rank/function-vector
+  control form is refuted**; the add/sub selection is a **distributed,
+  high-dimensional L1 transformation** — leans **C2** on selection, shared combiner.
+- **Scoring**: A10 iv/i/ii confirmed on mixed; A12 strengthened (implementation,
+  not just representation, transfers); A6 untouched (redundancy); A7 → low on the
+  control mechanism (hybrid); C2 → partially up on selection.
+- **Artifacts** (local, no HF): `results/study-mixed-sv-impl/results.json`,
+  `results/study-mixed-shared-engine/results.json`; scripts
+  `scripts/mixed_sv_impl.py`, `scripts/mixed_shared_engine.py`.
+- **Caveats**: single mixed model/seed; k=2; B1 5-point α grid; necessity
+  unresolved (redundancy + stimulus confound); rank-1 additive steer only (a
+  learned rank-r operator subspace untested — the residual A7 escape hatch).
+  Combined sprint gate; a first-run necessity baseline was invalid → refixed.
+- **Linked studies**:
+  [study-maths/study-mixed-sv-implementation.md](study-maths/study-mixed-sv-implementation.md),
+  [study-maths/study-mixed-shared-engine.md](study-maths/study-mixed-shared-engine.md)
+
+### 2026-07-16 — Compounding locus v2 (CE24; addition; A11 conclusively = L1-read; dual-gated)
+
+- **Covered**: the conclusive successor to CE19 (which was inconclusive). Reframes
+  the compounding-locus question to LAYER-localization — "at which layer does the
+  resolved carry become a canonical (position/depth-invariant) abstract bit?" —
+  fixing CE19's OV-write washout (reads the full residual) and its ill-posed
+  invisible-cell discriminator (MSD-first layout + causal mask forbid an L0
+  carry-direction relay). Battery **TR** (cross-depth transfer of the carry decoder:
+  L0 output @ `=` gather vs the L1 combiner input on CE16's answer-agnostic carry
+  axis; nuisance-transfer controls; Procrustes backstop), **9-free** stimuli (human's
+  `66666+33334`/`33433` insight) + a 9-containing equivalence arm; LC causal
+  (corroborating; came out invalid).
+- **Result**: **canonical carry is an L1 property** — cross-depth transfer **1.00**
+  at the L1 combiner input (answer-top does NOT ride the carry axis: 0.12/0.13 vs
+  0.78 full-residual) while **L0's output has no carry-specific canonical code**
+  (extreme-pair transfer ~chance with CIs; high within-depth ceiling; weak transfer
+  = magnitude nuisance). 9-free ≡ 9-containing. Combined with CE16's causal
+  head-pair delivery → **the L1 read is where the canonical carry emerges**,
+  conclusive both models. **A11 rejected/low; compounding locus = L1 read.**
+- **Artifacts**: `results/study-compounding-locus-v2/results.json`;
+  `scripts/compounding_locus_v2.py` (reuses CE16 carry axis + edge).
+- **Caveats**: linear probe (rotated-frame L0 carry not excluded — Procrustes
+  overfit); L0 tested at `=` (ST/sign via CE17/CE19); own LC causal battery invalid
+  (causal locus per CE16); nuisances point estimates; TF/LP not run. Dual-gated
+  (CLV2-1..6 pre-launch; F1–F7 post-result). 2-layer/3-head addition, two models.
+- **Linked study**:
+  [study-maths/study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md)
+
+### 2026-07-16 — Mixed model: ≥2-depth carry/borrow delivery sweep (entry 2(i)): CE25
+
+- **Bundle**: extends CE20's single-step delivery to cascade depths 2/3/4 on
+  `ins1_mix_d6_l3_h4_t40K_s372001`, and promotes the reusable sweep to the library.
+- **Result (CE25)**: the class-dependent delivery pathway **holds at every depth**
+  (all deciding-matched nulls 0.00): **ADD** delivers via the residual only
+  (`lastlayer_attn` flip 0.00, `resid_pre`/`full_resid` 1.00); **SUB/NEG** deliver
+  via residual + **last-layer attention** (both arms 1.00). Untrained control:
+  `lastlayer_attn` flip 0.00 (no learned delivery). Clears the CE14 ≥2-depth bar
+  on the mixed model. Scores A10 (delivery at depth), A12.
+- **Reusable code**: promoted `quanta_maths/maths_cascade.py`
+  (`make_cascade_operands`, `combiner_delivery_flip`, `combiner_delivery_sweep`) so
+  the sweep runs across the zoo (delivery may differ by model); `tests/test_cascade.py`
+  (5 offline + 3 HF); full suite 73 passed. Exported from `quanta_maths`.
+- **Artifacts** (local, no HF): `results/study-mixed-delivery-depth/results.json`;
+  `scripts/mixed_delivery_depth.py`.
+- **Caveats**: single mixed model/seed; depths 2–4 (n=6 leaves no class-control top
+  above depth 5); deciding digit fixed at units; whole-last-layer-attention patch
+  (not per-head); `full_resid`/`resid_pre` near-tautological (specificity from the
+  null). Combined sprint gate; a tautological negative control was replaced.
+- **Linked study**:
+  [study-maths/study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md)

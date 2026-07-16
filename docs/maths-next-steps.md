@@ -62,8 +62,8 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Owner | Experiment | Updates |
 | --- | --- | --- | --- | --- |
-| 1 | ready | **`maths` (this thread)** | [Compounding locus — decisive A11 vs L1-read assay](#1-compounding-locus--decisive-a11-vs-l1-read-assay) | A11, A9, A6 |
-| 2 | ready | **separate thread** | [Mixed-model SV replication (add & sub)](#2-mixed-model-sv-replication-add--sub) | C5, A7, C2, A10, A12 |
+| 1 | ready | **`maths` addition thread** | [Compounding locus — decisive A11 vs L1-read assay](#1-compounding-locus--decisive-a11-vs-l1-read-assay) | A11, A9, A6 |
+| 2 | mostly done | **`maths` mixed thread** | [Mixed model: remaining follow-ups (SV mechanism + A7 landed)](#2-mixed-model-remaining-follow-ups-sv-mechanism--a7-landed) | A10, A6, depth |
 | 3 | sequenced | either | [Paper hand-off consolidation and referee checkpoint](#3-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
 
 Entry-order note (2026-07-16 rerank after CE18; parallel-thread split by human
@@ -126,38 +126,66 @@ ambiguity is stated as the final A11 disposition with the reason it is
 irreducible at this architecture. Scored against A11 (confirmed / refuted /
 final-mixed), A9 (final), A6.
 
-### 2. Mixed-model SV replication (add & sub)
+### 2. Mixed model: remaining follow-ups (SV mechanism + A7 landed)
 
-*(Owner: a separate thread — do not start from `maths` unless reassigned.)*
-Begin the addition→mixed generalization the paper needs by **replicating the
-established addition SV findings on the mixed add/sub model**
-`ins1_mix_d6_l3_h4_t40K_s372001` (accurate; see
-[mixed_model.md](mixed_model.md), [hugging_models.md](hugging_models.md)).
-Reuse the addition instruments and vocabulary (CE13–CE18: map-named node
-capture, edge-patch via `ln2.hook_normalized`, tricase/PCA carry axis,
-deciding-matched null, ablation-vs-untagged-baseline, the step-combiner
-on-manifold sweep) rather than inventing new ones — this is a **replication**,
-not a fresh method study.
+*(Owner: the `maths` mixed thread. All sub-steps here are **mixed model**
+`ins1_mix_d6_l3_h4_t40K_s372001`; do not read them as addition steps.)*
 
-Two coupled questions:
-- **Does the SV interface replicate on the ADD sub-task of the mixed model?**
-  The map-named ST writers → consumer head(s) → step combiner should reproduce
-  the CE16/CE17 signatures for addition inside the 3-layer/4-head mixed model
-  (carry-specific delivery, `=`-not-a-source, step combiner). Scores **C5**
-  (paper-map reliability on a new model) and **A10/A12** (interface
-  generality onto a different architecture and task-mix).
-- **Shared engine vs separate circuits for add vs sub (A7 vs C2)** — the old
-  entry-3 question, now framed as replication-plus: on the polysemantic nodes
-  Paper 2 says serve `SA`/[MD](thor-glossary.md#m-positive-answer-subtraction-sub-tasks-md-mb-mz-mt)/[ND](thor-glossary.md#n-negative-answer-subtraction-sub-tasks-nd-nb-nz-nt),
-  measure per-operation readout overlap and whether a compact
-  [OPR](thor-glossary.md#opr)/[SGN](thor-glossary.md#sgn) control direction
-  selects among them. C2 predicts near-orthogonal sub-tasks; A7 predicts heavy
-  overlap steered by low-rank control — either way a conjecture takes damage.
+**LANDED 2026-07-16 — CE20–CE23** (studies
+[study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
+[study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md),
+[study-mixed-sv-implementation.md](study-maths/study-mixed-sv-implementation.md),
+[study-mixed-shared-engine.md](study-maths/study-mixed-shared-engine.md); plan
+[study-mixed-plan.md](study-maths/study-mixed-plan.md)):
+- **SV representation + mechanism replicate across ADD/SUB/NEG** — writers encode
+  the tri-state (ST/MT/NT); the resolved carry/borrow is a clean binary at the L2
+  combiner input; the combiner is a **STEP** (α*≈0.5, endpoints gated); the
+  delivered carry is a **canonical format-invariant** code; **`=` is not the
+  middle-digit source** (CE20/CE22). Delivery is class-dependent (ADD residual-only;
+  SUB/NEG residual + last-layer attention).
+- **SGN** = the top-of-cascade `D≥D'` comparison delivered to the `=` combiner
+  (CE15 analog, clean) (CE21).
+- **A7-vs-C2 decided:** the engine is **shared at the combiner** (full-L1-state
+  patch flips to the correct ADD digit 0.96) but **A7's low-rank/function-vector
+  control is refuted** — a rank-1 operator steer flips 0% at both the combiner and
+  the SLT selector, and no single head selects; the add/sub selection is a
+  **distributed, high-dimensional L1 transformation** → leans **C2** on selection
+  (CE21/CE23). C5 confirmed on a new architecture; A10 iv/i/ii + A12
+  confirmed/strengthened; A6 not scored (redundancy); A7 → low (control),
+  C2 → partially up.
 
-Done when: the addition SV signatures are scored replicate / partial / fail on
-the mixed model, and the add-vs-sub overlap + control-direction verdicts are
-scored against A7 and C2. Owns `study-maths/study-mixed-*.md`,
-`scripts/mixed_*.py`, `results/study-mixed-*/`.
+**LANDED (i) 2026-07-16 — ≥2-depth delivery sweep (CE25;
+[study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md)):** the
+class-dependent delivery pathway holds across depths 2/3/4 (ADD residual-only;
+SUB/NEG residual + last-layer attention; deciding-matched null 0.00; untrained
+control delivers nothing) — clears the CE14 ≥2-depth bar. The reusable sweep is now
+in `quanta_maths/maths_cascade.py` (`make_cascade_operands`,
+`combiner_delivery_sweep`) + tests.
+
+**Remaining follow-ups (all `mixed model`; lower priority — the paper-critical
+core has landed):**
+
+- **Mixed model — (a) cross-model delivery sweep (zoo).** Run the promoted
+  `combiner_delivery_sweep` across the mixed-model zoo (other seeds/sizes/layer
+  counts) — the human's stated future use; the delivery *route* (ADD residual vs
+  SUB/NEG attention) may differ by model. Cheap (library + forward passes). Scores
+  **A10, A12** universality.
+- **Mixed model — (b) clean class-necessity instrument.** CE22 B2 was
+  redundancy-blurred + cascade-stimulus-confounded (A6 not scored). Redesign with
+  a genuine cascade-depth contrast (non-trivial NEG answers) and digit-only
+  accuracy; test class-level (grouped) necessity of the ST/MT/NT writers. Scores **A6**.
+- **Mixed model — (c) rank-r operator subspace steer.** CE23 refuted *rank-1*
+  additive control; the residual A7 escape hatch is a learned **rank-r** operator
+  subspace. Fit it and test whether a low-rank (r≪d) steer selects the readout —
+  bounds how compact the control can be. Scores **A7, C2**.
+- **Mixed model — (d, optional) representation binding + d3 writer pin.**
+  SV/MV/NV slots at `=` (tape-vs-register, CE11/CE12 analog) and pin the weak d3
+  tri-state writer locus (CE20 caveat). Scores A4/A8-family on mixed.
+
+Done when: (a) the cross-model sweep is scored, or the mixed line is frozen.
+(b)–(d) are stretch. The landed CE20–CE23, CE25 are the mixed deliverables. Owns
+`study-maths/study-mixed-*.md`, `scripts/mixed_*.py`, `results/study-mixed-*/`,
+`quanta_maths/maths_cascade.py`.
 
 ### 3. Paper hand-off consolidation and referee checkpoint
 

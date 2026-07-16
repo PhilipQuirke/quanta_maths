@@ -479,7 +479,28 @@ Testing A12 (the layer-general SV interface) and the human's C6 prior (redundanc
   5d/large-n carry-axis config and a consumer-ID attention-threshold that rejected
   the real d13 causal head (fixed to select by causal flip + carry-specificity).
 
-## Q: Where is the multi-digit carry compounded — an L0 positional relay (A11) or the L1 read? — L1-read, not a relay (CE19)
+## Q: Where is the multi-digit carry compounded — an L0 positional relay (A11) or the L1 read? — CONCLUSIVELY the L1 read (CE24, superseding CE19)
+
+**Update (CE24, conclusive):** a redesign — reading the FULL residual at the
+see-everything gather position and discriminating via **cross-depth transfer** (a
+canonical carry transfers across chain-depths; raw input-reading cannot), on
+**9-free** stimuli (the human's `66666+33334`/`66666+33433` insight, so no literal
+`9` token leaks into the carry decode) — **layer-localizes** the compounding, both
+models: the answer-agnostic carry transfers cross-depth **1.00 at the L1 combiner
+input** (answer-top does NOT ride the carry axis, 0.12 vs 0.78 full-residual) while
+**L0's output has no carry-specific canonical code** (extreme-pair transfer ~chance
+with CIs, high within-depth ceiling; weak transfer = magnitude nuisance). This fixes
+CE19's two flaws (OV-write washout; the ill-posed invisible-cell — MSD-first layout
++ causal mask make an L0 carry-direction relay architecturally impossible) and,
+with CE16's causal head-pair delivery, places the emergence of the canonical carry
+in the **L1 read**. Key methodological lesson: **decode ≠ computation** (the
+resolved carry is a deterministic function of the inputs, so raw decodability tracks
+input-visibility) — only cross-context transfer / causal tests localize a *computed*
+abstraction. A11 rejected/low. Caveats: linear probe; L0 at `=` (ST/sign via
+CE17/CE19); own causal battery invalid (locus per CE16). The CE19 account below is
+retained for provenance.
+
+### (superseded) Q: … — L1-read, not a relay (CE19)
 
 CE17 left this R-mixed; CE18 showed scale won't sharpen it. CE19 settled it with a
 better instrument:

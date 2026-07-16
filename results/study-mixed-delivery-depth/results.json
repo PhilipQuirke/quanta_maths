@@ -1,0 +1,186 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "depths": [
+    2,
+    3,
+    4
+  ],
+  "trained": {
+    "ADD": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "SUB": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "NEG": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    }
+  },
+  "untrained_control": {
+    "ADD": {
+      "lastlayer_attn_flip_d2": 0.0,
+      "null": 1.0,
+      "valid": false
+    },
+    "SUB": {
+      "lastlayer_attn_flip_d2": 0.0,
+      "null": 0.0,
+      "valid": false
+    },
+    "NEG": {
+      "lastlayer_attn_flip_d2": 0.0,
+      "null": 0.0,
+      "valid": true
+    }
+  }
+}

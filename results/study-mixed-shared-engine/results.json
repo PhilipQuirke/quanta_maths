@@ -1,0 +1,18 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "digit_k": 2,
+  "consuming_pos": 18,
+  "selector": "L1H1 (SLT)",
+  "n_discriminating": 54,
+  "flip_to_add_digit_rate": {
+    "rank1_steer": 0.0,
+    "slt_head": 0.0,
+    "full_l1": 0.9629629629629629
+  },
+  "changed_rate": {
+    "rank1_steer": 0.0,
+    "slt_head": 0.2222222222222222,
+    "full_l1": 0.9629629629629629
+  },
+  "op_dir_norm": 20.0051326751709
+}

@@ -400,3 +400,66 @@ per-model constant dicts (`CONSUMER_HEADS` etc.).
 **Verification:** all 19 scripts import cleanly; `pytest tests` = **62 passed / 17
 skipped** offline; **77 passed** under `RUN_HF_TESTS=1`. New test:
 `test_probe.py::test_cross_val_probe_accuracy`.
+
+## HF analysis-JSON refresh framework (`quanta_maths/maths_hf_update.py`)
+
+Framework to re-run library techniques over the ~33 analysable models and refresh
+their HuggingFace analysis JSONs. Built after confirming the canonical layout:
+
+**Canonical target:** per-model repos `PhilipQuirke/QuantaMaths_<name>` (53 exist),
+each holding `model.pth`, `training_loss.json`, `behaviors.json`, `features.json`.
+(The legacy flat `VerifiedArithmetic/<name>_behavior.json` etc. are NOT the target.)
+
+**Two files kept SEPARATE (correctness):**
+- `behaviors.json` — quantitative behavior tags (`Fail%`, `Impact`, `Math.Add`,
+  `Attn`, new `Probe:` …). Saved with ALL tags.
+- `features.json` — algorithmic role tags (`Algo:…`). Saved ALGO-only.
+Historically `behaviors.json` contains **no** `Algo` tags (it is saved before the
+algo search in QMAnalyse), so the framework never merges the two lists — each
+technique declares which file it writes.
+
+**Per model:** load `model.pth`+`training_loss.json` → run every applicable
+technique (idempotent) → back up originals locally → write updated JSON →
+upload changed files (skipped in dry-run).
+
+**Safety:** dry-run is the DEFAULT; originals backed up to
+`results/hf-update/<name>/original/`; per-model error isolation (one failure never
+aborts the batch); a `manifest.json` records techniques, per-file tag counts,
+dry-run flag, errors, uploads. CLI: `python -m quanta_maths.maths_hf_update`
+(dry-run) vs `--execute` (upload).
+
+### Technique-authoring contract (for the addition & mixed threads)
+
+Put reusable techniques in `quanta_maths` and register a `Technique` in
+`maths_hf_update.TECHNIQUES` (or call `register_technique(...)`):
+
+```python
+Technique(
+    name="my_method",                 # appears in the manifest
+    target=FEATURES_FILE,             # or BEHAVIORS_FILE
+    applies_to=lambda cfg: cfg.perc_add > 0,      # which models it runs on
+    owns_tag=lambda t: t.startswith("Algo:") and t.endswith(".MYTAG"),  # idempotency
+    run=lambda model, cfg, nodes: add_my_tags(model, cfg, nodes),        # -> int tags added
+    description="...")
+```
+
+Rules the runner relies on:
+- **Target discipline:** `features.json` techniques emit `Algo:` tags; `behaviors.json`
+  techniques emit non-`Algo` tags (`Probe:`, etc.). Do not write `Algo` to behaviors.
+- **Idempotency:** `owns_tag` must match exactly the tags `run` produces; the runner
+  clears owned tags before each run so re-runs replace (never duplicate) them.
+- **`run` mutates `nodes`** (a `UsefulNodeList`) via `node.add_tag(major, minor)` and
+  returns the count added. Use `nodes.get_node(loc)` / `add_node_tag(loc, ...)`.
+- **`applies_to(cfg)`** gates by operation/size (e.g. `perc_add`, `perc_sub`, `n_digits`).
+
+Currently registered: `add_combiner_STC` (features), `sub_combiner_MTC` (features),
+`operand_linear_transfer_LINXFER` (behaviors).
+
+**Validation (dry-run samples):** add model → STC+LINXFER; sub model → MTC only;
+mix model → all three (STC 6 / MTC 5 / LINXFER 11). `behaviors.json` Algo-pollution
+= 0; `features.json` non-Algo = 0; idempotent (clear N → re-add N); originals backed
+up; nothing uploaded in dry-run. Tests: `tests/test_hf_update.py` (8 offline + 2 HF).
+
+**Note:** LINXFER runs ~800 forward passes/model (≈70 s/model on CPU at 6 digits); a
+full 33-model dry-run is ~30–40 min, dominated by LINXFER. Not run at full scale yet
+(per instruction: wait until all addition/mixed techniques land).

@@ -1,6 +1,26 @@
 # Study: mixed-model SV replication (M0–M3) — study-mixed-sv-replication.md
 
 Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
+
+## Executive Summary — Mixed #1 (CE20)
+
+The addition model's "SV" carry mechanism was fully worked out on the pure
+addition models. This study asks whether the **same machinery appears inside the
+mixed add/sub model** — a deeper 3-layer model — and whether it behaves the same
+for all three kinds of question: addition (ADD), positive-answer subtraction
+(SUB), and negative-answer subtraction (NEG). We reused the addition instruments
+and built the missing negative-answer tooling first.
+
+Findings: the **representation replicates cleanly for all three classes** — the
+early "tri-state" writer nodes encode their carry/borrow class, and the resolved
+carry/borrow shows up as a clean yes/no (binary) code exactly where the answer
+digit is assembled (the trained model scores ~1.0; an untrained copy is at
+chance). **How** that resolved carry is *delivered* to the assembler differs by
+class: addition delivers it via the residual stream only (the inherited addition
+circuit resolves it early), while both subtraction classes *also* deliver via
+last-layer attention. Everything is carry/borrow-specific — a matched control
+that changes unrelated digits does not move it.
+
 Design context: [study-mixed-plan.md](study-mixed-plan.md). Agenda:
 [maths-next-steps.md](../maths-next-steps.md) entry 2 (`maths` thread, parallel
 window). Scores C5, A10, A12, A7/C2.

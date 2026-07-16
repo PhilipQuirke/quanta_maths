@@ -1,0 +1,193 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "ADD": {
+    "B1_step": {
+      "Ak0": 9,
+      "Ak1": 0,
+      "sweep": {
+        "0.0": 9,
+        "0.25": 9,
+        "0.5": 0,
+        "0.75": 0,
+        "1.0": 0
+      },
+      "carry_proj": {
+        "0.0": 0.0,
+        "0.25": 14.072986602783203,
+        "0.5": 28.145973205566406,
+        "0.75": 42.218955993652344,
+        "1.0": 56.29194641113281
+      },
+      "endpoints_ok": true,
+      "alpha_star": 0.5
+    },
+    "B2_necessity": {
+      "writer_heads": [
+        "P9L0H1",
+        "P10L0H1",
+        "P11L0H1",
+        "P12L0H1",
+        "P13L0H1",
+        "P14L0H0",
+        "P14L0H2"
+      ],
+      "untagged_heads": [
+        "P8L0H3",
+        "P12L0H2",
+        "P11L0H2",
+        "P7L0H1",
+        "P6L0H3",
+        "P9L0H3",
+        "P7L0H3"
+      ],
+      "digits": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 1.0,
+        "ablUntag_cascade": 1.0
+      },
+      "full": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 1.0,
+        "ablUntag_cascade": 1.0
+      }
+    },
+    "B3_eq_source": {
+      "eq_source_flip": 0,
+      "combiner_input_flip": 1
+    },
+    "B4_canonical": {
+      "transfer_acc": 1.0,
+      "self_acc": 1.0
+    }
+  },
+  "SUB": {
+    "B1_step": {
+      "Ak0": 0,
+      "Ak1": 9,
+      "sweep": {
+        "0.0": 0,
+        "0.25": 0,
+        "0.5": 9,
+        "0.75": 9,
+        "1.0": 9
+      },
+      "carry_proj": {
+        "0.0": 0.0,
+        "0.25": 11.470283508300781,
+        "0.5": 22.940567016601562,
+        "0.75": 34.410850524902344,
+        "1.0": 45.881134033203125
+      },
+      "endpoints_ok": true,
+      "alpha_star": 0.5
+    },
+    "B2_necessity": {
+      "writer_heads": [
+        "P9L0H0",
+        "P10L0H1",
+        "P11L0H1",
+        "P12L0H0",
+        "P13L0H1",
+        "P14L0H0"
+      ],
+      "untagged_heads": [
+        "P8L0H3",
+        "P12L0H2",
+        "P11L0H2",
+        "P7L0H1",
+        "P6L0H3",
+        "P9L0H3"
+      ],
+      "digits": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 1.0,
+        "ablUntag_cascade": 1.0
+      },
+      "full": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 1.0,
+        "ablUntag_cascade": 1.0
+      }
+    },
+    "B3_eq_source": {
+      "eq_source_flip": 0,
+      "combiner_input_flip": 1
+    },
+    "B4_canonical": {
+      "transfer_acc": 1.0,
+      "self_acc": 1.0
+    }
+  },
+  "NEG": {
+    "B1_step": {
+      "Ak0": 0,
+      "Ak1": 9,
+      "sweep": {
+        "0.0": 0,
+        "0.25": 0,
+        "0.5": 9,
+        "0.75": 9,
+        "1.0": 9
+      },
+      "carry_proj": {
+        "0.0": 0.0,
+        "0.25": 10.90351390838623,
+        "0.5": 21.80702781677246,
+        "0.75": 32.710540771484375,
+        "1.0": 43.61405563354492
+      },
+      "endpoints_ok": true,
+      "alpha_star": 0.5
+    },
+    "B2_necessity": {
+      "writer_heads": [
+        "P9L0H0",
+        "P10L0H1",
+        "P11L0H1",
+        "P12L0H0",
+        "P12L0H1",
+        "P13L0H1",
+        "P14L0H0"
+      ],
+      "untagged_heads": [
+        "P8L0H3",
+        "P12L0H2",
+        "P11L0H2",
+        "P7L0H1",
+        "P6L0H3",
+        "P9L0H3",
+        "P7L0H3"
+      ],
+      "digits": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 0.0,
+        "ablUntag_cascade": 1.0
+      },
+      "full": {
+        "clean_cascade": 1.0,
+        "clean_carryfree": 1.0,
+        "ablW_cascade": 1.0,
+        "ablW_carryfree": 0.0,
+        "ablUntag_cascade": 1.0
+      }
+    },
+    "B3_eq_source": {
+      "eq_source_flip": 0,
+      "combiner_input_flip": 1
+    },
+    "B4_canonical": {
+      "transfer_acc": 1.0,
+      "self_acc": 1.0
+    }
+  }
+}

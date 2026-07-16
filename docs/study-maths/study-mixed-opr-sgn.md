@@ -1,6 +1,23 @@
 # Study: mixed-model OPR / SGN / shared-engine (M4–M6) — study-mixed-opr-sgn.md
 
 Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
+
+## Executive Summary — Mixed #2 (CE21)
+
+The mixed model has two jobs the addition model does not: read the **+/- operator**
+in the question, and decide the **+/- sign** of the answer. This study asks how it
+does each, and whether add and subtract share one engine (A7) or run separate
+circuits (C2).
+
+Findings: the answer **sign** is computed just like the addition model's leading
+digit — it is the "is the first number bigger?" comparison, resolved and delivered
+to the combiner at the "=" position (clean on every test). The **operator** is
+readable everywhere in the model but is consumed early at a selector stage, so it
+is *not* a knob you can turn where the digits are assembled. On the shared
+digit-heads, add and subtract readouts partly overlap, but addition is pushed
+*further* from subtraction than a random baseline — so neither "one engine + a
+simple switch" nor "fully separate circuits" fits; it is a **hybrid**.
+
 Design context: [study-mixed-plan.md](study-mixed-plan.md). Agenda:
 [maths-next-steps.md](../maths-next-steps.md) entry 2. Scores A7, C2, C5, A10.
 

@@ -26,8 +26,17 @@ from transformer_lens import HookedTransformer
 
 from quanta_maths.maths_config import MathsConfig
 
-# Default HF repository holding every VerifiedArithmetic model.
+# Legacy single-repo holding every VerifiedArithmetic model (flat <name>_*.json).
 DEFAULT_HF_REPO = "PhilipQuirke/VerifiedArithmetic"
+
+# Canonical per-model analysis repos: PhilipQuirke/QuantaMaths_<name> holding
+# model.pth + training_loss.json + behaviors.json + features.json.
+ANALYSIS_REPO_PREFIX = "PhilipQuirke/QuantaMaths_"
+
+
+def analysis_repo_id(model_name: str) -> str:
+    """Return the canonical per-model analysis repo id for ``model_name``."""
+    return ANALYSIS_REPO_PREFIX + model_name
 
 
 def _strip_state_dict(sd: dict) -> dict:
@@ -41,13 +50,17 @@ def build_maths_config(
     model_name: str,
     hf_repo: str = DEFAULT_HF_REPO,
     use_train_json: bool = True,
+    train_filename: Optional[str] = None,
 ) -> MathsConfig:
     """Build a ``MathsConfig`` for ``model_name``.
 
     ``set_model_names`` parses digits/layers/heads/seed from the name. When
-    ``use_train_json`` is set (default) the paired ``_train.json`` is downloaded and
+    ``use_train_json`` is set (default) the paired training JSON is downloaded and
     ``load_training_json`` overlays the exact stored config (``d_head``, ``d_mlp``,
-    ``d_vocab``) and records ``final_loss`` / ``avg_final_loss`` for control checks.
+    ``d_vocab``) and records ``final_loss`` / ``avg_final_loss``.
+
+    ``train_filename`` defaults to ``<name>_train.json`` (legacy VerifiedArithmetic).
+    For the canonical per-model repos pass ``"training_loss.json"``.
     """
     cfg = MathsConfig()
     cfg.set_model_names(model_name)
@@ -59,7 +72,8 @@ def build_maths_config(
             load_training_json,
         )
 
-        data = download_huggingface_json(hf_repo, f"{model_name}_train.json")
+        fname = train_filename if train_filename else f"{model_name}_train.json"
+        data = download_huggingface_json(hf_repo, fname)
         load_training_json(cfg, data)
 
     return cfg
@@ -71,26 +85,45 @@ def load_maths_model_from_hf(
     hf_repo: str = DEFAULT_HF_REPO,
     use_train_json: bool = True,
     strict: bool = False,
+    weights_filename: Optional[str] = None,
+    train_filename: Optional[str] = None,
 ) -> Tuple[HookedTransformer, MathsConfig]:
-    """Load a VerifiedArithmetic model + its ``MathsConfig`` from HuggingFace.
+    """Load a model + its ``MathsConfig`` from HuggingFace.
 
     Returns ``(model, cfg)`` with ``model`` in eval mode on ``device``.
+
+    Defaults target the legacy ``VerifiedArithmetic`` layout (``<name>.pth`` +
+    ``<name>_train.json``). ``weights_filename`` / ``train_filename`` override the
+    filenames, e.g. ``model.pth`` / ``training_loss.json`` for the per-model repos.
 
     ``strict=False`` (default) tolerates benign key mismatches (e.g. missing
     ``IGNORE`` buffers); callers wanting a hard check can pass ``strict=True``.
     """
-    cfg = build_maths_config(model_name, hf_repo=hf_repo, use_train_json=use_train_json)
+    cfg = build_maths_config(model_name, hf_repo=hf_repo, use_train_json=use_train_json,
+                             train_filename=train_filename)
 
     htc = cfg.get_HookedTransformerConfig()
     htc.device = device
     htc.init_weights = False
     model = HookedTransformer(htc)
 
-    path = hf_hub_download(repo_id=hf_repo, filename=f"{model_name}.pth")
+    weights = weights_filename if weights_filename else f"{model_name}.pth"
+    path = hf_hub_download(repo_id=hf_repo, filename=weights)
     sd = _strip_state_dict(torch.load(path, map_location=device))
     model.load_state_dict(sd, strict=strict)
     model.eval()
     return model, cfg
+
+
+def load_maths_model_from_analysis_repo(
+    model_name: str, device: str = "cpu", strict: bool = False,
+) -> Tuple[HookedTransformer, MathsConfig]:
+    """Load a model from its canonical ``PhilipQuirke/QuantaMaths_<name>`` repo
+    (``model.pth`` + ``training_loss.json``)."""
+    return load_maths_model_from_hf(
+        model_name, device=device, hf_repo=analysis_repo_id(model_name),
+        weights_filename="model.pth", train_filename="training_loss.json",
+        strict=strict)
 
 
 def make_untrained_control(

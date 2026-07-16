@@ -197,8 +197,21 @@ model (entry 2).
   knock-out confirms the ST cluster is carry-**necessary** (necessity anchor; DH
   load-bearing). **A11 → low (not supported, not rejected); A9 retired; human
   sequential-cascade lean not supported at L0.** Caveats: linear probe; one
-  readable invisible cell; 6d underpowered. Dual-gated (LOC-1..LOC-6 + F1–F4). See
-  [maths-claim-evidence.md#ce19](maths-claim-evidence.md).
+   readable invisible cell; 6d underpowered. Dual-gated (LOC-1..LOC-6 + F1–F4). See
+   [maths-claim-evidence.md#ce19](maths-claim-evidence.md).
+- **CE24** — **Compounding locus v2: CONCLUSIVE — the canonical carry emerges in the
+  L1 read** (supersedes CE19). Reframed to LAYER-localization via **cross-depth
+  transfer** on the full residual at the see-everything gather (fixing CE19's
+  washout + ill-posed invisible cell), **9-free** stimuli (human's `66666+33334`/
+  `33433` insight). The answer-agnostic carry transfers cross-depth **1.00 at the L1
+  combiner input** (answer-top NOT on the axis: 0.12 vs 0.78 full-residual) while
+  **L0's output has no carry-specific canonical code** (extreme-pair transfer
+  ~chance with CIs, high ceiling; weak transfer = magnitude nuisance). 9-free ≡
+  9-containing. With CE16's causal delivery → **L1 read is where the canonical carry
+  emerges**, both models. **A11 rejected/low; compounding locus = L1 read.** Caveats:
+  linear probe (rotated-frame L0 not excluded); L0 at `=` (ST/sign via CE17/CE19);
+  own causal battery invalid (locus per CE16). Dual-gated (CLV2-1..6 + F1–F7). See
+  [maths-claim-evidence.md#ce24](maths-claim-evidence.md).
 
 ## Strongest live caveats
 
@@ -230,7 +243,7 @@ model (entry 2).
   symbol. Whether the model causally uses digit geometry (B1); A2
   aggregate-vs-transport. See [maths-next-steps.md](maths-next-steps.md).
 
-## Mixed-model generalization (entry 2, parallel thread — CE20/CE21)
+## Mixed-model generalization (entry 2, parallel thread — CE20–CE23, CE25)
 
 - **CE20** — the addition SV **representation replicates on the mixed add/sub
   model** `ins1_mix_d6_l3_h4_t40K_s372001` (3 layers/4 heads) across **ADD, SUB
@@ -248,7 +261,30 @@ model (entry 2).
   rank-1 control at the combiner). Shared `SA`/`MD`/`ND` heads give a **hybrid
   A7/C2** verdict (shared heads; ADD-vs-sub readouts separated > random, SUB-vs-NEG
   overlap). Confidence Medium-high (SGN) / Medium (OPR, shared-engine).
+- **CE22** — the SV **mechanism** (not just representation) replicates across
+  ADD/SUB/NEG: the combiner is a **STEP** (α-sweep α*≈0.5, endpoints gated —
+  CE17/A10 iv), the delivered carry/borrow is a **canonical format-invariant**
+  code (cross-digit transfer 1.00 — CE16 i), and **`=` is not the middle-digit
+  source** (CE16 ii). Class-necessity (A6) **not scored** (redundancy-blurred).
+  Confidence Medium-high. Scores A10 iv/i/ii, A12.
+- **CE23** — the decisive **A7-vs-C2** test: the L1 selector state is causal
+  (full patch flips to the correct ADD digit 0.96 → **shared L2 combiner**) but a
+  **rank-1 operator steer flips 0%** at the selector (as at the combiner, CE21)
+  and the single SLT head never selects → **A7's low-rank / function-vector
+  control form is REFUTED**; the add/sub selection is a **distributed,
+  high-dimensional L1 transformation** (leans C2 on selection, shared combiner).
+  Confidence Medium-high. A7 → low (control mechanism); C2 → partially up.
+- **CE25** — the class-dependent **delivery pathway holds across cascade depths
+  2–4** (carry/borrow-specific, deciding-matched null 0.00): ADD residual-only
+  (last-layer attention flip 0.00 at every depth), SUB/NEG residual + last-layer
+  attention (1.00). Clears the CE14 ≥2-depth bar on the mixed model; untrained
+  control delivers nothing. Confidence Medium-high. Scores A10 (delivery at depth),
+  A12. Reusable cross-model sweep promoted to `quanta_maths/maths_cascade.py`.
 - Library gained full three-class support (`neg_labels`, `neg_ntc_functions`/NTC,
-  class-aware combiner check; tested). Detail:
+  class-aware combiner check; deep-cascade delivery sweep `maths_cascade.py`; all
+  tested). Detail:
   [study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
-  [study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md).
+  [study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md),
+  [study-mixed-sv-implementation.md](study-maths/study-mixed-sv-implementation.md),
+  [study-mixed-shared-engine.md](study-maths/study-mixed-shared-engine.md),
+  [study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md).

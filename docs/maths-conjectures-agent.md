@@ -961,6 +961,23 @@ mode.
   "self-computation" over-label), F4 (KO is necessity-only, DH load-bearing).
   Backlink: [study-compounding-locus.md](study-maths/study-compounding-locus.md),
   `results/study-compounding-locus/results.json`, CE19.
+- **Update 2026-07-16 (CE24, compounding-locus-v2; dual-gated): CONCLUSIVE — the
+  compounding is an L1-read; A11 (positional L0 relay) rejected/low.** A redesign
+  (fixing CE19's OV-write washout + the ill-posed invisible-cell discriminator via
+  full-residual reads + **cross-depth transfer** at the see-everything gather, on
+  **9-free** stimuli per the human's `66666+33334`/`33433` insight) **layer-localizes**
+  the resolved carry: the canonical, answer-agnostic carry **transfers cross-depth
+  1.00 at the L1 combiner input** (answer-top does NOT ride the carry axis:
+  0.12/0.13 vs 0.78 full-residual) while **L0's output has no carry-specific
+  canonical code** (extreme-pair transfer ~chance with CIs, high within-depth
+  ceiling; weak transfer = magnitude nuisance). 9-free ≡ 9-containing. Combined with
+  CE16's causal head-pair delivery, **the L1 read is where the canonical carry
+  emerges** — conclusive both models, superseding CE19's 5d-only/6d-underpowered.
+  Representational + cited-causal (this study's own LC instrument invalid); linear
+  probe; L0 tested at `=` (ST/sign via CE17/CE19). **A11 stays rejected/low; A9
+  retired.** Backlink:
+  [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md),
+  `results/study-compounding-locus-v2/results.json`, CE24.
 
 ### A12: The SV interface generalizes across model sizes, and the implementation tightens as n grows
 
@@ -1036,7 +1053,11 @@ itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
 distributed ST-cluster source, never `=`; head-pair effective and
 class-necessary carrier; trails in the A10 confidence block):
 
-1. ~~The compounding locus (A11 vs L1-read)~~ — **SETTLED (CE19): L1-read, not
+1. ~~The compounding locus (A11 vs L1-read)~~ — **CONCLUSIVELY SETTLED (CE24):
+   the canonical carry emerges in the L1 read** (cross-depth transfer 1.00 at the
+   L1 combiner input, ~chance at L0's output; both models, 9-free). A11 positional
+   L0 relay rejected/low. Supersedes the CE19 note below:
+1a. ~~The compounding locus (A11 vs L1-read)~~ — **SETTLED (CE19): L1-read, not
    an L0 relay** (5d proven via the invisible-decorrelated discriminator with a
    per-depth readability control; 6d underpowered; linear-probe caveat). A11 not
    supported → low; A9 stays retired. Superseding the CE17 note below:
@@ -1547,3 +1568,55 @@ explicitly span mixed and cross-size).*
   A/C-vs-untrained separation carry it instead). Open (post-deadline): an
   SLT-sited operator steer (proper A7 test), a ≥2-depth delivery sweep on the
   subtraction classes, and the d3 writer-locus pin.
+- **2026-07-16 (Mixed model)** — After the mixed SV-implementation batteries
+  (entry 2a; [CE22](maths-claim-evidence.md);
+  [study-mixed-sv-implementation.md](study-maths/study-mixed-sv-implementation.md))
+  and the SLT-sited shared-engine test (entry 2b; [CE23](maths-claim-evidence.md);
+  [study-mixed-shared-engine.md](study-maths/study-mixed-shared-engine.md)). These
+  complete entry 2's "Done when". **A10 iv/i/ii confirmed on the mixed model,
+  all three classes**: the combiner is a **STEP** (on-manifold α-sweep, α*≈0.5,
+  endpoints gated — CE17 generalizes to 3 layers + borrow/neg), the delivered
+  carry/borrow is a **canonical format-invariant** code (cross-digit probe
+  transfer 1.00), and **`=` is not the middle-digit value source** (`=`-patch
+  flip 0 vs combiner-input control 1). So the SV *mechanism* (not just the CE20
+  representation) ports to the mixed model. **A12 strengthened** (implementation
+  signatures transfer, not only representation). **A6 not scored** on mixed —
+  class-necessity is redundancy-blurred (ADD/SUB writer-class ablation == a
+  truly-untagged baseline, both harmless; NEG signal confounded by cascade-stimulus
+  triviality); consistent with the CE18 "redundancy is intrinsic" reading. **A7's
+  low-rank / function-vector control form is now REFUTED** (2b): a rank-1 operator
+  steer flips the add/sub readout 0% at **both** the combiner (CE21) and the
+  selector (CE23), and the single SLT head does not select; yet the full
+  `resid_post(L1)` patch flips to the correct ADD digit 0.96 (the L2 combiner is
+  shared). So the engine is **shared at the combiner** but the operation selection
+  is a **distributed, high-dimensional L1 transformation**, not a compact control
+  — with M6 (ADD readout more separated than a random-init control) this **leans
+  C2 on the selection mechanism** while retaining a shared combiner. Net:
+  **A7 → low on the control mechanism (hybrid); C2 → partially up on selection;
+  A10 iv/i/ii + A12 → confirmed/strengthened on mixed; A6 untouched.** Skeptic
+  caught a first-run invalid necessity baseline (untagged set hit tagged
+  non-writer heads; full-accuracy conflated the sign) → refixed to a truly-untagged
+  baseline + digit-only accuracy, still redundancy-blurred → reported not-scored.
+  Scope caveat: rank-1 additive only (a learned rank-r operator subspace is
+  untested — the residual A7 escape hatch); single model/seed, k=2.
+- **2026-07-16 (Mixed model)** — After the ≥2-depth delivery sweep (entry 2(i);
+  [CE25](maths-claim-evidence.md);
+  [study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md)).
+  **A10 delivery confirmed at depth on the mixed model**: CE20's class-dependent
+  delivery pathway holds across cascade depths 2/3/4 (not just single-step k=1) —
+  ADD delivers the resolved carry via the residual only (last-layer attention flip
+  0.00 at every depth), SUB/NEG deliver via residual + last-layer attention (1.00
+  at every depth), all deciding-matched nulls 0.00, untrained control delivers
+  nothing. This clears the CE14 ≥2-depth bar on the mixed model and confirms the
+  class-dependent route is a genuine multi-digit-cascade property (a layer-general
+  refinement of "attention delivers": true for the freshly-learned subtraction
+  families; ADD, the inserted addition circuit, resolves early and rides the
+  residual). **A12** further supported (depth-general on the new architecture).
+  Skeptic caught a tautological negative control (first used the whole-vector
+  `resid_pre` arm, which spuriously "delivered" on the untrained model) → switched
+  the negative control to the discriminating `lastlayer_attn` arm. **Reusable
+  cross-model sweep promoted** to `quanta_maths/maths_cascade.py`
+  (`make_cascade_operands`, `combiner_delivery_flip`, `combiner_delivery_sweep`) +
+  tests, per the human's directive that this be run across the zoo (delivery may
+  differ by model). Scope: single mixed model/seed; depths 2–4; whole-last-layer
+  attention patch (not per-head).

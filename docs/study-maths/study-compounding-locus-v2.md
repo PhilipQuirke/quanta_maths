@@ -1,6 +1,43 @@
-# Study: Compounding Locus v2 — Layer-Localization of the Canonical Carry via Cross-Depth Transfer (study-compounding-locus-v2.md)
+# Study: Compounding Locus v2 — Linear-Canonical-Carry Layer-Localization via Cross-Depth Transfer (study-compounding-locus-v2.md)
 
 Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
+
+## Executive Summary #21
+
+CE19 left the compounding-locus question largely inconclusive (5d only; 6d
+underpowered) because it read a weak OV-write at an ill-posed "invisible" site.
+This redesign asks a well-posed question — **at which layer does the multi-digit
+carry become a *canonical* (position/depth-invariant) abstract bit?** — using the
+full residual at the see-everything gather position and, decisively, **cross-depth
+transfer** (train a carry decoder at one chain-depth, test at another): a decoder
+reading the visible deciding digit *cannot* transfer, so transfer isolates a
+*computed* canonical carry from raw input-reading (decode ≠ computation). Stimuli
+are **9-free** (per the human's `66666+33334`/`66666+33433` insight — the U-state
+comes from 6+3, so no literal `9` token can leak into the carry decode).
+
+Result (both models, run 2026-07-16, dual-gated):
+- **The canonical carry is an L1 property.** At the L1 combiner input, the
+  answer-agnostic carry axis (CE16, anchored 2 digits away from the top) transfers
+  cross-depth at **1.00**, while the answer-top digit does **not** ride that axis
+  (0.12/0.13 vs 0.78 in the full residual) — carry-specific, answer-decorrelated.
+- **L0's output (at the `=` gather position) has no carry-specific canonical code.**
+  Extreme-pair cross-depth transfer is at/near chance (6d 0.51/0.53; 5d 0.13/0.50,
+  with CIs) despite a high within-depth ceiling (0.81/0.91 — the signal is present,
+  no washout), and the weak all-pairs transfer (0.65/0.46) is no larger than a pure
+  magnitude nuisance (0.65/0.53) → leakage, not carry.
+- **9-free ≡ 9-containing** (L0 0.65↔0.67; L1 1.00 both) → generalizes to the
+  literal-`9` edge case.
+- Combined with **CE16's causal head-pair delivery**, the **L1 read is the causal
+  locus** where the resolved carry becomes canonical.
+
+Net: this **conclusively localizes** (where CE19 could not) the emergence of the
+canonical resolved carry to the **L1 read**, both models — a representational +
+cited-causal result. Caveats (post-result gate): **linear-probe**; L0 tested at the
+`=` gather position (ST/sign L0 sites covered by CE17/CE19); this study's own causal
+battery (LC) is invalid (OV-write washout + mis-sited); a rotated-frame L0 carry is
+not excluded by a reliable test (Procrustes overfit). Filed as CE24. This is the
+sharper, conclusive successor to CE19; A11's positional-L0-relay stays **rejected/
+low**, now with a clean layer-localization of where compounding *does* happen.
 
 Status: **pre-run written 2026-07-16; redesign of CE19** (which was largely
 inconclusive — 5d only, 6d underpowered). Gate: single combined skeptic pass.
@@ -219,10 +256,133 @@ gathering position?"**
   (per-site/per-layer transfer matrices + ceiling + null + CIs, LC patch flips +
   null, LP local-only ceiling, controls). No HF uploads.
 
-## Post-run (fill in after the experiment)
+## Skeptic review (combined, sprint) — PRE-LAUNCH half
 
-- **Executive summary**: *(pending)*
-- **Run record / Results / Interpretation**: *(pending)*
-- **Prediction scoring**: *(pending — A11 layer-localization, A9, A6)*
-- **Skeptic review (post-result half)**: *(pending)*
-- **Limitations / Doc updates / Next read**: *(pending)*
+Run 2026-07-16 (separate thread). **Verdict: PASS WITH CONDITIONS** — 4 blocking
+(control-tightening, no redesign) + 2 non-blocking, resolved via CLV2-1…CLV2-6.
+The cross-depth-transfer discriminator was judged sound and the decode≠computation
+rule correctly central.
+
+- **CLV2-1 (C1, blocking) — nuisance-transfer controls.** "Transfer ⇒ canonical
+  carry" needs proof the transfer is carry-specific. Add cross-depth transfer arms
+  at BOTH layers for nuisances {deciding-digit magnitude bucket, total-sum bucket,
+  answer-top-digit identity, #make-carries}. Verdict requires: carry transfers ≈
+  ceiling at L1 while each nuisance ≤ chance+0.1 (or only as far as mechanically
+  carry-correlated). Any nuisance transferring ≈1.0 at L1 ⇒ canonical-carry reading
+  `invalid`. Bootstrap CIs → results.json.
+- **CLV2-2 (C2, blocking) — L1 anchor pinned to the CE16 carry axis + edge, not a
+  full-residual fresh probe.** Project onto CE16's answer-agnostic committed carry
+  axis (`c1−c0` at a DIFFERENT digit than `A_top`) AND report the edge-contribution
+  transfer (CE16 unit) beside the full-residual number. Add an answer-digit
+  decorrelation control (hold `sum(n+1)` fixed while carry varies, and vice-versa);
+  "canonical carry at L1" requires axis+edge to agree — full-residual-only ⇒
+  "resolved-state present", not "carry".
+- **CLV2-3 (C3, blocking) — don't over-claim the L0 null; add an aligned-probe
+  backstop + scope the claim.** L0 within-depth ceiling is high (0.83–1.0) so L0
+  HAS carry-relevant content; chance transfer only means "no shared linear frame".
+  Add a held-out **Procrustes-aligned** per-depth probe (with CLV2-1 nuisance
+  decorrelation): if carry transfers only after alignment, L0 has a rotated-frame
+  carry (report as such); if still chance, the null is robust. Scope every claim to
+  **"no position-invariant *linear* canonical carry at L0"**; delete
+  "propagation is computed/deferred at L1" causal phrasings (a linear null does not
+  establish where it is *computed*).
+- **CLV2-4 (C4, blocking) — fix LC and make it corroborating-only.** `=` is never
+  read by the consumer (CE16), so an LC patch at `=` is inert under both hypotheses.
+  Patch a **consumer-read full-horizon site** (sign-token ST site; verify by
+  attention mass). Add a **within-depth same-unit positive control** (resid_post(L0)
+  @ that site hi→lo within depth MUST move the digit) and a **carry-matched
+  cross-depth null** (hi→hi must not). If the within-depth same-unit patch doesn't
+  move the answer, LC is `invalid (instrument)`, never L1-read evidence. **TR drives
+  the verdict; LC corroborates.**
+- **CLV2-5 (C5, non-blocking) — demote TF to secondary/exploratory (drop-first).**
+  Add a within-family present/absent local-content null proving the TF transfer
+  isolates abstract-carry presence (not local content that moves with the make-carry
+  position). Reframe the ratchet as **"carry-decodability onset per (position,
+  layer)"**; drop "U-ratchet"/"U-symbol" language (CE6/CE7: no stored U symbol).
+  Not a headline claim unless clean.
+- **CLV2-6 (C6, non-blocking) — 9-equivalence arm + falsifier + retitle.** Keep a
+  small **9-containing arm through Battery TR** (predict equivalence to 9-free; if
+  it diverges, scope the finding to 9-free). Pre-register the eager/lazy
+  **falsifier**: refuted if the local single-step make-carry FAILS to transfer at L0
+  at its own token, OR the propagated carry DOES transfer at L0 at the gather.
+  Title/claim retitled to **"linear-canonical-carry layer-localization"** (done).
+
+*Status: RESOLVED 2026-07-16 via CLV2-1…CLV2-6. TR (with CLV2-1/2/3 controls) is the
+decisive battery; LC corroborates; LP + TF secondary.*
+
+## Post-run (filled 2026-07-16)
+
+- **Run record**: `PYTHONPATH=. python3 scripts/compounding_locus_v2.py all` (CPU),
+  both models acc 1.000. n=350 per depth, all depths k=1..n_top, both directions +
+  all-pairs cross-depth transfer, bootstrap CIs on the extreme-pair headline.
+  Artifact `results/study-compounding-locus-v2/results.json`. Script
+  `scripts/compounding_locus_v2.py` (reuses CE16 carry axis + edge; 9-free +
+  9-containing arms). TF and LP batteries **not run** (secondary/drop-first,
+  CLV2-5) — no temporal/eager-vs-lazy claim is made here.
+
+- **Results** (headline; numbers in results.json):
+  - **TR — L1 (canonical)**: carry-axis cross-depth transfer **1.00** (ceiling 1.00),
+    both models; **answer-top on the axis 0.12/0.13** while answer-top on the FULL
+    residual = 0.78 → the axis is carry-specific, not answer-digit (the decisive
+    internal control). 9-containing arm identical (1.00).
+  - **TR — L0 (`=` gather)**: **extreme-pair** cross-depth transfer ≈ chance —
+    6d 0.51 [0.50,0.52] / 0.53 [0.52,0.55]; 5d 0.13 [0.07,0.18] (below-chance =
+    sign-flipped, position-specific) / 0.50 — vs within-depth ceiling 0.81/0.91
+    (signal present, not washout). All-pairs transfer 0.65/0.46 ≤ magnitude nuisance
+    0.65/0.53 (weak transfer = magnitude leakage, not carry). 9-containing ≡ 9-free.
+  - **LC (causal, corroborating)**: **INVALID** — the sign-ST site chosen has ~0
+    consumer attention and the OV-write patch flips 0.00 within-depth (CE19-style
+    washout + mis-sited). No causal weight taken from LC.
+  - **Procrustes backstop**: unreliable (6d 0.51, 5d rose to 0.67 from 0.46 =
+    overfit); reported, NOT gated on.
+
+- **Interpretation**: the resolved multi-digit carry becomes a **canonical,
+  position-invariant, answer-decorrelated bit at the L1 combiner input** (transfers
+  1.00) but is **absent as a carry-specific canonical code at L0's `=` output**
+  (extreme-pair transfer ~chance with high ceiling; weak transfer = magnitude
+  nuisance). This is a **representational** localization; the **causal** locus is
+  supplied by CE16 (head-pair edge patch flips the digit 1.00) — together they place
+  the emergence of the canonical carry in the **L1 read**. This is the conclusive
+  version of CE19's inconclusive fork. L0 was tested at the `=` gather position; the
+  ST/sign L0 sites are covered by CE17 (local-class-sufficient) and CE19
+  (invisible-decorrelated → L1-read), so the aggregate "L0 lacks a carry-specific
+  canonical code" is a **cross-study** claim.
+
+- **Prediction scoring**:
+  - **A11 (positional L0 relay)**: **rejected / low** (unchanged from CE19,
+    strengthened): no canonical carry at L0; the abstraction is an L1 property.
+  - **Compounding locus**: **L1 read** — conclusively localized (both models,
+    representational + CE16-causal), superseding CE19's 5d-only/6d-underpowered.
+  - **A9**: stays retired (the L1 read is class-level/redundant, not single-node).
+  - **A6**: unaffected.
+
+- **Skeptic review (post-result half of the combined pass)**: Run 2026-07-16.
+  **Verdict: PASS WITH CORRECTIONS** (1 blocking + scoping), all applied:
+  - **F1 (blocking, RESOLVED)**: "compounding completes in the L1 read" was a fresh
+    causal claim this study's dead LC cannot make → rescoped to "canonical carry is
+    representationally an L1 property; L1 read is the causal locus **per CE16**".
+  - **F2 (RESOLVED)**: L0-null now led by the **extreme-pair bootstrap CIs**
+    (~chance) — the position-invariance-relevant number — with carry≈magnitude as
+    corroboration (6d carry 0.652 vs magnitude 0.647 = within noise, reworded).
+  - **F3 (RESOLVED)**: dropped "even after Procrustes" (5d rose = overfit); softened
+    to "no carry in the raw linear frame; rotated-frame not excluded by a reliable
+    test".
+  - **F4 (PASS)**: L1 carry-specificity confirmed (answer-top 0.78 full → 0.12 axis).
+  - **F5/F7 (RESOLVED)**: TF/LP marked not-run; L0 null scoped to `=` with CE17/CE19
+    cited for ST/sign sites.
+  - **F6 (noted)**: headline carry transfers have extreme-pair bootstrap CIs; the
+    nuisance transfers are all-pairs point estimates (corroborating) — flagged.
+
+- **Limitations**: linear probe (a non-linear/rotated-frame L0 carry not excluded —
+  Procrustes backstop overfit/unreliable); L0 tested only at the `=` gather position
+  (ST/sign covered cross-study by CE17/CE19); this study's own causal battery (LC)
+  invalid (washout + mis-sited) so the causal locus leans on CE16; nuisance
+  transfers are point estimates. 2-layer/3-head addition, two models.
+
+- **Doc updates**: A11 rejected/low + **compounding locus conclusively = L1 read**
+  (layer-localized); add **CE24**; update the paper hand-off (upgrades the A11 line
+  from CE19's hedge to a clean both-model layer-localization). Append router docs.
+
+- **Next read**: router-doc updates + paper hand-off refresh; then (optional,
+  post-deadline) the TF temporal battery (eager-local vs lazy-propagation) and a
+  non-linear/rotated-frame L0 backstop.
