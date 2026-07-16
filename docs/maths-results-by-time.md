@@ -9,7 +9,7 @@ live — not the current best story (that goes in
 
 ## Bundles
 
-### 2026-07-14 — Digit-embedding geometry audit
+### 2026-07-14 — Addition model: Digit-embedding geometry audit
 
 - **Covered**: Weights-only geometry of the 10 digit-token rows of `W_E` and
   `W_U` for 4 accurate addition models (`add_d5_l2_h3_t15K_s372001`,
@@ -34,7 +34,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-digit-embedding-geometry.md](study-maths/study-digit-embedding-geometry.md)
 
-### 2026-07-14 — Pair-sum sufficiency at operand-fetch heads (A2 assay; instrument failure)
+### 2026-07-14 — Addition model: Pair-sum sufficiency at operand-fetch heads (A2 assay; instrument failure)
 
 - **Covered**: Head-output (pre-MLP value path), LN(MLP-in), MLP-post, and
   resid geometry over 100 `(Dn,D'n)` cells (no lower carry) at layer-0
@@ -60,7 +60,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-pair-sum-sufficiency.md](study-maths/study-pair-sum-sufficiency.md)
 
-### 2026-07-14 — Confirm an ST/carry compute node (path-patching)
+### 2026-07-14 — Addition model: Confirm an ST/carry compute node (path-patching)
 
 - **Covered**: Causal interchange-intervention (single-head `hook_z`, joint
   `z+mlp_out`, `resid` patches) to locate the carry-computing node, in
@@ -82,7 +82,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-confirm-st-node.md](study-maths/study-confirm-st-node.md)
 
-### 2026-07-15 — Locate the tri-state U-resolution path (U-flip transmitters; combiner unresolved)
+### 2026-07-15 — Addition model: Locate the tri-state U-resolution path (U-flip transmitters; combiner unresolved)
 
 - **Covered**: Causal interchange sweep (single-node `hook_z` / `hook_mlp_out` /
   `resid`, plus joint head+MLP) with the genuine U counterfactual (fix
@@ -106,7 +106,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-u-resolution-path.md](study-maths/study-u-resolution-path.md)
 
-### 2026-07-15 — Combiner vs conduit at the U-flip transmitters (U-combiner = answer-position L1 MLP)
+### 2026-07-15 — Addition model: Combiner vs conduit at the U-flip transmitters (U-combiner = answer-position L1 MLP)
 
 - **Covered**: Node-level activation-invariance discriminator (a combiner's
   output is invariant to a `carry_in` toggle for a *definite* digit but varies
@@ -125,7 +125,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-combiner-vs-conduit.md](study-maths/study-combiner-vs-conduit.md)
 
-### 2026-07-15 — ST tri-state geometry at the L1-MLP combiner input (A3 refuted at locus)
+### 2026-07-15 — Addition model: ST tri-state geometry at the L1-MLP combiner input (A3 refuted at locus)
 
 - **Covered**: Full-space geometry of the carry classes at the confirmed
   combiner *input* (`blocks.1.ln2.hook_normalized`), using a 4-class design
@@ -150,7 +150,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-st-tristate-geometry.md](study-maths/study-st-tristate-geometry.md)
 
-### 2026-07-16 — Earliest tri-state site sweep (no dedicated `{0,1,U}` symbol)
+### 2026-07-16 — Addition model: Earliest tri-state site sweep (no dedicated `{0,1,U}` symbol)
 
 - **Covered**: 7 residual sites (embedding → L0-attn → L0-MLP → L1-attn →
   combiner) at the answer position, both models, using an **axis-decomposition**
@@ -170,7 +170,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-earliest-tristate-site.md](study-maths/study-earliest-tristate-site.md)
 
-### 2026-07-16 — LN-aware digit-embedding close-out (A-9)
+### 2026-07-16 — Addition model: LN-aware digit-embedding close-out (A-9)
 
 - **Covered**: Re-measured the CE1 digit-embedding geometry (freq-1 share,
   angular-ordering permutation p, participation ratio) on the **LN-effective**
@@ -188,7 +188,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-ln-aware-embedding.md](study-maths/study-ln-aware-embedding.md)
 
-### 2026-07-16 — Attention-pattern invariance census (A5 falsified / hybrid, 6-digit)
+### 2026-07-16 — Addition model: Attention-pattern invariance census (A5 falsified / hybrid, 6-digit)
 
 - **Covered**: Per-(head,layer,query-position) attention-target stability across
   400 random additions + a **value-matched target-move** falsifier (fix digit-`n`
@@ -209,7 +209,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-attention-invariance.md](study-maths/study-attention-invariance.md)
 
-### 2026-07-16 — Deep-cascade mechanism (deciding-digit patching; R-hybrid/ambiguous, instrument-limited)
+### 2026-07-16 — Addition model: Deep-cascade mechanism (deciding-digit patching; R-hybrid/ambiguous, instrument-limited)
 
 - **Covered**: Causal test of how multi-digit `...999` carry chains resolve, on
   `add_d5_l2_h3_t15K_s372001` (chain top digit 3) and `add_d6_l2_h3_t20K_s173289`
@@ -242,7 +242,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-deep-cascade-mechanism.md](study-maths/study-deep-cascade-mechanism.md)
 
-### 2026-07-16 — Deep-cascade hand-off: L1-head→combiner edge path-patch (one-depth causal crumb)
+### 2026-07-16 — Addition model: Deep-cascade hand-off: L1-head→combiner edge path-patch (one-depth causal crumb)
 
 - **Covered**: Edge path-patch of the `L1.head_h → L1-MLP combiner` edge at the
   answer-position combiner (the CE5 site), on `add_d6_l2_h3_t20K_s173289` (primary)
@@ -270,7 +270,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-cascade-handoff-edge-patch.md](study-maths/study-cascade-handoff-edge-patch.md)
 
-### 2026-07-16 — Cross-position & cross-subtask probe transfer (ST is position-specific + entangled with SV)
+### 2026-07-16 — Addition model: Cross-position & cross-subtask probe transfer (ST is position-specific + entangled with SV)
 
 - **Covered**: Linear probes (logistic regression, balanced train+test) for the
   per-digit question-position sub-tasks SA/ST/SV on `add_d6_l2_h3_t20K_s173289` and
@@ -297,7 +297,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-probe-transfer.md](study-maths/study-probe-transfer.md)
 
-### 2026-07-16 — Answer-position binding: tape vs register (SA register, SV present-at-= non-orthogonal)
+### 2026-07-16 — Addition model: Answer-position binding: tape vs register (SA register, SV present-at-= non-orthogonal)
 
 - **Covered**: Linear probes for the resolved answer-phase states `SA_n` (answer
   digit) and `SV_n` (resolved carry into n) at `=` and each answer consuming
@@ -325,7 +325,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-answer-binding.md](study-maths/study-answer-binding.md)
 
-### 2026-07-16 — Node output encoding (C5 step 1): map-named ST/SA/SC write characterization
+### 2026-07-16 — Addition model: Node output encoding (C5 step 1): map-named ST/SA/SC write characterization
 
 - **Covered**: For the HF-map-named `ST`/`SA`/`SC` attention heads (both studied
   models), the node's **write** (head output / OV-projected residual) as a function
@@ -357,7 +357,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-node-output-encoding.md](study-maths/study-node-output-encoding.md)
 
-### 2026-07-16 — SV compounding at the map-named wires (C5 steps 2-4; A10 partial: carry-specific distributed delivery)
+### 2026-07-16 — Addition model: SV compounding at the map-named wires (C5 steps 2-4; A10 partial: carry-specific distributed delivery)
 
 - **Covered**: Causal test of A10 at the map-named answer-position L1 consumer heads
   (feeding the high-Fail% L1-MLP combiners), both studied models. Battery V (value
@@ -387,7 +387,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-sv-compounding.md](study-maths/study-sv-compounding.md)
 
-### 2026-07-16 — Leading-digit hard-case walkthrough (C5 step 5; mirrors CE14, A10 consolidated not raised)
+### 2026-07-16 — Addition model: Leading-digit hard-case walkthrough (C5 step 5; mirrors CE14, A10 consolidated not raised)
 
 - **Covered**: Per-link causal trace of how the LEADING answer digit `A_top` is
   produced at the sign-token position in a hard graded-cascade case (`99..9+00..01`,
@@ -415,7 +415,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-leading-digit-walkthrough.md](study-maths/study-leading-digit-walkthrough.md)
 
-### 2026-07-16 — SV implementation sprint (CE16; A10 items i–iii resolved, iv open; dual-gated)
+### 2026-07-16 — Addition model: SV implementation sprint (CE16; A10 items i–iii resolved, iv open; dual-gated)
 
 - **Covered**: Parameter-estimation of the four A10 implementation details on the
   confirmed SV wiring (working-axioms mode), both studied models. Battery **M**
@@ -449,7 +449,7 @@ live — not the current best story (that goes in
 - **Linked study**:
   [study-maths/study-sv-implementation.md](study-maths/study-sv-implementation.md)
 
-### 2026-07-16 — SV compounding arithmetic (CE17; A10 iv resolved = STEP; A11 low; R-mixed; dual-gated)
+### 2026-07-16 — Addition model: SV compounding arithmetic (CE17; A10 iv resolved = STEP; A11 low; R-mixed; dual-gated)
 
 - **Covered**: The compounding locus (A11 positional-L0-relay vs L1-read) + the
   last A10 detail (item iv, combiner transfer), both models. Battery **H**
@@ -481,3 +481,108 @@ live — not the current best story (that goes in
   (F1 H-not-replicated, F2 Y-causally-undetermined). 2-layer addition, two models.
 - **Linked study**:
   [study-maths/study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md)
+
+### 2026-07-16 — Addition model: Cross-size SV validation & tightness census (CE18; d5/d6/d10/d13; A12 role+combiner transfer, C6 not supported; dual-gated)
+
+- **Covered**: Does the SV interface generalize to larger models (A12) and does its
+  redundancy thin with n (C6)? Ran d5, d6, **d10, d13** (all acc 1.000), registries
+  built from the published maths.json/behavior.json (XS-B). Battery **C** (redundancy
+  census / tightness index: map duplicate multiplicity (i), interchange decisiveness
+  (ii, corroborating-only/F2), class-vs-single ablation gap (iii, PRIMARY, F2-free));
+  Battery **I** (interface transfer: =-not-a-source per-key contribution patch, class
+  necessity, step combiner endpoint-gated); Battery **L** (large-n locus, stretch —
+  UNTRIGGERED). Empirical consumer-head ID at d10/d13 (map-untagged there).
+- **Result**: **role skeleton + STEP combiner GENERALIZE** (ST writers + combiner
+  MLPs present at d10/d13; consumer head causal at every size; combiner step,
+  endpoint-gated, α*≈0.5–0.75 all four). **Causal source signatures NOT reproduced
+  at large n** (carry axis sep ~6 vs ~30; =-arm and deciding-ST both 0.00 —
+  probe-limited, source-fork untested at n≥10). **C6 NOT SUPPORTED**: single-node
+  ST ablation ~0 at every size; class-minus-single gap {d5:0.056, d6:0.116,
+  d10:0.324} does NOT shrink (d13 inconclusive, class ablation 0.040 ≈ CE13
+  single-node magnitude) → redundancy intrinsic, not small-model slack. **A11 not
+  rescued by scale** (Battery L untriggered). **A12 role+combiner → medium-high;
+  C6/tightening → low; A10 iv step generalizes; A11 unchanged.**
+- **Artifacts** (local; reads published maps, no HF uploads):
+  `results/study-cross-size-sv/results.json`; script `scripts/cross_size_sv.py`
+  (reuses CE13/CE16/CE17 modules).
+- **Caveats / coverage gaps**: large-n carry axis weak (sep ~6) → source arm-probes
+  probe-limited; d13 ST ablation instrument-weak (0.04, "redundant" vs "unmeasured"
+  unseparated); ablation gaps un-intervalled; consumer-ID single-head (not pair) at
+  large n; 4 sizes, no d7/d8/d9 gradient (no monotone claim, XS-F); interchange leg
+  F2-ambiguous. Dual-gated: pre-launch PASS-WITH-CONDITIONS (XS-A…XS-F) + post-result
+  PASS-WITH-CORRECTIONS (F1 source-probe-limited, F2 C6-not-supported/d13-inconclusive,
+  F3/F5). 2-layer/3-head addition zoo, one large-n seed family.
+- **Linked study**:
+  [study-maths/study-cross-size-sv.md](study-maths/study-cross-size-sv.md)
+
+### 2026-07-16 — Addition model: Compounding locus (CE19; A11 not supported = L1-read not L0-relay; dual-gated)
+
+- **Covered**: the last open SV question — is multi-digit carry compounding an L0
+  positional relay across the question tail (A11) or an L1-read computation? CE17
+  was R-mixed. This study used a **decorrelation lever** (a chain-ST site inside the
+  999-run has local class fixed at U while the resolved carry varies) and split
+  cells into VISIBLE-decorrelated (site can see the deciding digit → self-computable)
+  vs **INVISIBLE-decorrelated** (deciding digit below the site's horizon → a carry
+  there could ONLY be relayed — the discriminator). Battery **DH** (decode resolved
+  carry from the L0 write, with decorrelation + correlated-depth + per-depth
+  readability controls), **KO** (class-level cumulative knock-out + specificity
+  null), **RC** (reconstruction, corroborating).
+- **Result**: **A11 NOT SUPPORTED — the compounding is an L1-read, not an L0
+  relay.** At invisible-decorrelated cells the resolved carry decodes at **chance**
+  in both models; where the write is readable at that depth (5d P9H1 k3) that chance
+  = a genuine "no relayed carry" → R-L1-read; at 6d the deep-chain writes wash out
+  (underpowered). The ST write decodes carry only at the fully-correlated cell
+  (local single-step, CE13). KO shows the ST class is carry-necessary (all-ablate
+  breaks differentially over 0.00 null/baseline) but is a necessity anchor only
+  (DH load-bearing). **A11 → low (not rejected); A9 retired; C3 sequential-lean not
+  supported at L0.** Caveats: linear probe; one readable invisible cell; 6d
+  underpowered.
+- **Artifacts** (local, no HF): `results/study-compounding-locus/results.json`;
+  script `scripts/compounding_locus.py` (reuses CE13/CE16/CE17 modules).
+- **Caveats / coverage gaps**: DH is a linear decode (non-linear relay not
+  excluded); the refutation rests on one readable invisible cell (5d); 6d
+  underpowered (deep-chain ST writes wash out — F2 per-depth readability control);
+  KO does not discriminate relay vs local resolution. Dual-gated: pre-launch
+  BLOCK→PASS (LOC-1…LOC-6: invisible-decorrelated discriminator + KO specificity
+  null) + post-result PASS-WITH-CORRECTIONS (F1 "refuted"→"not supported", F2
+  per-depth readability→6d underpowered, F3/F4). 2-layer/3-head addition, two models.
+- **Linked study**:
+  [study-maths/study-compounding-locus.md](study-maths/study-compounding-locus.md)
+
+### 2026-07-16 — Mixed-model SV replication (entry 2, parallel thread): CE20 + CE21
+
+- **Bundle**: the addition SV interface replicated on the accurate mixed add/sub
+  model `ins1_mix_d6_l3_h4_t40K_s372001` (3 layers, 4 heads) across all three
+  question classes ADD / SUB / NEG, plus the mixed-only OPR / SGN / shared-engine
+  experiments. Per-class accuracy 1.000 (positive control).
+- **Result (CE20)**: the SV **representation** replicates — writers encode the
+  tri-state (ST/MT/NT ~1.00 vs untrained ~chance); the resolved carry/borrow is a
+  clean **binary** code at the last-layer (L2) combiner input (SV/MV/NV ~1.00).
+  **Delivery is class-dependent**: carry/borrow-specific (deciding-matched null
+  0.00) and residual-borne for all classes, with **last-layer attention
+  additionally delivering it for SUB/NEG but not ADD** (the inserted addition
+  circuit resolves earlier and rides the residual). Scores C5 (confirmed on a new
+  architecture), A10 (confirmed at representation, delivery refined), A12
+  (confirmed onto 3 layers + borrow/neg tasks).
+- **Result (CE21)**: **SGN** is the top-of-cascade `D≥D'` comparison delivered to
+  the `=` combiner (CE15 analog — boundary flip 1.00; binary-decodable 1.00 at
+  `=`; sign edge flip 1.00 / deciding null 0.00). **OPR** is broadcast-decodable
+  everywhere (1.00) but not an additive rank-1 control at the combiner (consumed
+  upstream at the SLT selector). **Shared SA/MD/ND heads** show a hybrid A7/C2
+  geometry: shared heads, but ADD-vs-subtraction readouts more separated than a
+  random-init control (68–71° vs 46–50°) while SUB-vs-NEG overlap (48°≈46°).
+- **Library**: added `neg_labels`, `neg_ntc_functions` (NTC), `NT`/`NTC` tags,
+  class-aware `_combiner_is_causal`; `tests/test_scaling_and_sub.py` 21 passed
+  (incl. HF mixed-model NEG).
+- **Artifacts** (local, no HF): `results/study-mixed-map/results.json`,
+  `results/study-mixed-sv/results.json`, `results/study-mixed-opr-sgn/results.json`;
+  scripts `scripts/mixed_map.py`, `scripts/mixed_sv.py`, `scripts/mixed_opr_sgn.py`.
+- **Caveats**: single mixed model/seed; single-step U delivery (k=2, no depth
+  sweep); zero-ablation combiner redundancy-limited; M4 rank-1 additive steer only
+  (SLT-sited steer post-deadline); linear probes. Combined sprint gate; two errors
+  caught & corrected before scoring (M4 decode label-alignment bug; full_resid/
+  zero-ablation not read as trained-structure evidence).
+- **Linked studies**:
+  [study-maths/study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
+  [study-maths/study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md),
+  [study-maths/study-mixed-plan.md](study-maths/study-mixed-plan.md)

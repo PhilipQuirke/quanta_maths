@@ -12,13 +12,14 @@ import numpy as np
 from quanta_maths.maths_config import MathsConfig
 from quanta_maths.maths_constants import MathsToken, MathsTask
 from quanta_maths.maths_probe import (
-    sub_labels, site_hook_and_pos, first_layer, last_layer,
+    sub_labels, neg_labels, site_hook_and_pos, first_layer, last_layer,
 )
-from quanta_maths.maths_search_sub import sub_mtc_functions
+from quanta_maths.maths_search_sub import sub_mtc_functions, neg_ntc_functions
 
 RUN_HF = os.environ.get("RUN_HF_TESTS") == "1"
 ADD10 = "add_d10_l2_h3_t40K_s572091"
 SUB6 = "sub_d6_l2_h3_t30K_s372001"
+MIX6 = "ins1_mix_d6_l3_h4_t40K_s372001"
 
 
 class TestSubLabels(unittest.TestCase):
@@ -80,6 +81,34 @@ class TestSubMtcOffline(unittest.TestCase):
 
     def test_operation_is_minus(self):
         self.assertEqual(sub_mtc_functions.operation(), MathsToken.MINUS)
+
+
+class TestNegLabels(unittest.TestCase):
+    def test_neg_answer_digits_are_magnitude(self):
+        # 100 - 201 = -101 ; emitted magnitude digits are 1,0,1 (units..up).
+        SA, ST, SV = neg_labels(100, 201, 6)
+        self.assertEqual([SA[n] for n in range(3)], [1, 0, 1])
+
+    def test_neg_tricase_and_borrow(self):
+        # 100 - 201: compute on D'-D = 201-100. units 1-0=1>0 -> NT=0 no borrow;
+        # tens 0-0 -> NT=2 (U); hundreds 2-1 -> NT=0. No borrow into units.
+        SA, ST, SV = neg_labels(100, 201, 6)
+        self.assertEqual(ST[0], 0)
+        self.assertEqual(ST[1], 2)
+        self.assertEqual(SV[0], 0)
+
+    def test_requires_a_less_than_b(self):
+        with self.assertRaises(ValueError):
+            neg_labels(500, 100, 6)  # a >= b is not a NEG question
+
+
+class TestNegNtcOffline(unittest.TestCase):
+    def test_tag(self):
+        self.assertEqual(neg_ntc_functions.tag(2), "A2.NTC")
+        self.assertEqual(MathsTask.NTC_TAG.value, "NTC")
+
+    def test_operation_is_minus(self):
+        self.assertEqual(neg_ntc_functions.operation(), MathsToken.MINUS)
 
 
 @unittest.skipUnless(RUN_HF, "set RUN_HF_TESTS=1 to run HuggingFace integration tests")
@@ -146,6 +175,49 @@ class TestScalingHF(unittest.TestCase):
                                               layer=last_layer(cfg))
         out = probe_accuracy_with_null(acts[("ans", 3)], labs["ST"][3], rng, n_perm=20)
         self.assertGreater(out["observed_acc"], 0.8)
+
+
+@unittest.skipUnless(RUN_HF, "set RUN_HF_TESTS=1 to run HuggingFace integration tests")
+class TestMixedModelHF(unittest.TestCase):
+    """The mixed add/sub model is 3-layer with three question classes; the NEG
+    library additions (neg_labels, neg_ntc) must hold on it."""
+
+    def _emit_answer_str(self, model, cfg, a, b, op):
+        import torch
+        from quanta_maths.maths_utilities import make_a_maths_question_and_answer
+        from quanta_maths.maths_edge_patch import answer_positions
+        q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
+        make_a_maths_question_and_answer(cfg, q, 0, a, b, op)
+        q = q[0]
+        ap = answer_positions(cfg)
+        with torch.no_grad():
+            pred = model(q.unsqueeze(0))[0, [p - 1 for p in ap]].argmax(-1)
+        return pred.tolist()  # token ids at [SGN, A6..A0]
+
+    def test_neg_labels_match_emitted_digits(self):
+        from quanta_maths import load_maths_model_from_hf
+        model, cfg = load_maths_model_from_hf(MIX6)
+        # 123456 - 654321 = -530865 (NEG). The EMITTED digit is the combiner
+        # output (base neg-diff SA minus the neg-borrow-in SV), mod 10 -- the
+        # subtraction analog of addition's (SA + carry) % 10. SA alone is the
+        # base ND sub-task, not the emitted digit.
+        a, b = 123456, 654321
+        toks = self._emit_answer_str(model, cfg, a, b, MathsToken.MINUS)
+        digits = toks[1:]  # A6..A0 token ids == digit values
+        SA, ST, SV = neg_labels(a, b, cfg.n_digits)
+        emitted = [(SA[n] - SV[n]) % 10 for n in range(cfg.n_digits - 1, -1, -1)]  # A5..A0
+        self.assertEqual(digits[1:], emitted)  # A6 is 0 (7-digit answer); compare A5..A0
+
+    def test_neg_combiner_causal_on_mixed(self):
+        from quanta_maths import load_maths_model_from_hf
+        from quanta_maths.maths_batch import _combiner_is_causal
+        model, cfg = load_maths_model_from_hf(MIX6)
+        ll = last_layer(cfg)
+        causal = [k for k in range(1, cfg.n_digits)
+                  if _combiner_is_causal(model, cfg,
+                                         int(cfg.an_to_position_name(k)[1:]) - 1,
+                                         k, ll, cls="NEG")]
+        self.assertGreater(len(causal), 0, "no NEG neg-borrow-combiner found")
 
 
 if __name__ == "__main__":

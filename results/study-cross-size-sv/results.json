@@ -1,0 +1,433 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "n_digits": 5,
+    "n_top": 3,
+    "n_st_sites": 7,
+    "n_combiner_mlps": 6,
+    "scored_digits": [
+      3,
+      2,
+      1
+    ],
+    "gates": {
+      "2": 0.9666666666666667,
+      "3": 0.9333333333333333
+    },
+    "carry_axis_sep": 32.2615966796875,
+    "carry_axis_pos": 14,
+    "carry_axis_digit": 2,
+    "consumer_heads": [
+      2
+    ],
+    "consumer_diag": {
+      "0": {
+        "attn_ST_mass": 0.35638591622312865,
+        "single_flip": 0.0,
+        "null": 0.0
+      },
+      "1": {
+        "attn_ST_mass": 0.8852389951546987,
+        "single_flip": 0.0,
+        "null": 0.0
+      },
+      "2": {
+        "attn_ST_mass": 0.9978410224119822,
+        "single_flip": 1.0,
+        "null": 0.0
+      }
+    },
+    "battery_C": {
+      "i_map_duplicate_multiplicity": 1.6666666666666667,
+      "ii_interchange_decisiveness_max": 0.0,
+      "ii_note": "corroborating-only; CE17-F2 ambiguous (redundancy vs weak-interchange)",
+      "iii_clean_acc": 1.0,
+      "iii_single_node_gap": 0.07599999999999996,
+      "iii_class_gap": 0.132,
+      "iii_untagged_baseline_gap": 0.0,
+      "iii_class_minus_single_gap": 0.05600000000000005,
+      "iii_note": "PRIMARY tightness leg (F2-free); class-minus-single SHRINKS => tighter"
+    },
+    "battery_I": {
+      "consumer_heads": [
+        2
+      ],
+      "cpos": 13,
+      "eq_not_a_source": {
+        "eq_arm_flip": {
+          "rate": 0.45,
+          "ci": [
+            0.30705075280944705,
+            0.6017117011155924
+          ],
+          "n": 40
+        },
+        "deciding_ST_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        }
+      },
+      "class_necessity": {
+        "cascade_acc_after_ablate": 0.075,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 0.925
+      },
+      "combiner": {
+        "curve": {
+          "-0.5": 0.0,
+          "0.0": 0.0,
+          "0.25": 0.0,
+          "0.5": 0.225,
+          "0.75": 0.85,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "endpoint_ok": true,
+        "class": "step",
+        "alpha_star": 0.75,
+        "max_jump": 0.625
+      }
+    },
+    "accuracy": 1.0
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "n_digits": 6,
+    "n_top": 4,
+    "n_st_sites": 6,
+    "n_combiner_mlps": 7,
+    "scored_digits": [
+      4,
+      3,
+      2
+    ],
+    "gates": {
+      "2": 0.9,
+      "3": 0.8666666666666667
+    },
+    "carry_axis_sep": 28.4940242767334,
+    "carry_axis_pos": 16,
+    "carry_axis_digit": 3,
+    "consumer_heads": [
+      1
+    ],
+    "consumer_diag": {
+      "0": {
+        "attn_ST_mass": 0.016558088129386306,
+        "single_flip": 0.0,
+        "null": 0.03333333333333333
+      },
+      "1": {
+        "attn_ST_mass": 0.9953336536884307,
+        "single_flip": 1.0,
+        "null": 0.0
+      },
+      "2": {
+        "attn_ST_mass": 0.9864544908205668,
+        "single_flip": 0.0,
+        "null": 0.0
+      }
+    },
+    "battery_C": {
+      "i_map_duplicate_multiplicity": 1.0,
+      "ii_interchange_decisiveness_max": 0.0,
+      "ii_note": "corroborating-only; CE17-F2 ambiguous (redundancy vs weak-interchange)",
+      "iii_clean_acc": 1.0,
+      "iii_single_node_gap": 0.04400000000000004,
+      "iii_class_gap": 0.16000000000000003,
+      "iii_untagged_baseline_gap": 0.0,
+      "iii_class_minus_single_gap": 0.11599999999999999,
+      "iii_note": "PRIMARY tightness leg (F2-free); class-minus-single SHRINKS => tighter"
+    },
+    "battery_I": {
+      "consumer_heads": [
+        1
+      ],
+      "cpos": 15,
+      "eq_not_a_source": {
+        "eq_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "deciding_ST_arm_flip": {
+          "rate": 0.625,
+          "ci": [
+            0.4703216005453191,
+            0.7577722646420829
+          ],
+          "n": 40
+        }
+      },
+      "class_necessity": {
+        "cascade_acc_after_ablate": 1.0,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 0.0
+      },
+      "combiner": {
+        "curve": {
+          "-0.5": 0.0,
+          "0.0": 0.0,
+          "0.25": 0.0,
+          "0.5": 0.375,
+          "0.75": 1.0,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "endpoint_ok": true,
+        "class": "step",
+        "alpha_star": 0.75,
+        "max_jump": 0.625
+      }
+    },
+    "accuracy": 1.0
+  },
+  "add_d10_l2_h3_t40K_s572091": {
+    "model": "add_d10_l2_h3_t40K_s572091",
+    "n_digits": 10,
+    "n_top": 8,
+    "n_st_sites": 10,
+    "n_combiner_mlps": 10,
+    "scored_digits": [
+      8,
+      7,
+      6
+    ],
+    "gates": {
+      "2": 0.9666666666666667,
+      "3": 0.9
+    },
+    "carry_axis_sep": 6.0727996826171875,
+    "carry_axis_pos": 24,
+    "carry_axis_digit": 8,
+    "consumer_heads": [
+      0
+    ],
+    "consumer_diag": {
+      "0": {
+        "attn_ST_mass": 0.9999802509943644,
+        "single_flip": 1.0,
+        "null": 0.0
+      },
+      "1": {
+        "attn_ST_mass": 0.23242035756508508,
+        "single_flip": 0.0,
+        "null": 0.0
+      },
+      "2": {
+        "attn_ST_mass": 0.9999215960502624,
+        "single_flip": 0.0,
+        "null": 0.0
+      }
+    },
+    "battery_C": {
+      "i_map_duplicate_multiplicity": 1.0,
+      "ii_interchange_decisiveness_max": 0.0,
+      "ii_note": "corroborating-only; CE17-F2 ambiguous (redundancy vs weak-interchange)",
+      "iii_clean_acc": 1.0,
+      "iii_single_node_gap": 0.0040000000000000036,
+      "iii_class_gap": 0.32799999999999996,
+      "iii_untagged_baseline_gap": 0.0,
+      "iii_class_minus_single_gap": 0.32399999999999995,
+      "iii_note": "PRIMARY tightness leg (F2-free); class-minus-single SHRINKS => tighter",
+      "PC2b_class_gap": 0.32799999999999996,
+      "PC2b_untagged_class_gap": 0.0,
+      "PC2b_st_reproduces_map_impact": true,
+      "PC2b_over_baseline": 0.32799999999999996
+    },
+    "battery_I": {
+      "consumer_heads": [
+        0
+      ],
+      "cpos": 23,
+      "eq_not_a_source": {
+        "eq_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "deciding_ST_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        }
+      },
+      "class_necessity": {
+        "cascade_acc_after_ablate": 0.175,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 0.825
+      },
+      "combiner": {
+        "curve": {
+          "-0.5": 0.0,
+          "0.0": 0.0,
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 1.0,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "endpoint_ok": true,
+        "class": "step",
+        "alpha_star": 0.75,
+        "max_jump": 1.0
+      }
+    },
+    "accuracy": 1.0
+  },
+  "add_d13_l2_h3_t50K_s572091": {
+    "model": "add_d13_l2_h3_t50K_s572091",
+    "n_digits": 13,
+    "n_top": 11,
+    "n_st_sites": 11,
+    "n_combiner_mlps": 14,
+    "scored_digits": [
+      11,
+      10,
+      9
+    ],
+    "gates": {
+      "2": 0.9333333333333333,
+      "3": 0.9333333333333333
+    },
+    "carry_axis_sep": 6.109457492828369,
+    "carry_axis_pos": 30,
+    "carry_axis_digit": 11,
+    "consumer_heads": [
+      0
+    ],
+    "consumer_diag": {
+      "0": {
+        "attn_ST_mass": 0.015455995659188678,
+        "single_flip": 1.0,
+        "null": 0.0
+      },
+      "1": {
+        "attn_ST_mass": 0.6284583260615667,
+        "single_flip": 0.0,
+        "null": 0.0
+      },
+      "2": {
+        "attn_ST_mass": 0.7077305709167073,
+        "single_flip": 0.0,
+        "null": 0.0
+      }
+    },
+    "battery_C": {
+      "i_map_duplicate_multiplicity": 0.6666666666666666,
+      "ii_interchange_decisiveness_max": 0.0,
+      "ii_note": "corroborating-only; CE17-F2 ambiguous (redundancy vs weak-interchange)",
+      "iii_clean_acc": 1.0,
+      "iii_single_node_gap": 0.0,
+      "iii_class_gap": 0.040000000000000036,
+      "iii_untagged_baseline_gap": 0.0,
+      "iii_class_minus_single_gap": 0.040000000000000036,
+      "iii_note": "PRIMARY tightness leg (F2-free); class-minus-single SHRINKS => tighter",
+      "PC2b_class_gap": 0.040000000000000036,
+      "PC2b_untagged_class_gap": 0.0,
+      "PC2b_st_reproduces_map_impact": true,
+      "PC2b_over_baseline": 0.040000000000000036
+    },
+    "battery_I": {
+      "consumer_heads": [
+        0
+      ],
+      "cpos": 29,
+      "eq_not_a_source": {
+        "eq_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "deciding_ST_arm_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        }
+      },
+      "class_necessity": {
+        "cascade_acc_after_ablate": 0.925,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 0.07499999999999996
+      },
+      "combiner": {
+        "curve": {
+          "-0.5": 0.0,
+          "0.0": 0.0,
+          "0.25": 0.0,
+          "0.5": 0.7,
+          "0.75": 1.0,
+          "1.0": 1.0,
+          "1.5": 1.0
+        },
+        "endpoint_ok": true,
+        "class": "step",
+        "alpha_star": 0.5,
+        "max_jump": 0.7
+      }
+    },
+    "accuracy": 1.0
+  },
+  "_cross_size": {
+    "sizes": [
+      5,
+      6,
+      10,
+      13
+    ],
+    "iii_class_minus_single_gap_by_size": {
+      "5": 0.05600000000000005,
+      "6": 0.11599999999999999,
+      "10": 0.32399999999999995,
+      "13": 0.040000000000000036
+    },
+    "i_map_multiplicity_by_size": {
+      "5": 1.6666666666666667,
+      "6": 1.0,
+      "10": 1.0,
+      "13": 0.6666666666666666
+    },
+    "ii_interchange_by_size": {
+      "5": 0.0,
+      "6": 0.0,
+      "10": 0.0,
+      "13": 0.0
+    },
+    "iii_small_mean": 0.08600000000000002,
+    "iii_large_mean": 0.182,
+    "tightens_large_vs_small": false,
+    "large_n_roles": {
+      "10": {
+        "ST_writers": true,
+        "combiner_MLPs": true,
+        "consumer_head_identified": true
+      },
+      "13": {
+        "ST_writers": true,
+        "combiner_MLPs": true,
+        "consumer_head_identified": true
+      }
+    },
+    "read": "A12 role+combiner transfer confirmed (step combiner + PC2b robust; causal SOURCE signatures probe-limited at large n, carry axis sep ~6); C6 NOT SUPPORTED (redundancy persists, class-vs-single gap does not shrink d5->d6->d10; d13 inconclusive, class ablation ~ CE13 single-node magnitude) -- redundancy intrinsic, not slack. A11 not rescued by scale.",
+    "scoring_note": "F1: 'transfer' = role presence + step combiner + PC2b (robust); source arms 0.00 at large n are probe-limited, not confirmations. F2: 'C6 not supported' not 'refuted' -- d13 class ablation instrument-weak."
+  }
+}

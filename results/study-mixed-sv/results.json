@@ -1,0 +1,446 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "consumer_head": "L1H1 (SLT)",
+  "trained": {
+    "ADD": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 0.4399193548387097,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false
+        },
+        "lib_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "D_edge_delivery": {
+        "answer_digit": 2,
+        "consuming_pos": 18,
+        "stimulus_valid": true,
+        "src_Ak": 0,
+        "tgt_Ak": 9,
+        "full_resid": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "resid_pre": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "lastlayer_attn": {
+          "flip": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        }
+      }
+    },
+    "SUB": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 0.45785440613026823,
+          "null_p": 0.06451612903225806
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": true,
+          "5": false
+        },
+        "lib_stimulus": {
+          "1": true,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": true
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 0.9924242424242424,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "D_edge_delivery": {
+        "answer_digit": 2,
+        "consuming_pos": 18,
+        "stimulus_valid": true,
+        "src_Ak": 9,
+        "tgt_Ak": 0,
+        "full_resid": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "resid_pre": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "lastlayer_attn": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        }
+      }
+    },
+    "NEG": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 0.4493103448275862,
+          "null_p": 0.06451612903225806
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false
+        },
+        "lib_stimulus": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 0.9924242424242424,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "D_edge_delivery": {
+        "answer_digit": 2,
+        "consuming_pos": 18,
+        "stimulus_valid": true,
+        "src_Ak": 9,
+        "tgt_Ak": 0,
+        "full_resid": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "resid_pre": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "lastlayer_attn": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        }
+      }
+    }
+  },
+  "untrained_control": {
+    "ADD": {
+      "A_writer_encoding": {
+        "2": {
+          "tri_acc": 0.5466049382716048,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "2": {
+          "carry_acc": 0.6306990881458966,
+          "null_p": 0.06451612903225806
+        }
+      },
+      "D_edge_delivery": {
+        "full_resid": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "stimulus_valid": true
+      }
+    },
+    "SUB": {
+      "A_writer_encoding": {
+        "2": {
+          "tri_acc": 0.447907647907648,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "2": {
+          "carry_acc": 0.5796269727403156,
+          "null_p": 0.06451612903225806
+        }
+      },
+      "D_edge_delivery": {
+        "full_resid": {
+          "flip": {
+            "rate": 1.0,
+            "ci": [
+              0.8620194241710247,
+              1.0000000000000002
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "stimulus_valid": true
+      }
+    },
+    "NEG": {
+      "A_writer_encoding": {
+        "2": {
+          "tri_acc": 0.6014430014430016,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "2": {
+          "carry_acc": 0.5993543758967002,
+          "null_p": 0.06451612903225806
+        }
+      },
+      "D_edge_delivery": {
+        "full_resid": {
+          "flip": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          },
+          "answer_digit": 2,
+          "null": {
+            "rate": 0.0,
+            "ci": [
+              0.0,
+              0.13798057582897535
+            ],
+            "n": 24
+          }
+        },
+        "stimulus_valid": false
+      }
+    }
+  }
+}

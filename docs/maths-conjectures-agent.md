@@ -1124,6 +1124,10 @@ External:
 
 ## Reflection log (optional)
 
+*Scope (multi-thread): entries concern the **addition** models unless tagged
+**(Mixed model)**. The conjectures A1–A12 above are model-general beliefs (A7/A12
+explicitly span mixed and cross-size).*
+
 - **2026-07-14** — Initial population, at the human's request, from priors and
   external literature before any experiments in this thread. Contains no
   empirical content. The "update only after the post-result skeptic gate"
@@ -1504,8 +1508,8 @@ External:
   reranked (cross-size tightness is the new #1); agenda rebuilt (entry 1 =
   cross-size SV validation + tightness census on d10/d13, absorbing backlog
   B5's addition-side; paper hand-off trigger unchanged at ~T-12h).
-- **2026-07-16** — After the mixed-model SV replication (entry 2, parallel
-  thread; CE20 + CE21; combined sprint gate; studies
+- **2026-07-16 (Mixed model)** — After the mixed-model SV replication (entry 2,
+  parallel thread; CE20 + CE21; combined sprint gate; studies
   [study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
   [study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md); plan
   [study-mixed-plan.md](study-maths/study-mixed-plan.md)). The addition→mixed

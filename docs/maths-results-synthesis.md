@@ -442,6 +442,83 @@ sources that individually hold only single-step resolution, CE13):
   unit); the pre-launch gate caught an invalid depth (k=4→d=−1 at n=3) fixed by
   re-pinning the chain-top to n_top=4.
 
+## Q: Does the SV mechanism generalize across model sizes, and does its redundancy thin at scale? — skeleton+combiner generalize; redundancy is intrinsic (CE18)
+
+Testing A12 (the layer-general SV interface) and the human's C6 prior (redundancy
+= small-model slack, stripped at n≥10) on d5/d6/d10/d13 (all accurate):
+- **The role skeleton is size-general**: question-tail/sign ST writers and
+  high-Fail combiner MLPs are in the published d10/d13 maps, and a causal
+  answer-position consumer head is identifiable at every size (though NOT map-tagged
+  at d10/d13 — a role-transfer datapoint in itself).
+- **The combiner is a STEP function from d5 to d13** — the one robust cross-size
+  causal result (on-manifold α-sweep, endpoint-gated to each model's real 0/1,
+  α*≈0.5–0.75). CE17's combiner finding generalizes.
+- **But the causal SOURCE signatures do not reproduce at large n**: the carry axis
+  collapses (sep ~6 vs ~30) and both the `=` and deciding-ST per-key contribution
+  arms flip 0.00 at d10/d13, so `=`-not-a-source sits on a null background and the
+  source-fork is probe-limited/untested at n≥10.
+- **C6 is NOT SUPPORTED**: single-node ST ablation is ~0 at every size and the
+  class-vs-single redundancy gap does NOT shrink across d5→d6→d10
+  ({0.056, 0.116, 0.324} — increasing); d13 is inconclusive (whole-class ST
+  ablation 0.040 ≈ CE13 single-node magnitude — instrument-weak at n_ctx 43). So
+  redundancy **persists (does not thin) with size** — it reads as intrinsic to the
+  learned algorithm, not capacity slack. Consequently scale did **not** rescue the
+  A11 compounding-locus lever (Battery L untriggered); A11 stays low.
+- **Dispositions**: A12 role-transfer + step-combiner → **medium-high**;
+  A12-tightening / C6 → **low (not supported)**; A10 iv step **generalizes**; A11
+  **unchanged (low)**. This is the last mechanism input before the paper hand-off:
+  the paper can state the SV mechanism as a **size-general skeleton with intrinsic,
+  non-thinning redundancy** and a step combiner, while noting the large-n causal
+  source probes are instrument-limited.
+- **Method note**: dual-gated. Pre-launch caught that the reused CE13/CE16
+  registries are hard-coded to d5/d6 (rebuilt d10/d13 from the published maps + a
+  PC2b anchor) and that the tightness index needed an interchange-independent leg
+  (the class-vs-single ablation gap). Post-result downgraded two over-claims
+  ("transfer confirmed" → "role+combiner confirmed, source probe-limited"; "C6
+  refuted" → "not supported, d13 inconclusive"). A fast smoke run caught a broken
+  5d/large-n carry-axis config and a consumer-ID attention-threshold that rejected
+  the real d13 causal head (fixed to select by causal flip + carry-specificity).
+
+## Q: Where is the multi-digit carry compounded — an L0 positional relay (A11) or the L1 read? — L1-read, not a relay (CE19)
+
+CE17 left this R-mixed; CE18 showed scale won't sharpen it. CE19 settled it with a
+better instrument:
+- **The decorrelation lever**: a chain-ST site sitting inside the 999-run has its
+  local digit-sum fixed at 9 (local class ≡ U, uninformative) while the resolved
+  carry reaching it still flips 0/1 — so decoding the carry there cannot be
+  local-class leakage (the CE17 Battery-L confound is removed; verified, local-class
+  decode = 0.50 exactly).
+- **The discriminator**: split decorrelated cells into VISIBLE (the site can see the
+  deciding digit — it could compute the carry itself) vs **INVISIBLE** (the deciding
+  digit is below the site's visibility horizon — a carry there could ONLY have been
+  relayed to it). The invisible cells are the only test that separates an L0 relay
+  from local computation.
+- **Result**: at the invisible-decorrelated cells the resolved carry decodes at
+  **chance** in both models. Where the write is readable at that depth (5d P9H1 k3,
+  a per-depth readability control passes), that chance = a genuine **"no relayed
+  carry"** → **R-L1-read**: the multi-digit compounding is completed in the L1
+  consumer read, not by an L0 positional relay. At 6d the deep-chain writes wash out
+  (per-depth control fails) → underpowered. The ST write carries the resolved carry
+  **only when the deciding digit is its own digit** (local single-step, CE13) — no
+  cross-position relay anywhere.
+- **Knock-out** confirms the ST cluster is carry-**necessary** (ablating the
+  sufficient set breaks the digit differentially over a 0.00 specificity-null and
+  0.00 untagged baseline) but does not itself discriminate relay from local
+  resolution — DH is the load-bearing battery.
+- **Dispositions**: **A11 (positional L0 relay) → low (not supported, not
+  rejected)**; compounding locus = **L1-read**; **A9 retired**; **A6** ST-class
+  necessity again; the **human C3/sequential-cascade lean is not supported at the
+  L0 tail**. Caveats: linear probe (non-linear relay not excluded); the refutation
+  rests on one readable invisible cell (5d); 6d underpowered. This substantially
+  settles the last open SV-mechanism question for the paper hand-off.
+- **Method note**: dual-gated. Pre-launch was a BLOCK — the auditor caught that
+  decoding on VISIBLE-decorrelated cells cannot separate A11-relay from "each site
+  sums what it sees" (both predict decode-when-visible); fixed by making the
+  INVISIBLE cells the discriminator. Post-result added a per-depth readability
+  control that correctly downgraded 6d to underpowered (the shallow-depth instrument
+  control did not license readability at the deep invisible depth) and softened
+  "refuted" to "not supported" (linear probe).
+
 ## Open empirical questions
 
 - **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at

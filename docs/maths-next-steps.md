@@ -60,64 +60,106 @@ reference docs, without this thread's conversation context.
 
 ## Ranked queue
 
-| Priority | Status | Experiment | Updates |
-| --- | --- | --- | --- |
-| 1 | ready | [SV compounding arithmetic: tail-relay vs L1-read, and combiner transfer](#1-sv-compounding-arithmetic-tail-relay-vs-l1-read-and-combiner-transfer) | A11, A10, A9, A6 |
-| 2 | ready | [Paper hand-off consolidation and referee checkpoint](#2-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
-| 3 | sequenced | [Mixed-model shared-engine geometry](#3-mixed-model-shared-engine-geometry) | A7, C2 |
+| Priority | Status | Owner | Experiment | Updates |
+| --- | --- | --- | --- | --- |
+| 1 | ready | **`maths` (this thread)** | [Compounding locus — decisive A11 vs L1-read assay](#1-compounding-locus--decisive-a11-vs-l1-read-assay) | A11, A9, A6 |
+| 2 | ready | **separate thread** | [Mixed-model SV replication (add & sub)](#2-mixed-model-sv-replication-add--sub) | C5, A7, C2, A10, A12 |
+| 3 | sequenced | either | [Paper hand-off consolidation and referee checkpoint](#3-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
 
-Entry-order note (2026-07-16 rerank after CE16; ~37 h to the paper deadline,
-paper work deferred by the human for now): the SV-implementation sprint **ran**
-([CE16](maths-claim-evidence.md),
-[study note](study-maths/study-sv-implementation.md)) — A10 items i–iii are
-resolved (canonical format-invariant carry message; source = the distributed
-question-tail ST cluster, **never `=`**; head-pair effective and
-class-necessary carrier, skip carries negligible carry). Two things remain
-between here and a complete implementation story, and they are the new
-**entry 1**: (a) the **compounding locus** — CE16 created a sharp puzzle by
-showing a *canonical* carry assembled from ST sources that individually hold
-only *single-step* resolution (CE13); the new
-[A11](maths-conjectures-agent.md#a11-multi-digit-compounding-is-a-positional-l0-relay-across-the-question-tail-st-sites)
-(visibility-horizon relay at L0) vs L1-value-read fork decides it; (b) the
-**combiner transfer function** (A10 iv), whose Battery-F instrument failed —
-redesigned on-manifold so it cannot dead-zero again. Paper hand-off stays
-entry 2 (human-deferred; trigger no later than ~T-12h); mixed-model entry 3.
+Entry-order note (2026-07-16 rerank after CE18; parallel-thread split by human
+directive): the cross-size study **ran** ([CE18](maths-claim-evidence.md),
+[study note](study-maths/study-cross-size-sv.md)) — the SV **role skeleton +
+step combiner generalize d5→d13**, but **C6 is not supported** (redundancy is
+intrinsic, does not thin with n), so **scale did NOT rescue the compounding
+locus** (A11 stays low; R-mixed from CE17 stands). Two open threads remain and
+the human has split them across **two parallel agents**:
+- **Entry 1 (this `maths` thread)**: attack the **compounding locus** directly
+  with a redesigned assay that overcomes CE17's two blockers (single-node
+  interchange undetermined vs redundancy; consumer edge local-class-sufficient),
+  rather than hoping scale would sharpen it.
+- **Entry 2 (a separate thread)**: **replicate the SV findings on the mixed
+  add/sub model** — begins the addition→mixed generalization the paper needs,
+  and folds in the old A7/C2 shared-engine geometry question as a replication.
 
-### 1. SV compounding arithmetic: tail-relay vs L1-read, and combiner transfer
+**Parallel-work protocol (both threads active at once)**: each thread owns its
+own study note, `scripts/<name>.py`, and `results/<study>/` — no shared files.
+Router docs (claim-evidence, results-by-time/summary/synthesis, conjectures) are
+**append-only per thread**; add your CE entry / confidence-update block, do not
+rewrite the other thread's. On any dirty-file collision in `git status`, assume
+it belongs to the other thread and leave it. The paper hand-off (entry 3)
+consolidates BOTH threads' outputs and triggers **no later than ~T-12h**.
 
-Close the last two gaps in the SV implementation story (frame per the
-[working axioms](maths-conjectures-agent.md#working-axioms) — the cascade is
-computed *somewhere*; these batteries locate and characterize it):
+### 1. Compounding locus — decisive A11 vs L1-read assay
 
-- **Horizon decode (A11 prediction 1)**: for each map-named chain-ST site, on
-  chains of graded depth, decode from the site's L0 *write* (CE13 capture
-  machinery) the resolved carry at increasing depths and compare against the
-  site's position-derived **visibility horizon** (which digit pairs the causal
-  mask lets it see — map-relative, per model). A11 predicts decoded depth =
-  horizon; the L1-read alternative predicts flat single-step everywhere.
-- **Relay causality (A11 prediction 2)**: patch chain-ST writes per site —
-  most-resolved-visible vs shallower — with deciding-matched nulls and joint
-  arms (relays may be redundant, per axiom 2); under A11 the deepest visible
-  relay carries the flip, shallower ones only when deeper ones are ablated.
-- **L1-read reconstruction (the alternative's own test)**: can the consumer
-  head's edge output be linearly reconstructed from attention weights × the
-  per-site *local-class-only* content? If yes with local-only content, the L1
-  read does the compounding; if reconstruction needs multi-step site content,
-  the relay does. (Cheap — runs on Battery-R captures from CE16.)
-- **Combiner transfer, on-manifold (A10 iv)**: interpolate the combiner input
-  between *real captured* head-pair edge contributions,
-  `edge(α) = (1−α)·edge_c0 + α·edge_c1`, α ∈ {−0.5, 0, 0.25, 0.5, 0.75, 1,
-  1.5}; the endpoints are the real patches CE16 measured at 0.00/1.00 flip, so
-  instrument validity is built in (Battery F's dead-zero cannot recur). Read
-  flip probability and carry_out projection vs α (step vs linear; threshold
-  location) and top-k neuron share (B2 seed).
+*(Owner: `maths` thread.)* CE17 left the one open piece of the SV mechanism:
+**where the single-step ST writes become a fully-resolved carry** — an L0
+positional relay across the question tail ([A11](maths-conjectures-agent.md#a11-multi-digit-compounding-is-a-positional-l0-relay-across-the-question-tail-st-sites))
+vs a computation inside the L1 consumer read. CE17 came back **R-mixed** and
+CE18 showed scale won't sharpen it, so the task is a **better instrument**, not
+a bigger model. Frame per the [working axioms](maths-conjectures-agent.md#working-axioms)
+(the cascade is computed *somewhere*; locate it). The redesign must clear
+CE17's two named blockers:
 
-Done when: the compounding locus is attributed (relay / L1-read / mixed, with
-horizon-decode + relay-patch + reconstruction agreeing or the split stated)
-and the combiner transfer class is estimated with its neuron sparsity —
-scored against A11, A10 iv, A9 (final disposition), A6.
+- **Blocker 1 — interchange nulls are causally undetermined** (redundancy vs
+  interchange-too-weak, CE17-F2). Replace single-site interchange with a test
+  that does not inherit the ambiguity: e.g. **path-patch the ST→consumer edge
+  directly** (not the whole L0 residual), or a **cumulative/knockout-set** arm
+  that ablates all-but-the-deepest-visible relay and asks whether the survivor
+  suffices — a class-level causal test that redundancy cannot mask.
+- **Blocker 2 — the consumer edge is local-class-sufficient** (CE17 Battery L),
+  which does not *rule out* a relay upstream. Distinguish "L1 reads a
+  pre-resolved relay" from "L1 does the compounding" by testing **what the
+  consumer's value input carries as a function of visibility horizon** on a
+  stimulus set where local class and resolved carry are **decorrelated** (the
+  CE17 ceiling came from their correlation on chain stimuli).
+- **Horizon decode, hardened**: repeat the CE17 P11-style horizon crossing but
+  require a **second independent strong-writing boundary site** and a replication
+  (CE17's trace was single-cell, one model); score the deciding-position
+  crossing with CIs so a single 1.00 cell cannot carry the verdict.
+- **Freed capacity vs the deadline**: A10 iv (combiner step) is DONE; do **not**
+  re-run it. Neuron-level combiner decomposition (B2) is optional stretch only.
 
-### 2. Paper hand-off consolidation and referee checkpoint
+Done when: the compounding locus is attributed **relay / L1-read / mixed** with
+an instrument that survives the CE17-F2 ambiguity (the class-level causal arm
+agreeing with a decorrelated-stimulus reconstruction), or the residual
+ambiguity is stated as the final A11 disposition with the reason it is
+irreducible at this architecture. Scored against A11 (confirmed / refuted /
+final-mixed), A9 (final), A6.
+
+### 2. Mixed-model SV replication (add & sub)
+
+*(Owner: a separate thread — do not start from `maths` unless reassigned.)*
+Begin the addition→mixed generalization the paper needs by **replicating the
+established addition SV findings on the mixed add/sub model**
+`ins1_mix_d6_l3_h4_t40K_s372001` (accurate; see
+[mixed_model.md](mixed_model.md), [hugging_models.md](hugging_models.md)).
+Reuse the addition instruments and vocabulary (CE13–CE18: map-named node
+capture, edge-patch via `ln2.hook_normalized`, tricase/PCA carry axis,
+deciding-matched null, ablation-vs-untagged-baseline, the step-combiner
+on-manifold sweep) rather than inventing new ones — this is a **replication**,
+not a fresh method study.
+
+Two coupled questions:
+- **Does the SV interface replicate on the ADD sub-task of the mixed model?**
+  The map-named ST writers → consumer head(s) → step combiner should reproduce
+  the CE16/CE17 signatures for addition inside the 3-layer/4-head mixed model
+  (carry-specific delivery, `=`-not-a-source, step combiner). Scores **C5**
+  (paper-map reliability on a new model) and **A10/A12** (interface
+  generality onto a different architecture and task-mix).
+- **Shared engine vs separate circuits for add vs sub (A7 vs C2)** — the old
+  entry-3 question, now framed as replication-plus: on the polysemantic nodes
+  Paper 2 says serve `SA`/[MD](thor-glossary.md#m-positive-answer-subtraction-sub-tasks-md-mb-mz-mt)/[ND](thor-glossary.md#n-negative-answer-subtraction-sub-tasks-nd-nb-nz-nt),
+  measure per-operation readout overlap and whether a compact
+  [OPR](thor-glossary.md#opr)/[SGN](thor-glossary.md#sgn) control direction
+  selects among them. C2 predicts near-orthogonal sub-tasks; A7 predicts heavy
+  overlap steered by low-rank control — either way a conjecture takes damage.
+
+Done when: the addition SV signatures are scored replicate / partial / fail on
+the mixed model, and the add-vs-sub overlap + control-direction verdicts are
+scored against A7 and C2. Owns `study-maths/study-mixed-*.md`,
+`scripts/mixed_*.py`, `results/study-mixed-*/`.
+
+### 3. Paper hand-off consolidation and referee checkpoint
 
 Produce the maths-thread deliverable for the paper revision, ready **≥ 12
 hours before the deadline**: update
@@ -142,32 +184,10 @@ caveats section — one artifact, two uses. Paper edits themselves remain the
 `paper` thread's job; this entry is the evidence hand-off.
 
 Done when: the consolidated two-section account exists in the results docs
-with referee tagging, handed to the paper thread in time.
-
-### 3. Mixed-model shared-engine geometry
-
-On the mixed model `ins1_mix_d6_l3_h4_t40K_s372001` (see
-[mixed_model.md](mixed_model.md)), measure the geometry of polysemantic nodes
-that Paper 2 says serve `SA`, [MD](thor-glossary.md#m-positive-answer-subtraction-sub-tasks-md-mb-mz-mt),
-and [ND](thor-glossary.md#n-negative-answer-subtraction-sub-tasks-nd-nb-nz-nt):
-how much do the per-operation readouts overlap, and does a compact
-[OPR](thor-glossary.md#opr)/[SGN](thor-glossary.md#sgn) control direction
-exist that selects among them?
-
-This is where C2 and A7 make opposite predictions on the same measurement —
-C2 expects different sub-tasks to be near-orthogonal; A7 expects heavy
-`SA`/`MD`/`ND` overlap steered by low-rank control — so whichever way it
-lands, a conjecture takes real damage. The digit-embedding study found no
-dominant circular geometry, so A1's corollary that subtraction is addition with
-a reflected operand is now tested at the *node/activation* level here rather
-than assumed from the embedding. It should inherit instruments and geometry
-vocabulary from the completed addition-model studies (CE1, CE13/CE14/CE15 — the
-edge-patch, tricase/PCA, deciding-matched null, ablation-vs-baseline) rather than
-develop its own, per the addition-first scope. Best done after the entry-2
-consolidation checkpoint so the mixed model builds on a reviewed addition story.
-
-Done when: overlap and control-direction verdicts exist for the shared nodes
-and are scored against A7 and C2.
+with referee tagging, handed to the paper thread in time. Consolidates BOTH
+parallel threads (entry 1 compounding-locus + entry 2 mixed-model replication)
+once each lands; trigger no later than ~T-12h even if one thread is still in
+flight (hand off what exists, tagged by confidence).
 
 ## Candidate backlog (not active)
 

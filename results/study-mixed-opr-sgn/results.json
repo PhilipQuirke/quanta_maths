@@ -1,0 +1,54 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "M6_shared_engine": {
+    "ADD_SUB": {
+      "mean_angle_deg": 68.02653503417969,
+      "min_angle_deg": 42.89509963989258,
+      "n_angles": 10
+    },
+    "ADD_NEG": {
+      "mean_angle_deg": 71.08209228515625,
+      "min_angle_deg": 44.54064178466797,
+      "n_angles": 10
+    },
+    "SUB_NEG": {
+      "mean_angle_deg": 48.40164566040039,
+      "min_angle_deg": 12.595040321350098,
+      "n_angles": 10
+    }
+  },
+  "M6_untrained_control": {
+    "ADD_SUB": {
+      "mean_angle_deg": 45.66788864135742,
+      "min_angle_deg": 23.380081176757812,
+      "n_angles": 7
+    },
+    "ADD_NEG": {
+      "mean_angle_deg": 50.4970703125,
+      "min_angle_deg": 22.582229614257812,
+      "n_angles": 7
+    },
+    "SUB_NEG": {
+      "mean_angle_deg": 46.311100006103516,
+      "min_angle_deg": 18.27220344543457,
+      "n_angles": 8
+    }
+  },
+  "M4_opr": {
+    "operator_decode_acc": 1.0,
+    "operator_decode_null_p": 0.03225806451612903,
+    "op_dir_norm": 20.6516170501709,
+    "site_act_norm": 17.019643783569336,
+    "rank1_steer_to_add_rate": 0.0,
+    "rank1_steer_changed_rate": 0.0,
+    "n_discriminating": 55
+  },
+  "M5_sgn": {
+    "boundary_flips_sgn_rate": 1.0,
+    "sign_decode_acc": 1.0,
+    "sign_decode_null_p": 0.03225806451612903,
+    "sign_edge_flip_rate": 1.0,
+    "sign_edge_null_rate": 0.0,
+    "stimulus_valid": true
+  }
+}
