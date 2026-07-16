@@ -1,0 +1,377 @@
+{
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "n_top": 4,
+    "gate": {
+      "1": 0.925,
+      "2": 0.975,
+      "3": 0.925,
+      "4": 0.875
+    },
+    "control3_instrument": {
+      "instrument_head": "L1H1@15",
+      "any_move_rate": 1.0,
+      "best_depth": 3
+    },
+    "battery_V": {
+      "P15L1H1": {
+        "served_digit": 5,
+        "SV_content_acc": 0.9347595899311738,
+        "wrong_role_baseline": 0.9368692945725241,
+        "shuffled_null": 0.5102414747723673,
+        "content": false
+      },
+      "P15L1H2": {
+        "served_digit": 5,
+        "SV_content_acc": 0.9501032016512264,
+        "wrong_role_baseline": 0.9600793612697803,
+        "shuffled_null": 0.4766926437406987,
+        "content": false
+      },
+      "P16L1H1": {
+        "served_digit": 4,
+        "SV_content_acc": 0.9458722055976061,
+        "wrong_role_baseline": 0.9539693715895089,
+        "shuffled_null": 0.482,
+        "content": false
+      },
+      "P16L1H2": {
+        "served_digit": 4,
+        "SV_content_acc": 0.9452017448200655,
+        "wrong_role_baseline": 0.9469176983770607,
+        "shuffled_null": 0.48075691598360654,
+        "content": false
+      },
+      "P17L1H1": {
+        "served_digit": 3,
+        "SV_content_acc": 0.9429487179487179,
+        "wrong_role_baseline": 0.9490384615384615,
+        "shuffled_null": 0.50751169197258,
+        "content": false
+      },
+      "P19L1H1": {
+        "served_digit": 1,
+        "SV_content_acc": 1.0,
+        "wrong_role_baseline": 1.0,
+        "shuffled_null": 0.5265054040144107,
+        "content": false
+      }
+    },
+    "battery_D": {
+      "2": {
+        "single_H1": 0.0,
+        "single_H2": 0.1,
+        "joint_pair": 1.0,
+        "multipos_H1": 0.0,
+        "multipos_H2": 0.1,
+        "specificity_H0": 0.0,
+        "direct_full": 0.0,
+        "direct_scaled": 0.0,
+        "NULL_single_H1": 0.0,
+        "NULL_single_H2": 0.0,
+        "NULL_joint_pair": 0.0,
+        "NULL_multipos_H1": 0.0,
+        "NULL_multipos_H2": 0.0,
+        "NULL_specificity_H0": 0.05
+      },
+      "3": {
+        "single_H1": 1.0,
+        "single_H2": 0.0,
+        "joint_pair": 1.0,
+        "multipos_H1": 1.0,
+        "multipos_H2": 0.0,
+        "specificity_H0": 0.0,
+        "direct_full": 0.0,
+        "direct_scaled": 0.0,
+        "NULL_single_H1": 0.0,
+        "NULL_single_H2": 0.0,
+        "NULL_joint_pair": 0.0,
+        "NULL_multipos_H1": 0.0,
+        "NULL_multipos_H2": 0.0,
+        "NULL_specificity_H0": 0.075
+      }
+    },
+    "battery_S": {
+      "L1H0@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.25,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.25
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 0,
+        "tracks": false
+      },
+      "L1H1@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 1.0
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.975,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -0.025000000000000022
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 1,
+        "tracks": false
+      },
+      "L1H2@15": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 3,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          },
+          "2": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.975,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.975
+          },
+          "3": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 1.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 1.0
+          },
+          "4": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.075,
+            "top2_includes_units_end": 0.075,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 2,
+        "tracks": true
+      }
+    },
+    "battery_E": {
+      "clean_cascade": 1.0,
+      "clean_free": 1.0,
+      "heads": {
+        "P15L1H1": {
+          "cascade_impact": 0.0,
+          "free_impact": 0.0,
+          "economy_gap": 0.0
+        },
+        "P15L1H2": {
+          "cascade_impact": 0.83,
+          "free_impact": 0.0,
+          "economy_gap": 0.83
+        },
+        "P16L1H1": {
+          "cascade_impact": 0.0,
+          "free_impact": 0.0,
+          "economy_gap": 0.0
+        },
+        "P16L1H2": {
+          "cascade_impact": 0.365,
+          "free_impact": 0.0,
+          "economy_gap": 0.365
+        },
+        "P17L1H1": {
+          "cascade_impact": 0.0,
+          "free_impact": 0.0,
+          "economy_gap": 0.0
+        },
+        "P19L1H1": {
+          "cascade_impact": 0.0,
+          "free_impact": 0.0,
+          "economy_gap": 0.0
+        }
+      },
+      "untagged_baseline_gap_max": 0.0
+    },
+    "verdict": {
+      "read": "R-A10-distributed-delivery",
+      "reason": "single_max=1.00 single>=2depth=[] joint=1.00(@2d) tracking=[2] deciding_matched_null=0.00 carry_specific=True direct_full=0.00 direct_scaled=0.00 [direct UNDERPOWERED] | carry-specific head-edge delivery SUFFICIENT at >=2 depths (joint), consumer-head-specific; single-cell selection NOT shown; direct-path not excluded (underpowered)"
+    },
+    "accuracy": 1.0
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "n_top": 3,
+    "gate": {
+      "1": 1.0,
+      "2": 0.95,
+      "3": 0.975
+    },
+    "control3_instrument": {
+      "instrument_head": "L1H2@13",
+      "any_move_rate": 1.0,
+      "best_depth": 3
+    },
+    "battery_V": {
+      "P13L1H2": {
+        "served_digit": 4,
+        "SV_content_acc": 0.9463385354141657,
+        "wrong_role_baseline": 0.9463385354141657,
+        "shuffled_null": 0.5487179487179488,
+        "content": false
+      },
+      "P14L1H2": {
+        "served_digit": 3,
+        "SV_content_acc": 0.9416602167182663,
+        "wrong_role_baseline": 0.9391124871001032,
+        "shuffled_null": 0.5000240003840062,
+        "content": false
+      }
+    },
+    "battery_D": {
+      "2": {
+        "single_H2": 0.875,
+        "multipos_H2": 0.875,
+        "specificity_H0": 0.0,
+        "direct_full": 0.0,
+        "direct_scaled": 0.0,
+        "NULL_single_H2": 0.0,
+        "NULL_multipos_H2": 0.0,
+        "NULL_specificity_H0": 0.0
+      },
+      "3": {
+        "single_H2": 1.0,
+        "multipos_H2": 1.0,
+        "specificity_H0": 0.0,
+        "direct_full": 0.0,
+        "direct_scaled": 0.0,
+        "NULL_single_H2": 0.0,
+        "NULL_multipos_H2": 0.0,
+        "NULL_specificity_H0": 0.0
+      }
+    },
+    "battery_S": {
+      "L1H0@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.025,
+            "top2_includes_units_end": 0.15,
+            "deciding_vs_units_gap": -0.125
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.075,
+            "top2_includes_units_end": 0.8,
+            "deciding_vs_units_gap": -0.7250000000000001
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 0,
+        "tracks": false
+      },
+      "L1H1@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 0.95,
+            "deciding_vs_units_gap": -0.95
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.875,
+            "top2_includes_units_end": 0.0,
+            "deciding_vs_units_gap": 0.875
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.1,
+            "top2_includes_units_end": 0.1,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 1,
+        "tracks": false
+      },
+      "L1H2@13": {
+        "per_depth": {
+          "1": {
+            "deciding_digit": 2,
+            "top2_includes_deciding": 0.0,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -1.0
+          },
+          "2": {
+            "deciding_digit": 1,
+            "top2_includes_deciding": 0.7,
+            "top2_includes_units_end": 1.0,
+            "deciding_vs_units_gap": -0.30000000000000004
+          },
+          "3": {
+            "deciding_digit": 0,
+            "top2_includes_deciding": 0.8,
+            "top2_includes_units_end": 0.8,
+            "deciding_vs_units_gap": 0.0
+          }
+        },
+        "n_follow_nondegenerate": 0,
+        "tracks": false
+      }
+    },
+    "battery_E": {
+      "clean_cascade": 1.0,
+      "clean_free": 1.0,
+      "heads": {
+        "P13L1H2": {
+          "cascade_impact": 0.905,
+          "free_impact": 0.0,
+          "economy_gap": 0.905
+        },
+        "P14L1H2": {
+          "cascade_impact": 0.525,
+          "free_impact": 0.0,
+          "economy_gap": 0.525
+        }
+      },
+      "untagged_baseline_gap_max": 0.0
+    },
+    "verdict": {
+      "read": "R-A10-distributed-delivery",
+      "reason": "single_max=1.00 single>=2depth=[2] joint=1.00(@2d) tracking=[] deciding_matched_null=0.00 carry_specific=True direct_full=0.00 direct_scaled=0.00 [direct UNDERPOWERED] | carry-specific head-edge delivery SUFFICIENT at >=2 depths (joint), consumer-head-specific; single-cell selection NOT shown; direct-path not excluded (underpowered)"
+    },
+    "accuracy": 1.0
+  }
+}

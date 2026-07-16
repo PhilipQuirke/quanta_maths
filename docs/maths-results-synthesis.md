@@ -297,6 +297,84 @@ Status after the 2026-07-16 answer-binding study
   baseline is too weak (SV depends on all lower digits) so the claim restates CE7's
   locus, not new binding — reframed CE7-consistent; entanglement scoped 6-digit.
 
+## Q: How does each map-named output-only node (ST/SA/SC) encode its value (C5 step 1)? — local class + single-step U-resolution; CE3 = redundancy (CE13)
+
+Status after the 2026-07-16 node-output-encoding study
+([CE13](maths-claim-evidence.md#ce13-map-named-st-nodes-encode-their-class-and-co-carry-single-step-u-resolution-not-multi-digit-compounding-map-named-sa-l0-heads-do-not-write-the-answer-digit),
+revising [CE3](maths-claim-evidence.md)). First study under the human C5 refocus
+(start from the paper's HF verified node maps).
+
+- **ST/SC nodes encode their class** at their write (paper output-only tags
+  confirmed). The **ST write co-carries single-step local U-resolution** (on a `U`
+  pair the write depends on the immediate carry-in) — so not a *pure* local class
+  code, but **not** multi-digit compounding (single-step; carry-out = cin by
+  definition on `U`). A10's "ST-local / L1-compounds" division is **refined**, not
+  settled.
+- **CE3 refined to redundancy (baseline-controlled)**: single-node interchange
+  flips nothing (reproduced), but low-digit ST-node mean-ablation exceeds an
+  untagged-head baseline (map causal tags **vindicated** — a C5 win); high-digit ST
+  nodes redundant. Matches the paper's "redundant ST node" caveat.
+- **Map-named `SA` L0 heads do not write the answer digit** (except the leading
+  digit) — the sum is an answer-position computation (CE11/CE12); the `SA` L0 tag
+  marks operand-fetch.
+- **Method note (two Gate-2 rounds, both directions)**: first draft over-read "ST
+  write is local" (definite-pair artifact); the fix over-swung to "compounding
+  begins at the ST write"; settled on "single-step U-resolution co-located, not
+  multi-digit compounding". Durable lessons: locality tests must use the case where
+  the toggled variable can matter (U, not definite) and report a ratio; ablation
+  claims need an untagged-head baseline; single-step cin ≠ multi-digit compounding.
+
+## Q: How is the deep carry compounded and delivered to the combiner (C5 steps 2-4 / A10)? — carry-specific distributed delivery, selection unshown (CE14)
+
+Status after the 2026-07-16 SV-compounding study
+([CE14](maths-claim-evidence.md#ce14-carry-specific-attention-edge-delivery-to-the-answer-position-combiner-a10-core-partially-confirmed-single-head-selection-not-shown-redundant-sufficiency-not-necessity)).
+
+- **A10 core partially confirmed**: patching the map-named answer-position L1
+  consumer heads' output edge into the L1-MLP combiner flips the top cascade digit at
+  ≥ 2 depths, **carry-specifically** (deciding-matched null = 0.00) and
+  **consumer-head-specifically** — so attention (not the direct residual path)
+  delivers the deep carry to the combiner. This strengthens CE10's one-depth crumb.
+- **But**: single-head **selection is not shown** (tracking head H2 ≠
+  single-depth-edge-causal H1); it is **sufficiency not necessity** (ablating the
+  sufficient head H1 is harmless; H2 carries necessity + tracking → redundant pair);
+  the **direct path is not excluded** (underpowered arm); value content is not
+  head-specific. A9 (single-head selection) **not supported**; A6 economy supported
+  at H2.
+- **Method note (THREE Gate-2 rounds on the flagship conjecture A10)**: round 1
+  over-claimed "R-A10-selection at L1.H1" (a three-attribution smear); round 2
+  over-corrected to "not carry-specific / A10 not confirmed" on a **broken null**
+  (it toggled the deciding carry, so null=real=1.0 was the *expected* signature of a
+  carry-specific head); round 3 fixed the null to deciding-matched (null=0.00) →
+  carry-specific, landing the calibrated **R-A10-distributed-delivery**. Durable
+  lesson: a specificity null must hold the tested variable FIXED — a "same-class
+  null" that re-toggles the deciding carry proves nothing; and edge SUFFICIENCY
+  (patching flips) is not NECESSITY (ablation) — report both.
+
+## Q: How is the leading digit produced in the hard case (C5 step 5)? — same as middle digits (CE15)
+
+Status after the 2026-07-16 leading-digit-walkthrough study
+([CE15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5)).
+
+- The leading digit `A_top` in `99..9+1` is produced by the **same carry-specific
+  L1-head-edge delivery** to the answer-position (sign) L1-MLP combiner as the
+  middle digits (CE14): the sign-position L1 head edge flips `A_top` carry-specifically
+  (real 1.00, deciding-matched null 0.00). Verified 5-digit across a genuine depth
+  spread; 6-digit at deep chains only (shallow leading cascades carried by an
+  unadjudicated path).
+- **A10 consolidated across ALL answer digits including the hardest — but NOT
+  raised**: this extends CE14's *partial* confirmation to the leading locus with the
+  same open questions (necessity, selection, direct-path) plus leading-specific
+  limits (economy uninformative at the sign bottleneck; 6-digit depth-restriction).
+  Link 4 (readout) is quarantined; the A10 verdict rests only on Link 3.
+- **C5's 5-step program is now COMPLETE for the addition model**: CE13 (output
+  encodings) → CE14 (SV compounding) → CE15 (leading-digit hard case), all landing
+  on: carry-specific attention-edge delivery to answer-position L1-MLP combiners,
+  redundant and partially confirmed.
+- **Method note**: nearly clean Gate 2 (the discipline from the CE14 3-round
+  ordeal paid off — Link 4 quarantined, consolidate-not-raise honored structurally).
+  One fix: two adjacent maximal chains (k=4,5) are not an independent 2-depth spread
+  → 6-digit re-labeled "verified deep-chains only".
+
 ## Open empirical questions
 
 - **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at

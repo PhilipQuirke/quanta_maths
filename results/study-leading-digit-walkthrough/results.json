@@ -1,0 +1,291 @@
+{
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "sign_pos": 12,
+    "behavioral_gate": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "passing_depths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "link4_readout": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0
+    },
+    "link3_head_edge": {
+      "1": {
+        "single_0": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "2": {
+        "single_0": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "3": {
+        "single_0": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "4": {
+        "single_0": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      }
+    },
+    "link1_st_ablation": {
+      "clean_acc": 1.0,
+      "nodes": {
+        "P12L0H1": {
+          "digit": 3,
+          "ablated_acc": 1.0,
+          "impact": 0.0
+        },
+        "P11L0H2": {
+          "digit": 0,
+          "ablated_acc": 0.935,
+          "impact": 0.04500000000000004
+        }
+      }
+    },
+    "economy": {
+      "clean_hard": 1.0,
+      "clean_free": 1.0,
+      "heads": {
+        "L1H0": {
+          "hard_impact": 0.5266666666666666,
+          "free_impact": 0.0,
+          "economy_gap": 0.5266666666666666
+        },
+        "L1H2": {
+          "hard_impact": 0.0,
+          "free_impact": 0.0,
+          "economy_gap": 0.0
+        }
+      },
+      "untagged_baseline_gap_max": 0.4866666666666667
+    },
+    "static_output": {
+      "A_top_values": [
+        0,
+        1
+      ],
+      "n_distinct": 2
+    },
+    "trace": {
+      "link4_readout_ONLY": {
+        "flip": 1.0,
+        "tag": "readout-only (NOT counted toward A10)"
+      },
+      "link3_head_edge_delivery": {
+        "n_carry_specific_depths": 4,
+        "direct_scaled_max": 0.0,
+        "tag": "verified"
+      },
+      "link1_st_encoding_ablation": {
+        "tag": "verified",
+        "impacts": {
+          "P12L0H1": 0.0,
+          "P11L0H2": 0.04500000000000004
+        }
+      },
+      "economy_A6": {
+        "supported": false,
+        "baseline": 0.4866666666666667
+      },
+      "static_output_A_top_distinct": 2,
+      "leading_mechanism": "mirrors_CE14",
+      "a10_delta": "consolidate"
+    },
+    "accuracy": 1.0
+  },
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "sign_pos": 14,
+    "behavioral_gate": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0
+    },
+    "passing_depths": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "link4_readout": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0
+    },
+    "link3_head_edge": {
+      "1": {
+        "single_0": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "2": {
+        "single_0": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "3": {
+        "single_0": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "4": {
+        "single_0": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      },
+      "5": {
+        "single_0": {
+          "real": 0.0,
+          "deciding_matched_null": 0.0
+        },
+        "joint": {
+          "real": 1.0,
+          "deciding_matched_null": 0.0
+        },
+        "direct_full": 0.0,
+        "direct_scaled": 0.0
+      }
+    },
+    "link1_st_ablation": {
+      "clean_acc": 1.0,
+      "nodes": {
+        "P14L0H1": {
+          "digit": 5,
+          "ablated_acc": 1.0,
+          "impact": 0.0
+        },
+        "P14L0H2": {
+          "digit": 4,
+          "ablated_acc": 1.0,
+          "impact": 0.0
+        }
+      }
+    },
+    "economy": {
+      "clean_hard": 1.0,
+      "clean_free": 1.0,
+      "heads": {
+        "L1H0": {
+          "hard_impact": 0.4933333333333333,
+          "free_impact": 0.0,
+          "economy_gap": 0.4933333333333333
+        },
+        "L1H1": {
+          "hard_impact": 0.4733333333333334,
+          "free_impact": 0.0,
+          "economy_gap": 0.4733333333333334
+        }
+      },
+      "untagged_baseline_gap_max": 0.4933333333333333
+    },
+    "static_output": {
+      "A_top_values": [
+        0,
+        1
+      ],
+      "n_distinct": 2
+    },
+    "trace": {
+      "link4_readout_ONLY": {
+        "flip": 1.0,
+        "tag": "readout-only (NOT counted toward A10)"
+      },
+      "link3_head_edge_delivery": {
+        "n_carry_specific_depths": 2,
+        "direct_scaled_max": 0.0,
+        "tag": "verified"
+      },
+      "link1_st_encoding_ablation": {
+        "tag": "inferred/redundant",
+        "impacts": {
+          "P14L0H1": 0.0,
+          "P14L0H2": 0.0
+        }
+      },
+      "economy_A6": {
+        "supported": false,
+        "baseline": 0.4933333333333333
+      },
+      "static_output_A_top_distinct": 2,
+      "leading_mechanism": "mirrors_CE14",
+      "a10_delta": "consolidate"
+    },
+    "accuracy": 1.0
+  }
+}

@@ -8,7 +8,7 @@ detail; do not turn this into a ledger.
 
 ## Executive summary
 
-Thirteen studies complete. The thread has moved from representation to a causal
+Sixteen studies complete. The thread has moved from representation to a causal
 mechanism for the single-digit carry, and has now probed the deep-chain regime and
 the question- and answer-position representation geometry.
 (1) Digit embeddings are **not** a clean circle/helix — near-isotropic in 9-D,
@@ -110,6 +110,35 @@ but not fully.
   (CE11) — so template-sharing is position-of-computation-dependent. Confidence
   Medium (cross-model split). See
   [maths-claim-evidence.md#ce12](maths-claim-evidence.md#ce12-answer-phase-layout-is-split--sa-is-a-just-in-time-register-absent-at---sv-is-resolvedpresent-at--but-its-per-digit-slots-are-not-orthogonal-tape-refuted-both-share-an-answer-side-template).
+- **CE13** — **C5 step 1**: the HF-map-named `ST`/`SC` nodes **encode** their
+  sub-task class in their write (paper tags confirmed); the `ST` write also
+  co-carries **single-step local U-resolution** (cin-dependent on `U`) — not shown
+  to be multi-digit compounding (A10 premise **refined**). **CE3 refined to
+  redundancy, baseline-controlled**: single-node interchange flips nothing but
+  low-digit ST-node ablation exceeds an untagged-head baseline (map causally
+  vindicated — a C5 win; high-digit nodes redundant). Map-named `SA` L0 heads do
+  **not** write the answer digit (except leading). Confidence Medium (directional
+  cross-model). See
+  [maths-claim-evidence.md#ce13](maths-claim-evidence.md#ce13-map-named-st-nodes-encode-their-class-and-co-carry-single-step-u-resolution-not-multi-digit-compounding-map-named-sa-l0-heads-do-not-write-the-answer-digit).
+- **CE14** — **C5 steps 2–4 (A10 core)**: **carry-specific** attention-edge delivery
+  from the map-named answer-position L1 heads to the L1-MLP combiner is causally
+  **sufficient at ≥ 2 depths** (deciding-matched null = 0.00), via a **redundant
+  H1/H2 pair**, consumer-head-specific — **A10's fetch-to-combiner core partially
+  confirmed**. But single-head **selection is NOT shown** (tracking head H2 ≠
+  single-depth-edge-causal H1), it is **sufficiency not necessity** (H1 ablation
+  inert), the **direct path is not excluded** (underpowered), and value content is
+  not head-specific. A9 not supported; A6 economy supported at H2. Confidence Medium.
+  Took 3 Gate-2 rounds (over-claim → over-correction-on-broken-null → calibrated).
+  See
+  [maths-claim-evidence.md#ce14](maths-claim-evidence.md#ce14-carry-specific-attention-edge-delivery-to-the-answer-position-combiner-a10-core-partially-confirmed-single-head-selection-not-shown-redundant-sufficiency-not-necessity).
+- **CE15** — **C5 step 5 (leading-digit hard case)**: the leading digit `A_top` is
+  produced by the **same carry-specific L1-head-edge delivery** to the sign-position
+  combiner (mirrors CE14; 5-digit genuine depth spread, 6-digit deep-chains only,
+  shallow unadjudicated). **A10 consolidated across all answer digits, NOT raised**
+  (held at medium; Link-4 readout quarantined; economy uninformative at the sign
+  bottleneck; direct path not excluded). **This completes C5's 5-step program for the
+  addition model.** Confidence Medium. See
+  [maths-claim-evidence.md#ce15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5).
 
 ## Strongest live caveats
 

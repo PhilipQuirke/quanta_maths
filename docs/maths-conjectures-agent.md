@@ -84,6 +84,18 @@ sites) feeding the answer-position L1 MLPs. The open questions are the
 *content and combination rule on those named wires* — C5 steps 1–5 — not the
 location of the nodes, which this thread wastefully re-derived. See A10.]*
 
+*[2026-07-16 (post CE13–CE15, working-axioms mode): current best account of
+stages 2–5, now medium-high at the wiring level — question-tail/sign L0 ST
+nodes write their tri-state class plus single-step local U-resolution (CE13;
+the map-named `SA` L0 heads do NOT write the answer digit — the digit is
+computed at its answer position, CE12/CE13); a redundant SP-tagged L1 head
+pair at each answer position, including the sign position for the leading
+digit, delivers the carry carry-specifically into the answer-position L1-MLP
+combiner (CE14/CE15), which emits the resolved carry_out (CE5). Open:
+the edge message's content, its source (`=` depot vs deciding ST site),
+path shares/class necessity, and the combiner's functional form — see A10's
+consolidation and the sprint agenda.]*
+
 ## Relation to human conjectures
 
 - **C1 (simple, near-linear, low-dimensional)** — agree on simple and
@@ -147,6 +159,37 @@ location of the nodes, which this thread wastefully re-derived. See A10.]*
   interchange/path methods complement the map rather than merely re-verify
   it. A10 operationalizes C5's five-step program; the agenda is reworked
   around it.
+
+## Working axioms
+
+Adopted 2026-07-16 after the human's over-caution feedback ("experiments seem
+framed to disprove things I already consider proved"). These are standing
+priors that experiments must *assume*, not re-test; a study framed as an
+existence test of any of them is mis-framed.
+
+1. **Existence**: the accurate models compute deep `...999` cascades correctly
+   (paper: >99.999% on curated sets including cascades; this thread: clean
+   hi/lo behavioral separation 40/40 at every depth tested, both models). A
+   working SV implementation therefore **exists** in each accurate model. The
+   empirical question is always *which* candidate implementation, on *which
+   wires*, with *what shares* — attribution and estimation — never "whether".
+   Verdicts state the best current account with per-link confidence; "not
+   shown" is a statement about an open parameter, not a null result.
+2. **Redundancy is the norm**: Paper 2 and CE13/CE14 document duplicated
+   nodes/heads as standard in these models. A single-node necessity failure is
+   the *expected* outcome and is not evidence against a mechanism. The
+   evidential standard is sufficiency + specificity (matched nulls) +
+   replication, with necessity tested at the **class** level (paired/grouped
+   ablation), not per node.
+3. **The map is trusted wiring** (C5): the paper's per-model node maps are
+   verified anchors; interchange complements them (fills redundancy gaps) but
+   does not overturn them without map-consistent stimuli.
+
+Corollary for verdict style: single studies stay calibrated to their own
+scope, but this file may **aggregate across studies** — convergent
+sufficiency evidence from independent assays is itself evidence, and holding
+every claim at the weakest single-study verdict is the over-caution failure
+mode.
 
 ## Current conjectures
 
@@ -634,7 +677,14 @@ location of the nodes, which this thread wastefully re-derived. See A10.]*
   P12=17, P11=13), so A9's "relocate to one deciding target" sharpens to
   **selection *within* the fetched ST-site cluster** (A10 variant b); the rival
   is a static weighted read over the cluster with the MLP arbitrating (A10
-  variant c). Same fork, now scoped to named nodes.
+  variant c). Same fork, now scoped to named nodes. **2026-07-16
+  (deprioritized):** after two attempts (CE9, CE14) selection remains unshown —
+  the tracking head and the edge-causal head keep landing on different cells.
+  Under the working axioms the SV *account* does not need this variant settled
+  (delivery is established either way); A9 is **parked** unless the sprint's
+  edge-message/source decode resolves it as a by-product (a message read off
+  the deciding ST site would revive it; a message read off `=` would retire it
+  toward the human/paper depot reading).
 
 ### A10: The SV compounding mechanism is the map-named answer-position L1 fetch-and-combine over the question-tail ST cluster
 
@@ -693,33 +743,80 @@ location of the nodes, which this thread wastefully re-derived. See A10.]*
   onto (b).
 - **Confidence**: medium — the wiring is the paper's verified map plus four
   convergent activation studies; the value-content, multi-depth-causal, and
-  economy predictions are untested.
+  economy predictions are untested. **Update 2026-07-16 (CE14, SV-compounding, C5
+  steps 2–4):** the **core "fetch-to-combiner" claim is now PARTIALLY confirmed
+  causally** — patching the map-named answer-position L1 consumer heads' output edge
+  into the L1-MLP combiner flips the top cascade digit at ≥ 2 depths,
+  **carry-specifically** (deciding-matched null = 0.00) and consumer-head-specific,
+  in both models (attention delivers, strengthening CE10's one-depth crumb). BUT the
+  **selection variant (b)/A9 is NOT shown** (the value-matched tracking head `L1.H2`
+  ≠ the single-depth-edge-causal head `L1.H1`); the effect is **sufficiency not
+  necessity** (ablating H1 is harmless; H2 carries necessity+tracking → a redundant
+  H1/H2 pair); the **direct path is not excluded** (underpowered arm); and the
+  value-content prediction (1) is **not head-specific**. **Prediction (3) economy:
+  supported at H2.** Net: **hold at medium** — core wiring partially confirmed
+  (net positive within medium), selection sub-claim unsupported, delivery
+  sufficient-not-necessary. Took THREE Gate-2 rounds (over-claim → over-correction
+  on a broken specificity null → calibrated). The value-content, necessity
+  (paired-ablation), selection (same-cell ≥2-depth on H2), and direct-path
+  (powered arm) questions remain open. **Update 2026-07-16 (CE13, node-output-encoding,
+  C5 step 1):** the premise that the map-named `ST` nodes are "output-only" writers
+  of a *local* class is **REFINED, not confirmed**: the ST write cleanly encodes the
+  class but on the `U` case also co-carries the **single-step** incoming carry
+  (local U-resolution) — so some resolution is already co-located at the ST write,
+  though this is *not* multi-digit compounding (single-step cin toggle; carry-out =
+  cin by definition on `U`). The map's *causal* tags are **vindicated** under a
+  baseline-controlled ablation (low-digit ST nodes load-bearing above an
+  untagged-head baseline; high-digit redundant — a C5 win, matching the paper's
+  "redundant ST node" note). Two Gate-2 rounds corrected over-reach in both
+  directions (first "local write", then "compounding begins here"). The **L1
+  fetch/combine** steps and the **multi-digit** compounding question remain
+  **untested** — that is entry 2. Confidence held at medium; the "ST-local /
+  L1-compounds" division is sharpened (some U-resolution is early), not settled.
+  **Consolidation 2026-07-16 (CE13+CE14+CE15 aggregated; working-axioms mode):**
+  across three studies, two models, ≥ 2 chain depths, and **every answer digit
+  including the sign-position leading digit** (CE15), one account holds:
+  map-named ST writes (local class + single-step U-resolution, CE13) → a
+  **redundant SP-tagged L1 head pair** delivers the carry **carry-specifically**
+  (deciding-matched null 0.00) through the head→combiner edge (CE14) → the
+  combiner MLP emits resolved `carry_out` on the CE5 centroids → the answer
+  digit is computed just-in-time at its answer position (CE12/CE13). Under
+  axiom 1 (attribution, not existence) and axiom 2 (redundancy expected;
+  sufficiency+specificity+replication is the standard), this cross-study
+  convergence justifies **raising the core wiring claim to MEDIUM-HIGH** — the
+  per-study "hold at medium" verdicts were each scoped to a single study, and
+  aggregation is exactly the evidence they could not individually use. What
+  remains open is **implementation detail, not wiring**: (i) the *message* on
+  the causal edge (compound carry vs deciding-digit class vs U-flag); (ii) the
+  *source* the heads read it from (`=` vs the deciding ST site vs distributed —
+  CE12 found all-digit `SV` decodable at `=`, and every consumer head attends
+  `=` heavily, so "`=` as carry depot with pre-L1 compounding" is live and is
+  the human/paper lean); (iii) **path shares** (head-pair vs direct residual)
+  and **class-level necessity** (paired H1+H2 ablation); (iv) the combiner's
+  functional form (B2). These four are the 40-hour sprint targets (agenda
+  entry 1).
 
 ## Sharpest forks
 
 Where discriminating evidence would most cheaply reshape this file (ranking
 itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
-2026-07-15 after the human C5 reflections — the frame is now the C5 five-step
-program executed at the **map-named nodes**, not generic mechanism taxonomy:
+2026-07-16 for the paper-revision sprint (deadline ~2026-07-18): the C5
+program is complete (CE13–CE15); what remains are the **implementation
+details** of the confirmed SV wiring — A10's consolidation items i–iv:
 
-1. **What the map-named ST/SA/SC nodes write (C5 step 1; A2, A3 remnant, A10
-   input side)** — the output encoding of the *verified* nodes as a function
-   of their sub-task value, measured at their own sites with
-   cascade-exercising stimuli. This is also where A2's pre-MLP
-   sum-sufficiency finally gets its right locus (the named question-position
-   ST heads — fixing the pair-sum freeze's reopen condition) and where A3's
-   question-position transient-`U` remnant lives (the ST nodes *are* the
-   question-position sites).
-2. **The SV compounding rule at the map-named wires (C5 steps 2–4; A10 with
-   A6/A9 as variants a/b/c)** — value content of the SP-tagged L1 heads,
-   deciding-digit propagation through the head→MLP edge across depths, and
-   the selective-economy test. The answer-sign position (leading digit, C5
-   step 5) is the stress case.
-3. **Mixed-model shared engine (A7 vs C2)** — the one fork where human and
-   agent conjectures make opposite predictions on the same measurement;
-   C5's "then repeat for mixed" endpoint.
-4. **Causal use of digit geometry (A1, B1)** — demoted: interesting but not
-   on the C5 critical path.
+1. **The edge message (A10 item i)** — what the causal head→combiner edge
+   contribution actually carries: compound carry vs deciding-digit class vs
+   U-flag, decoded against the CE5/CE6 carry axes.
+2. **The message's source (A10 item ii)** — `=` as carry depot with pre-L1
+   compounding (the human/paper lean; CE12's all-digit `SV`-at-`=` supports
+   it) vs the deciding ST site (would revive A9 selection) vs distributed.
+   The surviving form of the old A6-vs-A9 fork, now a source-attribution
+   measurement.
+3. **Path shares and class-level necessity (A10 item iii)** — head-pair vs
+   direct-residual shares (powered arm); paired H1+H2 ablation.
+4. **Combiner functional form (A10 item iv; B2)** — how the MLP computes
+   `carry_out`/digit from the delivered message. Post-deadline: the
+   mixed-model shared engine (A7 vs C2).
 
 ## Supporting literature
 
@@ -904,6 +1001,71 @@ External:
   not transmit U-resolution, yet the model resolves `U` correctly. This splits
   A2/A3's implicit "one ST node does it all" picture and makes *locating the
   U-resolution path* the top mechanistic question.
+- **2026-07-16** — After the leading-digit-walkthrough study (C5 step 5; Gate 2 PASS
+  WITH CONDITIONS, nearly clean; [study note](study-maths/study-leading-digit-walkthrough.md),
+  [CE15](maths-claim-evidence.md)): the C5 capstone. The leading digit `A_top` in the
+  hard case is produced by the **same carry-specific L1-head-edge delivery** to the
+  sign-position combiner as the middle digits (CE14) — Link 3 verified (5-digit
+  genuine depth spread; 6-digit deep-chains only, shallow unadjudicated). **A10
+  consolidated across all answer digits incl. the hardest, but NOT raised** (held at
+  medium; Link-4 readout quarantined; economy uninformative at the sign bottleneck;
+  direct path not excluded; inherits all CE14 caveats). **This completes C5's 5-step
+  program for the addition model** (CE13 → CE14 → CE15). Notably the *first nearly-
+  clean Gate 2 of the session* — the discipline forced by CE14's three-round ordeal
+  (quarantine the readout patch; consolidate-not-raise as a machine tag; deciding-
+  matched null; verified only at ≥2 genuine depths) carried over and pre-empted the
+  over-reach. One fix: two adjacent maximal chains ≠ an independent 2-depth spread
+  (6-digit re-labeled deep-chains-only). Next: the mixed model (C5 "then repeat"),
+  and a consolidation/referee checkpoint on the addition-model story is warranted
+  before it (A10 is *partial*, hard-won).
+- **2026-07-16** — After the SV-compounding study (C5 steps 2–4; Gate 2 PASS after
+  THREE rounds; [study note](study-maths/study-sv-compounding.md),
+  [CE14](maths-claim-evidence.md)): the core test of the agent's flagship A10.
+  **A10's fetch-to-combiner core is PARTIALLY confirmed** — carry-specific
+  (deciding-matched null = 0.00), ≥2-depth causal, consumer-head-specific
+  attention-edge delivery to the L1-MLP combiner, both models (attention delivers,
+  not the direct path). **But selection (A9/A10-b) is NOT shown** (tracking head H2
+  ≠ single-depth-edge-causal H1), it is **sufficiency not necessity** (H1 ablation
+  inert; H2 necessary+tracking → redundant pair), the direct path is **not excluded**
+  (underpowered), and value content is not head-specific. **A10 held at medium**
+  (core partially confirmed, selection unsupported); **A9 not supported**; **A6
+  economy supported at H2**; **A5** hybrid routing partial causal support. This took
+  **three** Gate-2 rounds on the flagship conjecture: round 1 over-claimed
+  "R-A10-selection at L1.H1" (a three-attribution smear — single-depth edge on H1,
+  tracking on H2, necessity on H2); round 2 over-corrected to "not carry-specific /
+  A10 not confirmed" on a **broken specificity null** (a "same-class null" that
+  actually re-toggled the deciding carry, so null=real=1.0 was the *expected*
+  signature of a carry-specific head); round 3 fixed the null to deciding-matched
+  (null = 0.00) → the calibrated middle. Durable method lessons: (1) a specificity
+  null MUST hold the tested variable fixed — re-toggling it proves nothing (reuse
+  the CE10/CE13 `same_class_diff_operand` convention); (2) edge SUFFICIENCY
+  (patching flips) ≠ NECESSITY (ablation) — report both, they can land on different
+  heads; (3) on one's own flagship conjecture, expect and pre-empt the smear of
+  distinct attributions (tracking/sufficiency/necessity) into one "selection cell".
+  This is the sixth consecutive study needing a Gate-2 correction — the gates are
+  doing essential work against a persistent first-draft optimism.
+- **2026-07-16** — After the node-output-encoding study (C5 step 1; Gate 2 PASS
+  after TWO rounds; [study note](study-maths/study-node-output-encoding.md),
+  [CE13](maths-claim-evidence.md); revises [CE3](maths-claim-evidence.md)): the
+  first study under the human C5 refocus (start from the HF verified node maps).
+  Map-named `ST`/`SC` nodes **encode** their class (paper tags confirmed); the `ST`
+  write **co-carries single-step local U-resolution** (cin-dependent on `U`) —
+  **A10 premise refined**, not supported, and NOT shown to be multi-digit
+  compounding. **CE3 refined to redundancy, baseline-controlled** (interchange
+  flips nothing, but low-digit ST-node ablation exceeds an untagged-head baseline —
+  the map's causal tags **vindicated**, a C5 win; high-digit redundant). Map-named
+  `SA` L0 heads do **not** write the answer digit except the leading one. A2
+  untouched; A3 weakly-against. **Two Gate-2 rounds** corrected over-reach in
+  **both** directions (first draft "ST write is local"; the fix over-swung to
+  "compounding begins at the ST write"; settled on "single-step U-resolution
+  co-located, not multi-digit compounding"). Method lessons: (1) a locality test
+  must use the case where the toggled variable *can* matter (U pair, not definite)
+  and report a ratio, not a slack-dominated threshold; (2) an ablation-impact claim
+  needs an untagged-head baseline; (3) distinguish a *single-step* cin dependence
+  (local resolution, definitionally expected on U) from *multi-digit* compounding
+  before scoring A10. This C5-anchored study is the counterweight to the earlier
+  paper-disconnected breadth studies — starting from the verified map made the
+  findings sharper and the conjecture scoring more mechanical.
 - **2026-07-16** — After the answer-position binding study (Gate 2 PASS WITH
   CONDITIONS; [study note](study-maths/study-answer-binding.md),
   [CE12](maths-claim-evidence.md)): the CE11 follow-up. **Answer phase is a split
@@ -1028,3 +1190,28 @@ External:
   breadth entry demoted to backlog — not on the C5 critical path). Method
   lesson recorded: consult the project's own verified artifacts before
   designing de-novo assays; re-verification is a by-product, not a goal.
+- **2026-07-16** — After the human's over-caution feedback and the ~40-hour
+  paper-revision deadline (also back-filling this log for CE13–CE15, whose
+  updates had landed only in A10's confidence trail). **Mode shift adopted as
+  the new [Working axioms](#working-axioms)**: (1) a working SV implementation
+  exists (behaviorally entailed) — experiments are attribution/estimation,
+  never existence tests; (2) redundancy is the norm — single-node necessity
+  failures are expected, the standard is sufficiency + specificity +
+  replication with class-level necessity; (3) the map is trusted wiring; plus
+  the aggregation corollary. Under these axioms the CE13+CE14+CE15
+  convergence (two models, ≥ 2 depths, every answer digit including the sign
+  position, carry-specific with matched nulls) justifies **raising A10's core
+  wiring to medium-high** — the per-study "hold at medium" verdicts were each
+  single-study-scoped; cross-study aggregation is evidence the individual
+  gates could not use. **A9 parked** (variant detail; two attempts failed to
+  show selection; the sprint's source decode may settle it as a by-product).
+  Sharpest forks rewritten to A10's four implementation gaps; agenda rebuilt
+  as the 40-hour sprint (entry 1 = edge message / source / path shares /
+  necessity; entry 2 = paper hand-off consolidation merged with the referee
+  checkpoint; mixed-model deferred past the deadline). One point of retained
+  pushback, recorded for honesty: the skeptic gates caught real errors in
+  *both* directions (CE14's three rounds included a broken null that would
+  have shipped a false negative), so the sprint *compresses* gating (one
+  combined pass per study, proposed to the human) rather than dropping it —
+  the over-caution was in the framing (existence tests; refusing cross-study
+  aggregation), not in having adversarial review.

@@ -100,6 +100,17 @@ Confidence labels:
   orthogonal `A_n`=0 specificity + attention gate + null + direction symmetry).
   "Answer-position locus" is under single-node patching; question-position
   involvement not excluded (recompute masking). Addition only.
+- **C5-step-1 re-examination (2026-07-16, CE13 bundle)**: the "paper ST candidates
+  not causal" reading is **refined to REDUNDANCY, baseline-controlled**. At the
+  HF-map-named question-position `ST` heads, single-node interchange still flips
+  nothing (0.00, reproduced), BUT mean-ablation impact **exceeds an untagged-head
+  baseline** (baseline max 0.000–0.003) for the **low-digit** ST nodes (units/low
+  carries, impact up to 0.04–0.047) and is at baseline for the high-digit ones
+  (redundant). So the map's causal tags are **vindicated** (a C5 win): the nodes are
+  load-bearing but redundantly (swap-insufficient, removal-harmful, concentrated
+  where carries originate) — matching the paper's own "redundant ST node" caveat.
+  The interchange-vs-ablation gap is the expected decodability/interchange/ablation
+  dissociation (outside-view sweep: Huang & Chang 2025; causal scrubbing).
 
 ### CE4: The tri-state U-resolution flip is transmitted by an MLP-heavy L0/L1 path distinct from the make-carry heads; whether it is combined or merely relayed is unresolved
 
@@ -379,3 +390,108 @@ Confidence labels:
 - **Caveats**: linear decodability, not causal use; SV isolated-operand baseline is
   weak (F1); entanglement 6-digit-only + 1-D caveat; one 5-digit `SA_1` exception
   (+0.19 at `=`); middle digits, SV_0 excluded; 2-layer addition, two models.
+
+### CE13: Map-named ST nodes encode their class and co-carry single-step U-resolution (not multi-digit compounding); map-named SA L0 heads do not write the answer digit
+
+- **Confidence**: **Medium** — cross-model directional agreement; encoding + ablation
+  robust for the strong nodes; the U-resolution locality is 5-digit-scoped (6-digit
+  Battery-C positive control structurally void).
+- **What it establishes** (C5 step 1, both studied models): (1) every HF-map-named
+  `ST` node linearly **encodes** its 3-way class in its head-output write (~1.00),
+  and `SC` nodes their binary make-carry — confirming the paper's output-only tags;
+  a same-position wrong-role baseline flags 3 nodes as position-decodable-not-
+  uniquely-head-written. (2) The ST write **co-carries single-step local
+  U-resolution**: on a `U` (sum-9) pair the OV write depends on the single-step
+  incoming carry `cin` (cin/null 0.75–19.4, low/middle-digit-concentrated) — so the
+  write is not a *pure* local class code, but this is single-step U-resolution
+  (carry-out = cin by definition on `U`), **not** shown to be multi-digit SV
+  compounding. (3) Map-named `SA` L0 heads do **not** encode the answer digit (weakly
+  above chance) except the leading digit — the sum digit is an answer-position
+  computation (CE11/CE12), so the `SA` L0 tag marks operand-fetch, not answer-write.
+- **Relation to conjectures**: **A10 premise REFINED** (ST write co-carries local
+  U-resolution → not purely "output-only local", but multi-digit compounding is
+  untested — entry 2); **CE3 refined to redundancy** (see the CE3 follow-up note);
+  **A2 untouched** (post-attention write ≠ pre-MLP sum-sufficiency); **A3**
+  weakly-against (clean 3-way class, no off-axis symbol).
+- **Supporting evidence**: 2026-07-16 node-output-encoding bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-node-output-encoding.md](study-maths/study-node-output-encoding.md),
+  `results/study-node-output-encoding/results.json`). Node lists from HF
+  `features.json`. Two Gate-2 rounds corrected over-reach in both directions.
+- **Caveats**: linear-probe + interchange + baseline-controlled ablation; Battery-C
+  U-locality 5-digit-scoped (6-digit control void); some low-digit ablation nodes
+  marginal (~1 SE at N=300); single-step cin toggle (not multi-digit cascade — the
+  compounding question is deferred to entry 2); 2-layer addition, two models.
+
+### CE14: Carry-specific attention-edge delivery to the answer-position combiner (A10 core partially confirmed); single-head selection not shown; redundant, sufficiency-not-necessity
+
+- **Confidence**: **Medium** — carry-specific + ≥2-depth causal + consumer-specific,
+  cross-model directional agreement; but sufficiency-not-necessity, selection
+  underdetermined, direct path not excluded.
+- **What it establishes** (C5 steps 2-4, both studied models): patching a map-named
+  answer-position L1 consumer head's output edge into the high-Fail% L1-MLP combiner
+  (less-damped MLP-only instrument) flips the top cascade digit at **≥ 2 depths**
+  (via the H1+H2 joint pair), and the flip is **carry-specific** (deciding-matched
+  null = 0.00 — it responds to the deciding-carry toggle, not to same-class filler
+  changes) and **consumer-head-specific** (a non-consumer co-located head is inert).
+  This partially confirms **A10's core** "attention fetches the deep carry to the
+  answer-position L1-MLP combiner" — strengthening CE10's one-depth crumb to a
+  carry-specific ≥2-depth (joint) result.
+- **What it does NOT establish**: (1) **single-head selection (A9 / A10-b)** — the
+  value-matched deciding-digit tracking head (`L1.H2`) is **not** the single-depth
+  edge-causal head (`L1.H1`); no one head is both ≥2-depth-edge-causal AND tracking
+  (the CE10/CE11 same-cell requirement). (2) **Necessity** — the edge is *sufficient*
+  (patching flips) but the sufficient head (H1) is not *necessary* (ablation inert;
+  H2 carries necessity+tracking); the mechanism is a **redundant H1/H2 pair**.
+  (3) **Direct-path exclusion** — the direct-path arm is underpowered
+  (`direct_scaled`=0). (4) **Head-specific value content** — `SV_n` decodes from the
+  head's value but a co-located head decodes it equally (position-level, not
+  head-attributable). "Distributed/redundant" vs "H2-selects/H1-delivers" is
+  underdetermined.
+- **Relation to conjectures**: **A10 core partially confirmed** (carry-specific
+  distributed delivery), **selection sub-claim not supported**; **A9 not supported**;
+  **A6 selective economy supported at H2** (cascade harmed, carry-free spared, gap ≫
+  untagged baseline 0.00); **A5** hybrid routing gains partial causal support.
+- **Supporting evidence**: 2026-07-16 SV-compounding bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-sv-compounding.md](study-maths/study-sv-compounding.md),
+  `results/study-sv-compounding/results.json`). Consumer heads from HF
+  `behaviors.json`. Three Gate-2 rounds (positive over-claim → over-correction on a
+  broken null → calibrated).
+- **Caveats**: sufficiency-not-necessity; selection underdetermined; direct path not
+  excluded; value content not head-specific; 2-layer addition, two models.
+
+### CE15: The leading answer digit is produced by carry-specific L1-head-edge delivery to the sign-position combiner (mirrors CE14) — C5 step 5
+
+- **Confidence**: **Medium** — consolidates CE14 at the leading-digit locus;
+  5-digit across a genuine depth spread, 6-digit deep-chains only; inherits CE14's
+  partial-confirmation caveats. Does not raise A10 (a consolidation, per LW-5).
+- **What it establishes** (C5 step 5, both studied models): in the hard
+  graded-cascade case (`99..9 + 00..01`, chain of k nines reaching the leading
+  digit), the sign-position L1 consumer head edge patched into the sign-position
+  L1-MLP combiner flips the leading digit `A_top` **carry-specifically** (real flip
+  1.00, deciding-matched null 0.00) — Link 3 **verified** (5-digit at all depths
+  k=1–4; 6-digit at deep chains k=4,5). So the leading digit uses the **same
+  carry-specific attention-edge delivery mechanism as the middle digits (CE14)**,
+  at the sign position (which is `A_top`'s readout / consuming position). This
+  completes the C5 five-step program for the addition model (CE13 output encodings →
+  CE14 SV compounding → CE15 leading-digit hard case), all landing on the same
+  picture.
+- **What it does NOT establish**: (1) **uniform 6-digit delivery** — the 6-digit
+  head edge carries only for deep chains (k=4,5); shallow leading cascades (k=1–3)
+  flip via the readout (Link 4) but not these heads' edge, carried by an
+  **unadjudicated** path (direct arm underpowered). (2) **Selective economy (A6)** —
+  not testable at the sign position (untagged baseline ≈ tagged, ~0.49: a general
+  bottleneck / ablation too destructive). (3) Inherits all CE14 open questions:
+  sufficiency-not-necessity, direct-path-not-excluded, single-cell selection unshown.
+  Link 4 (whole-`resid_mid` patch) is readout-only, never counted toward A10.
+- **Relation to conjectures**: **A10 consolidated at the leading locus, NOT raised**
+  (held at medium; extends CE14's partial confirmation to all answer digits with
+  more caveats); **A6 not testable here**; **A9 untouched**.
+- **Supporting evidence**: 2026-07-16 leading-digit-walkthrough bundle
+  ([results-by-time](maths-results-by-time.md), study
+  [study-leading-digit-walkthrough.md](study-maths/study-leading-digit-walkthrough.md),
+  `results/study-leading-digit-walkthrough/results.json`). Wiring from HF maps.
+- **Caveats**: 5-digit genuine depth spread, 6-digit deep-chains only; economy
+  uninformative at the sign locus; direct path not excluded; 2-layer addition, two
+  models; a documented worked example, not a new mechanism beyond CE14.

@@ -324,3 +324,93 @@ live — not the current best story (that goes in
   digits; SV_0 excluded; 2-layer addition.
 - **Linked study**:
   [study-maths/study-answer-binding.md](study-maths/study-answer-binding.md)
+
+### 2026-07-16 — Node output encoding (C5 step 1): map-named ST/SA/SC write characterization
+
+- **Covered**: For the HF-map-named `ST`/`SA`/`SC` attention heads (both studied
+  models), the node's **write** (head output / OV-projected residual) as a function
+  of its sub-task value. Battery E (full-space linear-probe encoding + permutation
+  null + cross-digit baseline + **same-position wrong-role baseline** [N-4]);
+  Battery C (cascade locality — fixed `(Dn,D'n)`, toggle `cin`, on the OV write,
+  U-pair + definite-pair, cin/null ratio [N-9] + positive control); Battery P
+  (matched-pair `tristate_test` interchange + CE3 SA-head control); Battery Ab
+  (mean-ablation impact vs an **untagged-head baseline** [N-8]). Node lists read from
+  HF `features.json`. Outside-view sweep done (decodability≠causality; causal
+  scrubbing).
+- **Artifacts** (local, no HF): `results/study-node-output-encoding/results.json`;
+  script `scripts/node_output_encoding.py`.
+- **Caveats / coverage gaps**: **Both models agree directionally.** (1) ST nodes
+  **encode** their 3-way class (~1.00); N-4 baseline flags 3 nodes as
+  position-decodable-not-uniquely-head-written. (2) The ST write **co-carries
+  single-step local U-resolution** (cin-dependent on `U`, cin/null 0.75–19.4,
+  low-digit-concentrated, 5-digit-scoped — 6-digit Battery-C control structurally
+  void) — **not** shown to be multi-digit compounding; A10 premise **refined**, not
+  supported/compound-confirmed. (3) **CE3 refined to redundancy, baseline-controlled**:
+  single-node interchange = 0.00 (reproduced; SA control 0.88–0.93), but mean-ablation
+  impact exceeds the untagged-head baseline (max 0.000–0.003) for **low-digit** ST
+  nodes (map causally right) and is at baseline for high-digit (redundant). (4)
+  Map-named `SA` L0 heads do **not** encode the answer digit except the leading digit
+  (sum computed at answer position, CE11/CE12). Two Gate-2 rounds corrected over-reach
+  in both directions (first "local write", then "compounding begins here" → settled
+  "single-step U-resolution co-located"). A2 not tested. Linear probes; 2-layer
+  addition.
+- **Linked study**:
+  [study-maths/study-node-output-encoding.md](study-maths/study-node-output-encoding.md)
+
+### 2026-07-16 — SV compounding at the map-named wires (C5 steps 2-4; A10 partial: carry-specific distributed delivery)
+
+- **Covered**: Causal test of A10 at the map-named answer-position L1 consumer heads
+  (feeding the high-Fail% L1-MLP combiners), both studied models. Battery V (value
+  content via `W_V` + same-position wrong-role baseline); Battery D (deciding-digit
+  edge hand-off through the head→MLP edge via a less-damped `ln2.hook_normalized`
+  MLP-only instrument, single/joint-pair/multi-position arms, ≥2 depths, a
+  **deciding-matched specificity null**, a non-consumer-head specificity arm, and a
+  scaled direct-path arm); Battery S (value-matched deciding-digit tracking with
+  units-end control); Battery E (mean-ablation economy cascade-vs-carry-free vs an
+  untagged-head baseline). Consumer heads + combiners from HF `behaviors.json`.
+- **Artifacts** (local, no HF): `results/study-sv-compounding/results.json`; script
+  `scripts/sv_compounding.py`.
+- **Caveats / coverage gaps**: **R-A10-distributed-delivery, both models — A10 core
+  PARTIALLY confirmed.** Carry-specific (deciding-matched null = 0.00) head-edge
+  delivery to the combiner is causally **sufficient at ≥ 2 depths** via a
+  **redundant H1/H2 pair**, and consumer-head-specific (non-consumer head inert).
+  BUT single-cell **selection is NOT shown** (value-matched tracking is on `L1.H2`,
+  single-depth edge causality on `L1.H1` — different heads); the effect is
+  **sufficiency, not necessity** (ablating the sufficient head H1 does nothing; H2
+  carries necessity+tracking); the **direct path is not excluded** (its arm is
+  underpowered, `direct_scaled`=0); and value content is **not head-specific**
+  (Battery V wrong-role baseline equal). A9 (single-head selection) **not
+  supported**; A6 selective economy **supported at H2**. THREE Gate-2 rounds:
+  positive over-claim → negative over-correction on a broken null (toggled the
+  deciding carry) → calibrated middle after fixing the null to deciding-matched.
+  2-layer addition, two models; no neuron decomposition.
+- **Linked study**:
+  [study-maths/study-sv-compounding.md](study-maths/study-sv-compounding.md)
+
+### 2026-07-16 — Leading-digit hard-case walkthrough (C5 step 5; mirrors CE14, A10 consolidated not raised)
+
+- **Covered**: Per-link causal trace of how the LEADING answer digit `A_top` is
+  produced at the sign-token position in a hard graded-cascade case (`99..9+00..01`,
+  chain of k nines reaching the leading digit, deciding `+1` just below), both
+  studied models. Link 4 (whole-`resid_mid` readout patch, tagged readout-only, NOT
+  counted toward A10); Link 3 (sign-position L1 head-edge delivery via the CE14
+  less-damped MLP-only instrument + deciding-matched null + scaled direct-path arm,
+  graded depths); Link 1 (sign-position L0 ST encoding/ablation vs baseline); economy
+  (A6) + untagged baseline; static-output control; per-depth behavioral gate.
+- **Artifacts** (local, no HF): `results/study-leading-digit-walkthrough/results.json`;
+  script `scripts/leading_digit_walkthrough.py`.
+- **Caveats / coverage gaps**: **C5 step 5 done — mirrors_CE14, both models.** The
+  leading digit is produced by **carry-specific L1-head-edge delivery** to the
+  sign-position combiner (Link 3: real flip 1.00, deciding-matched null 0.00) —
+  5-digit across a **genuine depth spread (k=1–4)**, 6-digit at **deep chains only
+  (k=4,5)** with shallow leading cascades (k=1–3) carried by an **unadjudicated**
+  path (direct arm underpowered). Link 4 readout-only (quarantined). Economy (A6)
+  **not testable** at the sign position (untagged baseline ≈ tagged, 0.49 — general
+  bottleneck / ablation too destructive). Link 1 ST ablation verified 5-digit
+  (`P11L0H2` 0.045), redundant 6-digit (matching CE13). Direct path not excluded.
+  **A10 CONSOLIDATED across all answer digits incl. the hardest, NOT raised** (held
+  at medium; inherits all CE14 caveats + the 6-digit-deep-only rider). Gate 2 nearly
+  clean (Link 4 quarantine + consolidate-not-raise confirmed sound). 2-layer
+  addition, two models.
+- **Linked study**:
+  [study-maths/study-leading-digit-walkthrough.md](study-maths/study-leading-digit-walkthrough.md)

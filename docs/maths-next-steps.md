@@ -23,8 +23,18 @@ reference docs, without this thread's conversation context.
 
 ## Ranking logic
 
+- **SPRINT MODE until the paper-revision deadline (~2026-07-18, set
+  2026-07-16)**: the revision must include (a) details of the SV mechanism and
+  (b) insights into the latent-space representation of intermediate results.
+  Rank by contribution to those two deliverables; depth on the SV account
+  beats breadth for this window. Framing follows the
+  [working axioms](maths-conjectures-agent.md#working-axioms) (attribution,
+  not existence; redundancy is the norm; class-level necessity). Proposed
+  sprint process, pending human sign-off: **one combined skeptic pass per
+  study** (pre+post in a single Opus thread) instead of two separate gates;
+  evidence-integrity rules (committed script → `results.json`) unchanged.
 - Until a conjecture is strongly evidenced, prefer breadth and cheap
-  discriminators over depth (contract default).
+  discriminators over depth (contract default; suspended during sprint mode).
 - **Start from the paper's verified per-model node maps** (Hugging Face
   `<model>/behaviors.json` + `features.json`: `Algo:` roles, `Fail%`,
   per-answer-digit `Impact`, attention targets, `SP` tri-state-PCA tags; see
@@ -45,112 +55,89 @@ reference docs, without this thread's conversation context.
   [maths-conjectures-human.md](maths-conjectures-human.md#model-scope-for-this-direction).
 - Every entry names the conjecture predictions it bears on
   ([C1–C3](maths-conjectures-human.md#current-conjectures),
-  [A1–A9](maths-conjectures-agent.md#current-conjectures)) so post-run
+  [A1–A10](maths-conjectures-agent.md#current-conjectures)) so post-run
   prediction scoring is mechanical.
 
 ## Ranked queue
 
 | Priority | Status | Experiment | Updates |
 | --- | --- | --- | --- |
-| 1 | ready | [Output encoding of the map-named ST/SA/SC nodes](#1-output-encoding-of-the-map-named-stsasc-nodes) | A2, A3, A10 |
-| 2 | ready | [SV compounding rule at the map-named wires](#2-sv-compounding-rule-at-the-map-named-wires) | A10, A9, A6, A5 |
-| 3 | sequenced | [Leading-digit hard-case walkthrough](#3-leading-digit-hard-case-walkthrough) | A10, A6 |
-| 4 | sequenced | [Mixed-model shared-engine geometry](#4-mixed-model-shared-engine-geometry) | A7, C2 |
+| 1 | ready | [SV implementation sprint: edge message, source, path shares, necessity](#1-sv-implementation-sprint-edge-message-source-path-shares-necessity) | A10, A9, A6 |
+| 2 | ready | [Paper hand-off consolidation and referee checkpoint](#2-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
+| 3 | sequenced | [Mixed-model shared-engine geometry](#3-mixed-model-shared-engine-geometry) | A7, C2 |
 
-Entry-order note (2026-07-15 rerank, after the human C5 reflections — no new
-empirical result): C5 redirects the thread to **start from the paper's verified
-per-model node maps** and execute its five-step program (node output encodings →
-SV mechanism → answer generation → the leading-digit hard case → mixed models),
-rather than re-locating nodes or running paper-disconnected breadth studies. The
-maps for both studied models were read and already name the SV-candidate wiring
-(SP-tagged answer-position L1 heads attending `=` + the question-tail ST sites,
-feeding the high-`Fail%` L1 MLPs) that CE9/CE10 groped toward. Queue rebuilt
-around C5 (new entries 1–3, absorbing the old hand-off re-test into entry 2);
-the effective-dimensionality/SAE breadth entry is demoted to backlog **B13**
-(not on the C5 critical path). Trail:
-[C5](maths-conjectures-human.md#c5-the-paper-empirical-results-are-reliable),
-[A10](maths-conjectures-agent.md#a10-the-sv-compounding-mechanism-is-the-map-named-answer-position-l1-fetch-and-combine-over-the-question-tail-st-cluster),
-and the 2026-07-15 C5 entry in the agent
-[reflection log](maths-conjectures-agent.md#reflection-log-optional).
+Entry-order note (2026-07-16 sprint rerank — deadline-driven, after the human's
+over-caution feedback): a paper revision is due in ~40 hours (~2026-07-18) and
+must include **details of the SV mechanism** and **insights into the
+latent-space representation of intermediate results**. The C5 addition-model
+program is complete (CE13 output encodings → CE14 SV compounding → CE15
+leading-digit walkthrough; trails in the ledger and study notes), and the
+[working axioms](maths-conjectures-agent.md#working-axioms) now govern framing
+(attribution not existence; redundancy is the norm) — under them A10's core
+wiring was raised to medium-high by cross-study aggregation (see the
+2026-07-16 reflection-log entry). CE14's three open follow-ups become sprint
+**entry 1** (they are exactly what turns the wiring diagram into an
+implementation description); the contract-mandated referee checkpoint merges
+into the paper hand-off consolidation (**entry 2**); mixed-model defers past
+the deadline (**entry 3**).
 
-### 1. Output encoding of the map-named ST/SA/SC nodes
+### 1. SV implementation sprint: edge message, source, path shares, necessity
 
-C5 step 1: how each *verified* "output only" node stores/outputs its sub-task
-value. For the map-named nodes in both studied models (`ST` at
-question-tail/sign L0 heads — 5-digit `P9L0H1`=A2.ST, `P10L0H1/H2`=A1.ST,
-`P11L0H2`=A0.ST, `P12L0H1`=A3.ST, `P6L0H2`/`P12L1H2`=A4.ST; 6-digit
-`P10L0H2`..`P12L0H2`, `P14L0H1/H2`; `SC`/`SA` at answer-position L0 heads),
-characterize the node's *write* — its head-output/OV-projected residual
-contribution — as a function of the sub-task value, using
-**cascade-exercising stimuli** (not the no-lower-carry family that made ST
-nodes look inert). This entry also **re-examines CE3's "paper ST candidates
-not causal" reading**, which the maps contradict on random questions
-(`P11L0H2` Fail 23%, Impact A5..A1), and it is the correct locus for two
-long-parked items: A2's pre-MLP sum-sufficiency (satisfying the pair-sum
-freeze's reopen condition at the named ST heads, including the mandated
-outside-view sweep) and A3's question-position transient-`U` remnant (B12
-folds in — the ST nodes *are* the question-position sites).
+Turn the confirmed SV wiring (CE13–CE15, A10 at medium-high) into an
+**implementation description** for the paper — A10's four open items, all
+reusing the CE14 harness (hours each, parallelizable; frame per the working
+axioms — these estimate parameters of a mechanism known to exist):
 
-Reuse the library's own instruments rather than rebuilding (pointer from the
-human, 2026-07-15): the `SP` tags were generated by **QMAnalyse Part 19A** —
-PCA of a head's output over the pre-built **ST8/ST9/ST10 tricase question
-groups** (`cfg.tricase_questions_dict`, from
-`quanta_maths/MathsTestQuestions/tricase_test_questions_generator.py`), via
-`calc_pca_for_an` / `manual_nodes_pca` in
-[`quanta_maths/maths_pca.py`](../quanta_maths/maths_pca.py) (background:
-[pca.md](pca.md)). The ST search/confirm filters and intervention test live in
-`add_st_functions` in
-[`quanta_maths/maths_search_add.py`](../quanta_maths/maths_search_add.py) —
-note its clean question is the all-nines `333...+666...=999...`, i.e. the
-paper's own ST test is already **cascade-exercising**, unlike our
-no-lower-carry stimulus. This entry extends that machinery from 2-D PCA
-clusters to full-space output encoding with nulls, per this thread's
-instrument standards.
+- **Edge message decode (A10 item i)**: the causal head→combiner edge flips
+  answers carry-specifically (CE14); decode what the edge *contribution*
+  carries — compound carry vs deciding-digit class vs U-flag — against the
+  CE5/CE6 carry axes at the combiner input.
+- **Source attribution (A10 item ii)**: where do the heads read it?
+  Key-source ablation / per-source decomposition over `=` vs the deciding ST
+  site vs distributed. CE12 found all-digit `SV` decodable at `=` and every
+  consumer head attends `=` heavily — if the message is read off `=`, the
+  compounding largely happens pre-L1 and `=` is the carry depot (the
+  human/paper lean); if off the deciding ST site, A9 selection revives.
+- **Path shares + class-level necessity (A10 item iii)**: the powered
+  carry-specific direct-path arm and the paired H1+H2 ablation (CE14's
+  mandated follow-ups) — replace "not excluded"/"not necessary" with numbers
+  (head-pair share vs direct share; joint necessity of the head class).
+- **Stretch — combiner functional form (A10 item iv, B2-lite)**: fit
+  `carry_out = f(delivered carry, local sum class)` at the combiner MLP;
+  report neuron sparsity if time allows.
 
-Done when: per-node output-encoding verdicts exist for the named `ST`/`SA`/`SC`
-nodes in both models; A2 and the A3 remnant are scored at the right locus; and
-the CE3 dismissal is confirmed or corrected under map-consistent stimuli.
+Done when: the SV account states, with numbers, what message flows on which
+edges from which sources with what path shares and class-level necessity —
+scored against A10 (items i–iv), A9 (revived or retired), A6.
 
-### 2. SV compounding rule at the map-named wires
+### 2. Paper hand-off consolidation and referee checkpoint
 
-C5 steps 2–4, testing
-[A10](maths-conjectures-agent.md#a10-the-sv-compounding-mechanism-is-the-map-named-answer-position-l1-fetch-and-combine-over-the-question-tail-st-cluster):
-(i) **value content** — what the SP-tagged answer-position L1 heads actually
-read from the ST sites and from `=` (the maps show every consumer attending
-`=`, where no useful nodes are listed — content or sink?); (ii)
-**deciding-digit propagation** — does an ST-node patch in a deep chain reach
-the combiner through the head→MLP edge, at **≥ 2 depths**, using the
-less-damped / multi-position instrument the CE10 skeptic mandated (the old
-"hand-off higher-power re-test" is absorbed here, as is B11's single-digit
-hand-off if the harness covers both); (iii) the **A10 variant split** —
-direct-path (a) vs selection-within-cluster (b, A9) vs static weighted read
-(c) — and (iv) the **selective economy** test (A6: harm cascade questions,
-spare carry-free) at the named heads. Pair with neuron-level analysis (B2) of
-how the head + combiner MLP compute `carry_out` where the budget allows.
-For (i), seed the value-content probes with the same tricase machinery that
-generated the `SP` tags (QMAnalyse Part 19A / `maths_pca.py` — see entry 1's
-reuse note): the `SP` evidence is 2-D PCA clustering of these heads' outputs
-over ST8/ST9/ST10 groups; this entry upgrades it to full-space content plus
-OV-path transport into the combiner.
+Produce the maths-thread deliverable for the paper revision, ready **≥ 12
+hours before the deadline**: update
+[maths-results-summary.md](maths-results-summary.md) /
+[maths-results-synthesis.md](maths-results-synthesis.md) (and claim-evidence
+as entry 1 lands) into two paper-ready sections with per-claim confidence and
+artifact links: (a) **the SV mechanism** — ST writes (local class +
+single-step U-resolution, CE13) → redundant SP-tagged L1 head pair delivering
+the carry carry-specifically into the answer-position combiner at every
+answer digit including the sign position (CE14/CE15) → resolved `carry_out`
+on the CE5 centroids → just-in-time answer-digit computation (CE12/CE13) —
+plus entry 1's implementation numbers; (b) **latent representation of
+intermediate results** — near-isotropic categorical digit embeddings with a
+weak seed-fragile circular ordering (CE1); binary linear carry code with no
+dedicated `U` symbol at answer positions, resolution applied around
+L1-attention (CE6/CE7); position-specific question-side ST writes vs a shared
+answer-side template (CE11/CE12/CE13); ST/SV geometric entanglement and
+non-orthogonal `=` carry slots (CE11/CE12). Fold the contract-mandated
+**adversarial referee report** (confirmed / partial / open tag per claim,
+plus the cheapest picture-changing follow-ups) into the same document as its
+caveats section — one artifact, two uses. Paper edits themselves remain the
+`paper` thread's job; this entry is the evidence hand-off.
 
-Done when: a powered multi-depth result attributes the carry delivery among
-A10's variants (or explicitly none), scored against A10, A9, A6, A5.
+Done when: the consolidated two-section account exists in the results docs
+with referee tagging, handed to the paper thread in time.
 
-### 3. Leading-digit hard-case walkthrough
-
-C5 step 5: document, per model, how the **first non-static answer token** is
-generated in a hard edge case (`99999+00001=`, `999999+000001=`): which
-map-named nodes carry it (sign-token L0 ST nodes A4/A5.ST, the SP-tagged L1
-heads at the sign position, the sign-position L1 MLP), with each link causally
-verified by the entry-1/2 instruments or explicitly marked inferred. The
-deliverable is an end-to-end, node-by-node documented trace — the C5 step-5
-artifact and the eventual paper-thread worked example. Status `sequenced`:
-consumes entries 1–2's instruments and findings.
-
-Done when: a per-model account of the leading digit in the hard edge case
-exists with verified/inferred status per link, scored against A10 and A6.
-
-### 4. Mixed-model shared-engine geometry
+### 3. Mixed-model shared-engine geometry
 
 On the mixed model `ins1_mix_d6_l3_h4_t40K_s372001` (see
 [mixed_model.md](mixed_model.md)), measure the geometry of polysemantic nodes
@@ -166,9 +153,11 @@ C2 expects different sub-tasks to be near-orthogonal; A7 expects heavy
 lands, a conjecture takes real damage. The digit-embedding study found no
 dominant circular geometry, so A1's corollary that subtraction is addition with
 a reflected operand is now tested at the *node/activation* level here rather
-than assumed from the embedding. Status `sequenced`: it should inherit
-instruments and geometry vocabulary from entries 1–2 (and the digit-embedding
-study) rather than develop its own, per the addition-first scope.
+than assumed from the embedding. It should inherit instruments and geometry
+vocabulary from the completed addition-model studies (CE1, CE13/CE14/CE15 — the
+edge-patch, tricase/PCA, deciding-matched null, ablation-vs-baseline) rather than
+develop its own, per the addition-first scope. Best done after the entry-2
+consolidation checkpoint so the mixed model builds on a reviewed addition story.
 
 Done when: overlap and control-direction verdicts exist for the shared nodes
 and are scored against A7 and C2.
@@ -190,7 +179,8 @@ Promote by swapping into the queue.
 - **B2 — MLP discretization mechanism.** Zoom into how MLP neurons implement
   the `Dn + D'n → SA/ST` map at one node: neuron activation profiles as a
   function of pair sum, key-value-memory signatures versus Fourier-product
-  signatures. Updates the alternatives inside A1 and A2.
+  signatures. Updates the alternatives inside A1 and A2. *(The combiner-MLP
+  functional-form half is the stretch battery in sprint entry 1.)*
 - **B3 — Positional-embedding contribution audit.** Quantify how much of the
   QK attention computation is driven by positional components versus content,
   and whether stored features carry position-derived tags. Directly supports
