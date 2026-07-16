@@ -795,6 +795,41 @@ mode.
   and **class-level necessity** (paired H1+H2 ablation); (iv) the combiner's
   functional form (B2). These four are the 40-hour sprint targets (agenda
   entry 1).
+- **Update 2026-07-16 (CE16, SV-implementation sprint; combined dual-gated;
+  working-axioms mode):** the four implementation parameters were estimated on
+  both models (controls PASS: PC1 reproduces CE14 joint-pair flip 1.00 / null
+  0.00; PC4 carry-axis anchor separates committed classes). **Item (i) message
+  — RESOLVED:** the head→combiner edge carries a **canonical (format-invariant)
+  resolved carry** — within-chain cross-deciding-position carry-probe transfer
+  1.00 = within-acc — with the deciding *position* additionally *decodable* from
+  the edge (existence only, non-causal co-rider). **Item (ii) source — RESOLVED
+  toward distributed-ST/depot:** the source is the **question-tail ST cluster
+  and is NEVER `=`** — the `=` value arm flips 0.00 with carry-axis OV-projection
+  ≈ 0 (**`=` is a depot, not a value source**, consistent with CE13 — this
+  ADJUDICATES the source fork AGAINST the "`=` carry depot with pre-L1
+  compounding read as a value" reading and toward distributed ST); among named
+  ST sources the deciding-ST cluster is carry-specific (null 0.00) at all depths
+  and dominant at 6d k3, chain-ST elsewhere. **Item (iii) path shares/necessity
+  — RESOLVED:** the **head-pair (SV) path is the effective carrier** (real patch
+  flip 1.00); the **skip/direct residual carries negligible carry** (0.14/0.077,
+  ≈200× below the head-pair signal; power injection at that magnitude, 1× and 2×,
+  flips 0.00) — the model does not route carry through the skip, closing CE14's
+  direct-arm underpower gap in the *"is it used"* sense (NOT a formal exclusion —
+  a sufficient-magnitude injection was not tested); and the pair is **class-
+  necessary** (joint H1+H2 ablation collapses cascade acc, spares carry-free,
+  over a ~0 untagged baseline; necessity-over-baseline 1.07 6d / 0.85 5d).
+  **Item (iv) combiner form — OPEN:** Battery F instrument invalid (combiner
+  α-sweep produced no flips); unestimated → B2 stands. **A9 (selection): stays
+  RETIRED at the selection-mechanism level** — deciding-ST is dominant at only 1
+  independent depth (6d k3) vs the ≥2 needed, and the CE14 same-cell
+  tracking+edge bar remains unmet. **A6 economy: RAISED to class level.** Net:
+  **A10 core held at MEDIUM-HIGH; items i–iii resolved (implementation now
+  described), iv open.** Dual-gated: pre-launch PASS-WITH-CONDITIONS (SI-1..SI-10,
+  incl. skip-power-space fix and M scale-normalization) + post-result
+  PASS-WITH-CORRECTIONS (F1 "skip carries ≈0" not "excluded"; F2 "ST cluster
+  distributed" not "deciding-ST"; F3 co-rider = decode-existence). Backlink:
+  [study-sv-implementation.md](study-maths/study-sv-implementation.md),
+  `results/study-sv-implementation/results.json`, CE16.
 
 ## Sharpest forks
 
@@ -804,18 +839,19 @@ itself belongs in [maths-next-steps.md](maths-next-steps.md)). Reranked
 program is complete (CE13–CE15); what remains are the **implementation
 details** of the confirmed SV wiring — A10's consolidation items i–iv:
 
-1. **The edge message (A10 item i)** — what the causal head→combiner edge
-   contribution actually carries: compound carry vs deciding-digit class vs
-   U-flag, decoded against the CE5/CE6 carry axes.
-2. **The message's source (A10 item ii)** — `=` as carry depot with pre-L1
-   compounding (the human/paper lean; CE12's all-digit `SV`-at-`=` supports
-   it) vs the deciding ST site (would revive A9 selection) vs distributed.
-   The surviving form of the old A6-vs-A9 fork, now a source-attribution
-   measurement.
-3. **Path shares and class-level necessity (A10 item iii)** — head-pair vs
-   direct-residual shares (powered arm); paired H1+H2 ablation.
+1. ~~The edge message (A10 item i)~~ — **RESOLVED (CE16)**: canonical
+   format-invariant resolved carry + non-causal position co-rider.
+2. ~~The message's source (A10 item ii)~~ — **RESOLVED (CE16)**: source is the
+   distributed question-tail ST cluster, never `=` (`=` is a depot, not a value
+   source — adjudicated AGAINST the "`=` carry depot read as value" lean and
+   toward distributed ST). A9 selection stays retired (1 dominant depth < 2).
+3. ~~Path shares and class-level necessity (A10 item iii)~~ — **RESOLVED
+   (CE16)**: head-pair (SV) path effective; skip carries negligible carry (not
+   formally excluded); pair class-necessary (necessity-over-baseline 1.07/0.85).
 4. **Combiner functional form (A10 item iv; B2)** — how the MLP computes
-   `carry_out`/digit from the delivered message. Post-deadline: the
+   `carry_out`/digit from the delivered message. **STILL OPEN** — Battery F
+   instrument invalid in CE16 (needs a working combiner-input driver). This is
+   now the sole remaining A10 implementation item. Post-deadline: the
    mixed-model shared engine (A7 vs C2).
 
 ## Supporting literature

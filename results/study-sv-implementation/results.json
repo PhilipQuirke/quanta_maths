@@ -1,0 +1,1184 @@
+{
+  "add_d6_l2_h3_t20K_s173289": {
+    "model": "add_d6_l2_h3_t20K_s173289",
+    "n_top": 4,
+    "gates": {
+      "2": 0.925,
+      "3": 0.95,
+      "4": 0.925
+    },
+    "PC4_axis_anchor": {
+      "c0_c1_sep_on_axis": 28.55028533935547,
+      "digit": 3,
+      "pos": 16
+    },
+    "PC1_regression": {
+      "k": 3,
+      "joint_pair_flip": {
+        "rate": 1.0,
+        "ci": [
+          0.9123754607496077,
+          1.0
+        ],
+        "n": 40
+      },
+      "deciding_matched_null": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      }
+    },
+    "battery_R": {
+      "cpos": 15,
+      "heads": [
+        1,
+        2
+      ],
+      "depths": {
+        "2": {
+          "flip_full_all_keys": {
+            "rate": 1.0,
+            "ci": [
+              0.9123754607496077,
+              1.0
+            ],
+            "n": 40
+          },
+          "arm_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            }
+          },
+          "complement_flip": {
+            "=": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "arm_sum_residual": 0.0,
+          "leaky_gt_0.15": false,
+          "share_bracket": {
+            "=": [
+              0.0,
+              0.0
+            ],
+            "deciding_ST": [
+              0.0,
+              0.0
+            ],
+            "rest": [
+              1.0,
+              1.0
+            ]
+          },
+          "null_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "ov_proj_mean": {
+            "=": 0.0001871537896629083,
+            "deciding_ST": -6.934540832849956,
+            "rest": -21.291074192040575
+          },
+          "report_mode": "normalized_share",
+          "key_groups": {
+            "=": [
+              13
+            ],
+            "deciding_ST": [
+              3,
+              10
+            ],
+            "rest": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              11,
+              12,
+              14,
+              15
+            ]
+          }
+        },
+        "3": {
+          "flip_full_all_keys": {
+            "rate": 1.0,
+            "ci": [
+              0.9123754607496077,
+              1.0
+            ],
+            "n": 40
+          },
+          "arm_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.6,
+              "ci": [
+                0.44595619827393507,
+                0.7365188938759865
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.275,
+              "ci": [
+                0.1610785343314309,
+                0.4283525083312458
+              ],
+              "n": 40
+            }
+          },
+          "complement_flip": {
+            "=": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.275,
+              "ci": [
+                0.1610785343314309,
+                0.4283525083312458
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.6,
+              "ci": [
+                0.44595619827393507,
+                0.7365188938759865
+              ],
+              "n": 40
+            }
+          },
+          "arm_sum_residual": 0.125,
+          "leaky_gt_0.15": false,
+          "share_bracket": {
+            "=": [
+              0.0,
+              0.0
+            ],
+            "deciding_ST": [
+              0.6,
+              0.725
+            ],
+            "rest": [
+              0.275,
+              0.4
+            ]
+          },
+          "null_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "ov_proj_mean": {
+            "=": 0.000907282994867295,
+            "deciding_ST": -8.731221688186789,
+            "rest": 0.3252110506347573
+          },
+          "report_mode": "normalized_share",
+          "key_groups": {
+            "=": [
+              13
+            ],
+            "deciding_ST": [
+              4,
+              11
+            ],
+            "rest": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              12,
+              14,
+              15
+            ]
+          }
+        },
+        "4": {
+          "flip_full_all_keys": {
+            "rate": 1.0,
+            "ci": [
+              0.9123754607496077,
+              1.0
+            ],
+            "n": 40
+          },
+          "arm_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.075,
+              "ci": [
+                0.02583555677185823,
+                0.19864530159097524
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.925,
+              "ci": [
+                0.8013546984090248,
+                0.9741644432281419
+              ],
+              "n": 40
+            }
+          },
+          "complement_flip": {
+            "=": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.925,
+              "ci": [
+                0.8013546984090248,
+                0.9741644432281419
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.075,
+              "ci": [
+                0.02583555677185823,
+                0.19864530159097524
+              ],
+              "n": 40
+            }
+          },
+          "arm_sum_residual": 0.0,
+          "leaky_gt_0.15": false,
+          "share_bracket": {
+            "=": [
+              0.0,
+              0.0
+            ],
+            "deciding_ST": [
+              0.07499999999999996,
+              0.075
+            ],
+            "rest": [
+              0.925,
+              0.925
+            ]
+          },
+          "null_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "ov_proj_mean": {
+            "=": 0.0006682879211902026,
+            "deciding_ST": -0.5475453196117144,
+            "rest": -7.95844873301248
+          },
+          "report_mode": "normalized_share",
+          "key_groups": {
+            "=": [
+              13
+            ],
+            "deciding_ST": [
+              5,
+              12
+            ],
+            "rest": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              14,
+              15
+            ]
+          }
+        }
+      }
+    },
+    "battery_P": {
+      "cpos": 15,
+      "heads": [
+        1,
+        2
+      ],
+      "k": 3,
+      "skip_measure": {
+        "carry_norm": 0.139993816614151,
+        "per_pair_carry_mag": 0.1399938017129898
+      },
+      "direct_arm": {
+        "power_1x": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "power_2x": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "skip_real_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "head_pair_real_flip": {
+          "rate": 1.0,
+          "ci": [
+            0.9123754607496077,
+            1.0
+          ],
+          "n": 40
+        },
+        "powered": false,
+        "skip_share": null,
+        "note": "skip arm INVALID (SI-1): measured real-skip carry ~0 or power<0.5; no skip-share claimed"
+      },
+      "class_necessity": {
+        "consumer_pair": [
+          1,
+          2
+        ],
+        "untagged_pair": [
+          0
+        ],
+        "cascade_acc_after_ablate": 0.0,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 1.0,
+        "untagged_cascade_acc_after_ablate": 1.0,
+        "untagged_carryfree_acc_after_ablate": 0.925,
+        "untagged_selective_gap": -0.07499999999999996,
+        "necessity_over_baseline": 1.075
+      }
+    },
+    "battery_M": {
+      "cpos": 15,
+      "heads": [
+        1,
+        2
+      ],
+      "proj_stats": {
+        "chain_k2": {
+          "carry1_mean_proj": 13.969402956962586,
+          "carry0_mean_proj": -15.209535082181295,
+          "separation": 29.17893803914388,
+          "carry1_ci": [
+            13.753571257194634,
+            14.185234656730538
+          ],
+          "carry0_ci": [
+            -15.289065763337828,
+            -15.130004401024763
+          ],
+          "ln_std_mean": 1.4679506244758764
+        },
+        "chain_k3": {
+          "carry1_mean_proj": 12.698648691177368,
+          "carry0_mean_proj": -7.183556461334229,
+          "separation": 19.882205152511595,
+          "carry1_ci": [
+            12.555652560262223,
+            12.841644822092514
+          ],
+          "carry0_ci": [
+            -7.330042923936492,
+            -7.037069998731965
+          ],
+          "ln_std_mean": 1.066049284984668
+        },
+        "committed": {
+          "carry1_mean_proj": -12.383666523297627,
+          "carry0_mean_proj": -12.990926710764567,
+          "separation": 0.6072601874669399,
+          "carry1_ci": [
+            -12.45271464852797,
+            -12.314618398067285
+          ],
+          "carry0_ci": [
+            -13.00861680595202,
+            -12.973236615577115
+          ],
+          "ln_std_mean": 1.3459546104073525
+        }
+      },
+      "transfer": {
+        "within_chain_k2_to_k3": {
+          "within": 1.0,
+          "transfer": 1.0
+        },
+        "within_chain_k3_to_k2": {
+          "within": 1.0,
+          "transfer": 1.0
+        },
+        "committed_to_chain(secondary)": {
+          "within": 0.9958333333333333,
+          "transfer": 1.0
+        },
+        "domain_shift_null": {
+          "within": 0.6219783273131425,
+          "transfer": 0.5
+        }
+      },
+      "residual_family_decode": {
+        "families": [
+          "chain_k2",
+          "chain_k3"
+        ],
+        "bacc_family_after_axis_removal_RAW": 1.0,
+        "bacc_family_after_axis_removal_norm": 1.0
+      }
+    },
+    "battery_F": {
+      "cpos_combiner": 16,
+      "digit": 3,
+      "curve": {
+        "-2": 0.0,
+        "-1": 0.0,
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "max_step": 0.0,
+      "spread": 0.0,
+      "class": "graded"
+    },
+    "verdict": {
+      "controls": {
+        "PC1_regression_ok": true,
+        "PC4_axis_ok": true
+      },
+      "M": {
+        "read": "M-canonical-carry + position co-rider",
+        "carry_canonical": true,
+        "position_corider": true,
+        "within_chain_transfer": 1.0,
+        "within_acc": 1.0,
+        "family_decode_after_axis_removal_norm": 1.0,
+        "family_decode_after_axis_removal_RAW_descriptive": 1.0,
+        "committed_transfer_descriptive_domain_confounded": {
+          "within": 0.9958333333333333,
+          "transfer": 1.0
+        },
+        "domain_shift_null_transfer": 0.5
+      },
+      "R": {
+        "per_depth": {
+          "2": {
+            "arms": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 1.0
+            },
+            "dominant": "rest",
+            "leaky": false,
+            "nulls": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            }
+          },
+          "3": {
+            "arms": {
+              "=": 0.0,
+              "deciding_ST": 0.6,
+              "rest": 0.275
+            },
+            "dominant": "deciding_ST",
+            "leaky": false,
+            "nulls": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            }
+          },
+          "4": {
+            "arms": {
+              "=": 0.0,
+              "deciding_ST": 0.075,
+              "rest": 0.925
+            },
+            "dominant": "rest",
+            "leaky": false,
+            "nulls": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            }
+          }
+        },
+        "revive_depths": 1,
+        "A9": "A9 not revived at source level (=-dominant or <2 deciding-ST depths) -> depot reading"
+      },
+      "P": {
+        "skip_powered": false,
+        "skip_share": null,
+        "head_pair_real_flip": 1.0,
+        "power_1x": 0.0,
+        "power_2x": 0.0,
+        "class_necessity_over_baseline": 1.075,
+        "selective_gap": 1.0
+      },
+      "F": {
+        "transfer_class": "graded",
+        "spread": 0.0
+      }
+    },
+    "accuracy": 1.0
+  },
+  "add_d5_l2_h3_t15K_s372001": {
+    "model": "add_d5_l2_h3_t15K_s372001",
+    "n_top": 3,
+    "gates": {
+      "2": 1.0,
+      "3": 1.0
+    },
+    "PC4_axis_anchor": {
+      "c0_c1_sep_on_axis": 32.27964782714844,
+      "digit": 2,
+      "pos": 14
+    },
+    "PC1_regression": {
+      "k": 3,
+      "joint_pair_flip": {
+        "rate": 1.0,
+        "ci": [
+          0.9123754607496077,
+          1.0
+        ],
+        "n": 40
+      },
+      "deciding_matched_null": {
+        "rate": 0.0,
+        "ci": [
+          -6.330876522670002e-18,
+          0.08762453925039232
+        ],
+        "n": 40
+      }
+    },
+    "battery_R": {
+      "cpos": 13,
+      "heads": [
+        2
+      ],
+      "depths": {
+        "2": {
+          "flip_full_all_keys": {
+            "rate": 0.925,
+            "ci": [
+              0.8013546984090248,
+              0.9741644432281419
+            ],
+            "n": 40
+          },
+          "arm_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.925,
+              "ci": [
+                0.8013546984090248,
+                0.9741644432281419
+              ],
+              "n": 40
+            }
+          },
+          "complement_flip": {
+            "=": {
+              "rate": 0.925,
+              "ci": [
+                0.8013546984090248,
+                0.9741644432281419
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.925,
+              "ci": [
+                0.8013546984090248,
+                0.9741644432281419
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "arm_sum_residual": 0.0,
+          "leaky_gt_0.15": false,
+          "share_bracket": {
+            "=": [
+              0.0,
+              0.0
+            ],
+            "deciding_ST": [
+              0.0,
+              0.0
+            ],
+            "rest": [
+              0.925,
+              0.925
+            ]
+          },
+          "null_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "ov_proj_mean": {
+            "=": -6.518490831552981e-06,
+            "deciding_ST": -5.072838186178691e-05,
+            "rest": -7.143071839346687
+          },
+          "report_mode": "normalized_share",
+          "key_groups": {
+            "=": [
+              11
+            ],
+            "deciding_ST": [
+              3,
+              9
+            ],
+            "rest": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10,
+              12,
+              13
+            ]
+          }
+        },
+        "3": {
+          "flip_full_all_keys": {
+            "rate": 1.0,
+            "ci": [
+              0.9123754607496077,
+              1.0
+            ],
+            "n": 40
+          },
+          "arm_flip": {
+            "=": {
+              "rate": 0.5,
+              "ci": [
+                0.35199278797099753,
+                0.6480072120290025
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "complement_flip": {
+            "=": {
+              "rate": 0.125,
+              "ci": [
+                0.05459419773541283,
+                0.26112420670238146
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.85,
+              "ci": [
+                0.7092737396097997,
+                0.9293890829149257
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 1.0,
+              "ci": [
+                0.9123754607496077,
+                1.0
+              ],
+              "n": 40
+            }
+          },
+          "arm_sum_residual": 0.5,
+          "leaky_gt_0.15": true,
+          "share_bracket": {
+            "=": [
+              0.5,
+              0.875
+            ],
+            "deciding_ST": [
+              0.0,
+              0.15000000000000002
+            ],
+            "rest": [
+              0.0,
+              0.0
+            ]
+          },
+          "null_flip": {
+            "=": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "deciding_ST": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            },
+            "rest": {
+              "rate": 0.0,
+              "ci": [
+                -6.330876522670002e-18,
+                0.08762453925039232
+              ],
+              "n": 40
+            }
+          },
+          "ov_proj_mean": {
+            "=": -1.7207049906253815,
+            "deciding_ST": -4.034313975764659,
+            "rest": -3.2447006473637074
+          },
+          "report_mode": "ordinal_dominance",
+          "key_groups": {
+            "=": [
+              11
+            ],
+            "deciding_ST": [
+              4,
+              10
+            ],
+            "rest": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              9,
+              12,
+              13
+            ]
+          }
+        }
+      }
+    },
+    "battery_P": {
+      "cpos": 13,
+      "heads": [
+        2
+      ],
+      "k": 3,
+      "skip_measure": {
+        "carry_norm": 0.0760052427649498,
+        "per_pair_carry_mag": 0.07665631175041199
+      },
+      "direct_arm": {
+        "power_1x": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "power_2x": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "skip_real_flip": {
+          "rate": 0.0,
+          "ci": [
+            -6.330876522670002e-18,
+            0.08762453925039232
+          ],
+          "n": 40
+        },
+        "head_pair_real_flip": {
+          "rate": 1.0,
+          "ci": [
+            0.9123754607496077,
+            1.0
+          ],
+          "n": 40
+        },
+        "powered": false,
+        "skip_share": null,
+        "note": "skip arm INVALID (SI-1): measured real-skip carry ~0 or power<0.5; no skip-share claimed"
+      },
+      "class_necessity": {
+        "consumer_pair": [
+          2
+        ],
+        "untagged_pair": [
+          0
+        ],
+        "cascade_acc_after_ablate": 0.15,
+        "carryfree_acc_after_ablate": 1.0,
+        "selective_gap": 0.85,
+        "untagged_cascade_acc_after_ablate": 1.0,
+        "untagged_carryfree_acc_after_ablate": 1.0,
+        "untagged_selective_gap": 0.0,
+        "necessity_over_baseline": 0.85
+      }
+    },
+    "battery_M": {
+      "cpos": 13,
+      "heads": [
+        2
+      ],
+      "proj_stats": {
+        "chain_k2": {
+          "carry1_mean_proj": 8.175908048947653,
+          "carry0_mean_proj": -6.532439883550008,
+          "separation": 14.708347932497661,
+          "carry1_ci": [
+            8.034303792949428,
+            8.317512304945877
+          ],
+          "carry0_ci": [
+            -6.6783938672466325,
+            -6.386485899853384
+          ],
+          "ln_std_mean": 1.0351291154821713
+        },
+        "chain_k3": {
+          "carry1_mean_proj": 8.780073750019074,
+          "carry0_mean_proj": -8.468804474671682,
+          "separation": 17.248878224690756,
+          "carry1_ci": [
+            8.699732361321068,
+            8.86041513871708
+          ],
+          "carry0_ci": [
+            -8.568324687431407,
+            -8.369284261911957
+          ],
+          "ln_std_mean": 0.9746171943843365
+        }
+      },
+      "transfer": {
+        "within_chain_k2_to_k3": {
+          "within": 1.0,
+          "transfer": 1.0
+        },
+        "within_chain_k3_to_k2": {
+          "within": 1.0,
+          "transfer": 1.0
+        }
+      },
+      "residual_family_decode": {
+        "families": [
+          "chain_k2",
+          "chain_k3"
+        ],
+        "bacc_family_after_axis_removal_RAW": 1.0,
+        "bacc_family_after_axis_removal_norm": 1.0
+      }
+    },
+    "battery_F": {
+      "cpos_combiner": 14,
+      "digit": 2,
+      "curve": {
+        "-2": 0.0,
+        "-1": 0.0,
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "max_step": 0.0,
+      "spread": 0.0,
+      "class": "graded"
+    },
+    "verdict": {
+      "controls": {
+        "PC1_regression_ok": true,
+        "PC4_axis_ok": true
+      },
+      "M": {
+        "read": "M-canonical-carry + position co-rider",
+        "carry_canonical": true,
+        "position_corider": true,
+        "within_chain_transfer": 1.0,
+        "within_acc": 1.0,
+        "family_decode_after_axis_removal_norm": 1.0,
+        "family_decode_after_axis_removal_RAW_descriptive": 1.0,
+        "committed_transfer_descriptive_domain_confounded": null,
+        "domain_shift_null_transfer": null
+      },
+      "R": {
+        "per_depth": {
+          "2": {
+            "arms": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.925
+            },
+            "dominant": "rest",
+            "leaky": false,
+            "nulls": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            }
+          },
+          "3": {
+            "arms": {
+              "=": 0.5,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            },
+            "dominant": "=",
+            "leaky": true,
+            "nulls": {
+              "=": 0.0,
+              "deciding_ST": 0.0,
+              "rest": 0.0
+            }
+          }
+        },
+        "revive_depths": 0,
+        "A9": "A9 not revived at source level (=-dominant or <2 deciding-ST depths) -> depot reading"
+      },
+      "P": {
+        "skip_powered": false,
+        "skip_share": null,
+        "head_pair_real_flip": 1.0,
+        "power_1x": 0.0,
+        "power_2x": 0.0,
+        "class_necessity_over_baseline": 0.85,
+        "selective_gap": 0.85
+      },
+      "F": {
+        "transfer_class": "graded",
+        "spread": 0.0
+      }
+    },
+    "accuracy": 1.0
+  }
+}

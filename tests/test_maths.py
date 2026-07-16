@@ -20,7 +20,7 @@ from quanta_maths.maths_search_mix import (
     run_intervention_core, run_strong_intervention, run_weak_intervention,
     opr_functions, sgn_functions)
 from quanta_maths.maths_search_add import (
-    add_ss_functions, add_sc_functions, add_sa_functions, add_st_functions)
+    add_ss_functions, add_sc_functions, add_sa_functions, add_st_functions, add_stc_functions)
 from quanta_maths.maths_search_sub import (
     sub_mt_functions, sub_gt_functions, sub_md_functions, sub_mb_functions, neg_nd_functions, neg_nb_functions)
 
@@ -486,7 +486,11 @@ class TestMaths(unittest.TestCase):
                 
         tag = add_st_functions.tag(2)
         filters = add_st_functions.prereqs(cfg, 14, 2)    
-                
+
+        tag = add_stc_functions.tag(2)
+        self.assertEqual(tag, "A2.STC")
+        filters = add_stc_functions.prereqs(cfg, 14, 2)
+
         tag = sub_mt_functions.tag(2)
         filters = sub_mt_functions.prereqs(cfg, 14, 2)    
                 

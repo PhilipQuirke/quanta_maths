@@ -34,6 +34,13 @@ from scripts.deep_cascade_mechanism import (
     build_chain, affected_digits, consuming_pos, dn_pos, dpn_pos, behavioral_gate,
     RNG,
 )
+# Edge/OV-path primitives now live in the library (Stage 3 migration).
+from quanta_maths.maths_edge_patch import (
+    head_edge_delta as _lib_head_edge_delta,
+    direct_path_delta as _lib_direct_path_delta,
+    run_edge_patch as _lib_run_edge_patch,
+    ln_scale as _ln_scale,
+)
 
 RESULT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                           "results", "study-cascade-handoff-edge-patch")
@@ -55,66 +62,23 @@ def battery_plan(cfg):
     return n_top, depths
 
 
-def _ln_scale(vec, eps=1e-5):
-    """Return (centered, std) for a d_model vector under LN."""
-    xm = vec - vec.mean()
-    std = torch.sqrt(xm.var(unbiased=False) + eps)
-    return xm, std
-
-
 # ===========================================================================
-# edge patching primitives
+# edge patching primitives -- thin shims over quanta_maths.maths_edge_patch.
+# This study always receives at L1 (the answer-position combiner), so recv_layer=1.
 # ===========================================================================
 
 def edge_delta(model, src_cache, tgt_cache, cpos, h):
     """The head-h -> resid_mid edge delta at position cpos (source - target)."""
-    WO = model.blocks[1].attn.W_O
-    zs = src_cache["blocks.1.attn.hook_z"][0, cpos, h, :]
-    zt = tgt_cache["blocks.1.attn.hook_z"][0, cpos, h, :]
-    return (zs - zt) @ WO[h]
+    return _lib_head_edge_delta(model, src_cache, tgt_cache, cpos, layer=1, head=h)
 
 
 def run_edge_patch(model, cfg, target_q, cpos, delta, arm="raw", tgt_cache=None):
-    """Add `delta` to the combiner-position residual and return predicted answers.
-    arm:
-      'raw'      -> patch resid_mid (MLP + direct skip both see delta; ln2 renorms)
-      'lnfair'   -> patch ln2.hook_normalized with delta rescaled by the CLEAN std
-                    (removes LN whole-vector renormalization damping)
-      'mlp_only' -> patch ln2.hook_normalized (MLP input) only; the direct skip
-                    contribution of resid_mid to resid_post stays at clean
-    """
-    ap = answer_positions(cfg)
-    if arm == "raw":
-        def hook(act, hook):
-            act[:, cpos, :] = act[:, cpos, :] + delta
-            return act
-        fwd = [("blocks.1.hook_resid_mid", hook)]
-    elif arm in ("lnfair", "mlp_only"):
-        rm = tgt_cache["blocks.1.hook_resid_mid"][0, cpos, :]
-        xm, std = _ln_scale(rm)
-        gamma = model.blocks[1].ln2.w
-        norm_clean = xm / std
-        xm2 = (rm + delta) - (rm + delta).mean()
-        norm_fair = xm2 / std  # freeze std to clean (LN-fair)
-        add = (norm_fair - norm_clean) * gamma
-        def hook(act, hook):
-            act[:, cpos, :] = act[:, cpos, :] + add
-            return act
-        fwd = [("blocks.1.ln2.hook_normalized", hook)]
-        # for mlp_only the skip is untouched by construction (we patch the MLP
-        # input path, not resid_mid), so raw-vs-mlp_only difference = skip effect.
-    else:
-        raise ValueError(arm)
-    with torch.no_grad():
-        logits = model.run_with_hooks(target_q.unsqueeze(0), fwd_hooks=fwd)
-    return logits[0, [p - 1 for p in ap]].argmax(-1)
+    return _lib_run_edge_patch(model, cfg, target_q, cpos, delta,
+                               recv_layer=1, arm=arm, tgt_cache=tgt_cache)
 
 
 def direct_path_delta(src_cache, tgt_cache, cpos, scale=1.0):
-    """The direct resid_post(L0) -> resid_mid edge delta at cpos (source-target)."""
-    ds = src_cache["blocks.0.hook_resid_post"][0, cpos, :]
-    dt = tgt_cache["blocks.0.hook_resid_post"][0, cpos, :]
-    return (ds - dt) * scale
+    return _lib_direct_path_delta(src_cache, tgt_cache, cpos, layer=0, scale=scale)
 
 
 # ===========================================================================

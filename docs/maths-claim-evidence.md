@@ -495,3 +495,57 @@ Confidence labels:
 - **Caveats**: 5-digit genuine depth spread, 6-digit deep-chains only; economy
   uninformative at the sign locus; direct path not excluded; 2-layer addition, two
   models; a documented worked example, not a new mechanism beyond CE14.
+
+### CE16: SV implementation — canonical resolved-carry message, distributed ST-cluster source (`=` is a depot, not a value source), head-pair (SV) path effective with negligible skip carry, class-necessary pair; A10 items i–iii resolved, iv open
+
+- **Confidence**: **Medium-high** for the three resolved implementation items
+  (dual-gated, both models, controls pass); item iv (combiner form) unestimated.
+  A parameter-estimation study on the confirmed SV wiring (working-axioms mode),
+  not an existence test.
+- **What it establishes** (both studied models, acc 1.000; controls: PC1
+  reproduces CE14 joint-pair flip 1.00 / deciding-matched null 0.00; PC4
+  carry-axis anchor sep 28.6/32.3):
+  - **(i) Message** — the head→combiner edge carries a **canonical
+    (format-invariant) resolved carry**: within-chain cross-deciding-position
+    carry-probe transfer 1.00 = within-acc. The deciding *position* is
+    additionally *decodable* from the edge after carry-axis removal
+    (norm-matched, existence-only / non-causal co-rider).
+  - **(ii) Source** — the carry source is the **question-tail ST cluster and is
+    NEVER `=`**: the `=` value-patch arm flips 0.00 with carry-axis OV-projection
+    ≈ 0 (**`=` is a depot, not a value source**, consistent with CE13). Among
+    named ST sources, the deciding-ST cluster is carry-specific (matched null
+    0.00) at all depths and dominant at 6d k3 (0.60); the chain-ST `rest` sites
+    carry the mass at k2/k4 (source **distributed** across ST sites).
+  - **(iii) Path + necessity** — the **head-pair (SV) path is the effective
+    carrier** (real patch flip 1.00); the **skip/direct residual carries
+    negligible carry** (0.14 6d / 0.077 5d, ≈200× below the head-pair signal;
+    power injection at that magnitude, 1× and 2×, flips 0.00 → the model does not
+    route carry through the skip). The pair is **class-necessary**: joint H1+H2
+    mean-ablation collapses cascade accuracy (0.00 6d / 0.15 5d), spares
+    carry-free (1.00), over a ~0 untagged-pair baseline
+    (necessity-over-baseline 1.07 6d / 0.85 5d).
+- **What it does NOT establish**: **(iv) combiner functional form** — Battery F
+  instrument invalid (α-sweep at the combiner input produced no flips; spread
+  0.00); unestimated, not a negative. The skip is **not formally excluded** —
+  the power control was matched to the skip's own tiny magnitude, so it shows the
+  skip is not USED, not that it COULDN'T carry (F1 correction). "Source is the
+  ST cluster distributed", not localized to deciding-ST (dominant at only 1
+  depth; F2 correction). The position co-rider is decode-existence, not causal
+  (F3). 5d k3 R arm is leaky (residual 0.50) → ordinal only.
+- **Relation to conjectures**: **A10 core held at medium-high; items i–iii
+  RESOLVED, iv OPEN.** Source fork adjudicated toward **distributed ST / depot**
+  (against "`=` carry depot read as value"). **A9 selection stays RETIRED** at
+  the mechanism level (deciding-ST dominant at only 1 independent depth < the ≥2
+  needed; CE14 same-cell tracking+edge bar unmet). **A6 economy RAISED to class
+  level.** Closes CE14's direct-arm underpower gap in the "is it used" sense and
+  CE10's one-depth crumb.
+- **Supporting evidence**: 2026-07-16 SV-implementation sprint
+  ([results-by-time](maths-results-by-time.md), study
+  [study-sv-implementation.md](study-maths/study-sv-implementation.md),
+  `results/study-sv-implementation/results.json`). Dual-gated (combined sprint
+  pass): pre-launch PASS-WITH-CONDITIONS (SI-1..SI-10) + post-result
+  PASS-WITH-CORRECTIONS (F1/F2/F3). Wiring from HF `behaviors.json` maps;
+  CE6 carry axis from `st_tristate_geometry`.
+- **Caveats**: combiner form unestimated (F failed); skip not formally excluded
+  (power matched to skip's own magnitude); source distributed not localized; 2×
+  power arm does not lift "excluded"; 2-layer addition, two models.

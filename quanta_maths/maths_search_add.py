@@ -1,5 +1,5 @@
 from QuantaMechInterp import (QType, a_run_attention_intervention, NO_IMPACT_TAG, SubTaskBase, position_name, answer_name,
-    FilterAnd, FilterHead, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
+    FilterAnd, FilterHead, FilterNeuron, FilterPosition, FilterAttention, FilterImpact, FilterContains, QCondition)
 from quanta_maths.maths_constants import MathsToken, MathsBehavior, MathsTask 
 from quanta_maths.maths_search_mix import run_strong_intervention, run_weak_intervention, SubTaskBaseMath
 from quanta_maths.maths_utilities import digit_name
@@ -209,6 +209,62 @@ class add_st_functions(SubTaskBaseMath):
 
         if success:
             description = acfg.ablate_node_names + " perform " + add_st_functions.tag(focus_digit) + " = TriCase(D"+str(focus_digit)+" + D'"+str(focus_digit)+")"
+            print("Test confirmed", description, "Impact:", acfg.intervened_impact, "" if strong else "Weak")
+
+        return success
+
+
+# Addition "ST-Combiner" (STC) sub-task (CE5).
+# The answer-position MLP that COMBINES the resolved carry (tri-state ST) into the
+# final answer digit An. Unlike the ST head (which computes the tri-state at early
+# question tokens), the STC node lives at the answer-producing position and is an
+# MLP (not an attention head). Its causal signature: two questions with the SAME
+# base-sum at digit n but DIFFERENT carry-in yield different An; patching this node
+# from one into the other flips An.
+class add_stc_functions(SubTaskBaseMath):
+
+    @staticmethod
+    def operation():
+        return MathsToken.PLUS
+
+    @staticmethod
+    def tag(impact_digit):
+        return answer_name(impact_digit) + "." + MathsTask.STC_TAG.value
+
+    @staticmethod
+    def prereqs(cfg, position, impact_digit):
+        # Is an MLP neuron, at the position that PRODUCES An (one before the An
+        # token = an_to_position_name(impact_digit) - 1), occurring after the
+        # +/- token, and impacting An. MLPs cannot attend, so no AttendsTo clause.
+        produce_pos = int(cfg.an_to_position_name(impact_digit)[1:]) - 1
+        return FilterAnd(
+            FilterNeuron(),  # Is an MLP (not an attention head)
+            FilterPosition(position_name(produce_pos)),  # Produces An
+            FilterPosition(position_name(cfg.num_question_positions + 1), QCondition.MIN),  # After +/- token
+            FilterImpact(answer_name(impact_digit)))  # Impacts An
+
+    @staticmethod
+    def test(cfg, acfg, impact_digit, strong):
+        # Both questions share base-sum digit at impact_digit but differ in carry-in.
+        # store: carry INTO impact_digit (lower digit makes a carry).
+        # 222272 + 222272: lower digit 2+2=4 no carry; set digit (n-1) to force carry.
+        alter_digit = impact_digit - 1
+        if alter_digit < 0 or impact_digit > cfg.n_digits:
+            acfg.reset_intervention()
+            return False
+
+        # store_question: force a carry INTO digit n (Dn-1 + D'n-1 >= 10)
+        store_question = [cfg.repeat_digit(2), cfg.repeat_digit(2)]
+        store_question[0] += (9 - 2) * (10 ** alter_digit)
+        store_question[1] += (9 - 2) * (10 ** alter_digit)  # 9+9=18 -> carry into n
+
+        # clean_question: no carry into digit n (same base-sum digit n = 2+2)
+        clean_question = [cfg.repeat_digit(2), cfg.repeat_digit(2)]
+
+        success = run_weak_intervention(cfg, acfg, store_question, clean_question)
+
+        if success:
+            description = acfg.ablate_node_names + " perform " + add_stc_functions.tag(impact_digit) + " = Combine(carry -> A" + str(impact_digit) + ")"
             print("Test confirmed", description, "Impact:", acfg.intervened_impact, "" if strong else "Weak")
 
         return success

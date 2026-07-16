@@ -210,20 +210,12 @@ def build_stimuli(cfg, target_digit, per_cell=8, filler=0):
 # ---------------------------------------------------------------------------
 
 def load_model(model_name):
-    import torch
-    from huggingface_hub import hf_hub_download
-    from quanta_maths.maths_config import MathsConfig
-    from transformer_lens import HookedTransformer
-    cfg = MathsConfig(); cfg.set_model_names(model_name)
-    htc = cfg.get_HookedTransformerConfig(); htc.device = "cpu"; htc.init_weights = False
-    model = HookedTransformer(htc)
-    p = hf_hub_download(repo_id="PhilipQuirke/VerifiedArithmetic", filename=f"{model_name}.pth")
-    sd = torch.load(p, map_location="cpu")
-    if "model" in sd and "embed.W_E" not in sd:
-        sd = sd["model"]
-    model.load_state_dict(sd, strict=False)
-    model.eval()
-    return model, cfg
+    """Thin wrapper over the canonical library loader (quanta_maths.maths_model_loader)."""
+    from quanta_maths import load_maths_model_from_hf
+    try:
+        return load_maths_model_from_hf(model_name, device="cpu")
+    except Exception:
+        return load_maths_model_from_hf(model_name, device="cpu", use_train_json=False)
 
 
 def verify_accuracy(model, cfg, n=64):

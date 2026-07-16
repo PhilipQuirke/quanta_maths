@@ -25,11 +25,13 @@ from __future__ import annotations
 import json, os, sys
 import numpy as np
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import balanced_accuracy_score
-from scipy.linalg import subspace_angles
 
 from scripts.confirm_st_node import load_model, make_q, answer_positions, verify_accuracy
+# Shared probe/geometry primitives now live in the library (Stage 2 migration).
+from quanta_maths.maths_probe import (
+    sub_labels, site_hook_and_pos, collect_site_activations, TASK_CHANCE,
+    train_test_split_idx, balance_idx as _lib_balance_idx, fit_probe as _lib_fit_probe,
+    probe_balanced_accuracy, class_mean_subspace, principal_angles_deg)
 
 RESULT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                           "results", "study-probe-transfer")
@@ -44,93 +46,21 @@ C_REG = 0.5  # L2 logistic-regression strength
 # labels
 # ===========================================================================
 
-def sub_labels(a, b, nd):
-    """Per-digit SA, ST, SV labels. Digits indexed 0 (units) .. nd-1 (top)."""
-    da = [int(d) for d in str(a).zfill(nd)]
-    db = [int(d) for d in str(b).zfill(nd)]
-    SA = {}; ST = {}; SV = {}
-    carry = 0
-    # compute cascade from units up so SV_n = carry INTO digit n
-    for n in range(nd):
-        x = da[nd - 1 - n]; y = db[nd - 1 - n]
-        s = x + y
-        SA[n] = s % 10
-        ST[n] = 0 if s <= 8 else (1 if s >= 10 else 2)  # 2 == U
-        SV[n] = carry  # carry into digit n (before adding this digit)
-        carry = 1 if (s + carry) >= 10 else 0
-    return SA, ST, SV
-
-
-# ===========================================================================
-# activation sites
-# ===========================================================================
-
-def site_hook_and_pos(cfg, site, n):
-    """Return (hook_name, token_pos) for a sub-task read site at digit n."""
-    nd = cfg.n_digits
-    if site == "Dpn_L0":
-        return "blocks.0.hook_resid_post", 2 * nd - n
-    if site == "Dpn_L1":
-        return "blocks.1.hook_resid_post", 2 * nd - n
-    if site == "Dn_L0":
-        return "blocks.0.hook_resid_post", nd - 1 - n
-    if site == "ans_L0":
-        # answer position that produces A_n: consuming pos = pos(A_n)-1 = n_ctx-2-n
-        return "blocks.0.hook_resid_post", cfg.n_ctx - 2 - n
-    if site == "eq_L1":
-        return "blocks.1.hook_resid_post", 2 * nd + 1
-    raise ValueError(site)
-
-
+# Sub-task labels + site algebra + activation collection now come from the library
+# (quanta_maths.maths_probe). Local shims keep this script's call sites unchanged.
 ALL_SITES = ["Dpn_L0", "Dpn_L1", "Dn_L0", "ans_L0", "eq_L1"]
 
 
 def collect(model, cfg, n_q, digits, sites):
-    """Collect activations at (site, digit) and labels for n_q random additions."""
-    nd = cfg.n_digits
-    acts = {(s, n): [] for s in sites for n in digits}
-    labs = {"SA": {n: [] for n in digits}, "ST": {n: [] for n in digits},
-            "SV": {n: [] for n in digits}}
-    hooks_needed = sorted({site_hook_and_pos(cfg, s, digits[0])[0] for s in sites})
-    lim = 10 ** nd
-    for _ in range(n_q):
-        a = int(RNG.integers(0, lim // 2)); b = int(RNG.integers(0, lim // 2))
-        q = make_q(cfg, a, b)
-        with torch.no_grad():
-            _, c = model.run_with_cache(q.unsqueeze(0), names_filter=lambda nm: nm in hooks_needed)
-        SA, ST, SV = sub_labels(a, b, nd)
-        for s in sites:
-            hook, _ = site_hook_and_pos(cfg, s, digits[0])
-            for n in digits:
-                _, pos = site_hook_and_pos(cfg, s, n)
-                acts[(s, n)].append(c[hook][0, pos, :].numpy())
-        for n in digits:
-            labs["SA"][n].append(SA[n]); labs["ST"][n].append(ST[n]); labs["SV"][n].append(SV[n])
-    acts = {k: np.array(v) for k, v in acts.items()}
-    for t in labs:
-        labs[t] = {n: np.array(v) for n, v in labs[t].items()}
-    return acts, labs
+    return collect_site_activations(model, cfg, n_q, digits, sites, RNG)
 
-
-# ===========================================================================
-# balancing + probes
-# ===========================================================================
 
 def balance_idx(y, rng, cap=None):
-    """Oversample minority classes to balance. Returns index array."""
-    classes = np.unique(y)
-    per = max(np.bincount(y, minlength=int(classes.max()) + 1))
-    if cap:
-        per = min(per, cap)
-    idx = []
-    for cl in classes:
-        ci = np.where(y == cl)[0]
-        idx.extend(rng.choice(ci, size=per, replace=len(ci) < per))
-    return np.array(idx)
+    return _lib_balance_idx(y, rng, cap=cap)
 
 
 def chance(task):
-    return {"SA": 0.10, "ST": 1 / 3, "SV": 0.5}[task]
+    return TASK_CHANCE[task]
 
 
 def decodable_threshold(task):
@@ -141,17 +71,15 @@ def decodable_threshold(task):
 
 
 def fit_probe(X, y):
-    return LogisticRegression(max_iter=2000, C=C_REG).fit(X, y)
+    return _lib_fit_probe(X, y, C=C_REG)
 
 
 def probe_acc(clf, X, y):
-    return float(balanced_accuracy_score(y, clf.predict(X)))
+    return probe_balanced_accuracy(clf, X, y)
 
 
 def split(n, frac=0.7):
-    perm = RNG.permutation(n)
-    k = int(frac * n)
-    return perm[:k], perm[k:]
+    return train_test_split_idx(n, RNG, frac=frac)
 
 
 # ===========================================================================
@@ -191,20 +119,12 @@ def preflight(model, cfg, digits, n_q=1500):
 # transfer matrix (T-2/T-3) + class-mean subspace angles (T-4)
 # ===========================================================================
 
-def class_mean_subspace(X, y):
-    """Subspace spanned by class-conditional mean deviations (PCA of class means)."""
-    classes = np.unique(y)
-    mu = X.mean(0)
-    M = np.stack([X[y == cl].mean(0) - mu for cl in classes])  # [n_class, d]
-    # orthonormal basis via SVD; rank = n_class-1 typically
-    U, S, Vt = np.linalg.svd(M, full_matrices=False)
-    k = int((S > 1e-6).sum())
-    return Vt[:k]  # [k, d] orthonormal rows
+# class_mean_subspace imported from the library.
 
 
 def principal_angle_deg(B1, B2):
-    ang = subspace_angles(B1.T, B2.T)  # expects columns as basis
-    return float(np.degrees(np.max(ang)))  # largest principal angle (0=aligned,90=orth)
+    ang = principal_angles_deg(B1, B2)  # library returns all angles in degrees
+    return float(np.max(ang)) if ang.size else float("nan")
 
 
 PRIMARY_SITE = "Dpn_L0"  # T-7: all cross-subtask comparisons at one shared question site

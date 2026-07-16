@@ -59,6 +59,7 @@ class MathsTask(Enum):
     SC_TAG = "SC" # Addition - Make Carry (Dn, D'n)
     SS_TAG = "SS" # Addition - Use Sum 9 (Dn, D'n)
     ST_TAG = "ST" # Addition - TriCase (Dn, D'n)
+    STC_TAG = "STC" # Addition - ST-Combiner: answer-position MLP that combines the resolved carry into An (CE5)
   
     MT_TAG = "MT" # Subtraction - TriCase (Dn, D'n)
     GT_TAG = "GT" # Subtraction - GreaterThan node that helps calculate Dn > D'n, and impacts sign of answer 

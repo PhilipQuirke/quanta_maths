@@ -414,3 +414,37 @@ live — not the current best story (that goes in
   addition, two models.
 - **Linked study**:
   [study-maths/study-leading-digit-walkthrough.md](study-maths/study-leading-digit-walkthrough.md)
+
+### 2026-07-16 — SV implementation sprint (CE16; A10 items i–iii resolved, iv open; dual-gated)
+
+- **Covered**: Parameter-estimation of the four A10 implementation details on the
+  confirmed SV wiring (working-axioms mode), both studied models. Battery **M**
+  (edge message identity via within-chain cross-deciding-position carry-probe
+  transfer + scale-normalized residual-family decode + committed-family descriptive
+  arm); Battery **R** (source attribution via SI-8 per-key CONTRIBUTION
+  decomposition — source pattern AND v per key group — `=` vs deciding-ST vs rest,
+  with deciding-matched null per arm, leave-one-out complements + arm-sum residual);
+  Battery **P** (SI-1 powered skip arm: inject the MEASURED real-skip carry
+  direction at 1×/2× into `resid_post(L0)`; head-pair real arm; class necessity via
+  joint H1+H2 mean-ablation vs carry-free with untagged baseline); Battery **F**
+  (stretch, combiner α-sweep — INVALID). Controls PC1 (CE14 regression) + PC4
+  (carry-axis anchor).
+- **Result**: **(i) canonical format-invariant resolved carry** (transfer 1.00 =
+  within-acc) + non-causal position co-rider; **(ii) source = distributed
+  question-tail ST cluster, NEVER `=`** (`=` value arm 0.00, OV-proj ≈ 0 → depot;
+  deciding-ST carry-specific, dominant at 6d k3; chain-ST elsewhere); **(iii)
+  head-pair (SV) path effective (flip 1.00), skip carries negligible carry**
+  (0.14/0.077, power 1×/2× = 0.00 → not used, not formally excluded), **pair
+  class-necessary** (necessity-over-baseline 1.07 6d / 0.85 5d, selective); **(iv)
+  combiner form OPEN** (F instrument invalid, spread 0.00). A9 stays retired
+  (selection level); A6 raised to class level.
+- **Artifacts** (local, no HF): `results/study-sv-implementation/results.json`;
+  script `scripts/sv_implementation.py` (reuses the CE14 harness).
+- **Caveats / coverage gaps**: skip **not formally excluded** (power matched to the
+  skip's own tiny magnitude — F1); source **distributed** not localized to
+  deciding-ST (dominant at 1 depth — F2); position co-rider is **decode-existence**,
+  non-causal (F3); 5d k3 R leaky (ordinal only); combiner form unestimated (F
+  failed). Dual-gated: pre-launch PASS-WITH-CONDITIONS (SI-1..SI-10) + post-result
+  PASS-WITH-CORRECTIONS (F1/F2/F3). 2-layer addition, two models.
+- **Linked study**:
+  [study-maths/study-sv-implementation.md](study-maths/study-sv-implementation.md)

@@ -136,9 +136,22 @@ but not fully.
   combiner (mirrors CE14; 5-digit genuine depth spread, 6-digit deep-chains only,
   shallow unadjudicated). **A10 consolidated across all answer digits, NOT raised**
   (held at medium; Link-4 readout quarantined; economy uninformative at the sign
-  bottleneck; direct path not excluded). **This completes C5's 5-step program for the
-  addition model.** Confidence Medium. See
-  [maths-claim-evidence.md#ce15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5).
+   bottleneck; direct path not excluded). **This completes C5's 5-step program for the
+   addition model.** Confidence Medium. See
+   [maths-claim-evidence.md#ce15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5).
+- **CE16** — **SV implementation (A10 items i–iii resolved, iv open)**: on the
+  confirmed wiring, the head→combiner edge carries a **canonical (format-invariant)
+  resolved carry** (i); the **source is the distributed question-tail ST cluster,
+  never `=`** — the `=` value arm flips 0.00 with OV-projection ≈ 0, so **`=` is a
+  depot not a value source** (ii, adjudicates the source fork toward distributed
+  ST); the **head-pair (SV) path is effective (flip 1.00) while the skip carries
+  negligible carry** (0.14/0.077; power 1×/2× = 0.00 → not used, not formally
+  excluded) and the **pair is class-necessary** (necessity-over-baseline 1.07 6d /
+  0.85 5d) (iii); the **combiner form is OPEN** (Battery F instrument invalid) (iv).
+  **A9 stays retired** (selection level); **A6 raised to class level.** Dual-gated
+  (pre-launch SI-1..SI-10 + post-result F1/F2/F3). Confidence Medium-high for the
+  three resolved items. See
+  [maths-claim-evidence.md#ce16](maths-claim-evidence.md).
 
 ## Strongest live caveats
 

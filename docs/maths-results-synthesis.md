@@ -375,6 +375,38 @@ Status after the 2026-07-16 leading-digit-walkthrough study
   One fix: two adjacent maximal chains (k=4,5) are not an independent 2-depth spread
   → 6-digit re-labeled "verified deep-chains only".
 
+## Q: What does the SV mechanism actually implement (the 4 details)? — canonical carry, distributed-ST source, SV-path effective, class-necessary (CE16)
+
+The SV-implementation sprint estimated A10's four implementation parameters on the
+confirmed wiring ([CE16](maths-claim-evidence.md)):
+- **(i) Message = canonical resolved carry** — the head→combiner edge is
+  format-invariant across deciding positions (within-chain carry-probe transfer
+  1.00 = within-acc); a deciding-position co-rider is *decodable* (non-causal).
+- **(ii) Source = distributed question-tail ST cluster, NEVER `=`** — the `=`
+  value arm flips 0.00 with carry-axis OV-projection ≈ 0, so **`=` is a depot, not
+  a value source** (adjudicates the old source fork toward distributed ST, against
+  the "`=` carry depot read as a value" lean). Deciding-ST is carry-specific and
+  dominant at 6d k3; chain-ST carries the mass elsewhere.
+- **(iii) Path = head-pair (SV) effective; skip carries negligible carry** — real
+  head-pair patch flips 1.00; the measured real-skip carry is ≈200× smaller and a
+  power injection at that magnitude (1× and 2×) flips 0.00, so the model does not
+  route carry through the skip (**not** a formal exclusion — closes CE14's
+  direct-arm gap in the "is it used" sense). The pair is **class-necessary**
+  (joint H1+H2 ablation: cascade collapses, carry-free spared, over a ~0 untagged
+  baseline; necessity-over-baseline 1.07 6d / 0.85 5d).
+- **(iv) Combiner form = OPEN** — Battery F instrument invalid (α-sweep produced no
+  flips). Sole remaining A10 implementation item (B2).
+- **Dispositions**: A10 core held at medium-high, items i–iii resolved; A9
+  selection **stays retired** (deciding-ST dominant at only 1 independent depth);
+  A6 economy **raised to class level**.
+- **Method note**: dual-gated combined sprint pass — pre-launch
+  PASS-WITH-CONDITIONS caught two coordinate-space traps (skip power control in
+  the wrong residual space; M projection needing LN-normalization) resolved as
+  SI-1..SI-10; post-result PASS-WITH-CORRECTIONS downgraded two over-claims ("skip
+  excluded" → "carries ≈0"; "deciding-ST source" → "distributed ST"). Two design
+  bugs (value-only R patch under-read; raw residual scale-confound) surfaced in a
+  fast smoke run and fixed before the full run.
+
 ## Open empirical questions
 
 - **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at

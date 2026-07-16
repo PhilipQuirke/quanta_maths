@@ -2,6 +2,44 @@
 
 Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
 
+## Executive Summary #17
+
+We already know *that* the model adds by fetching a carry from the question-tail
+and combining it at each answer position (the "SV mechanism", established over the
+previous studies). This study doesn't re-test that it exists — it measures four
+concrete **details** of how it's built, treating each as a number to estimate (even
+a zero counts, as long as a power-check says the measurement could have moved).
+
+The four questions and what we found (both models):
+- **What message travels on the wire?** A **clean, resolved carry** — the same code
+  regardless of which digit is deciding it (a "carry probe" trained at one depth
+  reads the carry perfectly at another). Alongside it, the deciding *position* is
+  also readable off the wire, but only as passive information (we did not show the
+  combiner uses it).
+- **Where does the carry come from?** From the **question-tail tri-state (ST)
+  sites, spread across several of them — and never from the `=` token.** Patching
+  the `=` key changes nothing (it's a pass-through *depot*, not a value source).
+  Among the named sites the deciding-digit's ST cluster is the carry-specific
+  source and dominates at one depth; the other chain sites carry it elsewhere.
+- **Which path carries it, and is it needed?** The **attention-head pair is the
+  real carrier** (patching it flips the answer every time); the alternative
+  "skip"/residual route carries a **negligible** amount of carry — when we inject a
+  carry of the size the skip actually carries, nothing moves, so the model isn't
+  using the skip (this doesn't prove the skip *couldn't* carry a bigger signal). And
+  the head pair is **necessary as a class**: knock both heads out and cascade sums
+  break while carry-free sums are fine.
+- **How does the combiner turn the carry into a digit?** **Unanswered** — that
+  probe (Battery F) didn't work (its knob produced no change), so we honestly mark
+  it invalid rather than a result. This is the one remaining open detail.
+
+Method note: this was a **single combined skeptic pass** (deadline sprint). The
+pre-launch audit caught two subtle "measuring in the wrong coordinate space"
+traps; a quick smoke run caught two more implementation bugs; and the post-result
+audit made us soften two claims ("skip excluded" → "skip carries ≈0"; "the source
+is the deciding digit" → "the source is the ST cluster, spread out"). Net:
+**A10's implementation items i–iii are now described; item iv (the combiner's
+formula) stays open.** Filed as CE16.
+
 Status: **pre-run written 2026-07-16; SPRINT study** (paper-revision deadline
 ~2026-07-18). Gate: per the sprint process proposed in
 [maths-next-steps.md](../maths-next-steps.md#ranking-logic), a **single combined
@@ -170,7 +208,119 @@ from the committed script into `results.json`).
   models disagree → model-scoped; accuracy gate or controls fail → invalid
   for the affected battery only.
 
-- **Skeptic review (combined, sprint)**: **PENDING** — one combined pass in the
+- **Skeptic review (combined, sprint) — PRE-LAUNCH half**: Run 2026-07-16 in a
+  separate skeptic thread (docs + working axioms + CE5/CE6/CE13–CE15 + the CE14
+  harness/registry + HF maps, verified). **Verdict: PASS WITH CONDITIONS** — 4
+  blocking, all coordinate-space / power-control coherence issues (calibrated to the
+  working axioms: estimation not existence; the risk is the sprint framing licensing
+  over-claim on the causal arms). Resolved via amendments SI-1…SI-7 below:
+  - **C1 (blocking) — P-i skip power control is in the wrong space / under-specified
+    magnitude** (the CE14-round-2 trap). The CE6 carry axis lives at the combiner
+    *input* (`ln2.hook_normalized`, post-L1-attn/LN); injecting it into
+    `resid_post(L0)` (skip origin, pre-L1/LN) tests a direction the real skip may not
+    carry. Fix (SI-1): inject along the **measured real-skip carry direction** (twin
+    `resid_post(L0)` carry-difference, non-carry variance regressed out), at 1× and
+    2× the *measured* real-skip carry norm; report injected/real norm ratio; if the
+    real-skip carry component ≈ 0, skip arm = `invalid` (no share); cross-check the
+    injected delta lands on CE6 `c1` at the combiner input after propagating L1.
+  - **C2 (blocking) — Battery M projects the RAW edge delta onto the CE6 (post-LN)
+    axis** — space mismatch; LN std differs across families → false "tag". Fix
+    (SI-2): project the **LN-normalized (lnfair)** edge contribution; report per-family
+    LN std.
+  - **C3 (blocking) — M cross-family transfer confounds tag with domain shift.** Fix
+    (SI-3): primary M invariance = **within-chain, cross-deciding-position** transfer
+    (k=2↔k=3, holds chain-ness); committed-family cross-transfer is secondary + a
+    **domain-shift null** (a carry-*irrelevant* attribute probe); M-tagged only if the
+    carry probe fails transfer WHILE the irrelevant-attribute null transfers.
+  - **C4 (blocking) — Battery R arms may not compose (W_O/LN mixing).** Fix (SI-4):
+    report the arm-sum residual `flip(all) − Σ flip(arm)`; add **leave-one-group-out**
+    complement arms; a group's share = bracket [single-group, full−complement];
+    if |residual| > 0.15, report **ordinal dominance**, not a normalized share.
+  - **C5 (non-blocking) — A9 revive rule over-reads.** Fix (SI-5): R-deciding at ≥ 2
+    *genuinely independent* depths (non-adjacent, CE15) → "A9 **source premise**
+    supported"; the selection *mechanism* still needs the CE14 same-cell tracking+edge
+    bar (unmet). R-equals → retire toward the depot reading.
+  - **C6 (non-blocking) — name the correct null.** Fix (SI-6): per-arm null reuses
+    `same_class_diff_operand` (CE14 SV-9: same carry class, deciding operand re-drawn,
+    chain fillers shared); `NULL ≤ 0.20` per-arm gate else that arm `invalid`.
+  - **C7 (non-blocking) — retained-core power gating.** Fix (SI-7): R and P-i are
+    retained in *scope* but their headline numbers are gated on their own power
+    controls; a retained battery with a failed control reports `invalid`, not a share.
+
+  *Status: RESOLVED 2026-07-16 by the working thread via amendments SI-1…SI-7. This
+  is the pre-launch half of the combined sprint pass; the post-result half is below.*
+
+## Amendments (post-skeptic pre-launch, sprint)
+
+**2026-07-16 — SI-1 (C1): skip power control in the skip's own space/magnitude.**
+Battery P-i injects along the **measured real-skip carry direction** — the twin
+`resid_post(L0)` carry-difference on matched chain pairs, with non-carry variance
+regressed out — at 1× and 2× the measured real-skip carry norm (report the ratio).
+If the real-skip carry component's norm is ≈ 0, the skip arm is `invalid` and no
+skip-share is claimed. Validity cross-check: the injected delta must land on the
+CE6 `c1` side at the combiner input after L1 propagation.
+
+**2026-07-16 — SI-2 (C2): Battery M projects the LN-normalized edge.** The edge
+contribution is pushed through the clean-frozen-std LN (lnfair) before projecting
+onto the CE6 `c1−c0` axis; per-family LN std reported.
+
+**2026-07-16 — SI-3 (C3): M primary invariance is within-chain cross-deciding-
+position.** Train the carry probe on k=2 edges, test on k=3 edges (chain-ness held,
+deciding position varied) → a transfer drop is a tag. The committed-family
+cross-transfer is secondary + a domain-shift null (carry-irrelevant attribute);
+M-tagged only if carry-probe transfer fails while the irrelevant-null transfers.
+
+**2026-07-16 — SI-4 (C4): Battery R composition brackets.** Report the arm-sum
+residual and leave-one-group-out complements; a group's share is the bracket
+[single-group flip, full − complement flip]; |residual| > 0.15 ⇒ report ordinal
+dominance, not a normalized share.
+
+**2026-07-16 — SI-5 (C5): A9 disposition reworded.** R-deciding at ≥ 2 non-adjacent
+depths on the same cell → **A9 source premise supported** (not the full selection
+mechanism, which still needs CE14's unmet same-cell tracking+edge bar); R-equals →
+retire toward the `=` depot reading.
+
+**2026-07-16 — SI-6 (C6): null named.** Per-arm deciding-matched null =
+`same_class_diff_operand` (CE14 SV-9); `NULL ≤ 0.20` per-arm gate, else `invalid`.
+
+**2026-07-16 — SI-7 (C7): retained-core power gating.** R and P-i headline numbers
+are gated on their own power controls (SI-1 skip validity; SI-4 arm-sum tolerance;
+SI-6 null gate); a retained battery with a failed control reports `invalid`.
+
+**2026-07-16 — SI-8 (implementation, post-smoke): Battery R uses per-key
+CONTRIBUTION decomposition, not value-only.** The fast smoke run showed a value-only
+patch (swap twin `v`, keep target attention pattern) under-reads: the full all-keys
+v-patch flipped 0.00 at k=3 while PC1's full-`z` swap flipped 1.00 — because CE14's
+carry delivery is partly **attention-pattern-borne**, not value-borne. Fix: attribute
+via `z = Σ_key pattern·v`; each key-group arm patches that group's FULL contribution
+(source pattern AND source v for the group's keys), so all-keys reproduces PC1's
+full-`z` swap and the arms sum to the full edge effect (the SI-4 arm-sum control now
+bites correctly). Approved by human 2026-07-16.
+
+**2026-07-16 — SI-9 (implementation, post-smoke): Battery M verdict = within-chain
+transfer + SCALE-NORMALIZED residual; raw stat(iii) dropped.** The smoke run showed
+the raw residual-family-decode (stat iii) returns 1.00 trivially because families
+differ ~50× in edge projection scale (chain sep ≈ 29/20 vs committed ≈ 0.6), so it
+cannot separate tag from scale; and the committed↔chain transfer is pure domain shift
+(domain-shift null transfer = 0.50 = chance, confirming skeptic C3). Fix: decide
+M-canonical/tagged on (a) the within-chain cross-deciding-position transfer (holds
+chain-ness — the valid SI-3 invariance signal) plus (b) a residual-family test on
+**z-scored / norm-matched** edge vectors so scale cannot fake a tag. The committed
+cross-transfer is reported DESCRIPTIVELY only, flagged domain-shift-confounded.
+Approved by human 2026-07-16.
+
+**2026-07-16 — SI-10 (interpretation, post-smoke): M reported as two separable
+facts, not a binary.** The smoke run gave a subtle honest result: within-chain
+cross-deciding-position carry transfer = 1.00 (the CARRY message is format-invariant /
+canonical) WHILE the deciding POSITION remains decodable from the same edge after
+carry-axis removal + norm-matching (a positional co-rider). Collapsing this to
+"M-tagged" under-states the canonical carry. Fix: the M parameter reports
+**M-canonical-carry + position co-rider** — (1) the carry message is canonical
+(transfer stat), (2) a positional co-rider co-exists in the edge (residual stat).
+The combiner receives a resolved carry PLUS positional context. Approved by human
+2026-07-16.
+
+- **Skeptic review (combined, sprint) — POST-RESULT half**: **PENDING** — one combined pass in the
   human's separate Opus thread, auditing this plan now and the
   interpretation after results, rehydrating only from: this note, the two
   conjecture files (incl. working axioms), document rules, glossary, agenda,
@@ -221,15 +371,154 @@ from the committed script into `results.json`).
   `message_geometry.png`, `source_shares.png`, `path_shares.png`. No HF
   uploads.
 
-## Post-run (fill in after the experiment)
+## Post-run (filled 2026-07-16)
 
-- **Executive summary**: *(pending)*
-- **Run record**: *(pending)*
-- **Results**: *(pending)*
-- **Interpretation**: *(pending — read against the pre-stated conditions; the
-  drop-order list is the only sanctioned scope reduction)*
-- **Prediction scoring**: *(pending — A10 items i–iv, A9, A6, A5)*
-- **Skeptic review (post-result half of the combined pass)**: *(pending)*
-- **Limitations**: *(pending)*
-- **Doc updates**: *(pending — feeds agenda entry 2, the paper hand-off)*
-- **Next read**: *(pending)*
+- **Executive summary**: Four SV-implementation parameters estimated on both
+  models (acc 1.000). Controls PASS: PC1 regression reproduces CE14 (joint-pair
+  flip 1.00, deciding-matched null 0.00, 6d/5d k=3); PC4 carry-axis anchor
+  separates committed classes (sep 28.6 / 32.3). **M = M-canonical-carry +
+  position co-rider** (SI-10):   the carry message is format-INVARIANT
+  (within-chain cross-deciding-position transfer 1.00 = within-acc), while the
+  deciding-*position* is additionally DECODABLE from the edge after carry-axis
+  removal (norm-matched residual family decode 1.00 — existence only, NON-causal;
+  whether the combiner uses it is untested [post-result F3]); committed↔chain
+  transfer is domain-shift-confounded
+  (domain-shift null transfer 0.50) so used descriptively only. **R = source is
+  the question-tail ST cluster and is NEVER `=`; deciding-ST is carry-specific at
+  all depths, dominant among NAMED sources at 6d k=3** (SI-8 per-key-contribution
+  decomposition) [F2 correction]: full all-keys reproduces the effect
+  (1.00 6d / 0.93–1.00 5d); the deciding-ST arm is carry-specific everywhere
+  (null 0.00) and dominant among named sources at 6d k=3 (0.60), but the `rest`
+  catch-all — which CONTAINS the chain-ST sites — carries the mass at k=2/k=4
+  (source DISTRIBUTED across ST sites, redundancy-consistent; not localized to
+  deciding-ST). The `=` arm flips 0.00 at all 6d depths with carry-axis OV
+  projection ≈ 0 — `=` is a depot (CE13), NOT a carry-value source. **P = the
+  head-pair (SV) path is the effective carrier; the skip/direct residual carries
+  NEGLIGIBLE carry** (SI-1) [F1 correction]: the measured real-skip carry
+  magnitude is tiny (0.14 6d / 0.077 5d, ≈200× below the head-pair carry signal
+  ~29), the synthetic power injection AT THAT MAGNITUDE at 1× and 2× flips 0.00,
+  so the model does NOT route carry through the skip (this does not formally
+  EXCLUDE the skip channel — a sufficient-magnitude injection was not tested;
+  SI-1 was matched to the skip's own magnitude by design); per SI-1/SI-7 no
+  skip-share is claimed; the head-pair real patch flips 1.00. **Class
+  necessity** (joint H1+H2 mean-ablate): cascade accuracy collapses (0.00 6d /
+  0.15 5d) while carry-free is spared (1.00), against a ~0 untagged-pair
+  baseline → necessity-over-baseline 1.07 (6d) / 0.85 (5d) at CLASS level.
+  **F (stretch) = INVALID (instrument)**: the combiner α-sweep produced zero
+  answer flips at every α (spread 0.00) → Battery-F instrument failed; per the
+  positive-control rule it is reported `invalid`, not a transfer class. F was
+  the pre-registered drop-first battery, so this does not affect the core
+  verdicts.
+
+- **Run record**: `PYTHONPATH=. python3 scripts/sv_implementation.py all`
+  (CPU). Both models acc 1.000 (n=64). n=40 causal pairs/cell/depth,
+  n=120 M-pairs/family, carry axis n=250. Artifact:
+  `results/study-sv-implementation/results.json`. Seed 20260716. HEAD at run:
+  `02b17c3` (script uncommitted). Depths: 6d k∈{2,3,4}, 5d k∈{2,3}.
+
+- **Results** (headline; full numbers + Wilson/normal CIs in results.json):
+  - **PC1** joint-pair flip 1.00, deciding-matched null 0.00 (both models, k=3).
+    **PC4** axis sep 28.55 (6d) / 32.28 (5d) > 0.
+  - **M** transfer (within-chain k2↔k3) 1.00 = within-acc 1.00 (both);
+    norm-matched residual family decode 1.00 (deciding position DECODABLE from
+    the edge — existence only, non-causal [F3]);
+    RAW residual 1.00 (scale-confounded, descriptive); committed transfer 1.00
+    but domain-shift null 0.50 (confounded).
+  - **R 6d**: full {k2 1.00, k3 1.00, k4 1.00}; deciding-ST arm {0.00, 0.60,
+    0.07}, null-ST 0.00 throughout; `=` arm 0.00 throughout (OV-proj ≈ 0);
+    rest {1.00, 0.28, 0.93}; arm-sum residual {0.00, 0.12, 0.00} (not leaky).
+    **R 5d**: full {k2 0.93, k3 1.00}; `=` arm {0.00, 0.50}, rest {0.93, 0.00};
+    k3 leaky (residual 0.50) → k3 5d reported as ORDINAL dominance only (SI-4).
+  - **P** skip carry-mag 0.14 (6d) / 0.077 (5d); power 1×/2× = 0.00/0.00 →
+    skip arm INVALID (SI-1); head-pair real flip 1.00; class
+    necessity-over-baseline 1.07 (6d, cascade-abl acc 0.00, carry-free 1.00,
+    untagged gap −0.07) / 0.85 (5d, cascade-abl 0.15, carry-free 1.00, untagged
+    gap 0.00).
+  - **F** spread 0.00 at all α → `invalid (instrument)`.
+
+- **Interpretation** (against the pre-stated conditions; drop-order was the only
+  sanctioned scope reduction, and only F fell — via instrument failure, not
+  deadline): controls passed and all four parameters were estimated with
+  uncertainty in the primary (6d) model and replicated in 5d for M, R-shape, P,
+  and necessity. The implementation description for the paper: the consumer head
+  pair delivers a **canonical (format-invariant) resolved carry** to the
+  combiner, with the deciding **position additionally decodable** from the edge
+  (existence only, non-causal — M) [F3]; the carry's causal **source is the
+  question-tail ST cluster and is never `=`** — deciding-ST is carry-specific at
+  all depths and dominant among named sources at 6d k3, while the chain-ST `rest`
+  sites carry the mass at other depths (source DISTRIBUTED across ST sites) — and
+  the `=` site is a **depot, not a value source** (R) [F2]; the effective **path
+  is the head-pair (SV) route** — the skip/direct residual carries **negligible
+  carry** (≈200× below the head-pair signal), so the model does not route carry
+  through the skip, though this does not formally EXCLUDE the skip channel (SI-1
+  power-matched to the skip's own magnitude; a sufficient-magnitude injection was
+  not tested — this closes CE14's direct-arm gap in the *"is it used"* sense, not
+  the *"could it be used"* sense) [F1]; and the pair is **necessary at class
+  level** (selective cascade collapse over an untagged baseline). Redundancy-
+  consistent (working axioms): the pair is class-necessary while no single node
+  is; `rest` (chain-ST) shares mass with deciding-ST as expected.
+
+- **Prediction scoring**:
+  - **A10 i (map-named answer-position L1 fetch)**: SUPPORTED — consumer pair
+    edge is the effective path; skip carries negligible carry [F1].
+  - **A10 ii (fetch-and-combine over question-tail ST cluster)**: SUPPORTED —
+    source is the ST cluster (carry-specific; deciding-ST dominant at 6d k3,
+    chain-ST elsewhere); `=` is a depot [F2].
+  - **A10 iii ("direct path not excluded / not necessary")**: RESOLVED (in the
+    "is it used" sense) — replaced by shares: the skip carries negligible carry
+    (0.14/0.077, ≈200× below the head-pair signal), head-pair path carries 1.00,
+    so the model does not route carry through the skip. This STRENGTHENS but does
+    not formally exclude the skip channel — a sufficient-magnitude injection was
+    not tested (SI-1 matched the skip's own magnitude). Still a genuine advance
+    over CE14's fully-underpowered direct arm [F1].
+  - **A10 iv (combiner transfer)**: NOT ESTIMATED — Battery F instrument
+    invalid; A10 iv remains an open parameter (B2 seed stands).
+  - **A9 (selection)**: source premise supported at only 1 independent depth
+    (6d k=3 deciding-ST dominant+specific); < 2 independent depths and the
+    CE14 same-cell tracking+edge bar remains unmet → **A9 stays retired at the
+    selection-mechanism level** (SI-5); the depot reading of `=` is reinforced.
+  - **A6 (economy)**: RAISED to class level — joint-pair ablation is selective
+    (cascade collapse, carry-free spared) over an untagged baseline.
+  - **A5**: unaffected.
+
+- **Skeptic review (post-result half of the combined pass)**: Run 2026-07-16 in
+  a separate thread (rehydrated from this note, results.json, working axioms,
+  CE5/CE6/CE13–CE15, the code). **Verdict: PASS WITH CORRECTIONS.** All headline
+  numbers verified traceable to results.json (only rounding differences); PC1
+  reproduces CE14; the SI-6 null (`same_class_twin`, deciding operand re-drawn)
+  is the CORRECT null, not the CE14-round-2 carry-toggling trap. Two blocking
+  wording over-claims + one soft downgrade, all resolved above:
+  - **F1 (blocking, RESOLVED)**: "skip path excluded (powered)" overstated a
+    "skip carries ≈0 carry" result — the power injection was matched to the
+    skip's OWN tiny magnitude (≈200× below the head-pair signal), so failing to
+    flip proves the model does not USE the skip, not that the skip COULDN'T
+    carry. Reworded to "skip carries negligible carry; does not formally exclude
+    the channel" throughout (Exec, Interpretation, A10 iii).
+  - **F2 (blocking, RESOLVED)**: "source is the deciding-ST cluster"
+    over-generalized from 6d k3 (the only depth where deciding-ST dominates;
+    `rest`/chain-ST dominates at k2/k4). Reworded to "source is the ST cluster,
+    distributed; deciding-ST dominant among named sources at 6d k3; never `=`".
+  - **F3 (non-blocking, RESOLVED)**: M "position co-rider" downgraded to
+    "position decodable from the edge (existence only, non-causal)".
+  - F4–F7 PASS: `=`-depot consistent with CE13; null correct; A9 retirement
+    fair (1 qualifying depth); F-invalid correctly quarantined (A10 iv OPEN);
+    evidence integrity clean. The numbers and analysis stand; corrections were
+    interpretive only.
+
+- **Limitations**: F instrument failed (combiner transfer unestimated). R's
+  `rest` group is a catch-all (chain-ST sites) not decomposed per-position; the
+  named contrast (`=` vs deciding-ST) is clean but "rest" is only bounded. 5d
+  k=3 R is leaky (ordinal only). M's position co-rider is a decode existence
+  result, not a causal one. Skip-INVALID rests on the measured-direction power
+  control (SI-1); a direction mis-estimate would masquerade as underpower
+  (mitigated but not eliminated by the 2× arm).
+
+- **Doc updates** (feeds agenda entry 2, the paper hand-off): A10 i/ii
+  SUPPORTED, iii RESOLVED in the "is it used" sense (skip carries negligible
+  carry; NOT formally excluded), iv OPEN (F invalid); A9 retired at selection
+  level; A6 class-level economy. CE16 to add to claim-evidence; append
+  results-by-time / summary / synthesis. (Applied 2026-07-16.)
+
+- **Next read**: agenda entry 2 (paper hand-off consolidation / referee
+  checkpoint) — the four estimates slot into the SV-mechanism section with the
+  F1/F2 corrected wording.
