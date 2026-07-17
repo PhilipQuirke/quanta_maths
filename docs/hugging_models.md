@@ -166,8 +166,12 @@ exist for **all 53 models** (verified 2026-07-16); the legacy flat repo addition
 holds `<name>_behavior.json` + `<name>_maths.json` for 33 models. Map *depth* varies:
 - The **5/6-digit accurate add / mixed models** have the fullest verified maps
   (`Algo:` roles, `Fail%`, `Impact`, attention targets, `SP`/`MP` tags).
-- The accurate **8-digit mixed model** `ins1_mix_d8_l3_h4_t70K_s572091` was
-  generated + uploaded via the standard `maths_hf_update` method; the 6-digit mixed
+- The accurate **8-digit mixed models** carry combiner-complete maps (fixed
+  2026-07-17, CE32): `ins1_mix_d8_l3_h4_t70K_s572091` features.json previously had
+  **no** combiner tags (a CE26 upload gap) → now **STC6/MTC6/NTC6** (co-located at
+  {P20-P25 L2 M0}); the from-scratch worked example `mix_d8_l3_h4_t60K_s173289` was
+  **missing MTC** → now **STC4/MTC6/NTC5**. Both refreshed via `maths_hf_update.update_model`
+  (library `_combiner_is_causal` redundancy-proof fallback). The 6-digit mixed
   `ins1_mix_d6_l3_h4_t40K_s372001` carries the STC/MTC/NTC + `Probe:` tags above.
 - The larger **10/13-digit addition** maps (`add_d10_l2_h3_t40K_s572091`,
   `add_d13_l2_h3_t50K_s572091`) carry question-tail/sign **ST-writer** tags and

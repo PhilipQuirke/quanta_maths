@@ -891,3 +891,34 @@ live — not the current best story (that goes in
   [study-missing-sub-mechanism.md](study-maths/study-missing-sub-mechanism.md).
   **Next**: how the borrow-in is *resolved* upstream (L0/L1); d8 (identify d8 missing
   nodes first); H3 / `=`/`SGN` staging role.
+
+### 2026-07-17 — d8-mixed cross-size: HO-2 + CE29/30/31 replicate; both d8 maps combiner-fixed (CE32)
+
+- **CE32** (`mix_d8_l3_h4_t60K_s173289`, accurate from-scratch 8d worked example). The
+  full mixed-subtraction account replicates d6→d8. **HO-2 causal battery** (all
+  classes): writer tri-state 1.00 (valid here, unlike ins1 d8), resolved-cascade
+  0.97-1.00 (untrained 0.61), combiner causal digits 1-7, STEP endpoint-gated
+  (α*≈0.5-0.75), `=`-not-source (0/1), canonical 1.00, shared combiner STC/MTC/NTC;
+  delivery route **model-specific** (ADD res@d2→attn@d3/4; SUB/NEG both routes all
+  depths; nulls 0.00). **CE29** replicates: ADD sufficient (0.923) but subtraction not
+  (SUB 0.190 / NEG 0.663; keep-random 0.000). **CE30** replicates: missing =
+  last-layer attn heads at produce-pos of failing digits (A5→P21, A1→P25), top-k
+  recovers (SUB +top40 1.00) beating random-augment. **CE31** replicates: those heads
+  are borrow-in DELIVERY heads (OV `SV`=1.00 » `SA`; group flip 1.00/null 0.00;
+  untrained fails), but on d8 the delivery **concentrates into one head (H2, reading
+  `=`/`SGN`)** vs distributed on d6. A12 + A6 corroborated; delivery-route model-specific.
+- **Map data-integrity fixes (uploaded)**: `ins1_mix_d8_l3_h4_t70K_s572091` features.json
+  had **no** combiner tags (CE26 upload gap) → STC6/MTC6/NTC6; from-scratch d8 was
+  **missing MTC** → MTC6. Via `maths_hf_update.update_model` (library
+  `_combiner_is_causal` fallback), round-trip verified.
+- **ins1 d8 CE26 map-blocked pieces, now unblocked**: writer-encoding VALID at the
+  **mapped** writer locus (ADD/ST 1.00@P14L0, SUB/MT 1.00@P12L0 vs untrained ~0.5 —
+  CE26's not-scored was a wrong-locus artifact); writer-necessity → ST writers
+  ADD-specific (ablate→ADD 0.888, SUB 1.000); shared-combiner STC/MTC/NTC co-located
+  {P20-P25 L2 M0}.
+- Artifacts: `scripts/mixed_d8_sv.py` (parametrized), `circuit_sufficiency.py`,
+  `find_missing_sub_nodes.py`, `missing_sub_mechanism.py` (parametrized fail digits),
+  `mixed_d8_writer.py`; `results/study-mix_d8_l3_h4_t60K_s173289/`,
+  `results/study-{circuit-sufficiency,missing-sub-nodes,missing-sub-mechanism}/*mix_d8_l3_h4_t60K_s173289*`,
+  `results/study-ins1_mix_d8_l3_h4_t70K_s572091-writer/`. Study:
+  [study-mixed-d8-crosssize.md](study-maths/study-mixed-d8-crosssize.md). Delivers paper HO-2.

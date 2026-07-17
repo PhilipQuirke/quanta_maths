@@ -43,7 +43,8 @@ from quanta_maths.maths_batch import (ACCURATE_MODELS, run_batch, tag_stc_nodes,
 
 from quanta_maths.maths_hf_update import (Technique, TECHNIQUES, register_technique,
     techniques_for, list_analysis_models, ordered_analysis_models, list_trainonly_models,
-    update_model, update_models, BEHAVIORS_FILE, FEATURES_FILE)
+    update_model, update_models, upload_mechanism_docs,
+    BEHAVIORS_FILE, FEATURES_FILE, MECHANISM_FILE)
 
 from quanta_maths.maths_analysis import (discover_behaviors, discover_features,
     tag_pca_nodes)

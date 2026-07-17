@@ -1444,3 +1444,77 @@ Confidence labels:
   the causal flip, not the probe, is decisive); `SV`/`SA`/`ST` correlated (the READ
   own-vs-lower profile is the independent cross-check); d6 only; H3's role
   unresolved (attends `=`/`SGN`, not the borrow).
+
+### CE32: d8 cross-size (from-scratch worked example) — the full mixed subtraction mechanism AND the CE29/30/31 sufficiency-gap / borrow-delivery story replicate at 8 digits; the delivery route is the model-specific dimension and concentrates into fewer heads with size; both d8 maps made combiner-complete
+
+- **Confidence**: **Medium-high** — one clean accurate model (`mix_d8_l3_h4_t60K_s173289`,
+  ADD/SUB/NEG 1.0000/class) reproduces every prior mixed-subtraction finding, with
+  clean nulls + untrained controls; a second (independent) 8d model after the d6
+  worked example. Single seed per model; confirmatory (cross-size) rather than a new
+  mechanism. Delivers the paper's HO-2 for the 8d-mixed worked example.
+- **What it establishes** (`mix_d8_l3_h4_t60K_s173289`, from-scratch, 8-digit,
+  3L/4H, n_ctx=28; all batteries model-general, reused from d6):
+  - **Core SV mechanism replicates (all classes)**: question-tail tri-state writer
+    encoding **1.00** (VALID — resolves the `ins1` d8 CE26 not-scored), resolved
+    carry/borrow binary at the combiner input 0.97-1.00 (untrained 0.61), last-layer
+    MLP **causal combiner** at digits 1-7, **STEP** with interior α* and gated
+    endpoints, **`=`-not-source** (flip 0 / control 1), **canonical** cross-digit
+    transfer 1.00, and a **shared combiner** (STC/MTC/NTC on the same L2 answer-MLP
+    nodes). **A12**.
+  - **Delivery route is model-specific** (CE25/A10): here **ADD** rides the residual
+    at depth 2 then switches to **attention** at depths 3-4, while **SUB/NEG** use
+    **both** routes at all depths (deciding-matched nulls 0.00) — a *different*
+    pattern from `ins1` d8 (where SUB/NEG switched to attention only at depth 4 and
+    ADD was residual-only).
+  - **CE29 replicates**: keep-useful is **sufficient for ADD (mean 0.923)** but
+    **not for subtraction** (**SUB 0.190 / NEG 0.663**; resample 0.03/0.13),
+    **keep-random 0.000**. (SUB is *worse* than d6; NEG milder — subtraction map
+    incompleteness varies by model.)
+  - **CE30 replicates**: the map-omitted subtraction nodes are the **last-layer (L2)
+    attention heads at the answer-producing positions of the failing digits**
+    (A5→P21, A1→P25), **tagged-elsewhere**; group restoration (layer2/answer/heads →
+    ~1.00) and a compact top-k recover (SUB +top40 → 1.00) while a same-size
+    **random-augment lags** (~0.19-0.25); recovery targets exactly the failing digits
+    (SUB A5 0.37 / A1 0.69 → 1.00 with +top40).
+  - **CE31 replicates**: those heads are **borrow-in DELIVERY heads** — OV write
+    decodes `SV` (borrow-in) at **1.00** » base-difference `SA` (0.58-0.67); the
+    group causally delivers it (flip **1.00** / deciding-null 0.00); untrained fails
+    (OV `SV` 0.61, flip 0.00). **Cross-size nuance**: on d8 the delivery is
+    **concentrated in a single head (H2), reading the `=`/`SGN` staging region**
+    (own-operand mass ≈0), rather than distributed across H0-H2 reading the lower
+    operands as on d6 — i.e. redundancy concentrates as size grows.
+- **Supporting (map data-integrity + `ins1` map-anchored pieces)**:
+  - **Both d8 maps made combiner-complete + uploaded**: `ins1_mix_d8_l3_h4_t70K_s572091`
+    features.json had **no** combiner tags (a CE26 upload gap; the combiner set had
+    only been written to a local dataset) → now **STC6/MTC6/NTC6**; from-scratch d8
+    was **missing MTC** → now **MTC6**. Via `maths_hf_update.update_model` (library
+    `_combiner_is_causal` redundancy-proof fallback), round-trip verified.
+  - **`ins1` d8 CE26 map-blocked pieces, now unblocked**: writer-encoding is **VALID
+    at the MAPPED writer locus** (ADD/ST 1.00@P14L0, SUB/MT 1.00@P12L0 vs untrained
+    ~0.5 — CE26's not-scored result was a wrong-locus/Dpn artifact); **writer-necessity**
+    shows the **ST (add) writers are ADD-specific** (mean-ablation → ADD 0.888 but
+    SUB stays 1.000); shared-combiner = STC/MTC/NTC co-located at {P20-P25 L2 M0}.
+- **What it does NOT establish**: single seed per model; the from-scratch d8 SUB
+  deficit is severe (0.19) — the subtraction-map incompleteness is large here;
+  `ins1` d8 is not 99.999%-clean (the from-scratch d8 is the clean worked example);
+  no NEG (NT) writer tag on `ins1` (writer-encoding unscored for NEG); upstream
+  borrow *resolution* (L0/L1) still not pinned (as in CE31).
+- **Relation to conjectures**: **A12** (size-general SV interface) confirmed on a
+  second, independent 8d model; **A6** (redundancy hides the last-layer borrow
+  delivery from per-node ablation) corroborated and shown to **concentrate with
+  size**; **A10/CE25** delivery-route model-specificity reconfirmed and extended
+  (ADD can also switch to attention). Extends **CE20-CE26** (mechanism) and
+  **CE29/CE30/CE31** (sufficiency gap + borrow-delivery) to d8.
+- **Supporting evidence**: 2026-07-17 d8 cross-size study
+  ([study-mixed-d8-crosssize.md](study-maths/study-mixed-d8-crosssize.md));
+  `results/study-mix_d8_l3_h4_t60K_s173289/` (HO-2),
+  `results/study-circuit-sufficiency/results_mix_d8_l3_h4_t60K_s173289.json` (CE29),
+  `results/study-missing-sub-nodes/results_mix_d8_l3_h4_t60K_s173289.json` (CE30),
+  `results/study-missing-sub-mechanism/results_mix_d8_l3_h4_t60K_s173289.json` (CE31),
+  `results/study-ins1_mix_d8_l3_h4_t70K_s572091-writer/results.json` (ins1 pieces).
+  Scripts: `scripts/mixed_d8_sv.py` (parametrized), `circuit_sufficiency.py`,
+  `find_missing_sub_nodes.py`, `missing_sub_mechanism.py` (parametrized fail digits),
+  `mixed_d8_writer.py`. HF maps refreshed via `maths_hf_update.update_model`.
+- **Caveats**: single seed per (model, class); CARRY one deterministic cascade
+  stimulus per cell; delivery `Probe` tag is coarse per-model; `ins1` d8 accuracy
+  ~99.5% (not five-nines).

@@ -53,7 +53,7 @@ Techniques` appendix stub + table added. Remaining work is in the ranked queue b
 | 6d addition (`add_d6_l2_h3_t20K_s173289`) | yes (0) | full (CE13–24) | HF | none |
 | 8d addition (`add_d8_l2_h3_t45K_s173289`) | yes (0) | **full — done** (confirmatory: STC combiner, CE2 transport, =-depot, class-necessity, step combiner, intrinsic redundancy, L1-locus, lazy-TF; source-fork probe-limited) | **HF** (per-model repo) | none |
 | 6d mixed (`ins1_mix_d6_l3_h4_t40K_s372001`) | yes (0/0) | CE20–25 | HF + local | none |
-| 8d mixed (`mix_d8_l3_h4_t60K_s173289`, from-scratch) | yes (7 — re-verified 1.0000/class, 300 each) | map-level done; causal write-up pending | **HF (deep: roles + STC/NTC + Probe LINXFER/CARRY/DELIVERY)** | run/verify causal SV battery + CE write-up (map already on HF) |
+| 8d mixed (`mix_d8_l3_h4_t60K_s173289`, from-scratch) | yes (1.0000/class) | **full — done (CE32)** | **HF (deep + combiner-complete STC/MTC/NTC)** | none |
 
 Notes:
 - 8d mixed is a **from-scratch** model; the 6d mixed capstone (`ins1`) carries the
@@ -69,28 +69,31 @@ Notes:
 - Model count: the paper studies **46 models** (per Tabs.); HF hosts a superset (48
   flat weight-sets / 53 per-model repos, incl. d20, d15 and `gf` training-variant
   twins not in the paper). Paper prose corrected 49→46 and seed-sensitivity 48→45.
-- **Correction (2026-07-17, `maths` thread verified)**: row 44's "Map JSON: not on HF"
-  was stale. The deep verified map for `mix_d8_l3_h4_t60K_s173289` is live at
-  `PhilipQuirke/QuantaMaths_mix_d8_l3_h4_t60K_s173289` — `behaviors.json` +
-  `features.json` (168 nodes: `Fail%`/`Impact`/`Math.Add|Sub|Neg`/`Attn`; Algo roles
-  MT/ST/GT/SA/MD/ND/MB/NB/SC/OPR/SGN + **STC(4)/NTC(5) combiners**; Probe `LINXFER`,
-  `CARRYDEFER`/`CARRYLAYER`, and **21 `DELIVERY.{ADD,SUB,NEG}=resatt`** CE25 route
-  tags) + `model.pth`. The whole `mix_*` from-scratch zoo is similarly tagged
-  (standard `maths_hf_update` pipeline; d5/d9 spot-checked). So **map
-  generation/upload is DONE**; the remaining HO-2 gap is the *causal* SV-battery CE
-  write-up (no local `results/` artifacts for this model), not the map. Accuracy `(7)`
-  re-verified: ADD/SUB/NEG all 1.0000 on 300/class (8-digit, 3L/4H, n_ctx=28).
+- **Map completeness (2026-07-17, `maths` thread verified)**: both 8d mixed maps were
+  made combiner-complete on HF via `maths_hf_update` (dry-run → verified → upload,
+  round-trip checked): `ins1_mix_d8_l3_h4_t70K_s572091` had **zero** combiner tags (a
+  CE26 upload gap) → now **STC6/MTC6/NTC6**; `mix_d8_l3_h4_t60K_s173289` was missing
+  MTC → now **STC4/MTC6/NTC5**. Both carry the full role skeleton + Probe
+  `LINXFER`/`CARRY*` + CE25 `DELIVERY.{ADD,SUB,NEG}` route tags. The rest of the
+  `mix_*` from-scratch zoo is similarly tagged (d5/d9 spot-checked).
+- **Cross-size variation (paper asset — the "family" story)**: two clean, honest
+  divergences across sizes, same skeleton otherwise. (a) Carry-propagation *deferral*
+  grows **2→3 tokens** d6→d8 (addition, CARRY tag). (b) Borrow/carry *delivery*
+  concentrates in a **single head** at d8 mixed (H2, reading `=`/SGN) vs **distributed**
+  across heads at d6. Good "similarity and variation across the model family" material.
 
 ### Decisions still needed from human
 
 1. **Spine confirmed** (2026-07-17): 6d addition (core) + 6d mixed (capstone), with 8d
    addition + 8d mixed as the cross-size generalization. No open spine decisions.
-2. **Open**: whether to add an Appendix sentence mapping the paper's 46 studied models
-   to the HF superset (48 flat / 53 per-model repos incl. d20/d15/`gf` extras).
+2. **Done (2026-07-17, human-directed)**: the Experimental-models appendix now maps the
+   46 studied models (16 add / 7 sub / 23 mixed) to the HF superset (48 flat / 53
+   per-model repos), and the README carries the matching 46-studied / 29-accurate
+   summary with contract-correct artifact file names.
 
 ## Handoff tasks to the `maths` thread (this thread is read-only on experiments)
 
-- **HO-2 — full SV battery on the two 8d worked-example models.**
+- **HO-2 — full SV battery on the two 8d worked-example models. DONE (2026-07-17).**
   - **8d addition — DONE (2026-07-16).** Every SV finding replicates: STC combiner
     at all digits, CE2 transport, =-depot, class-necessity, step combiner, intrinsic
     redundancy, L1-locus, lazy-TF. SV interface now confirmed on **five addition
@@ -103,15 +106,19 @@ Notes:
     (`d8_sv_summary.json`, `results.json`, `ce24_d8.json`),
     `results/study-d8-wired-techniques/results.json`. Documented in
     maths-results-by-time.md + A12 block (confirmatory, not a new CE).
-  - **8d mixed — map on HF; causal write-up pending** (`mix_d8_l3_h4_t60K_s173289`,
-    from-scratch; re-verified accurate 1.0000/class). The `QuantaMaths_` analysis repo
-    already carries the role skeleton + STC/NTC combiners + CE25 delivery route
-    (`DELIVERY.ADD/SUB/NEG=resatt`) + `LINXFER`/`CARRYDEFER` (standard-pipeline map).
-    Still to do IN-REPO (no local `results/` yet): the causal write-up — step combiner
-    endpoint-gated? carry-specific delivery (deciding-matched null 0.00)? polysemantic
-    node reuse across add/sub? (The model-general batteries exist:
-    `scripts/mixed_sv.py`, `maths_cascade.combiner_delivery_sweep`,
-    `scripts/missing_sub_mechanism.py` — point them at this model.)
+  - **8d mixed — DONE (2026-07-17, CE32)** (`mix_d8_l3_h4_t60K_s173289`, from-scratch,
+    accurate 1.0000/class; [study-mixed-d8-crosssize.md](study-maths/study-mixed-d8-crosssize.md)).
+    All four HO-2 questions answered: **role skeleton** — yes (writer tri-state 1.00,
+    combiner causal digits 1-7, roles mapped); **step combiner endpoint-gated** — yes
+    (α*≈0.5-0.75, endpoints gated, all classes); **carry-specific delivery** — yes
+    (deciding-matched null 0.00; route ADD res@d2→attn@d3/4, SUB/NEG both routes all
+    depths — model-specific); **polysemantic reuse** — yes (STC/MTC/NTC on the same
+    L2 answer-MLP nodes = shared combiner). Also: resolved-cascade binary 0.97-1.00,
+    `=`-not-source, canonical 1.00, untrained control fails. Plus the CE29/30/31
+    story replicates at d8 (map incomplete for subtraction — SUB 0.19/NEG 0.66 keep-
+    useful; missing = last-layer borrow-DELIVERY heads at the failing digits).
+    Both d8 maps were also made **combiner-complete** on HF (ins1 had 0 combiner
+    tags; from-scratch was missing MTC).
 - **HO-3 — Tier-1 breadth. Largely DONE (2026-07-16).** Per-model analysis repos
   (`behaviors.json` + `features.json`) now exist for **all 53 HF models** (verified;
   see [hugging_models.md](hugging_models.md)), so the "in all models" family claim is
@@ -137,7 +144,7 @@ Notes:
 | 3 | pending | **Subtraction-only models → appendix**; verify main body keeps only the (novel) subtraction *algorithm* | n/a | main body slimmed, no stray sub-only prose |
 | 4 | pending | **Restore brief "Refuted hypotheses" content** (intro carries a `% TODO`); name 1–2 ruled-out mechanisms (e.g. no single carry-selecting head; old compact-representation Hyp) | claim-evidence (A3/A9/A11); old Hyp1/2 | note/short appendix added, TODO cleared |
 | 5 | pending | **Anonymization** — regenerate the two anon repo URLs for BlackboxNLP (2 `% TODO` comments in `paper.tex`); keep third-person self-cites | n/a | valid anonymized links for review build |
-| 6 | blocked (maths) | **8d-mixed causal SV write-up** (HO-2 residual) + **numeric-column audit** of both model tables (fails/M, heads/MLPs-used) against HF maps | maths thread | Tier-2 8d-mixed complete; table numbers verified |
+| 6 | blocked (maths) | **Numeric-column audit** of both model tables (fails/M, heads/MLPs-used) against HF maps (HO-2 8d-mixed causal write-up now DONE, CE32) | maths thread | table numbers verified |
 | 7 | pending | **Build** — add `Figures/` PNGs/PDFs + `acl.sty`/`acl_natbib.bst`; compile under `acl.sty`; fix floats/overfull; confirm ≤ 8pp main text | assets/, ACL style repo | compiles to a within-limit PDF |
 
 ## Deliberately paused

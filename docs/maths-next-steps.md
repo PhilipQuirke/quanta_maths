@@ -140,11 +140,15 @@ lower-digit operands (borrow source), write the resolved borrow-in `SV[k]` (OV-d
 1.00±0.00, 3 seeds; not the base difference), group causally delivers it (flip
 1.00/null 0.00) while individually redundant (per-head ≈0.00). Multi-seed done;
 NEG-resample caveat resolved (NEG delivery just as clean → mean/modal artifact).
-*Remaining*: (a-i) how the borrow-in is *resolved* upstream (L0/L1); (a-ii) d8
-(identify d8 missing nodes first, then re-run the model-general
-`scripts/missing_sub_mechanism.py`); (a-iii) H3 / `=`/`SGN` staging role. (b) run
-across the addition zoo + d8 mixed; (c) a per-class map-completeness score as a
-`maths_hf_update` technique.
+*Remaining*: (a-i) how the borrow-in is *resolved* upstream (L0/L1); (a-ii) **d8 —
+LANDED 2026-07-17 (CE32)**: CE29/30/31 all replicate on the accurate from-scratch
+`mix_d8_l3_h4_t60K_s173289` (map incomplete for subtraction SUB 0.19/NEG 0.66;
+missing = last-layer borrow-DELIVERY heads at failing digits A5/A1; on d8 delivery
+concentrates in one head H2 reading `=`/`SGN`), plus the paper HO-2 causal battery +
+both d8 maps made combiner-complete + CE26 `ins1` writer-encoding resolved
+([study-mixed-d8-crosssize.md](study-maths/study-mixed-d8-crosssize.md)); (a-iii) H3
+/ `=`/`SGN` staging role. (b) run across the addition zoo + remaining `mix_*` from-
+scratch zoo; (c) a per-class map-completeness score as a `maths_hf_update` technique.
 
 *(Owner: `maths` mixed thread; model-general. Original framing below.)*
 

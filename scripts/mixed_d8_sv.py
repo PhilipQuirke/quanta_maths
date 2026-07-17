@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 
 import numpy as np
 import torch
@@ -47,8 +48,11 @@ from quanta_maths.maths_probe import last_layer
 from mixed_sv import battery_A_C, battery_B, class_question, to_q, CLASSES, OP
 from mixed_sv_impl import battery_step, battery_eq_source, battery_canonical
 
-MODEL = "ins1_mix_d8_l3_h4_t70K_s572091"
-OUT_DIR = "results/study-mixed-d8"
+# Model-general d8-mixed SV battery: pass a model name as argv[1] (default = the
+# CE26 ins1 worked example). Output dir is per-model so runs don't clobber.
+MODEL = sys.argv[1] if len(sys.argv) > 1 else "ins1_mix_d8_l3_h4_t70K_s572091"
+OUT_DIR = ("results/study-mixed-d8" if MODEL == "ins1_mix_d8_l3_h4_t70K_s572091"
+           else f"results/study-{MODEL}")
 
 
 def per_class_accuracy(model, cfg, n=300):

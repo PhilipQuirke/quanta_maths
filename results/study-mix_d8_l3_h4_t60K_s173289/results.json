@@ -1,0 +1,423 @@
+{
+  "model": "mix_d8_l3_h4_t60K_s173289",
+  "config": {
+    "n_digits": 8,
+    "n_layers": 3,
+    "n_heads": 4,
+    "n_ctx": 28,
+    "perc_add": 34,
+    "perc_sub": 66
+  },
+  "accuracy": {
+    "ADD": 1.0,
+    "SUB": 1.0,
+    "NEG": 1.0
+  },
+  "classes": {
+    "ADD": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 0.9714285714285714,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": false
+        },
+        "lib_stimulus": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true
+        }
+      },
+      "STEP": {
+        "Ak0": 9,
+        "Ak1": 0,
+        "sweep": {
+          "0.0": 9,
+          "0.25": 9,
+          "0.5": 9,
+          "0.75": 0,
+          "1.0": 0
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 12.212697982788086,
+          "0.5": 24.42539405822754,
+          "0.75": 36.638092041015625,
+          "1.0": 48.850791931152344
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.75
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 1.0,
+        "self_acc": 1.0
+      }
+    },
+    "SUB": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 0.9861111111111112,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": true
+        },
+        "lib_stimulus": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": false
+        }
+      },
+      "STEP": {
+        "Ak0": 0,
+        "Ak1": 9,
+        "sweep": {
+          "0.0": 0,
+          "0.25": 0,
+          "0.5": 9,
+          "0.75": 9,
+          "1.0": 9
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 10.873821258544922,
+          "0.5": 21.747642517089844,
+          "0.75": 32.621463775634766,
+          "1.0": 43.49528503417969
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.5
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 1.0,
+        "self_acc": 1.0
+      }
+    },
+    "NEG": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "tri_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 0.9861111111111112,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": true
+        },
+        "lib_stimulus": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true
+        }
+      },
+      "STEP": {
+        "Ak0": 0,
+        "Ak1": 9,
+        "sweep": {
+          "0.0": 0,
+          "0.25": 0,
+          "0.5": 0,
+          "0.75": 9,
+          "1.0": 9
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 11.297711372375488,
+          "0.5": 22.595422744750977,
+          "0.75": 33.89313507080078,
+          "1.0": 45.19084548950195
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.75
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 1.0,
+        "self_acc": 1.0
+      }
+    }
+  },
+  "delivery": {
+    "ADD": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "SUB": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "NEG": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    }
+  },
+  "untrained_control": {
+    "ADD_tri_acc_d2": 0.5882352941176471,
+    "ADD_carry_acc_d2": 0.6133603238866396
+  },
+  "node_tags": {
+    "STC": 6,
+    "MTC": 6,
+    "NTC": 6,
+    "DELIVERY": 21
+  }
+}

@@ -1,6 +1,14 @@
 # Ignore .ipynb_checkpoints directories created by Jupyter
 .ipynb_checkpoints/
 
+# Auto-generated per-model mechanism docs are stored on HuggingFace
+# (PhilipQuirke/QuantaMaths_<name>/mechanism.md), NOT in git.
+results/maps/*_mechanism.md
+
+# HF-refresh pipeline scratch dirs (per-model original/ downloaded from HF +
+# updated/ uploaded to HF). Regenerable working output -> not git.
+results/hf-update*/
+
 /.vs
 /__pycache__
 /quanta_maths/__pycache__

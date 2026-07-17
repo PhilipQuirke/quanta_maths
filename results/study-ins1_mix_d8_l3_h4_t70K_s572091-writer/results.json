@@ -1,0 +1,78 @@
+{
+  "model": "ins1_mix_d8_l3_h4_t70K_s572091",
+  "probe_digit": 4,
+  "shared_combiner": {
+    "counts": {
+      "STC": 6,
+      "MTC": 6,
+      "NTC": 6
+    },
+    "co_located_all3": [
+      "P20L2M0",
+      "P21L2M0",
+      "P22L2M0",
+      "P23L2M0",
+      "P24L2M0",
+      "P25L2M0"
+    ]
+  },
+  "writer_encoding": {
+    "ADD": {
+      "role": "ST",
+      "n_writers": 5,
+      "trained": {
+        "acc": 1.0,
+        "null_p": 0.047619047619047616,
+        "pos_layer": "P14L0"
+      },
+      "untrained": {
+        "acc": 0.5236874236874237,
+        "null_p": 0.047619047619047616,
+        "pos_layer": "P18L0"
+      }
+    },
+    "SUB": {
+      "role": "MT",
+      "n_writers": 9,
+      "trained": {
+        "acc": 1.0,
+        "null_p": 0.047619047619047616,
+        "pos_layer": "P12L0"
+      },
+      "untrained": {
+        "acc": 0.5921373200442968,
+        "null_p": 0.047619047619047616,
+        "pos_layer": "P12L0"
+      }
+    },
+    "NEG": {
+      "role": "NT",
+      "n_writers": 0,
+      "trained": {
+        "best_acc": NaN,
+        "note": "no mapped writers"
+      },
+      "untrained": {
+        "best_acc": NaN,
+        "note": "no mapped writers"
+      }
+    }
+  },
+  "writer_necessity": {
+    "ADD": {
+      "baseline": 1.0,
+      "ablate_ST": 0.888,
+      "ablate_MT": 0.892
+    },
+    "SUB": {
+      "baseline": 1.0,
+      "ablate_ST": 1.0,
+      "ablate_MT": 0.928
+    },
+    "NEG": {
+      "baseline": 0.996,
+      "ablate_ST": 0.984,
+      "ablate_MT": 0.94
+    }
+  }
+}

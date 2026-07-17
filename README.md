@@ -1,7 +1,7 @@
 ## Introduction
 This library support goals and uses [terminology](./docs/terminology.md) introduced in the paper [Understanding Addition and Subtraction in Transformers](https://arxiv.org/abs/2402.02619). Please read the paper. In brief:
 - Given an existing transformer model with low loss, this library helps a researcher to analyze and understand the algorithm implemented by a transformer model.
-- The "useful" token positions, attention heads and MLP neurons that are used in predictions are identified.  
+- The "useful" token positions, attention heads and MLP neurons that are used in predictions are identified.
 - Various tools and techniques evaluate aspects of the model's "behavior" (e.g. attention patterns).
 - The researcher can extend the tools with model-specific searches and tests - searching for hypothesised model components that perform model-specific algorithm "sub-tasks" (e.g. Base Add in the Addition model)
 - Useful facts found in this way are stored as JSON (refer [Useful_Tags](./docs/useful_tags.md) for details) and can be visualized (refer [Assets](./assets/) for samples).
@@ -18,46 +18,49 @@ pip install .
 ```
 
 ## Test bed
-Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Use Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QMAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./quanta_maths/maths_config.py).   
+Much of this library is generic (can be applied to any transformer model). As a "real-world" testbed to help refine this library we use models trained to perform integer addition and subtraction (e.g. 133357+182243=+0315600 and 123450-345670=-0123230). Arithmetic-specific algorithm sub-task searches are defined (e.g. Base Add, Make Sum 9, Make Carry, Base Subtract, Borrow One). Addition and Subtraction hypothesises are described and evaluated in the Colab notebook QMAnalyse.ipynb. Arithmetic-specific python code is in files like [maths_config.py](./quanta_maths/maths_config.py).
 
-## Folders, Files and Classes 
+## Folders, Files and Classes
 This library contains files:
 
-- **Notebooks:** Jupyter notebooks which are run in Google Colab or Jupyter: 
-  - **Train:** Colab QMTrain.ipynb is used to train transformer arithmetic models. 
+- **Notebooks:** Jupyter notebooks which are run in Google Colab or Jupyter:
+  - **Train:** Colab QMTrain.ipynb is used to train transformer arithmetic models.
     - Outputs pth and json files that are (manually) stored on HuggingFace
   - **Analysis:** Colab QMAnalyse.ipynb is used to analyze the behavior and algorithm sub-tasks of transformer arithmetic models
     - Inputs pth files (generated above) from HuggingFace
-    - Outputs *_behavior and *_algorithm json files that are (manually) stored on HuggingFace
+    - Outputs behaviors.json and features.json files that are (manually) stored on HuggingFace
   - **Algorithm:** Colab QMAlgorithm.ipynb describes/tests an overall algorithm for a model (based on behavior and algorithm sub-tasks data)
-    - Inputs *_behavior and *_algorithm json files (generated above) from HuggingFace 
+    - Inputs behaviors.json and features.json files (generated above) from HuggingFace
 
 - **QuantaMechInterp:** Python library code imported into the notebooks:
-  - model_*.py: Contains the configuration of the transformer model being trained/analysed. Includes class ModelConfig 
-  - useful_*.py: Contains data on the useful token positions and useful nodes (attention heads and MLP neurons) that the model uses in predictions. Includes class UsefulConfig derived from ModelConfig. Refer [Useful_Tags](./docs/useful_tags.md) for more detail. 
+  - model_*.py: Contains the configuration of the transformer model being trained/analysed. Includes class ModelConfig
+  - useful_*.py: Contains data on the useful token positions and useful nodes (attention heads and MLP neurons) that the model uses in predictions. Includes class UsefulConfig derived from ModelConfig. Refer [Useful_Tags](./docs/useful_tags.md) for more detail.
   - algo_*.py: Contains tools to support declaring and validating a model algorithm. Includes class AlgoConfig derived from UsefulConfig.
-  - quanta_*.py: Contains categorisations of model behavior (aka quanta), with ways to detect, filter and graph them. Refer [Filter](./docs/filter.md) for more detail. 
+  - quanta_*.py: Contains categorisations of model behavior (aka quanta), with ways to detect, filter and graph them. Refer [Filter](./docs/filter.md) for more detail.
   - ablate_*.py: Contains ways to "intervention ablate" the model and detect the impact of the ablation
   - maths_*.py: Contains specializations of the above specific to arithmetic (addition and subtraction) transformer models. Includes class MathsConfig derived from AlgoConfig.
-          
-- **Tests:** Unit tests 
+
+- **Tests:** Unit tests
 
 ## HuggingFace resources
 The HuggingFace website holds the output files generated by the CoLab notebooks for 48 models (with per-model analysis repos for 53; see [docs/hugging_models.md](docs/hugging_models.md) for the full inventory):
 
-For each model these output files available are:
-- model's weight (model.pth),
-- model's training details (training.json),
-- generic analysis facts (behavior.json), and
-- maths-specific results from searching for hypothesis algorithm features (features.json)
+For each model, the per-model analysis repo holds these output files:
+
+- the model's weights (model.pth),
+- the model's training configuration and loss data (training_loss.json),
+- generic analysis facts (behaviors.json), and
+- maths-specific results from searching for hypothesised algorithm sub-tasks (features.json)
+
+The associated paper (below) studies 46 of these models — 16 addition-only, 7 subtraction-only and 23 mixed — of which 29 reach the >99.999% accuracy bar (fewer than 10 failures per million questions). The remaining hosted models (e.g. 20-digit and training-variant twins) are provided for further research.
 
 Refer [Hugging_Models](./docs/hugging_models.md) for more detail.
 
 ## Papers
 The papers associated with this content are:
-- Understanding Addition in Transformers: https://arxiv.org/abs/2310.13121 . Aka Paper1. Model add_d5_l1_h3_t30K is very similar to the one in this paper. 
-- Understanding Addition and Subtraction in Transformers. https://arxiv.org/abs/2402.02619  
+- Understanding Addition in Transformers: https://arxiv.org/abs/2310.13121 . Aka Paper1. Model add_d5_l1_h3_t30K is very similar to the one in this paper.
+- Understanding Addition and Subtraction in Transformers. https://arxiv.org/abs/2402.02619
 
 ## Extending the code
-Most exploratory work is done in a Google Colab in the 'train and 'analyse' notebooks. 
-After some new code is successfully developed and tested in the notebook, the code is migrated to the quanta_tools code folder. 
+Most exploratory work is done in a Google Colab in the 'train and 'analyse' notebooks.
+After some new code is successfully developed and tested in the notebook, the code is migrated to the quanta_tools code folder.

@@ -13,7 +13,7 @@ import unittest
 from quanta_maths.maths_hf_update import (
     Technique, TECHNIQUES, techniques_for, register_technique,
     ordered_analysis_models, _op_group, _n_digits, _verify_roundtrip,
-    BEHAVIORS_FILE, FEATURES_FILE, _SAVE_MAJOR,
+    upload_mechanism_docs, BEHAVIORS_FILE, FEATURES_FILE, MECHANISM_FILE, _SAVE_MAJOR,
 )
 
 RUN_HF = os.environ.get("RUN_HF_TESTS") == "1"
@@ -48,6 +48,12 @@ class TestRegistry(unittest.TestCase):
     def test_save_major_mapping(self):
         self.assertEqual(_SAVE_MAJOR[FEATURES_FILE], "Algo")
         self.assertEqual(_SAVE_MAJOR[BEHAVIORS_FILE], "")
+
+    def test_mechanism_file_is_markdown_not_a_nodelist(self):
+        # mechanism.md is uploaded to HF but is NOT a node-list JSON, so it must
+        # not be in the save-major (round-trip) map.
+        self.assertEqual(MECHANISM_FILE, "mechanism.md")
+        self.assertNotIn(MECHANISM_FILE, _SAVE_MAJOR)
 
     def test_applicability_addition_only(self):
         names = {t.name for t in techniques_for(_cfg(100, 0))}
@@ -181,6 +187,17 @@ class TestDryRunHF(unittest.TestCase):
             self.assertEqual(man["n_models"], 1)
             self.assertEqual(man["n_errors"], 0)
             self.assertTrue(os.path.exists(man["manifest_path"]))
+
+    def test_mechanism_docs_dry_run_generates_md(self):
+        with tempfile.TemporaryDirectory() as d:
+            man = upload_mechanism_docs(models=["add_d5_l2_h3_t15K_s372001"],
+                                        dry_run=True, work_dir=d)
+            self.assertTrue(man["dry_run"])
+            self.assertEqual(man["n_uploaded"], 0)      # dry run uploads nothing
+            self.assertEqual(man["n_errors"], 0)
+            mdpath = os.path.join(d, "add_d5_l2_h3_t15K_s372001", "updated", MECHANISM_FILE)
+            self.assertTrue(os.path.exists(mdpath))     # generated locally for inspection
+            self.assertGreater(os.path.getsize(mdpath), 0)
 
 
 if __name__ == "__main__":

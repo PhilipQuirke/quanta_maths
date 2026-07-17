@@ -38,6 +38,7 @@ from quanta_maths.maths_model_loader import (
 
 BEHAVIORS_FILE = "behaviors.json"
 FEATURES_FILE = "features.json"
+MECHANISM_FILE = "mechanism.md"  # auto-generated per-model diagram doc (HF, not git)
 
 # Where features.json (ALGO-only) vs behaviors.json (all tags) are filtered on save.
 _SAVE_MAJOR = {FEATURES_FILE: "Algo", BEHAVIORS_FILE: ""}
@@ -310,6 +311,29 @@ def _repo_has_analysis(model_name: str) -> bool:
     return {BEHAVIORS_FILE, FEATURES_FILE} <= files
 
 
+def _current_hf_text(model_name: str, filename: str):
+    """Return the current text of ``filename`` in the model's repo, or None if absent."""
+    from huggingface_hub import hf_hub_download
+    try:
+        path = hf_hub_download(repo_id=analysis_repo_id(model_name), filename=filename)
+        with open(path) as f:
+            return f.read()
+    except Exception:
+        return None
+
+
+def _generate_mechanism_md(model_name, cfg, features_path, behaviors_path) -> str:
+    """Build the auto-generated per-model mechanism Markdown from the just-written
+    features.json (Algo roles) + behaviors.json (behaviour tags). Pure/offline."""
+    from quanta_maths.maths_diagram import build_model_map, build_mechanism_markdown
+    with open(features_path) as f:
+        feats = json.load(f)
+    with open(behaviors_path) as f:
+        behav = json.load(f)
+    model_map = build_model_map(model_name, cfg, feats, behav)
+    return build_mechanism_markdown(model_map, cfg=cfg)
+
+
 def _run_techniques(model, cfg, nodes, target, applicable, skip_if_present, results):
     """Run the applicable techniques whose target == ``target`` against ``nodes``.
     Records per-technique outcome in ``results``; returns True if any tag added."""
@@ -408,14 +432,30 @@ def update_model(
             written[FEATURES_FILE] = fpath
             changed_files.add(FEATURES_FILE)
 
+        # Auto-generated mechanism.md (per-model diagram doc). Belongs on HF next to
+        # behaviors/features -- NOT in git. Derived from the JSONs just written;
+        # uploaded only if it differs from the copy on HF (keeps re-runs idempotent).
+        md = _generate_mechanism_md(model_name, cfg, written[FEATURES_FILE],
+                                    written[BEHAVIORS_FILE])
+        mdpath = os.path.join(out_dir, MECHANISM_FILE)
+        with open(mdpath, "w") as f:
+            f.write(md)
+        written[MECHANISM_FILE] = mdpath
+        if md != _current_hf_text(model_name, MECHANISM_FILE):
+            changed_files.add(MECHANISM_FILE)
+
         result["local_updated"] = written
         result["changed_files"] = sorted(changed_files)
 
-        # Save->reload round-trip verification (gates upload).
+        # Save->reload round-trip verification of the node-list JSONs (gates upload).
         result["roundtrip_ok"] = all(
-            _verify_roundtrip(written[f], _SAVE_MAJOR[f]) for f in written)
+            _verify_roundtrip(written[f], _SAVE_MAJOR[f]) for f in written if f in _SAVE_MAJOR)
         if not result["roundtrip_ok"]:
             result["error"] = "roundtrip verification failed; not uploaded"
+            return result
+        # Sanity-check the generated MD is non-empty and re-readable.
+        if not (os.path.getsize(written[MECHANISM_FILE]) > 0):
+            result["error"] = "empty mechanism.md; not uploaded"
             return result
 
         # Upload changed files, only when not a dry run.
@@ -439,6 +479,45 @@ def update_model(
 # ===========================================================================
 # Batch runner
 # ===========================================================================
+
+def upload_mechanism_docs(models: Optional[List[str]] = None, dry_run: bool = True,
+                          work_dir: str = "results/hf-update") -> dict:
+    """Generate + upload the per-model auto ``mechanism.md`` to each QuantaMaths repo.
+
+    Lightweight: builds the doc from the model's HF ``features.json`` +
+    ``behaviors.json`` (map-only, no model load, no forward pass), and uploads it
+    only when it differs from the copy already on HF (idempotent). Default scope is
+    all analysable models. DRY-RUN by default.
+    """
+    from quanta_maths.maths_diagram import build_mechanism_markdown_for_model
+    from huggingface_hub import HfApi
+
+    models = ordered_analysis_models(models)
+    os.makedirs(work_dir, exist_ok=True)
+    api = HfApi()
+    per_model = []
+    for name in models:
+        rec = {"model": name, "uploaded": False, "changed": False, "error": None}
+        try:
+            md = build_mechanism_markdown_for_model(name)
+            path = os.path.join(work_dir, name, "updated", MECHANISM_FILE)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w") as f:
+                f.write(md)
+            rec["changed"] = md != _current_hf_text(name, MECHANISM_FILE)
+            if rec["changed"] and not dry_run:
+                api.upload_file(path_or_fileobj=path, path_in_repo=MECHANISM_FILE,
+                                repo_id=analysis_repo_id(name),
+                                commit_message="Add/refresh auto mechanism.md (quanta_maths.maths_diagram)")
+                rec["uploaded"] = True
+        except Exception as exc:
+            rec["error"] = f"{type(exc).__name__}: {exc}"
+        per_model.append(rec)
+    return {"dry_run": dry_run, "n_models": len(per_model),
+            "n_changed": sum(1 for r in per_model if r["changed"]),
+            "n_uploaded": sum(1 for r in per_model if r["uploaded"]),
+            "n_errors": sum(1 for r in per_model if r["error"]), "models": per_model}
+
 
 def update_models(
     models: Optional[List[str]] = None,

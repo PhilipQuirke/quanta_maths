@@ -288,8 +288,22 @@ model (entry 2).
   test (flip 0.00). Map cross-check: same head (L2H0) tagged OPR/SGN elsewhere but not
   at the producing positions. **Resolves the CE30 NEG-resample caveat** (NEG delivery
   just as clean → mean/modal artifact). Corroborates A6; refines A10/A12 (CE25's
-  last-layer-attention delivery = `SV`-borrow-in delivery, per-head labor split).
-  d6 only. See [maths-claim-evidence.md#ce31](maths-claim-evidence.md#ce31).
+   last-layer-attention delivery = `SV`-borrow-in delivery, per-head labor split).
+   d6 only. See [maths-claim-evidence.md#ce31](maths-claim-evidence.md#ce31).
+- **CE32 (d8 cross-size worked example; `maths` mixed thread)** — on the accurate
+  from-scratch **8-digit** `mix_d8_l3_h4_t60K_s173289`, the full mixed-subtraction
+  account **replicates**: the SV mechanism (writer tri-state 1.00, resolved-cascade
+  binary, causal STEP combiner endpoint-gated, `=`-not-source, canonical 1.00, shared
+  STC/MTC/NTC), AND the CE29/30/31 story (keep-useful sufficient for ADD 0.92 but not
+  subtraction — SUB 0.19/NEG 0.66, keep-random 0.00; missing = last-layer borrow-
+  DELIVERY heads at the failing digits A5/A1; OV `SV`=1.00, group flip 1.00/null 0.00).
+  **Delivery route is the model-specific dimension** (ADD switches to attention at
+  deep cascades here; SUB/NEG both routes) and the borrow delivery **concentrates into
+  one head (H2, reading `=`/`SGN`)** at d8 vs distributed on d6. Delivers paper **HO-2**.
+  Also fixed both d8 HF maps to be **combiner-complete** (ins1 had 0 combiner tags; the
+  from-scratch d8 was missing MTC), and resolved CE26's `ins1` writer-encoding
+  (VALID at the mapped locus: 1.00 vs untrained ~0.5). A12 + A6 corroborated. See
+  [maths-claim-evidence.md#ce32](maths-claim-evidence.md#ce32).
 
 **Paper hand-off (2026-07-17, ~T-8h)**: the consolidated, referee-tagged
 two-section account for the revision — §(a) SV mechanism, §(b) latent-space

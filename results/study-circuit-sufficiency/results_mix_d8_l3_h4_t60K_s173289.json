@@ -1,0 +1,30 @@
+{
+  "model": "mix_d8_l3_h4_t60K_s173289",
+  "keep_heads": 123,
+  "keep_mlps": 45,
+  "total_heads": 336,
+  "total_mlps": 84,
+  "classes": {
+    "ADD": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.9233333333333333,
+      "keep_useful_resample": 0.23,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    },
+    "SUB": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.19,
+      "keep_useful_resample": 0.03333333333333333,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    },
+    "NEG": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.6633333333333333,
+      "keep_useful_resample": 0.12666666666666668,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    }
+  }
+}

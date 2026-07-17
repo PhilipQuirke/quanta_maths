@@ -46,7 +46,10 @@ from quanta_maths.maths_sufficiency import class_question, load_keep_set
 OUT_DIR = "results/study-missing-sub-mechanism"
 DEFAULT_MODEL = "ins1_mix_d6_l3_h4_t40K_s372001"
 CLASSES = ["SUB", "NEG"]
-FAIL_DIGITS = [5, 2]   # CE30: A5 (10^5) and A2 (hundreds) are the failing digits
+# CE30 (d6): A5 (10^5) and A2 (hundreds) are the failing digits. On another model
+# pass the failing answer-digit indices as argv[2] (comma-separated), e.g.
+#   python scripts/missing_sub_mechanism.py mix_d8_l3_h4_t60K_s173289 7,3
+DEFAULT_FAIL_DIGITS = [5, 2]
 
 
 # --------------------------------------------------------------------------- #
@@ -215,12 +218,14 @@ def _fmt_write(w):
 
 def main():
     model_name = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_MODEL
+    fail_digits = ([int(x) for x in sys.argv[2].split(",")] if len(sys.argv) > 2
+                   else DEFAULT_FAIL_DIGITS)
     os.makedirs(OUT_DIR, exist_ok=True)
     model, cfg = load_maths_model_from_hf(model_name, device="cpu")
     ll = last_layer(cfg)
-    print(f"=== {model_name}: last layer L{ll}, heads {cfg.n_heads} ===")
+    print(f"=== {model_name}: last layer L{ll}, heads {cfg.n_heads}, fail_digits={fail_digits} ===")
 
-    out = {"model": model_name, "last_layer": ll, "fail_digits": FAIL_DIGITS,
+    out = {"model": model_name, "last_layer": ll, "fail_digits": fail_digits,
            "map_crosscheck": map_crosscheck(model_name, cfg), "classes": {}}
     print("  map: last-layer head tagged positions:",
           out["map_crosscheck"]["ll_head_tagged_positions"])
@@ -228,7 +233,7 @@ def main():
 
     for cls in CLASSES:
         out["classes"][cls] = {}
-        for k in FAIL_DIGITS:
+        for k in fail_digits:
             r = run_class_digit(model, cfg, cls, k)
             out["classes"][cls][f"A{k}"] = r
             cp = r["cpos"]
@@ -246,13 +251,14 @@ def main():
                   {h: f"{r['CARRY']['per_head'][h]['flip']:.2f}/{r['CARRY']['per_head'][h]['null']:.2f}"
                    for h in r["CARRY"]["per_head"]})
 
-    # ---- untrained control (must fail WRITE + CARRY) on (SUB, A5) ----
+    # ---- untrained control (must fail WRITE + CARRY) on (SUB, first fail digit) ----
     print("\n=== untrained control (must fail WRITE+CARRY) ===")
+    kc = fail_digits[0]
     ctrl = make_untrained_control(cfg)
     rng = np.random.default_rng(0)
-    Xg, _, labs = collect_ov(ctrl, cfg, "SUB", 5, ll, rng, n_q=300)
+    Xg, _, labs = collect_ov(ctrl, cfg, "SUB", kc, ll, rng, n_q=300)
     cw = probe_all(Xg, labs, rng)
-    cflip = combiner_delivery_flip(ctrl, cfg, "SUB", 5, arm="lastlayer_attn", n_pairs=24)
+    cflip = combiner_delivery_flip(ctrl, cfg, "SUB", kc, arm="lastlayer_attn", n_pairs=24)
     out["untrained_control"] = {"WRITE_group": cw,
                                 "CARRY_group": {"flip": cflip["flip"]["rate"],
                                                 "null": cflip["null"]["rate"]}}
