@@ -1,0 +1,399 @@
+{
+  "addition": {
+    "add_d6_l2_h3_t20K_s173289": {
+      "model": "add_d6_l2_h3_t20K_s173289",
+      "accuracy": 1.0,
+      "carry_axis_sep": 28.55028533935547,
+      "rail": {
+        "heads": [
+          1,
+          2
+        ],
+        "per_head_pair_cos": {
+          "H1-H2": 0.15069419145584106
+        }
+      },
+      "F1_manifold_shape": {
+        "1": {
+          "u_offaxis_frac": 0.11150839924812317,
+          "offaxis_perm_p": 1.0,
+          "u_along_frac": 0.5607020258903503,
+          "d_c0_c1": 1.5734175443649292,
+          "rail_c0": -8.129480361938477,
+          "rail_c1": -8.071565628051758,
+          "rail_u0": -8.11079216003418,
+          "rail_u1": -8.097506523132324,
+          "u_cin_split_on_rail": 0.013285636901855469,
+          "shape": "collinear(ordered)"
+        },
+        "2": {
+          "u_offaxis_frac": 0.062217485159635544,
+          "offaxis_perm_p": 1.0,
+          "u_along_frac": 0.5739520192146301,
+          "d_c0_c1": 1.6171241998672485,
+          "rail_c0": -7.793606758117676,
+          "rail_c1": -7.748661994934082,
+          "rail_u0": -7.7683000564575195,
+          "rail_u1": -7.768508434295654,
+          "u_cin_split_on_rail": -0.00020837783813476562,
+          "shape": "collinear(ordered)"
+        },
+        "3": {
+          "u_offaxis_frac": 0.25049689412117004,
+          "offaxis_perm_p": 0.998003992015968,
+          "u_along_frac": 0.44525346159935,
+          "d_c0_c1": 3.8148465156555176,
+          "rail_c0": -4.75559663772583,
+          "rail_c1": -2.9824838638305664,
+          "rail_u0": -4.332414627075195,
+          "rail_u1": -3.9984428882598877,
+          "u_cin_split_on_rail": 0.3339717388153076,
+          "shape": "collinear(ordered)"
+        },
+        "4": {
+          "u_offaxis_frac": 0.31499186158180237,
+          "offaxis_perm_p": 1.0,
+          "u_along_frac": 0.522304892539978,
+          "d_c0_c1": 6.036368370056152,
+          "rail_c0": -1.957716464996338,
+          "rail_c1": -0.1987665742635727,
+          "rail_u0": -1.013798475265503,
+          "rail_u1": -0.9922304153442383,
+          "u_cin_split_on_rail": 0.02156805992126465,
+          "shape": "collinear(ordered)"
+        }
+      },
+      "F2_transfer": {
+        "rail_binary_centered": {
+          "diag": 0.5986277775900596,
+          "offdiag": 0.5986409192996102,
+          "retention_gain": 1.0001332455203968,
+          "diag_gain": 0.09862777759005958,
+          "offdiag_gain": 0.09864091929961016
+        },
+        "rail_binary_uncentered": {
+          "diag": 0.6003198744405887,
+          "offdiag": 0.5783461856064616,
+          "retention_gain": 0.7809637526296912,
+          "diag_gain": 0.10031987444058865,
+          "offdiag_gain": 0.07834618560646156
+        },
+        "rail_tristate_centered": {
+          "diag": 0.4088375788129316,
+          "offdiag": 0.38964818842488697,
+          "retention_gain": 0.7458501801302058,
+          "diag_gain": 0.07550424547959828,
+          "offdiag_gain": 0.05631485509155365
+        },
+        "rail_tristate_uncentered": {
+          "diag": 0.3906932934103962,
+          "offdiag": 0.33157283938111287,
+          "retention_gain": -0.030692035870583348,
+          "diag_gain": 0.0573599600770629,
+          "offdiag_gain": -0.0017604939522204432
+        },
+        "raw_tristate": {
+          "diag": 0.6257892616065142,
+          "offdiag": 0.3826515057766209,
+          "retention_gain": 0.1686345451586122,
+          "diag_gain": 0.29245592827318084,
+          "offdiag_gain": 0.04931817244328757
+        },
+        "raw_tristate_centered": {
+          "diag": 0.6268597984046573,
+          "offdiag": 0.41919342041396107,
+          "retention_gain": 0.2925122511858159,
+          "diag_gain": 0.293526465071324,
+          "offdiag_gain": 0.08586008708062776
+        },
+        "full_binary_transfer": {
+          "diag": 0.8468260505438383,
+          "offdiag": 0.5881848259851784,
+          "retention_gain": 0.2542624057417278,
+          "diag_gain": 0.3468260505438383,
+          "offdiag_gain": 0.0881848259851784
+        },
+        "full_binary_transfer_centered": {
+          "diag": 0.834679896123471,
+          "offdiag": 0.6285939353643193,
+          "retention_gain": 0.384229638092388,
+          "diag_gain": 0.33467989612347104,
+          "offdiag_gain": 0.1285939353643193
+        },
+        "per_digit_binary_axis_alignment": {
+          "pairwise_abs_cos": {
+            "D1-D2": 0.5716698169708252,
+            "D1-D3": 0.02074507251381874,
+            "D1-D4": 0.5764971375465393,
+            "D2-D3": 0.3188653886318207,
+            "D2-D4": 0.5244021415710449,
+            "D3-D4": 0.44847163558006287
+          },
+          "mean_abs_cos": 0.41010853213568527
+        },
+        "diag_weak_flag": true
+      },
+      "F3_entanglement": {
+        "digit": 3,
+        "st_rank": 3,
+        "sv_rank": 2,
+        "pre_removal_ST_SV_angle": 26.135833740234375,
+        "label_null_angle": 52.661231994628906,
+        "cos_rail_to_SV_axis": 0.47155195474624634,
+        "angle_rail_into_ST_plane": 52.25598907470703,
+        "residual_ST_rank": 3,
+        "residual_ST_SV_angle": 81.16826629638672,
+        "residual_label_null": 71.7186050415039
+      },
+      "PC3_wrong_axis_nulls": {
+        "random_var_matched": {
+          "diag": 0.5451406648250737,
+          "offdiag": 0.5016594185604074,
+          "retention_gain": 0.03676105717179588,
+          "diag_gain": 0.04514066482507373,
+          "offdiag_gain": 0.0016594185604074108
+        },
+        "ov_preimage_random_axis": {
+          "diag": 0.5786811392943336,
+          "offdiag": 0.5782799607351626,
+          "retention_gain": 0.9949012105980031,
+          "diag_gain": 0.07868113929433362,
+          "offdiag_gain": 0.07827996073516263
+        },
+        "random_in_ST_subspace": {
+          "diag": 0.5103129240837548,
+          "offdiag": 0.4957859573515699,
+          "retention_gain": -0.4086176349410131,
+          "diag_gain": 0.010312924083754837,
+          "offdiag_gain": -0.004214042648430116
+        }
+      }
+    },
+    "add_d5_l2_h3_t15K_s372001": {
+      "model": "add_d5_l2_h3_t15K_s372001",
+      "accuracy": 1.0,
+      "carry_axis_sep": 32.368927001953125,
+      "rail": {
+        "heads": [
+          2
+        ],
+        "per_head_pair_cos": {}
+      },
+      "F1_manifold_shape": {
+        "1": {
+          "u_offaxis_frac": 0.09067251533269882,
+          "offaxis_perm_p": 1.0,
+          "u_along_frac": 0.5318816304206848,
+          "d_c0_c1": 0.7855499982833862,
+          "rail_c0": -6.571493148803711,
+          "rail_c1": -6.671393394470215,
+          "rail_u0": -6.616145133972168,
+          "rail_u1": -6.632001876831055,
+          "u_cin_split_on_rail": -0.01585674285888672,
+          "shape": "collinear(ordered)"
+        },
+        "2": {
+          "u_offaxis_frac": 0.25855883955955505,
+          "offaxis_perm_p": 0.9940119760479041,
+          "u_along_frac": 0.45732879638671875,
+          "d_c0_c1": 7.935400009155273,
+          "rail_c0": -3.413090705871582,
+          "rail_c1": -3.050276756286621,
+          "rail_u0": -4.0541229248046875,
+          "rail_u1": -4.065389633178711,
+          "u_cin_split_on_rail": -0.011266708374023438,
+          "shape": "collinear(ordered)"
+        },
+        "3": {
+          "u_offaxis_frac": 0.23204484581947327,
+          "offaxis_perm_p": 0.9920159680638723,
+          "u_along_frac": 0.437814325094223,
+          "d_c0_c1": 5.299505710601807,
+          "rail_c0": -2.473684787750244,
+          "rail_c1": -1.0340461730957031,
+          "rail_u0": -2.912266492843628,
+          "rail_u1": -1.932559847831726,
+          "u_cin_split_on_rail": 0.9797066450119019,
+          "shape": "collinear(ordered)"
+        }
+      },
+      "F2_transfer": {
+        "rail_binary_centered": {
+          "diag": 0.614426381470148,
+          "offdiag": 0.6161664515884661,
+          "retention_gain": 1.0152068963115115,
+          "diag_gain": 0.11442638147014805,
+          "offdiag_gain": 0.11616645158846606
+        },
+        "rail_binary_uncentered": {
+          "diag": 0.6230399657304287,
+          "offdiag": 0.5956478648641057,
+          "retention_gain": 0.7773723301716691,
+          "diag_gain": 0.12303996573042875,
+          "offdiag_gain": 0.0956478648641057
+        },
+        "rail_tristate_centered": {
+          "diag": 0.40298919839930486,
+          "offdiag": 0.36783118725425096,
+          "retention_gain": 0.49526129477028946,
+          "diag_gain": 0.06965586506597155,
+          "offdiag_gain": 0.03449785392091764
+        },
+        "rail_tristate_uncentered": {
+          "diag": 0.42340771160186863,
+          "offdiag": 0.40182105197556783,
+          "retention_gain": 0.7603462822474853,
+          "diag_gain": 0.09007437826853532,
+          "offdiag_gain": 0.06848771864223452
+        },
+        "raw_tristate": {
+          "diag": 0.687795544378195,
+          "offdiag": 0.3593913674573066,
+          "retention_gain": 0.07351427969475513,
+          "diag_gain": 0.3544622110448617,
+          "offdiag_gain": 0.026058034123973284
+        },
+        "raw_tristate_centered": {
+          "diag": 0.6972372942798336,
+          "offdiag": 0.42879730557265244,
+          "retention_gain": 0.2623328748360446,
+          "diag_gain": 0.3639039609465003,
+          "offdiag_gain": 0.09546397223931913
+        },
+        "full_binary_transfer": {
+          "diag": 0.8719847488117262,
+          "offdiag": 0.5960314701486578,
+          "retention_gain": 0.25815969728711236,
+          "diag_gain": 0.37198474881172616,
+          "offdiag_gain": 0.09603147014865776
+        },
+        "full_binary_transfer_centered": {
+          "diag": 0.881333060183518,
+          "offdiag": 0.6743248098612219,
+          "retention_gain": 0.4571458078597419,
+          "diag_gain": 0.381333060183518,
+          "offdiag_gain": 0.1743248098612219
+        },
+        "per_digit_binary_axis_alignment": {
+          "pairwise_abs_cos": {
+            "D1-D2": 0.4128621518611908,
+            "D1-D3": 0.4920162558555603,
+            "D2-D3": 0.8932624459266663
+          },
+          "mean_abs_cos": 0.5993802845478058
+        },
+        "diag_weak_flag": false
+      },
+      "F3_entanglement": {
+        "digit": 2,
+        "st_rank": 3,
+        "sv_rank": 2,
+        "pre_removal_ST_SV_angle": 20.936674118041992,
+        "label_null_angle": 72.20159912109375,
+        "cos_rail_to_SV_axis": 0.3530820310115814,
+        "angle_rail_into_ST_plane": 57.440711975097656,
+        "residual_ST_rank": 3,
+        "residual_ST_SV_angle": 89.18987274169922,
+        "residual_label_null": 79.15633392333984
+      },
+      "PC3_wrong_axis_nulls": {
+        "random_var_matched": {
+          "diag": 0.5948903520131075,
+          "offdiag": 0.5975212542547365,
+          "retention_gain": 1.027725708523724,
+          "diag_gain": 0.09489035201310747,
+          "offdiag_gain": 0.09752125425473646
+        },
+        "ov_preimage_random_axis": {
+          "diag": 0.6027270060613333,
+          "offdiag": 0.6056325274587708,
+          "retention_gain": 1.0282839100333825,
+          "diag_gain": 0.10272700606133334,
+          "offdiag_gain": 0.10563252745877083
+        },
+        "random_in_ST_subspace": {
+          "diag": 0.575085115405398,
+          "offdiag": 0.4916222725922011,
+          "retention_gain": -0.11157640715561344,
+          "diag_gain": 0.07508511540539797,
+          "offdiag_gain": -0.008377727407798907
+        }
+      }
+    }
+  },
+  "G1_score": {
+    "add_d6_l2_h3_t20K_s173289": {
+      "verdict": "G1 REFUTED for OV-preimage (rail at wrong-axis null level); PARTIAL shared carry subspace (binary transfers better than tri-state but below bar) -> read-time rotation with partial storage sharing",
+      "ov_preimage_rail": {
+        "offdiag_gain": 0.09864091929961016,
+        "diag_gain": 0.09862777759005958,
+        "worst_wrong_axis_null_gain": 0.07827996073516263,
+        "specific_ok": false
+      },
+      "full_binary_carry_transfer": {
+        "diag": 0.8468260505438383,
+        "offdiag": 0.5881848259851784,
+        "retention": 0.2542624057417278,
+        "offdiag_gain": 0.0881848259851784
+      },
+      "full_tristate_transfer_retention": 0.1686345451586122,
+      "per_digit_binary_axis_mean_cos": 0.41010853213568527,
+      "pc1_floor_ok": true,
+      "F3_pre_ST_SV_angle": 26.135833740234375,
+      "F3_cos_rail_to_SV": 0.47155195474624634,
+      "F3_residual_ST_SV_angle": 81.16826629638672
+    },
+    "add_d5_l2_h3_t15K_s372001": {
+      "verdict": "G1 REFUTED for OV-preimage (rail at wrong-axis null level); PARTIAL shared carry subspace (binary transfers better than tri-state but below bar) -> read-time rotation with partial storage sharing",
+      "ov_preimage_rail": {
+        "offdiag_gain": 0.11616645158846606,
+        "diag_gain": 0.11442638147014805,
+        "worst_wrong_axis_null_gain": 0.10563252745877083,
+        "specific_ok": false
+      },
+      "full_binary_carry_transfer": {
+        "diag": 0.8719847488117262,
+        "offdiag": 0.5960314701486578,
+        "retention": 0.25815969728711236,
+        "offdiag_gain": 0.09603147014865776
+      },
+      "full_tristate_transfer_retention": 0.07351427969475513,
+      "per_digit_binary_axis_mean_cos": 0.5993802845478058,
+      "pc1_floor_ok": true,
+      "F3_pre_ST_SV_angle": 20.936674118041992,
+      "F3_cos_rail_to_SV": 0.3530820310115814,
+      "F3_residual_ST_SV_angle": 89.18987274169922
+    }
+  },
+  "mixed_F4": {
+    "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+    "read_digit": 2,
+    "pairwise_abs_cos_combiner": {
+      "ADD-SUB": 0.19571782648563385,
+      "ADD-NEG": 0.22305020689964294,
+      "SUB-NEG": 0.8965853452682495
+    },
+    "pairwise_abs_cos_resid_pre": {
+      "ADD-SUB": 0.00584380142390728,
+      "ADD-NEG": 0.0542413666844368,
+      "SUB-NEG": 0.9562840461730957
+    },
+    "shared_direction_var_explained": 0.6618568301200867,
+    "abs_cos_to_SGN_axis": {
+      "ADD": 0.007426665164530277,
+      "SUB": 0.044361911714076996,
+      "NEG": 0.07940148562192917
+    },
+    "PC2_bit_decode_trained": {
+      "ADD": 1.0,
+      "SUB": 1.0,
+      "NEG": 1.0
+    },
+    "PC2_bit_decode_untrained": {
+      "ADD": 0.6792929292929293,
+      "SUB": 0.5084852294154619,
+      "NEG": 0.6144422952933591
+    },
+    "verdict": "G4 partial (intermediate cosines)"
+  }
+}
