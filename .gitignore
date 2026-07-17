@@ -1,12 +1,13 @@
 # Ignore .ipynb_checkpoints directories created by Jupyter
 .ipynb_checkpoints/
 
-# Auto-generated per-model mechanism docs are stored on HuggingFace
-# (PhilipQuirke/QuantaMaths_<name>/mechanism.md), NOT in git.
-results/maps/*_mechanism.md
+# Auto-generated per-model maps + mechanism docs. The canonical mechanism.md is on
+# HuggingFace (PhilipQuirke/QuantaMaths_<name>/mechanism.md); the maximal-map JSON is
+# regenerable from HF (build_model_map). Not git.
+results/maps/
 
 # HF-refresh pipeline scratch dirs (per-model original/ downloaded from HF +
-# updated/ uploaded to HF). Regenerable working output -> not git.
+# updated/ uploaded to HF) + run manifests. Regenerable working output -> not git.
 results/hf-update*/
 
 /.vs
