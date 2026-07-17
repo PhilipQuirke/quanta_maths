@@ -62,9 +62,18 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Owner | Experiment | Updates |
 | --- | --- | --- | --- | --- |
-| 1 | ready | **`maths` addition thread** | [Compounding locus — decisive A11 vs L1-read assay](#1-compounding-locus--decisive-a11-vs-l1-read-assay) | A11, A9, A6 |
+| 1 | designed, awaiting gate + overnight launch | **`maths` thread (geometry stream)** | [Latent-geometry stream: dominance certificate + rail factorization](#1-latent-geometry-stream-overnight-pair) | G1–G4, A3, A4, A8, C1/C2 |
 | 2 | mostly done | **`maths` mixed thread** | [Mixed model: remaining follow-ups (SV mechanism + A7 landed)](#2-mixed-model-remaining-follow-ups-sv-mechanism--a7-landed) | A10, A6, depth |
-| 3 | sequenced | either | [Paper hand-off consolidation and referee checkpoint](#3-paper-hand-off-consolidation-and-referee-checkpoint) | (synthesis) |
+
+Rerank note (2026-07-16 evening): the former entry 1 (compounding locus,
+decisive A11 vs L1-read) **completed** — CE24/CE24-TF settled it conclusively
+(L1-read; lazy propagation, eager local) — and is deleted per the agenda rules
+(trail: [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md),
+[CE24](maths-claim-evidence.md#ce24)). By human directive the `maths` thread's
+new focus is the **latent-geometry stream**: a geometric, latent-space account
+of the same arithmetic process — manifold shapes, inter-feature relations
+(ST/SV), and whether the geometry itself does computational work. Conjectures:
+[G1–G4](maths-conjectures-agent.md#new-stream-2026-07-16-latent-geometry-conjectures-g-series).
 
 Entry-order note (2026-07-16 rerank after CE18; parallel-thread split by human
 directive): the cross-size study **ran** ([CE18](maths-claim-evidence.md),
@@ -89,42 +98,60 @@ rewrite the other thread's. On any dirty-file collision in `git status`, assume
 it belongs to the other thread and leave it. The paper hand-off (entry 3)
 consolidates BOTH threads' outputs and triggers **no later than ~T-12h**.
 
-### 1. Compounding locus — decisive A11 vs L1-read assay
+### 1. Latent-geometry stream (overnight pair)
 
-*(Owner: `maths` thread.)* CE17 left the one open piece of the SV mechanism:
-**where the single-step ST writes become a fully-resolved carry** — an L0
-positional relay across the question tail ([A11](maths-conjectures-agent.md#a11-multi-digit-compounding-is-a-positional-l0-relay-across-the-question-tail-st-sites))
-vs a computation inside the L1 consumer read. CE17 came back **R-mixed** and
-CE18 showed scale won't sharpen it, so the task is a **better instrument**, not
-a bigger model. Frame per the [working axioms](maths-conjectures-agent.md#working-axioms)
-(the cascade is computed *somewhere*; locate it). The redesign must clear
-CE17's two named blockers:
+*(Owner: `maths` thread, geometry stream. Opened 2026-07-16 evening by human
+directive; the compounding-locus predecessor completed via CE24.)*
 
-- **Blocker 1 — interchange nulls are causally undetermined** (redundancy vs
-  interchange-too-weak, CE17-F2). Replace single-site interchange with a test
-  that does not inherit the ambiguity: e.g. **path-patch the ST→consumer edge
-  directly** (not the whole L0 residual), or a **cumulative/knockout-set** arm
-  that ablates all-but-the-deepest-visible relay and asks whether the survivor
-  suffices — a class-level causal test that redundancy cannot mask.
-- **Blocker 2 — the consumer edge is local-class-sufficient** (CE17 Battery L),
-  which does not *rule out* a relay upstream. Distinguish "L1 reads a
-  pre-resolved relay" from "L1 does the compounding" by testing **what the
-  consumer's value input carries as a function of visibility horizon** on a
-  stimulus set where local class and resolved carry are **decorrelated** (the
-  CE17 ceiling came from their correlation on chain stimuli).
-- **Horizon decode, hardened**: repeat the CE17 P11-style horizon crossing but
-  require a **second independent strong-writing boundary site** and a replication
-  (CE17's trace was single-cell, one model); score the deciding-position
-  crossing with CIs so a single 1.00 cell cannot carry the verdict.
-- **Freed capacity vs the deadline**: A10 iv (combiner step) is DONE; do **not**
-  re-run it. Neuron-level combiner decomposition (B2) is optional stretch only.
+**What to learn**: a geometric, latent-space account of the arithmetic the
+mechanistic account already localizes — the **shape** of the storage manifolds
+(per-digit ST tri-states; the carry code), the **relations** between feature
+manifolds (ST vs SV; carry vs borrow vs neg-borrow), and whether the geometry
+**does computational work** (does the manifold arrangement itself implement the
+cascade?). Conjectures
+[G1–G4](maths-conjectures-agent.md#new-stream-2026-07-16-latent-geometry-conjectures-g-series).
 
-Done when: the compounding locus is attributed **relay / L1-read / mixed** with
-an instrument that survives the CE17-F2 ambiguity (the class-level causal arm
-agreeing with a decorrelated-stimulus reconstruction), or the residual
-ambiguity is stated as the final A11 disposition with the reason it is
-irreducible at this architecture. Scored against A11 (confirmed / refuted /
-final-mixed), A9 (final), A6.
+**Why now**: the paper hand-off's section (b) is currently a list of scoped
+negatives (no dominant embedding circle CE1; no ST transfer CE11; non-orthogonal
+slots CE12; probe-limited large-n CE18). G1/G2 would flip those into one
+constructive geometric story — rail-and-address storage + a place-value
+dominance code that the STEP combiner (CE17) reads — and G3 re-explains the
+CE18 collapse as a dynamic-range law. High payoff, cheap (forward passes +
+linear algebra on existing HF artifacts, tested library helpers), overnight-
+runnable before the hand-off.
+
+**The two designed studies** (pre-run notes written; shared stimulus grids and
+caches):
+
+- **[study-geometry-certificate.md](study-maths/study-geometry-certificate.md)**
+  (scores G2, G3; touches A3/A5/A10): per-prompt OV/LN decomposition of the
+  combiner input along the CE16/CE17 carry rail into per-source-site
+  contributions; test class-value ordering (`p_i < u_i < q_i`, U cin-split),
+  weighted-gap dominance, additive α reconstruction, and the feasible-threshold
+  **certificate** (is measured α* inside the interval that makes TriAdd
+  provably correct to depth k?). Stretch: d10/d13 gap-compression law (G3).
+- **[study-geometry-factorization.md](study-maths/study-geometry-factorization.md)**
+  (scores G1, G4; touches A3/A4/A8/C1/C2): does OV-rail projection rescue the
+  CE11 cross-digit no-transfer (storage factorization vs read-time rotation)?
+  Does removing the rail explain the ST–SV 21° entanglement? Write-site
+  manifold shape (collinear vs simplex). Mixed model: do SV/MV/NV share one
+  unit-adjust rail (F4)?
+
+**Launch checklist (per sprint protocol)**: (1) combined skeptic gate on both
+pre-run notes in a separate thread; (2) implement
+`scripts/geometry_certificate.py` + `scripts/geometry_factorization.py` from
+the notes (reuse `maths_probe` / `maths_edge_patch` / `maths_cascade` /
+`maths_temporal_finalization` helpers; smoke-test on d6 before the full run);
+(3) run overnight (d5/d6 + mixed; d10/d13 stretch), results to
+`results/study-geometry-*/`; (4) morning: score G1–G4, post-result gate, CE
+entries, fold into entry 3's section (b) **before the ~T-12h hand-off
+trigger**.
+
+Done when: G1 and G2 are each scored confirmed / refuted / scoped-partial
+against the pre-stated bars (with G3/G4 scored where the stretch batteries
+ran), and the verdicts are folded into the entry-3 hand-off — or the window
+closes, in which case hand off section (b) unchanged and park the stream
+post-deadline.
 
 ### 2. Mixed model: remaining follow-ups (SV mechanism + A7 landed)
 
@@ -213,9 +240,13 @@ caveats section — one artifact, two uses. Paper edits themselves remain the
 
 Done when: the consolidated two-section account exists in the results docs
 with referee tagging, handed to the paper thread in time. Consolidates BOTH
-parallel threads (entry 1 compounding-locus + entry 2 mixed-model replication)
-once each lands; trigger no later than ~T-12h even if one thread is still in
-flight (hand off what exists, tagged by confidence).
+parallel threads (the completed compounding-locus line — CE24 — plus entry 2
+mixed-model replication) once each lands; trigger no later than ~T-12h even if
+one thread is still in flight (hand off what exists, tagged by confidence).
+If the geometry stream (entry 1) lands in time, fold the G1–G4 verdicts into
+section (b) — confirmed G-claims upgrade it from scoped negatives to a
+constructive geometric account; refuted ones ship as the (equally concrete)
+read-time-rotation / interaction-read alternative.
 
 ## Candidate backlog (not active)
 

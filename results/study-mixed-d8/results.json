@@ -1,0 +1,423 @@
+{
+  "model": "ins1_mix_d8_l3_h4_t70K_s572091",
+  "config": {
+    "n_digits": 8,
+    "n_layers": 3,
+    "n_heads": 4,
+    "n_ctx": 28,
+    "perc_add": 20,
+    "perc_sub": 80
+  },
+  "accuracy": {
+    "ADD": 1.0,
+    "SUB": 1.0,
+    "NEG": 0.9966666666666667
+  },
+  "classes": {
+    "ADD": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 0.39728353140916806,
+          "null_p": 0.12903225806451613
+        },
+        "2": {
+          "tri_acc": 0.31825609031491386,
+          "null_p": 0.5161290322580645
+        },
+        "3": {
+          "tri_acc": 0.37662705149971704,
+          "null_p": 0.16129032258064516
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 0.9857142857142858,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        },
+        "lib_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        }
+      },
+      "STEP": {
+        "Ak0": 9,
+        "Ak1": 0,
+        "sweep": {
+          "0.0": 9,
+          "0.25": 9,
+          "0.5": 0,
+          "0.75": 0,
+          "1.0": 0
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 13.622162818908691,
+          "0.5": 27.244325637817383,
+          "0.75": 40.866485595703125,
+          "1.0": 54.488651275634766
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.5
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 1.0,
+        "self_acc": 1.0
+      }
+    },
+    "SUB": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 0.4178240740740741,
+          "null_p": 0.1935483870967742
+        },
+        "2": {
+          "tri_acc": 0.3395061728395062,
+          "null_p": 0.4838709677419355
+        },
+        "3": {
+          "tri_acc": 0.4262237762237762,
+          "null_p": 0.0967741935483871
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        },
+        "lib_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        }
+      },
+      "STEP": {
+        "Ak0": 0,
+        "Ak1": 9,
+        "sweep": {
+          "0.0": 0,
+          "0.25": 0,
+          "0.5": 9,
+          "0.75": 9,
+          "1.0": 9
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 9.174419403076172,
+          "0.5": 18.348838806152344,
+          "0.75": 27.52326011657715,
+          "1.0": 36.69767761230469
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.5
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 1.0,
+        "self_acc": 1.0
+      }
+    },
+    "NEG": {
+      "A_writer_encoding": {
+        "1": {
+          "tri_acc": 0.45949074074074076,
+          "null_p": 0.06451612903225806
+        },
+        "2": {
+          "tri_acc": 0.3919753086419753,
+          "null_p": 0.22580645161290322
+        },
+        "3": {
+          "tri_acc": 0.4134032634032634,
+          "null_p": 0.16129032258064516
+        }
+      },
+      "C_resolved_cascade": {
+        "1": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "2": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        },
+        "3": {
+          "carry_acc": 1.0,
+          "null_p": 0.03225806451612903
+        }
+      },
+      "B_combiner_causal": {
+        "u_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        },
+        "lib_stimulus": {
+          "1": false,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false
+        }
+      },
+      "STEP": {
+        "Ak0": 0,
+        "Ak1": 9,
+        "sweep": {
+          "0.0": 0,
+          "0.25": 0,
+          "0.5": 9,
+          "0.75": 9,
+          "1.0": 9
+        },
+        "carry_proj": {
+          "0.0": 0.0,
+          "0.25": 14.517826080322266,
+          "0.5": 29.03565216064453,
+          "0.75": 43.5534782409668,
+          "1.0": 58.07130432128906
+        },
+        "endpoints_ok": true,
+        "alpha_star": 0.5
+      },
+      "eq_source": {
+        "eq_source_flip": 0,
+        "combiner_input_flip": 1
+      },
+      "canonical": {
+        "transfer_acc": 0.99609375,
+        "self_acc": 1.0
+      }
+    }
+  },
+  "delivery": {
+    "ADD": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "SUB": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    },
+    "NEG": {
+      "2": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "3": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        }
+      },
+      "4": {
+        "full_resid": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "resid_pre": {
+          "flip": 0.0,
+          "null": 0.0,
+          "valid": true
+        },
+        "lastlayer_attn": {
+          "flip": 1.0,
+          "null": 0.0,
+          "valid": true
+        }
+      }
+    }
+  },
+  "untrained_control": {
+    "ADD_tri_acc_d2": 0.5882352941176471,
+    "ADD_carry_acc_d2": 0.6133603238866396
+  },
+  "node_tags": {
+    "STC": 6,
+    "MTC": 6,
+    "NTC": 6,
+    "DELIVERY": 21
+  }
+}

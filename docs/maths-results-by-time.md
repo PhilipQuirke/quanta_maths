@@ -699,3 +699,50 @@ live — not the current best story (that goes in
   null). Combined sprint gate; a tautological negative control was replaced.
 - **Linked study**:
   [study-maths/study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md)
+
+### 2026-07-16 — 8-digit addition SV replication (add_d8_l2_h3_t45K_s173289; confirmatory, extends A12/CE18/CE24/TF)
+
+- **Covered**: ran the SV suite on the previously-uncovered **accurate 8-digit** model
+  (acc 1.000) — the wired cross-model techniques + the map-driven SV batteries. No
+  new claim; a cross-model **confirmation** that fills the d8 gap (prior SV studies
+  were d5/d6; CE18 cross-size used d5/d6/d10/d13, dropping d7/d8/d9).
+- **Wired techniques** (`quanta_maths`): **STC 7** (answer-position last-layer MLP
+  combiner at every answer digit A1–A7, CE5), **LINXFER 3** (operand linear
+  transport ~66–67%, CE2), **CARRY** `Probe:A7.CARRYLAYER=1` + `Probe:A7.CARRYDEFER=3`.
+- **SV batteries** (map-driven): `=`-not-a-source **0.00**; consumer pair
+  **class-necessary 1.00**; combiner **STEP** (α*=0.5); 9 ST sites / 9 combiners;
+  redundancy class-minus-single gap **0.152** (fits the d6 0.116 → d10 0.324 trend);
+  deciding-ST arm 0.00 and carry axis weak (sep 5.3) — **probe-limited at large n**,
+  same as d10/d13. **TF**: LAZY propagation, onset **L1**, **deferral 3 tokens**.
+  **CE24 layer-localization**: L0@= cross-depth transfer 0.57 (~chance, ceiling
+  0.78), **L1 carry-axis 1.00** → canonical carry is an **L1-property** on d8.
+- **Model difference noted**: the TF/CARRY **deferral is 3 tokens on d8 vs 2 on
+  d5/d6** — the eager/lazy split holds but the lazy gap grows modestly with size
+  (exactly the cross-model variation the CARRY tag was built to capture).
+- **Artifacts**: `results/study-d8-batteries/d8_sv_summary.json` (+ `results.json`,
+  `ce24_d8.json`); `results/study-d8-wired-techniques/results.json`. Reused wired
+  techniques + `scripts/cross_size_sv.py` map-driven batteries + CE24 transfer.
+  Caveats: linear-probe; carry axis weak at large n (deciding-ST probe-limited);
+  confirmatory, not gated as a new CE. 2-layer/3-head addition.
+
+### 2026-07-16 — Mixed model (8-digit): cross-size SV dataset (entry 2 follow-up): CE26
+
+- **Bundle**: the model-general SV battery on the accurate 8-digit mixed model
+  `ins1_mix_d8_l3_h4_t70K_s572091` (3 layers/4 heads), the first 8-digit mixed
+  datapoint (prior mixed = 6-digit only).
+- **Result (CE26)**: the core SV mechanism **generalizes d6→d8** for ADD/SUB/NEG —
+  binary resolved cascade at the combiner (~1.00), STEP combiner (α*≈0.5), canonical
+  message (transfer 1.00), `=`-not-source, shared combiner (18 STC/MTC/NTC tags on
+  A1–A6). The **delivery route is depth/size-dependent**: ADD residual-only; SUB/NEG
+  residual at depths 2–3 but **last-layer attention at depth 4** (d6 used both at all
+  depths). Scores A12 (new size) + refines A10 delivery (route model-specific).
+- **Dataset (local, no HF)**: `results/study-mixed-d8/results.json` +
+  `features.json` (18 combiner `Algo` tags) + `behaviors.json` (21 `Probe:DELIVERY`
+  tags); `scripts/mixed_d8_sv.py`.
+- **Caveats / map-blocked**: no published d8 map → writer-encoding invalid
+  (untrained ≥ trained), no class-necessity / SLT shared-engine / mechanism diagram;
+  zero-ablation combiner tagger redundancy-limited (used the combiner-input causal
+  criterion); delivery node tag records only the shallow (depth-2) route; single
+  d8 model/seed.
+- **Linked study**:
+  [study-maths/study-mixed-d8-sv.md](study-maths/study-mixed-d8-sv.md)

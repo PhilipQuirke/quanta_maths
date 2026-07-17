@@ -1,0 +1,38 @@
+{
+  "model": "add_d8_l2_h3_t45K_s173289",
+  "n_digits": 8,
+  "tags": {
+    "P13L0H2": [
+      "Probe:A3.LINXFER=67"
+    ],
+    "P14L0H0": [
+      "Probe:A2.LINXFER=66"
+    ],
+    "P14L0H2": [
+      "Probe:A2.LINXFER=66"
+    ],
+    "P19L1M0": [
+      "Algo:A7.STC",
+      "Probe:A7.CARRYLAYER=1",
+      "Probe:A7.CARRYDEFER=3"
+    ],
+    "P20L1M0": [
+      "Algo:A6.STC"
+    ],
+    "P21L1M0": [
+      "Algo:A5.STC"
+    ],
+    "P22L1M0": [
+      "Algo:A4.STC"
+    ],
+    "P23L1M0": [
+      "Algo:A3.STC"
+    ],
+    "P24L1M0": [
+      "Algo:A2.STC"
+    ],
+    "P25L1M0": [
+      "Algo:A1.STC"
+    ]
+  }
+}

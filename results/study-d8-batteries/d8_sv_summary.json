@@ -1,0 +1,37 @@
+{
+  "model": "add_d8_l2_h3_t45K_s173289",
+  "n_digits": 8,
+  "accuracy": 1.0,
+  "wired_techniques": {
+    "STC": 7,
+    "LINXFER": 3,
+    "CARRY": {
+      "layer": 1,
+      "defer": 3
+    }
+  },
+  "TF": {
+    "onset_layer": 1,
+    "deferral": 3,
+    "read": "LAZY propagation + eager local"
+  },
+  "sv_interface": {
+    "st_sites": 9,
+    "combiners": 9,
+    "eq_arm": 0.0,
+    "decST_arm": 0.0,
+    "class_necessity": 1.0,
+    "combiner_class": "step",
+    "alpha_star": 0.5
+  },
+  "redundancy": {
+    "single_gap": 0.052000000000000046,
+    "class_gap": 0.20399999999999996,
+    "class_minus_single": 0.1519999999999999
+  },
+  "layer_localization_CE24": {
+    "l0_xdepth": 0.5652416415284063,
+    "l1_carryaxis_xdepth": 1.0,
+    "verdict": "L1-property"
+  }
+}

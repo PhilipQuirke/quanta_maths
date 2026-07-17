@@ -241,7 +241,7 @@ model (entry 2).
   symbol. Whether the model causally uses digit geometry (B1); A2
   aggregate-vs-transport. See [maths-next-steps.md](maths-next-steps.md).
 
-## Mixed-model generalization (entry 2, parallel thread — CE20–CE23, CE25)
+## Mixed-model generalization (entry 2, parallel thread — CE20–CE23, CE25–CE26)
 
 - **CE20** — the addition SV **representation replicates on the mixed add/sub
   model** `ins1_mix_d6_l3_h4_t40K_s372001` (3 layers/4 heads) across **ADD, SUB
@@ -272,12 +272,21 @@ model (entry 2).
   control form is REFUTED**; the add/sub selection is a **distributed,
   high-dimensional L1 transformation** (leans C2 on selection, shared combiner).
   Confidence Medium-high. A7 → low (control mechanism); C2 → partially up.
-- **CE25** — the class-dependent **delivery pathway holds across cascade depths
+ - **CE25** — the class-dependent **delivery pathway holds across cascade depths
   2–4** (carry/borrow-specific, deciding-matched null 0.00): ADD residual-only
   (last-layer attention flip 0.00 at every depth), SUB/NEG residual + last-layer
   attention (1.00). Clears the CE14 ≥2-depth bar on the mixed model; untrained
   control delivers nothing. Confidence Medium-high. Scores A10 (delivery at depth),
   A12. Reusable cross-model sweep promoted to `quanta_maths/maths_cascade.py`.
+- **CE26** — **cross-size (d8): the core SV mechanism generalizes d6→d8** on the
+  accurate 8-digit mixed model `ins1_mix_d8_l3_h4_t70K_s572091` (binary resolved
+  cascade, STEP combiner, canonical message, `=`-not-source, shared combiner; all
+  three classes). The **delivery route is depth/size-dependent** — d8 SUB/NEG ride
+  the residual at depths 2–3 but switch to last-layer attention at depth 4 (d6
+  used both at all depths); ADD residual-only. Map-blocked pieces
+  (writer-necessity, SLT shared-engine, diagram) await a published d8 map.
+  Confidence Medium-high (mechanism) / Medium (route difference). Scores A12,
+  refines A10. Dataset: `results/study-mixed-d8/`.
 - Library gained full three-class support (`neg_labels`, `neg_ntc_functions`/NTC,
   class-aware combiner check; deep-cascade delivery sweep `maths_cascade.py`; all
   tested). Detail:

@@ -107,12 +107,7 @@
 
 \begin{abstract}
 
-Transformers are widely deployed in large language models (LLMs), yet most models still fail on basic arithmetic tasks such as multidigit addition. In contrast, we show that small transformers trained from scratch can solve n-digit addition and subtraction with 99.999\% accuracy. Building directly on prior work that uncovered addition circuits, we extend the analysis to subtraction and present a unified mechanistic account based on cascading carry and borrow circuits. Using a suite of 49 trained models, we apply systematic ablations and node-level constraints to validate the learned mechanisms, and release a reproducible interpretability toolkit for studying arithmetic circuits. Finally, surveying 180 publicly available LLMs, we find that only 7\% can reliably perform addition, underscoring the gap between specialized small models and general-purpose LLMs. Our results show that arithmetic can be implemented exactly by tiny transformers, offering a tractable case study for mechanistic interpretability and a cautionary contrast with the persistent arithmetic failures of much larger models.
-
-%Recent work shows transformers can learn addition, but earlier models suffer low accuracy and are restricted to small numbers. The connection between single-task and multitask arithmetic remains unclear. We analyze 49 autoregressive transformers trained on addition, subtraction, or both—comprising 16 addition-only, 7 subtraction-only, 8 mixed, and 14 initialized mixed models. These span 5–15 digits, 2–4 attention heads, and 2–3 layers.
-
-%Addition models converge on a shared algorithm, with most exceeding 99.999\% accuracy. We provide a mechanistic account of this implementation. Subtraction-only models perform worse. Initialized mixed models reveal, via parameter transfer, that features specialized for addition become polysemantic, aiding both tasks and improving subtraction.
-%We explain the mixed algorithm and release a reusable library of mechanistic interpretability tools to define, locate, and visualize these algorithmic circuits across multiple models.
+We use integer addition and subtraction as a controlled, exactly-solvable testbed for what can be said with confidence about the algorithm a low-loss transformer implements — logically and mechanically. Trained from scratch on effectively infinite data enriched with the hardest carry- and borrow-edge cases, small transformers (2–3 layers) reach 99.999\% accuracy on 5–15 digit problems in under an hour, learning rare cascades such as 555555555+444444448=+1000000003. We give novel, sound, exact left-to-right algorithms for both operations, matching the causal ordering transformers must use. Across 49 models varying in seed, depth, digit-length, and operation, the accurate ones share one circuit skeleton; in representative models we close a gap by locating and causally confirming the multi-digit resolved-carry sub-task — tracing how carries are computed, propagated, and resolved into the answer, not merely correlated with it. The skeleton recurs across model sizes and operations, and mixed-model nodes are polysemantic across addition and subtraction whether initialised from an addition model or trained from scratch. We release the models, analysis and a reproducible interpretability toolkit.
 
 \end{abstract} 
 
@@ -340,49 +335,22 @@ We did a seed sensitivity analysis. App.~\ref{app:SeedSensitivity} includes a vi
 \subsection{Experimental Results}
 \label{Sub:ExperimentalResults}
 
-To verify whether our models implement the algorithms described above, we developed a systematic framework for analyzing model internals. For each trained model, we investigated whether it contains the specific computational components our algorithms require and whether these components interact according to the algorithmic constraints.
+To test whether our models \emph{implement} the addition, subtraction and mixed algorithms above---rather than merely correlating with them---we analyse their internals in two tiers: (i) an automated search across the whole family for the circuit skeleton the algorithms require, and (ii) a deep causal study, on four representative models, of the sub-task that prior work left unconfirmed: the multi-digit resolved carry (\SV).
 
-\subsubsection{Implementation Analysis Framework} 
-Consider a 6-digit addition model. If it implements our algorithm, it must satisfy these constraints:
+\subsubsection{The shared circuit skeleton across the family}
 
-\begin{itemize}
-    \item \textbf{Functional accuracy}: The model must correctly add any two 6-digit numbers, selecting the unique correct answer from nearly 2 million possible answers.
-    
-    \item \textbf{Complete component coverage}: The model must implement the required subtasks for each digit position i.e. 6 $SA$, 6 $ST$, 6 $SV$, and 7 answer digit finalization nodes.
-    
-    \item \textbf{Component-level behavior}: Each node implementing a subtask must obey certain conditions. For instance, a node implementing $ST2$ must:
-    \begin{itemize}
-        \item Attend primarily to tokens $D_2$ and $D'_2$ (post-softmax attention $> 0.01$)
-        \item Be positioned after $D'_2$ but before the ``='' token
-        \item A Primary Component Analysis (PCA) should show 3 distinct clusters. (See Fig.~\ref{fig:PCATrigrams5D}.)
-        \item Given three test question sets, created specifically to trigger the 3 $ST2$ values, each question set should align with exactly one of the PCA clusters.
-    \end{itemize}
-    
-    \item \textbf{Algorithmic ordering constraints}: Node locations must respect computational dependencies. Since SV1 = TriAdd(ST1, ST0), a node computing SV1 must be positioned after nodes computing ST1 and ST0. Our 6-digit model has over 30 such ordering constraints.
-    
-    \item \textbf{Causal verification through intervention}: When we identify a candidate node for a specific subtask (e.g. ST2), we can construct paired test questions differing only in that subtask's value. By intervening on the candidate node and swapping its activations between the test pairs, we can predict the model's output from nearly 2 million possible answers.
-\end{itemize}
+For each model we search every (sub-task, digit-position) pair for candidate nodes, keeping only those that satisfy the algorithm's constraints: the node attends to the relevant operand tokens, occupies a valid position, exhibits the expected sub-task structure (e.g.\ three $ST$ clusters under PCA; Fig.~\ref{fig:PCATrigrams5D}), and respects the ordering dependencies (e.g.\ $SV_1 = \mathrm{TriAdd}(ST_1, ST_0)$ must follow its inputs---our 6-digit model has over 30 such constraints). We then ablate each candidate to confirm its predicted effect. The full constraint list, per-node walkthrough, and the techniques we apply are given in App.~\ref{app:Hypothesis3} and App.~\ref{app:Techniques}.
 
-For models with more than 6 digits, the constraints list grows further. The subtraction and mixed algorithms each have a more extensive constraints list. With 49 models to test, we developed an automated testing framework to:
+The 1-layer baseline of \citet{quirke2023understanding} reaches only 99\% accuracy using per-digit \SAC \SC nodes. Our accurate 2-layer models---5--15 digit addition, and mixed addition/subtraction---instead all exhibit the \emph{same} skeleton: every sub-task our algorithms require is present, and the ordering constraints hold. The implementation is not uniform across models, and this variation is itself informative:
 
 \begin{itemize}
-    \item Systematically search for nodes over each subtask and digit position combination retaining only those that satisfy all the constraints in our algorithm
-    \item Compare the list of nodes found with the algorithmic requirements (including intra-node relationships). 
-    \item Visualize the results.
+\item Different models assign a given sub-task (e.g.\ $ST_2$) to different attention heads, and some compute a sub-task redundantly in two nodes.
+\item Some models split one sub-task (e.g.\ $SA_2$) across two co-located heads; many use a single head.
+\item The per-node $ST$ PCA clusters differ across heads but always separate the three \ST values (Fig.~\ref{fig:PCATrigrams5D}).
+\item Every model computes \ST; some also compute the single-digit \SC, which is redundant given \ST and \SV.
 \end{itemize}
 
-\subsubsection{Addition model results} 
-
-We tested a single 1-layer addition model. Our framework found the $SA_n$ and $SC_n$ (single-digit carry calculated during answer tokens) nodes as described by \cite{quirke2023understanding} that give the model its 99\% accuracy.
-
-Testing our fifteen 2-layer addition models, we find all models contain the subtasks required by our addition algorithm, and satisfy the algorithmic requirements. This consistent pattern suggests we have identified a robust and generalizable algorithm that naturally arises when transformer models are trained on addition in our setup. There is some variability between models:
-
-\begin{itemize}
-\item In a given model, $ST_N$ is not as ``tidy" as shown in Fig.~\ref{fig:AdditionAlgorithm}. Different models select different attention heads to calculate say ST2. Redundantly, some models have two nodes that both calculate say ST1. See Tab.~\ref{tab:MathsPurposePerNodeAdd6D}.   
-\item Some models combine 2 attention heads (with the same token position and layer) to calculate say SA2. Many models only use one attention head.
-\item For ST nodes, the PCA trigrams have difference appearances in each attention head (- but all have 3 clusters aligned to the ST values. See Fig.~\ref{fig:PCATrigrams5D}. 
-\item All models have \ST nodes, but some models also have and use \SC nodes. The \SC nodes are redundant: the \ST values are equivalent and the \SV values are superior!  See Tab.~\ref{tab:MathsPurposePerNodeAdd6D}. 
-\end{itemize}
+A representative addition node-map is shown in Tab.~\ref{tab:MathsPurposePerNodeAdd6D}; per-size maps are in App.~\ref{app:NDigitAddition}.
 
 \begin{figure}[h]
 \centering
@@ -416,32 +384,21 @@ Testing our fifteen 2-layer addition models, we find all models contain the subt
     \end{tabularx}
 \end{table*}
 
-\subsubsection{Mixed model results} 
-Testing our accurate "mixed" (both addition and subtraction) models, we find all models contain the subtasks required by our addition algorithm, and satisfy the algorithmic requirements. 
+\subsubsection{Causally confirming the resolved-carry sub-task}
 
-The mixed models have the same types of variability that the addition models have.
+Locating the \SAC \SC and \ST nodes establishes the per-digit pieces, but the harder claim---that the model computes the \emph{multi-digit} resolved carry \SV, which must propagate across a run of 9s as in $555555555+444444448$---was not causally confirmed by prior work. We close this gap on four representative models (6- and 8-digit addition and mixed) using activation patching, edge path-patching, and a step-function interpolation of the combiner input (App.~\ref{app:Techniques}).
 
-\textbf{Evolution of Polysemantic Nodes.} \cite{zhang2024interpretingimprovinglargelanguage} identified symmetries between addition and subtraction circuits, with the same attention heads handling both operations. We expand on this finding. 
+Tracing the carry gives a consistent picture across all four models. Each digit's carry is computed eagerly, in place, as a binary make-carry; the multi-digit carry is then propagated and resolved, and integrated into the answer by a step function at the answer position. The delivery is carry-specific---an interchange that toggles only the deciding carry flips exactly the affected answer digit, while same-class controls do not---and redundant, with no single node necessary; the running carry is sourced from the question-tail carry nodes, not read from the ``='' token. This \SV interface replicates across five addition sizes ($d = 5, 6, 8, 10, 13$) and on the mixed model.
 
-Consider the mixed models that we initialized with accurate, smaller addition models before training. The majority of inherited nodes became polysemantic during training. Rather than developing entirely new circuits for subtraction, the models adapted their addition circuits to handle both operations. For example, a node that originally only performed Base Add (\SA) often learns to handle three subtasks: addition (\SA), positive-answer subtraction diff (\MD), and negative-answer subtraction diff (\ND). (Refer to Tab.~\ref{tab:MathsPurposePerNodeMix6D}.) 
+The family also shows a graded variation that our per-model analysis is built to capture: the carry is computed in place, but its multi-digit resolution is represented \emph{lazily}, at the answer read, and this lag grows modestly with size---a 2-token deferral at 5--6 digits and 3 tokens at 8 digits.
 
-%\subsection{Mixed model class detection}
-%\label{sec:MixedClassDetection}
-%Mixed models must identify whether each input belongs to one of three classes: addition (S), positive-answer subtraction (M), or negative-answer subtraction (N). For addition questions (marked by “+"), classification is immediate. For subtraction questions (marked by “-"), the model must determine whether $D \ge D'$ to distinguish between M and N classes. This classification must occur by the “=" token since it determines whether the first answer token will be “+" or “-".
+We are explicit about the limits. At larger digit-counts the carry direction is weakly separated in activation space, so the \emph{source} of the running carry is probe-limited there; the robust cross-size evidence is the step combiner, the redundancy, and the answer-side resolution locus. We show the carry is \emph{delivered} and \emph{combined}, but do not establish that a single head \emph{selects} the deciding digit, and much of the representational evidence is linear-probe based, at 2-layer scale.
 
-%The model can determine $D \ge D'$ using the \ANMT values, or using a hypothesised dedicated comparison circuit based on a new subtask. 
+\subsubsection{Mixed models and polysemantic reuse}
 
-%\begin{equation} 
-%    GT_n = 1 \text{ if } D_n \geq D'_n \text{ else } 0
-%\end{equation}
+Our accurate mixed (addition-and-subtraction) models contain the same skeleton, and show the same variability, as the addition models, and the \SV findings above replicate on them. They additionally show how one network serves several operations. \citet{zhang2024interpretingimprovinglargelanguage} noted shared heads across addition and subtraction; we find the reuse is pervasive, and it arises whether or not the mixed model is initialised from an addition model.
 
-%The multidigit $GT$ is computed similarly to $SV$. We verify its presence using ablations that flip the answer sign when $GT$ is disrupted.
-
-%All mixed models use the \ANMT and \ANGT subtasks to determine answer sign—often (but not always) computed by the same node (see Tab.~\ref{tab:MathsPurposePerNodeAdd6D}). As both \MT and \GT can distinguish sign, models may mix these methods across digits.
-
-%A single node can output multiple arithmetic results (e.g., $SA2$, $MD2$, $ND2$) but lacks intrinsic knowledge of whether the task is addition, positive, or negative subtraction. We hypothesize it emits all three results into the residual stream, and another node selects the correct one based on context.
-
-%Each answer digit usually has one attention head focusing on OPR and SGN, helping the MLP retain the correct output and discard the others (Tab.~\ref{tab:MathsPurposePerNodeMix6D}).
+In mixed models initialised from a smaller addition model (Sec.~\ref{sec:TrainingNDigitMixed}), the majority of inherited nodes become polysemantic during training: rather than growing new subtraction circuits, the model adapts its addition circuits to both operations. A node that originally performed only Base Add (\SA) typically learns three sub-tasks---addition (\SA), positive-answer subtraction (\MD), and negative-answer subtraction (\ND) (Tab.~\ref{tab:MathsPurposePerNodeMix6D}). Nodes that handled carry (\ST) likewise adapt to borrow (\MT).
 
 
 \begin{table*}[h]
@@ -477,7 +434,7 @@ Consider the mixed models that we initialized with accurate, smaller addition mo
     \end{tabularx}
 \end{table*}
 
-We believe that this adaptation was likely because these three operations share a common structure: each maps a pair of digits (10 possibilities for \DN × 10 possibilities for \DND = 100 input cases) to a single-digit result (10 possible outputs). Similarly, some models adapted nodes that originally handled carry bits ($ST$) to also process borrow bit operations ($MT$).
+This reuse is natural: the three operations share structure, each mapping a digit pair ($10 \times 10 = 100$ input cases) to a single-digit output. It is also extensive---Tab.~\ref{tab:Coverage_SNM} shows that in a sample mixed model, most inserted addition-model nodes are reused for two or three operations.
 
 \begin{table}[h]
     \caption{Mixed models re-use most inserted addition-model nodes. Many inserted nodes become polysemantic during training - performing addition, positive-answer subtraction \textbf{and} negative-answer subtraction subtasks simultaneously. For a sample mixed model that uses 96 nodes and had 48 nodes inserted, this table shows inserted node reuse.}    
@@ -675,6 +632,38 @@ During training, the models use an AdamW optimizer with a learning rate (LR) of 
 \caption{The 5- to 8-digit initialized mixed models have very low loss and \textgreater{99.999}\% accuracy. With more digits the model loss and accuracy is worse. Details in Tab.\ref{tab:MixedModels}.}
 \label{fig:TrainingLossMixed}
 \end{figure*}
+
+\section{Appendix: Analysis Techniques}
+\label{app:Techniques}
+
+We apply a common set of techniques to every model. Tab.~\ref{tab:Techniques} names each technique, what it tests, what it establishes, the models/scale it was applied at, and our confidence. The first group locates the circuit skeleton across the whole family; the second group causally confirms the resolved-carry (\SV) sub-task on the four representative worked-example models (6- and 8-digit addition and mixed).
+
+\begin{table*}[h]
+    \caption{Analysis techniques applied in this work. ``Family'' = all accurate models; ``worked examples'' = 6d/8d addition and mixed; ``5 sizes'' = addition $d = 5, 6, 8, 10, 13$.}
+    \label{tab:Techniques}
+    \vspace{0.1in}
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{|l|X|X|l|l|}
+        \hline
+        \textbf{Technique} & \textbf{What it tests} & \textbf{What it establishes} & \textbf{Scale} & \textbf{Conf.} \\
+        \hline
+        Node search & Does a node for a (sub-task, position) meet the attention/position/structure constraints? & The circuit skeleton is present & Family & High \\
+        \hline
+        Ablation & Is a node load-bearing for its sub-task? & Necessity vs.\ redundancy & Family & Med-High \\
+        \hline
+        PCA of node output & Does a node separate its sub-task classes (e.g.\ 3 $ST$ clusters)? & Representational class structure & Worked examples & Medium \\
+        \hline
+        Activation patching (interchange) & Does swapping a node's activation flip the answer as the algorithm predicts? & Causal role of make-carry / combiner nodes & Worked examples & Med-High \\
+        \hline
+        Edge path-patching & Does a specific node$\rightarrow$combiner edge carry the deciding carry? & Carry-specific, redundant delivery & Worked examples & Medium \\
+        \hline
+        Step-function interpolation & How does the combiner map its carry input to its output? & The combiner is a step function & 5 sizes + mixed & Med-High \\
+        \hline
+        Linear probes / cross-depth transfer & Where and when is the resolved carry linearly present? & Answer-read (L1) locus; lazy propagation & Worked examples & Medium \\
+        \hline
+    \end{tabularx}
+\end{table*}
 
 \section{Appendix: Experimental models}
 \label{app:ExperimentalModels}

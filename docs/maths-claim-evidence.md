@@ -1033,3 +1033,48 @@ Confidence labels:
 - **Caveats**: single mixed model/seed; depths 2–4; deciding digit fixed at units;
   whole-last-layer-attention patch (not per-head); 3-layer/4-head mixed add/sub,
   initialised from a 6-digit addition model.
+
+### CE26: Mixed model (8-digit) — the SV mechanism generalizes d6→d8 (binary resolved cascade, STEP combiner, canonical message, `=`-not-source, shared combiner) for ADD/SUB/NEG; the delivery route is depth/size-dependent (d8 SUB/NEG switch to attention at deep cascades)
+
+- **Confidence**: **Medium-high** for the core-mechanism generalization (clean,
+  all three classes, deciding-matched nulls 0.00, endpoint-gated STEP, untrained
+  control at chance); **Medium** for the depth-dependent delivery-route difference
+  (single d8 model/seed, whole-last-layer-attention patch). First 8-digit mixed
+  datapoint; extends the d6-only CE20/CE22/CE25. Map-free (no published d8 map).
+- **What it establishes** (`ins1_mix_d8_l3_h4_t70K_s572091`, 3 layers/4 heads,
+  per-class accuracy ADD 1.00 / SUB 1.00 / NEG 0.997):
+  - **Core SV mechanism replicates d6→d8, all classes**: the resolved
+    carry/borrow is a clean **binary** code at the L2 combiner input (~1.00 vs
+    untrained ~0.61); the combiner is a **STEP** function (on-manifold α-sweep,
+    endpoints gated, α*≈0.5); the delivered carry is a **canonical**
+    format-invariant code (cross-digit transfer 1.00); **`=` is not the
+    middle-digit source** (`=`-arm flip 0, combiner-input control 1); the combiner
+    is **shared** (A1–A6 each tag STC+MTC+NTC on the same L2 answer-MLP node).
+  - **Delivery route is depth/size-dependent (the d6→d8 difference)**: ADD
+    delivers via the **residual only** at all depths (attention 0.00). SUB and NEG
+    deliver via the **residual at shallow depths (2, 3)** but **switch to
+    last-layer attention at depth 4** (resid_pre 0.00 / attn 1.00) — whereas d6
+    used both routes at every depth. Carry/borrow-specific throughout
+    (deciding-matched null 0.00; stimuli valid at every depth).
+- **What it does NOT establish** (map-blocked — no published d8 verified map):
+  writer-encoding at the question tail (the probed site is not the d8 writer
+  locus — untrained ≥ trained, invalid, not scored); class-necessity;
+  SLT-sited shared-engine (A7); the paper Fail%/Impact behavior map + mechanism
+  diagram. Single d8 model/seed. `Probe:DELIVERY` node tag records only the
+  shallow (depth-2) route.
+- **Relation to conjectures**: **A12 confirmed on a new size (d8)** for the core
+  SV mechanism (representation / STEP / canonical / `=`-not-source / shared
+  combiner). **A10 delivery refined**: the delivery *route* is not universal — it
+  is model/size/depth-specific (d8 SUB/NEG use attention only at deep cascades),
+  as CE25 flagged. **A6/A7 untouched** (map-blocked).
+- **Supporting evidence**: 2026-07-16 d8 mixed SV study
+  ([study-mixed-d8-sv.md](study-maths/study-mixed-d8-sv.md),
+  `results/study-mixed-d8/results.json`; `scripts/mixed_d8_sv.py`). Reusable d8 SV
+  node-tag dataset: `results/study-mixed-d8/features.json` (18 combiner `Algo`
+  tags) + `behaviors.json` (21 `Probe:DELIVERY` tags). Reuses the model-general
+  `maths_cascade` + the CE20/CE22 batteries; combiners tagged via the
+  redundancy-proof combiner-input criterion (zero-ablation is redundancy-limited
+  at d8).
+- **Caveats**: single d8 model/seed; map-blocked pieces above; delivery tag
+  depth-2 only (full depth sweep in results.json); whole-last-layer-attention
+  patch; writer-encoding invalid on d8.

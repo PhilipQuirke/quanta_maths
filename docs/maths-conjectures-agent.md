@@ -1075,12 +1075,180 @@ mode.
   inconclusive"). Backlink:
   [study-cross-size-sv.md](study-maths/study-cross-size-sv.md),
   [CE18](maths-claim-evidence.md#ce18).
+- **Update 2026-07-16 (8-digit fill-in, confirmatory):** ran the SV suite on the
+  previously-uncovered accurate **d8** (`add_d8_l2_h3_t45K_s173289`). All CE18
+  signatures reproduce: role skeleton present (9 ST / 9 combiners + empirical
+  consumer), **STEP combiner** (α*=0.5), **`=`-not-a-source 0.00**, **class-necessity
+  1.00**, redundancy class-minus-single **0.152** (fits the d6 0.116 → d10 0.324
+  trend), carry axis weak (sep 5.3 — deciding-ST probe-limited, as d10/d13). CE24
+  **L1-property** reproduces (L0 cross-depth 0.57 ~chance, L1 carry-axis 1.00), and
+  TF is **LAZY at L1** with **deferral 3 tokens (vs 2 at d5/d6)** — the eager/lazy
+  split holds but the lazy gap grows modestly with size. SV interface now confirmed
+  on **five addition sizes (d5,d6,d8,d10,d13)**. Confirmatory (not gated as a new
+  CE). Artifacts `results/study-d8-batteries/d8_sv_summary.json`.
 - **Update 2026-07-16 (Mixed model, CE20/CE22/CE25):** A12 generalization holds on
   a **new axis** — not just size but a **different architecture (3 layers/4 heads)
   and the borrow/neg-borrow task families**: the SV representation + STEP combiner +
-  canonical message + delivery all replicate across ADD/SUB/NEG on the mixed model.
-  Raised confidence that the SV interface is architecture/task-general (the delivery
-  *route* can differ by class/model — run `combiner_delivery_sweep` across the zoo).
+   canonical message + delivery all replicate across ADD/SUB/NEG on the mixed model.
+   Raised confidence that the SV interface is architecture/task-general (the delivery
+   *route* can differ by class/model — run `combiner_delivery_sweep` across the zoo).
+- **Update 2026-07-16 (Mixed model, 8-digit, [CE26](maths-claim-evidence.md)):**
+   confirmed on a **new size** — the core SV mechanism (binary resolved cascade,
+   STEP combiner, canonical message, `=`-not-source, shared combiner) replicates on
+   the accurate d8 mixed model `ins1_mix_d8_l3_h4_t70K_s572091` for ADD/SUB/NEG. The
+   delivery route is now shown to be **depth/size-dependent**: d8 SUB/NEG ride the
+   residual for shallow cascades but switch to last-layer attention at depth 4 (d6
+   used both routes at all depths) — so A10's delivery *route* is model-specific,
+   not universal (the SV interface still generalizes). Map-blocked pieces
+   (writer-necessity, SLT shared-engine, mechanism diagram) await a published d8
+   map. Dataset: `results/study-mixed-d8/`.
+
+## New stream 2026-07-16: latent-geometry conjectures (G-series)
+
+Opened by human directive on the evening of 2026-07-16: the mechanistic
+account (which nodes compute what, where, and by which token) is confirmed to
+working-axiom standard; what is missing is a **geometric, latent-space account
+of the same arithmetic process** — the shape of the storage manifolds, how
+different features' manifolds (ST, SV, …) relate, and whether the geometry
+itself does computational work. All G-entries are **speculative, pre-evidence**
+(confidence: proposed). Two overnight studies are designed to score them:
+[study-geometry-certificate.md](study-maths/study-geometry-certificate.md)
+(G2, G3) and
+[study-geometry-factorization.md](study-maths/study-geometry-factorization.md)
+(G1, G4).
+
+### G1: Rail-and-address factorization — storage = one shared carry rail ⊕ private per-site address subspaces
+
+- **Belief**: Each question-side `ST` write factors into (a) a coordinate on
+  a **single shared 1-D carry rail** — the pre-image, under the consumer
+  heads' OV, of the CE16/CE17 canonical carry axis at the combiner input —
+  and (b) a **private, position-specific address component** that dominates
+  the write's raw variance. The rail carries the arithmetic content; the
+  address carries binding/position and whatever co-rider information CE16
+  decoded (deciding position).
+- **Why**: This single geometry explains three otherwise-awkward accepted
+  results at once: CE11's cross-digit probe NO-transfer (raw probes latch
+  onto the dominant address components, which don't transfer), CE11's ST–SV
+  entanglement at 21° (the shared component *is* the rail — the carry-bearing
+  part of the ST write is literally the quantity SV accumulates; entanglement
+  is the computation, not interference), and CE16/CE24's canonical
+  format-invariant carry emerging in the L1 read (the OV projection strips
+  the address, keeps the rail).
+- **Prediction**: (1) cross-site tri-state probe transfer, dead raw
+  (0.10–0.12, CE11), is **restored** (≥ 0.6) on the 1-D rail-projection
+  coordinate after per-site offset centering — gaps transfer, offsets don't;
+  (2) removing the rail direction from the ST and SV subspaces raises their
+  principal angle from ~21° toward the 50–64° label-null.
+- **Falsifier**: no 1-D shared component rescues transfer at the strong
+  map-named writers (retention stays ≤ 0.2 with harness parity to CE11
+  proven) — then canonicalization is a **read-time rotation** (per-source OV
+  aligning genuinely different site codes), and the common currency exists
+  only on the wire, not in storage.
+- **Alternatives**: read-time rotation (above); partial sharing (rail exists
+  at strong writers only); a shared but *nonlinear* code invisible to 1-D
+  linear projection.
+- **Tension with human**: refines C1/C2 — "shared template" fails at the raw
+  activation level (CE11) but may hold on exactly one dimension; C2's
+  orthogonality question becomes "address subspaces are private/orthogonalish,
+  the rail is deliberately shared".
+- **Confidence**: proposed (pre-evidence).
+
+### G2: The cascade is computed by a place-value dominance code on the rail, and the STEP combiner is what makes it possible
+
+- **Belief**: Per-site writes project onto the rail with class values ordered
+  `p_i < u_i < q_i` (local 0 < `U` < local 1), the `U` value split by the
+  incoming single-step carry (CE13); the attention-weighted class gaps
+  `g_i = w_i (q_i − p_i)` form a **dominance hierarchy in digit significance**
+  (each gap exceeding the sum of all lower gaps, like place value); the
+  `=`-token arm contributes a class-independent **bias anchor** (the real
+  content of "`=` is a depot", CE16); and the combiner's STEP threshold
+  (α* ≈ 0.75, CE17) sits inside the feasible interval those inequalities
+  define. Consequence: **an exact linear read of local-class writes provably
+  cannot equal the resolved carry at depth ≥ 2** (two-site contradiction),
+  but a *thresholded* linear read can — the STEP is not an implementation
+  detail; it is the thing that makes local-class storage + a linear attention
+  read sufficient to compute TriAdd.
+- **Why**: CE24 (canonical carry emerges in the L1 read) + CE13 (writes are
+  local-class + single-step) + A11 rejected (no L0 relay) jointly *force* the
+  read itself to perform the compounding; a weighted average can only compute
+  a priority function ("highest non-9 wins") if the geometry encodes
+  significance as dominance and `U` as transparency. The asymmetric threshold
+  (0.75, not 0.5) and the depth-dependent source mass (CE16) fall out of the
+  same inequalities.
+- **Prediction**: per-site rail ordering with U-between (+ cin lean);
+  super-increasing weighted gaps at each consumer (sign-position consumer =
+  the full-depth case); per-prompt deciding-site contribution is the largest
+  class-dependent term on depth-≥2 chains; additive reconstruction of α
+  (R² ≥ 0.7) and of carry-out via threshold at α*; the measured feasible
+  threshold interval is non-empty and contains α*.
+- **Falsifier**: ordering violated (U outside (p,q)) at strong writers, or
+  deciding-site dominance absent per-prompt, with positive controls passing —
+  then the resolved carry comes from prompt-dependent attention reallocation
+  or non-additive interactions, not a static dominance geometry.
+- **Alternatives**: interaction/attention-selected read (CE8-style routing
+  doing the work); ordered-but-uncertified geometry (relies on rarity of
+  adversarial configs rather than worst-case-correct margins).
+- **Tension with human**: none on direction; gives C3's "MLP transforms" a
+  sharp form (the MLP's step *is* the cascade's nonlinearity) and gives the
+  paper's `=`-attention puzzle a concrete answer (bias anchoring).
+- **Confidence**: proposed (pre-evidence). Scored by
+  [study-geometry-certificate.md](study-maths/study-geometry-certificate.md).
+
+### G3: Dynamic-range law — dominance coding under bounded norms compresses gaps exponentially with operand count
+
+- **Belief**: Dominance requires `g_i ≳ Σ_{j<i} g_j`, i.e. roughly geometric
+  gap growth with significance; LN and finite residual budget bound the total,
+  so the *smallest* gaps must shrink ~exponentially as digit count n grows.
+- **Why**: pure arithmetic of G2 plus bounded norms. It **re-explains CE18**:
+  the carry-axis separation collapse at d10/d13 (sep ~30 → ~6) and the
+  "probe-limited" source signatures are not instrument failures but the
+  predicted dynamic-range compression of a place-value code.
+- **Prediction**: measured gap profiles `g_i ~ ρ^i` with ρ roughly constant
+  per model; the smallest gaps at d10/d13 approach the noise floor exactly
+  where CE18's probes degraded; behavioral depth limits (if any exist at very
+  deep chains on large-n models) coincide with gaps crossing the floor.
+- **Falsifier**: gap profiles flat or non-monotone at models whose cascade
+  behavior is accurate (would also refute G2's dominance form), or large-n
+  separations that do NOT shrink with the digit count.
+- **Alternatives**: per-consumer renormalization (each answer position's
+  consumer re-scales so only a few sites below it matter — dominance locally,
+  no global compression); mixed strategies at large n.
+- **Tension with human**: touches C6's spirit from a new angle — what
+  changes with n is not redundancy (CE18 refuted that) but **signal
+  allocation**.
+- **Confidence**: proposed (pre-evidence; T5 stretch battery of the
+  certificate study).
+
+### G4: One rail, many meanings — ADD/SUB/NEG share a single unit-adjust rail; data is low-D even though control is high-D
+
+- **Belief**: On the mixed model, the resolved carry (SV), borrow (MV), and
+  negative-borrow (NV) binary codes at the shared combiner input live on
+  **one shared 1-D rail** (up to sign/rotation conventions), with OPR/SGN
+  determining how the combiner *interprets* the rail rather than where the
+  value is stored. Sharpens the shared-engine result: CE23 showed the
+  operator **control** is distributed/high-dimensional; G4 says the
+  **carried datum** ("adjust the digit by one: yes/no") is one-dimensional
+  and shared.
+- **Why**: the combiner is shared (CE23 full-state patch 0.96) and its input
+  code is binary for all three classes (CE20); maintaining three parallel
+  rails into one step-function combiner would need three thresholds where one
+  suffices; parameter-transfer initialization from the addition model makes
+  reusing the existing carry rail the cheapest solution.
+- **Prediction**: pairwise |cos| between the fitted SV/MV/NV class axes at
+  the L2 combiner input ≥ 0.7, one direction explaining ≥ 70% of the three
+  axes' class separation; the SGN axis (CE21) relates to the same rail
+  (descriptive).
+- **Falsifier**: the three axes are mutually ~orthogonal (|cos| ≤ 0.3) — the
+  shared combiner reads class-specific rails through different input
+  directions.
+- **Alternatives**: two rails (carry vs borrow-family) with NEG sharing the
+  borrow rail; route-specific axes (ADD residual-borne vs SUB/NEG
+  attention-borne, CE20/CE25, could carry geometrically distinct codes).
+- **Tension with human**: gives C2-vs-A7 a finer resolution: C2-like
+  separation for *control*, A7-like reuse for *data*.
+- **Confidence**: proposed (pre-evidence). Scored by
+  [study-geometry-factorization.md](study-maths/study-geometry-factorization.md)
+  battery F4.
 
 ## Sharpest forks
 
@@ -1121,6 +1289,15 @@ class-necessary carrier; trails in the A10 confidence block):
 4. **Paper hand-off timing** — deferred by the human 2026-07-16; must trigger
    no later than ~12 h before the deadline. Post-deadline: the mixed-model
    shared engine (A7 vs C2) and the neuron-level combiner decomposition (B2).
+5. **The latent-geometry stream (G1–G4, opened 2026-07-16 evening by human
+   directive) — the new active fork.** Two cheap discriminators are designed
+   for an overnight run: does OV-rail projection rescue the CE11 no-transfer
+   (G1: storage factorization vs read-time rotation), and do the per-site
+   rail values satisfy the ordering + dominance inequalities that would let
+   the CE17 STEP provably compute TriAdd (G2: dominance code vs
+   interaction-dependent read)? Either verdict upgrades the paper's
+   representation section from a list of scoped negatives (CE11/CE12/CE18
+   caveats) to a constructive geometric statement.
 
 ## Supporting literature
 

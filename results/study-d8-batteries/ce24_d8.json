@@ -1,0 +1,10 @@
+{
+  "model": "add_d8_l2_h3_t45K_s173289",
+  "consumers": [
+    2
+  ],
+  "cpos": 19,
+  "carry_axis_sep": 5.309867858886719,
+  "l0_xdepth": 0.5652416415284063,
+  "l1_carryaxis_xdepth": 1.0
+}
