@@ -249,6 +249,12 @@ Our goal is to start with the information already known about an accurate additi
 
 Then repeat these steps for an accurate "mixed" (addition and subtraction) model.
 
+### C6 Redundancy is small-model slack; larger n forces a tighter algorithm
+
+Belief. The pervasive redundancy the studies keep hitting in the 5-/6-digit addition models is slack that small models can afford, not an intrinsic feature of the algorithm. As digit count grows (n=10, 13, …), sequential-accuracy pressure forces the model into a tighter, less-redundant implementation.
+
+A 6-digit model has capacity slack, so it can duplicate circuits. Getting every digit right across many more digits raises the pressure, so large-n models can't afford duplicates → they strip redundant circuits.
+
 ## Notes
 
 - It is healthy for human and agent conjectures to disagree; that tension should

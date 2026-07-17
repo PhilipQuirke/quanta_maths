@@ -12,6 +12,7 @@ import unittest
 
 from quanta_maths.maths_hf_update import (
     Technique, TECHNIQUES, techniques_for, register_technique,
+    ordered_analysis_models, _op_group, _n_digits, _verify_roundtrip,
     BEHAVIORS_FILE, FEATURES_FILE, _SAVE_MAJOR,
 )
 
@@ -90,6 +91,50 @@ class TestIdempotency(unittest.TestCase):
         self.assertTrue(lx.owns_tag("Probe:A1.LINXFER=89"))
         self.assertFalse(lx.owns_tag("Algo:A4.STC"))
         self.assertFalse(lx.owns_tag("Fail%:3"))
+
+    def test_is_present_skip_logic(self):
+        stc = [t for t in TECHNIQUES if t.name == "add_combiner_STC"][0]
+        self.assertTrue(stc.is_present(_FakeNodes([["Algo:A4.STC"], ["Fail%:1"]])))
+        self.assertFalse(stc.is_present(_FakeNodes([["Algo:A3.ST"], ["Fail%:1"]])))
+
+
+class TestOrdering(unittest.TestCase):
+    def test_op_group_and_digits(self):
+        self.assertEqual(_op_group("add_d5_l2_h3_t15K_s372001"), "add")
+        self.assertEqual(_op_group("sub_d6_l2_h3_t30K_s372001"), "sub")
+        self.assertEqual(_op_group("mix_d6_l3_h4_t40K_s372001"), "mix")
+        self.assertEqual(_op_group("ins1_mix_d6_l3_h4_t40K_s372001"), "mix")
+        self.assertEqual(_n_digits("add_d10_l2_h3_t40K_s572091"), 10)
+
+    def test_ordered_add_sub_mix_small_to_large(self):
+        models = ["mix_d10_l3_h4_t75K_s173289", "add_d6_l2_h3_t20K_s173289",
+                  "add_d5_l2_h3_t15K_s372001", "sub_d10_l2_h3_t75K_s173289",
+                  "sub_d6_l2_h3_t30K_s372001", "ins1_mix_d6_l3_h4_t40K_s372001"]
+        out = ordered_analysis_models(models)
+        self.assertEqual(out, [
+            "add_d5_l2_h3_t15K_s372001", "add_d6_l2_h3_t20K_s173289",
+            "sub_d6_l2_h3_t30K_s372001", "sub_d10_l2_h3_t75K_s173289",
+            "ins1_mix_d6_l3_h4_t40K_s372001", "mix_d10_l3_h4_t75K_s173289"])
+
+
+class TestRoundtrip(unittest.TestCase):
+    def test_verify_roundtrip_ok_and_detects_corruption(self):
+        from QuantaMechInterp import UsefulNodeList, NodeLocation
+        with tempfile.TemporaryDirectory() as d:
+            nl = UsefulNodeList()
+            nl.add_node_tag(NodeLocation(14, 1, False, 0), "Algo", "A2.STC")
+            nl.add_node_tag(NodeLocation(9, 0, True, 1), "Algo", "A1.ST")
+            p = os.path.join(d, FEATURES_FILE)
+            nl.save_nodes(p, "Algo")
+            self.assertTrue(_verify_roundtrip(p, "Algo"))
+            # corrupt the file -> roundtrip must fail (or raise, caught as failure)
+            with open(p, "w") as f:
+                f.write("not valid json")
+            try:
+                ok = _verify_roundtrip(p, "Algo")
+            except Exception:
+                ok = False
+            self.assertFalse(ok)
 
 
 class TestRegisterTechnique(unittest.TestCase):

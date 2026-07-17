@@ -50,45 +50,42 @@ model (entry 2).
   weak, training-induced circular *ordering* (not a dominant circle/helix);
   confidence Medium (no-dominant-geometry) / Low, LN-robust-weakly & seed-fragile
   (ordering — settled by the LN-aware close-out; no longer provisional). See
-  [maths-claim-evidence.md#ce1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix).
+  [maths-claim-evidence.md#ce1](maths-claim-evidence.md#ce1).
 - **CE2** — at layer-0 operand-fetch heads the value-path output is
   indistinguishable from linear transport of the (weakly-circular) embeddings;
   confidence Medium. Extends the "weak low-variance projection" motif from the
   embedding to the value path. See
-  [maths-claim-evidence.md#ce2](maths-claim-evidence.md#ce2-at-layer-0-operand-fetch-heads-the-value-path-output-is-indistinguishable-from-linear-transport-of-the-weakly-circular-digit-embeddings).
+  [maths-claim-evidence.md#ce2](maths-claim-evidence.md#ce2).
 - **CE3** — the carry is computed by **binary make-carry heads at answer
   positions**, cleanly dissociated from base-add heads (one head per role per
   position); the **tri-state `U`-resolution is a separate, not-yet-located
   path**. Confidence Medium-High (make-carry + dissociation) / Medium
   (separate path). See
-  [maths-claim-evidence.md#ce3](maths-claim-evidence.md#ce3-the-carry-is-computed-by-binary-make-carry-heads-at-answer-positions-dissociated-from-base-add-heads-the-tri-state-u-resolution-is-a-separate-unlocated-path).
-- **CE4** — the tri-state `U`-resolution flip is *transmitted* by an **MLP-heavy
-  L0/L1 path distinct from the make-carry heads**; combiner-vs-conduit role
-  unresolved (the interaction discriminator was vacuous). Confidence Low–Medium.
-  *Superseded by CE5.* See
-  [maths-claim-evidence.md#ce4](maths-claim-evidence.md#ce4-the-tri-state-u-resolution-flip-is-transmitted-by-an-mlp-heavy-l0l1-path-distinct-from-the-make-carry-heads-whether-it-is-combined-or-merely-relayed-is-unresolved).
+  [maths-claim-evidence.md#ce3](maths-claim-evidence.md#ce3).
+- **CE4** — *superseded by CE5* (which locates the U-combiner); retained only in
+  [maths-claim-evidence.md#ce4](maths-claim-evidence.md#ce4) for provenance.
 - **CE5** — the tri-state `U`-**combiner is the answer-position layer-1 MLP**
   (`P14/P16.L1.MLP`; its output is the resolved `carry_out`, replicated in both
   models); **layer-0 nodes relay the running carry (conduit)**, clean in
   6-digit. Confidence Medium-High (combiner) / Medium (L0-conduit). See
-  [maths-claim-evidence.md#ce5](maths-claim-evidence.md#ce5-the-tri-state-u-combiner-is-the-answer-position-layer-1-mlp-layer-0-nodes-relay-the-running-carry-conduit).
+  [maths-claim-evidence.md#ce5](maths-claim-evidence.md#ce5).
 - **CE6** — at the **combiner input** the carry is a clean **binary** code (no
   off-axis tri-state; `U` split by resolution, `U→0`≈committed-0, `U→1`≈
   committed-1) — **A3's off-axis third-symbol refuted at this locus** (a
   tri-state could still exist upstream). Confidence Medium. See
-  [maths-claim-evidence.md#ce6](maths-claim-evidence.md#ce6-at-the-u-combiners-input-the-carry-is-a-clean-binary-code--no-distinct-off-axis-tri-state-the-resolved-carry-is-already-linearly-present-there).
+  [maths-claim-evidence.md#ce6](maths-claim-evidence.md#ce6).
 - **CE7** — **no dedicated `{0,1,U}` tri-state symbol at any answer-position
   residual site**; the carry is binary throughout and `U` is resolved to binary
   **around L1-attention** — A3's off-axis form refuted across the answer-position
   stream (scoped: comparable-magnitude symbol; weak/question-position untested).
   Confidence Medium. See
-  [maths-claim-evidence.md#ce7](maths-claim-evidence.md#ce7-no-dedicated-01u-tri-state-symbol-at-any-answer-position-residual-site-u-is-resolved-to-binary-around-l1-attention).
+  [maths-claim-evidence.md#ce7](maths-claim-evidence.md#ce7).
 - **CE8** — attention routing is **hybrid**: a few heads (`L1.H1` operand-read
   Q11 & answer Q14; `L0.H0` answer Q17) **relocate their target with the carry
   state** (A5's strong static-wiring form falsified) — but most cells are
   target-static. 6-digit only (5-digit inconclusive); representational not
   causal. Confidence Medium. See
-  [maths-claim-evidence.md#ce8](maths-claim-evidence.md#ce8-attention-routing-is-hybrid--a-few-heads-relocate-their-target-with-carry-state-6-digit-only-most-cells-are-target-static).
+  [maths-claim-evidence.md#ce8](maths-claim-evidence.md#ce8).
 - **CE9** — the **deep `...999` cascade mechanism is not localizable** at
   node/attention-pattern granularity: A9's selection signatures (a causally
   deciding-selective consumer head, a deciding-digit-tracking head) land on
@@ -96,21 +93,21 @@ model (entry 2).
   per-digit state is disfavored where testable, and real tail state is graded (not
   a stored bit). An **instrument limit** — the confirming test is an edge
   path-patch. Confidence Medium (as an ambiguous/underpowered result). See
-  [maths-claim-evidence.md#ce9](maths-claim-evidence.md#ce9-at-nodeattention-pattern-granularity-the-deep-999-cascade-mechanism-is-not-localizable--no-single-cell-selection-no-sequential-per-digit-state-real-graded-tail-state).
+  [maths-claim-evidence.md#ce9](maths-claim-evidence.md#ce9).
 - **CE10** — the edge path-patch resolves CE9's null on `L1.H1`: at **one depth**
   (6-digit k=3) `L1.H1` **causally drives the combiner** with a computed,
   deciding-selective carry through the combiner MLP — but the single-position edge
   instrument is **underpowered at most cells**, no head clears the ≥2-depth bar, and
   the 5-digit direct residual path is live, so A9 stays **circumstantial (not
   confirmed)** and A6 is **not refuted**. Confidence Low-Medium. See
-  [maths-claim-evidence.md#ce10](maths-claim-evidence.md#ce10-at-the-combiner-edge-a-single-l1-head-carries-the-top-cascade-digits-computed-carry-at-one-depth--a-causal-crumb-but-the-single-position-edge-instrument-is-underpowered).
+  [maths-claim-evidence.md#ce10](maths-claim-evidence.md#ce10).
 - **CE11** — the tri-state carry `ST` is **position-specific** at question positions
   (an `ST` probe does not transfer across digits; mean-centering doesn't restore it)
   and **entangled with `SV`** beyond their independent labels — **C2's
   template-sharing + orthogonality halves, A4's transfer-for-free, and A8's
   interference are all challenged for `ST`**. SA lives at the answer position (not
   assessable at the question site). Confidence Medium (ST-scoped, cross-model). See
-  [maths-claim-evidence.md#ce11](maths-claim-evidence.md#ce11-the-tri-state-carry-st-is-position-specific-at-question-positions-no-cross-position-probe-transfer-and-geometrically-entangled-with-sv--c2a4-template-sharing-and-a8-interference-challenged-for-st).
+  [maths-claim-evidence.md#ce11](maths-claim-evidence.md#ce11).
 - **CE12** — the **answer phase is a split layout**: `SA` is a just-in-time
   **register** (absent at `=`, present at its own answer position — A4 supported);
   `SV` is **resolved/present at `=`** (CE7-consistent) but its per-digit slots are
@@ -118,7 +115,7 @@ model (entry 2).
   template** that transfers across answer positions, unlike question-side `ST`
   (CE11) — so template-sharing is position-of-computation-dependent. Confidence
   Medium (cross-model split). See
-  [maths-claim-evidence.md#ce12](maths-claim-evidence.md#ce12-answer-phase-layout-is-split--sa-is-a-just-in-time-register-absent-at---sv-is-resolvedpresent-at--but-its-per-digit-slots-are-not-orthogonal-tape-refuted-both-share-an-answer-side-template).
+  [maths-claim-evidence.md#ce12](maths-claim-evidence.md#ce12).
 - **CE13** — **C5 step 1**: the HF-map-named `ST`/`SC` nodes **encode** their
   sub-task class in their write (paper tags confirmed); the `ST` write also
   co-carries **single-step local U-resolution** (cin-dependent on `U`) — not shown
@@ -128,7 +125,7 @@ model (entry 2).
   vindicated — a C5 win; high-digit nodes redundant). Map-named `SA` L0 heads do
   **not** write the answer digit (except leading). Confidence Medium (directional
   cross-model). See
-  [maths-claim-evidence.md#ce13](maths-claim-evidence.md#ce13-map-named-st-nodes-encode-their-class-and-co-carry-single-step-u-resolution-not-multi-digit-compounding-map-named-sa-l0-heads-do-not-write-the-answer-digit).
+  [maths-claim-evidence.md#ce13](maths-claim-evidence.md#ce13).
 - **CE14** — **C5 steps 2–4 (A10 core)**: **carry-specific** attention-edge delivery
   from the map-named answer-position L1 heads to the L1-MLP combiner is causally
   **sufficient at ≥ 2 depths** (deciding-matched null = 0.00), via a **redundant
@@ -139,7 +136,7 @@ model (entry 2).
   not head-specific. A9 not supported; A6 economy supported at H2. Confidence Medium.
   Took 3 Gate-2 rounds (over-claim → over-correction-on-broken-null → calibrated).
   See
-  [maths-claim-evidence.md#ce14](maths-claim-evidence.md#ce14-carry-specific-attention-edge-delivery-to-the-answer-position-combiner-a10-core-partially-confirmed-single-head-selection-not-shown-redundant-sufficiency-not-necessity).
+  [maths-claim-evidence.md#ce14](maths-claim-evidence.md#ce14).
 - **CE15** — **C5 step 5 (leading-digit hard case)**: the leading digit `A_top` is
   produced by the **same carry-specific L1-head-edge delivery** to the sign-position
   combiner (mirrors CE14; 5-digit genuine depth spread, 6-digit deep-chains only,
@@ -147,7 +144,7 @@ model (entry 2).
   (held at medium; Link-4 readout quarantined; economy uninformative at the sign
    bottleneck; direct path not excluded). **This completes C5's 5-step program for the
    addition model.** Confidence Medium. See
-   [maths-claim-evidence.md#ce15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5).
+   [maths-claim-evidence.md#ce15](maths-claim-evidence.md#ce15).
 - **CE16** — **SV implementation (A10 items i–iii resolved, iv open)**: on the
   confirmed wiring, the head→combiner edge carries a **canonical (format-invariant)
   resolved carry** (i); the **source is the distributed question-tail ST cluster,
@@ -160,7 +157,7 @@ model (entry 2).
   **A9 stays retired** (selection level); **A6 raised to class level.** Dual-gated
   (pre-launch SI-1..SI-10 + post-result F1/F2/F3). Confidence Medium-high for the
   three resolved items. See
-  [maths-claim-evidence.md#ce16](maths-claim-evidence.md).
+  [maths-claim-evidence.md#ce16](maths-claim-evidence.md#ce16).
 - **CE17** — **SV compounding arithmetic (A10 iv resolved; A11 low; R-mixed)**:
   the **combiner is a STEP function** (threshold α*≈0.75, both models; on-manifold
   α-sweep endpoint-gated to CE16's 0/1) — the last A10 item resolved. The **L0
@@ -172,7 +169,7 @@ model (entry 2).
   redundancy vs weak-interchange unresolved); the L1 edge output is
   **local-class-sufficient**. **A11 → low; A9 stays retired; A6/C3 sequential lean
    not adjudicated.** Dual-gated (CA-1..CA-6 + F1/F2). Confidence Medium-high
-   (combiner), low (A11). See [maths-claim-evidence.md#ce17](maths-claim-evidence.md).
+   (combiner), low (A11). See [maths-claim-evidence.md#ce17](maths-claim-evidence.md#ce17).
 - **CE18** — **Cross-size SV (A12 role+combiner transfer; C6 not supported)**: on
   d5/d6/d10/d13 (all accurate), the **SV role skeleton generalizes** (ST writers +
   combiner MLPs from the maps; an empirically-identified consumer head at every
@@ -185,20 +182,10 @@ model (entry 2).
   is intrinsic, not slack**. A11 not rescued by scale. **A12 role+combiner →
   medium-high; tightening/C6 → low; A10 iv step generalizes; A11 unchanged.**
    Dual-gated (XS-A..XS-F + F1/F2). See
-   [maths-claim-evidence.md#ce18](maths-claim-evidence.md).
-- **CE19** — **Compounding locus: L1-read, not an L0 relay (A11 not supported)**:
-  the last open SV question. Using a **decorrelation lever** (a chain-ST site inside
-  the 999-run has local class fixed at U while the resolved carry varies) and the
-  decisive **invisible-decorrelated** cells (deciding digit below the site's
-  horizon — a carry there could only be relayed), the resolved carry decodes at
-  **chance** in both models. Where the write is readable at that depth (5d) that =
-  a genuine "no relayed carry" → **R-L1-read** (compounding completed in the L1
-  consumer read); 6d underpowered (deep-chain writes wash out). A class-level
-  knock-out confirms the ST cluster is carry-**necessary** (necessity anchor; DH
-  load-bearing). **A11 → low (not supported, not rejected); A9 retired; human
-  sequential-cascade lean not supported at L0.** Caveats: linear probe; one
-   readable invisible cell; 6d underpowered. Dual-gated (LOC-1..LOC-6 + F1–F4). See
-   [maths-claim-evidence.md#ce19](maths-claim-evidence.md).
+   [maths-claim-evidence.md#ce18](maths-claim-evidence.md#ce18).
+- **CE19** — first compounding-locus result (L1-read, not an L0 relay);
+  *superseded by CE24* which is conclusive. Retained in
+  [maths-claim-evidence.md#ce19](maths-claim-evidence.md#ce19) for provenance.
 - **CE24** — **Compounding locus v2: CONCLUSIVE — the canonical carry emerges in the
   L1 read** (supersedes CE19). Reframed to LAYER-localization via **cross-depth
   transfer** on the full residual at the see-everything gather (fixing CE19's
@@ -211,7 +198,7 @@ model (entry 2).
   emerges**, both models. **A11 rejected/low; compounding locus = L1 read.** Caveats:
   linear probe (rotated-frame L0 not excluded); L0 at `=` (ST/sign via CE17/CE19);
   own causal battery invalid (locus per CE16). Dual-gated (CLV2-1..6 + F1–F7). See
-  [maths-claim-evidence.md#ce24](maths-claim-evidence.md).
+  [maths-claim-evidence.md#ce24](maths-claim-evidence.md#ce24).
 - **CE24 TF addendum (token-time)** — **LAZY propagation + eager local**: closing
   the token-time question (CE24 settled the layer). The propagated canonical carry
   (cross-deciding-position transfer, run-break-decorrelated, 9-free) appears **only
@@ -222,7 +209,7 @@ model (entry 2).
   multi-digit propagation represented lazily at the answer read (L1). Reusable
   cross-model tool `quanta_maths/maths_temporal_finalization.py` (may differ by
   model — run the zoo). Linear-probe; coarse tail; both models. See
-  [maths-claim-evidence.md#ce24](maths-claim-evidence.md).
+  [maths-claim-evidence.md#ce24](maths-claim-evidence.md#ce24).
 
 ## Strongest live caveats
 

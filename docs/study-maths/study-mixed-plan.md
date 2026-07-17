@@ -125,10 +125,10 @@ deliverable; the compounding-locus line (CE8/CE9/CE10) is entry-1's.
 
 ## 4. Library gap analysis
 
-The 2024 code-migration already built substantial subtraction support (see
-[maths-code-migration-plan.md](../maths-code-migration-plan.md) §"Scaling +
-subtraction validation"). What **exists** vs what **must be built** for the mixed
-model:
+The code-migration work already built substantial subtraction support (in the
+`quanta_maths` library — `sub_labels(operation=MINUS)`, `sub_mtc_functions`, and
+the subtraction-aware combiner/probe paths, with tests under `tests/`). What
+**exists** vs what **must be built** for the mixed model:
 
 **Exists and reusable** (validated on pure `sub_d6`/`add_d10`, tests in
 `tests/test_scaling_and_sub.py`):

@@ -11,7 +11,7 @@ mechanism interpretation that would overload
 ## Q: How are digit values represented at the token level (embedding / unembedding)?
 
 Status after the 2026-07-14 digit-embedding geometry audit (weights-only; see
-[claim CE1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix)
+[claim CE1](maths-claim-evidence.md#ce1)
 and the [study note](study-maths/study-digit-embedding-geometry.md)).
 
 - The digit-token embedding is **near-isotropic in 9 dimensions** (variance
@@ -44,7 +44,7 @@ near-flat `embed_variance_spectra.png` is the evidence for isotropy.
 ## Q: Where is the ST carry computed, and does attention aggregate or transport?
 
 Status after the 2026-07-14 pair-sum study (an `instrument failure` for its
-primary question; see [CE2](maths-claim-evidence.md#ce2-at-layer-0-operand-fetch-heads-the-value-path-output-is-indistinguishable-from-linear-transport-of-the-weakly-circular-digit-embeddings)
+primary question; see [CE2](maths-claim-evidence.md#ce2)
 and the [study note](study-maths/study-pair-sum-sufficiency.md)).
 
 - The A2 "aggregate-then-discretize" question is **still open**. The first assay
@@ -66,7 +66,7 @@ and the [study note](study-maths/study-pair-sum-sufficiency.md)).
 ## Q: Where is the carry computed, and is it the tri-state ST or a binary carry?
 
 Status after the 2026-07-14 confirm-ST-node study (causal path-patching; see
-[CE3](maths-claim-evidence.md#ce3-the-carry-is-computed-by-binary-make-carry-heads-at-answer-positions-dissociated-from-base-add-heads-the-tri-state-u-resolution-is-a-separate-unlocated-path)).
+[CE3](maths-claim-evidence.md#ce3)).
 
 - The per-digit carry is computed by **specific attention heads at the answer
   token positions** (5-digit: `P13/P14/P15.L0.H0`; 6-digit: `P14.L0.H1`,
@@ -86,7 +86,7 @@ Status after the 2026-07-14 confirm-ST-node study (causal path-patching; see
 ## Q: Where is the tri-state U-resolution computed? (partial answer)
 
 Status after the 2026-07-15 U-resolution study (positive-but-ambiguous; see
-[CE4](maths-claim-evidence.md#ce4-the-tri-state-u-resolution-flip-is-transmitted-by-an-mlp-heavy-l0l1-path-distinct-from-the-make-carry-heads-whether-it-is-combined-or-merely-relayed-is-unresolved)).
+[CE4](maths-claim-evidence.md#ce4)).
 
 - The U-resolution flip is causally **transmitted by an MLP-heavy L0/L1 path**
   (5-digit `P10.L0.MLP`+`P14.L1.MLP`; 6-digit adds head `P11.L0.H2`), **distinct
@@ -105,7 +105,7 @@ Status after the 2026-07-15 U-resolution study (positive-but-ambiguous; see
 ## Q: Combiner vs conduit — answered (the L1 MLP combines)
 
 Status after the 2026-07-15 combiner-vs-conduit study (see
-[CE5](maths-claim-evidence.md#ce5-the-tri-state-u-combiner-is-the-answer-position-layer-1-mlp-layer-0-nodes-relay-the-running-carry-conduit)).
+[CE5](maths-claim-evidence.md#ce5)).
 
 - The **answer-position layer-1 MLP** (`P14.L1.MLP` 5-digit, `P16.L1.MLP`
   6-digit) is the **tri-state `U`-combiner**: its output is invariant to
@@ -130,7 +130,7 @@ Status after the 2026-07-15 combiner-vs-conduit study (see
 ## Q: ST tri-state geometry at the combiner input — answered (binary, no third symbol)
 
 Status after the 2026-07-15 tri-state-geometry study (see
-[CE6](maths-claim-evidence.md#ce6-at-the-u-combiners-input-the-carry-is-a-clean-binary-code--no-distinct-off-axis-tri-state-the-resolved-carry-is-already-linearly-present-there)).
+[CE6](maths-claim-evidence.md#ce6)).
 
 - At the L1-MLP combiner **input**, the carry is a clean **binary** linear code
   on the committed-0↔committed-1 axis; the `U` cases are split by their
@@ -153,7 +153,7 @@ Status after the 2026-07-15 tri-state-geometry study (see
 ## Q: Does a dedicated `{0,1,U}` tri-state symbol exist? — answered (no, at answer positions)
 
 Status after the 2026-07-16 earliest-tri-state-site study (see
-[CE7](maths-claim-evidence.md#ce7-no-dedicated-01u-tri-state-symbol-at-any-answer-position-residual-site-u-is-resolved-to-binary-around-l1-attention)).
+[CE7](maths-claim-evidence.md#ce7)).
 
 - Sweeping 7 residual sites (embedding → combiner) at the answer position, there
   is **no site where `U` is a dedicated, resolution-independent off-axis third
@@ -177,7 +177,7 @@ Status after the 2026-07-16 earliest-tri-state-site study (see
 ## Q: Is attention static positional wiring (A5)? — no, hybrid
 
 Status after the 2026-07-16 attention-invariance census (see
-[CE8](maths-claim-evidence.md#ce8-attention-routing-is-hybrid--a-few-heads-relocate-their-target-with-carry-state-6-digit-only-most-cells-are-target-static)).
+[CE8](maths-claim-evidence.md#ce8)).
 
 - **A5's strong "static positional wiring" form is falsified** (6-digit model):
   a few heads — `L1.H1` (operand-read Q11 and answer Q14) and `L0.H0` (answer
@@ -200,7 +200,7 @@ Status after the 2026-07-16 attention-invariance census (see
 ## Q: How is the deep `...999` cascade resolved (A6 sequential vs A9 selection)? — not localizable at this granularity
 
 Status after the 2026-07-16 deep-cascade mechanism study (see
-[CE9](maths-claim-evidence.md#ce9-at-nodeattention-pattern-granularity-the-deep-999-cascade-mechanism-is-not-localizable--no-single-cell-selection-no-sequential-per-digit-state-real-graded-tail-state)).
+[CE9](maths-claim-evidence.md#ce9)).
 
 - The deciding-digit patch across graded chain depths **ran**, but the
   node/attention-pattern instrument is **too blunt** to resolve the fork.
@@ -230,7 +230,7 @@ Status after the 2026-07-16 deep-cascade mechanism study (see
 ### Q: Does an L1 head's output causally drive the combiner (A9 hand-off)? — one-depth crumb (CE10)
 
 Status after the 2026-07-16 edge-patch study
-([CE10](maths-claim-evidence.md#ce10-at-the-combiner-edge-a-single-l1-head-carries-the-top-cascade-digits-computed-carry-at-one-depth--a-causal-crumb-but-the-single-position-edge-instrument-is-underpowered)).
+([CE10](maths-claim-evidence.md#ce10)).
 
 - The edge path-patch (`L1.head → combiner MLP` edge, isolated via the exact
   `resid_mid = resid_post(L0) + Σ_h z@W_O + b_O` decomposition) resolves CE9's
@@ -256,7 +256,7 @@ Status after the 2026-07-16 edge-patch study
 ## Q: Do sub-tasks share a template across positions and stay orthogonal across sub-tasks (C2/A4/A8)? — no, for ST (CE11)
 
 Status after the 2026-07-16 probe-transfer study
-([CE11](maths-claim-evidence.md#ce11-the-tri-state-carry-st-is-position-specific-at-question-positions-no-cross-position-probe-transfer-and-geometrically-entangled-with-sv--c2a4-template-sharing-and-a8-interference-challenged-for-st)).
+([CE11](maths-claim-evidence.md#ce11)).
 
 - **Template sharing (C2/A4): falsified for `ST` at question positions.** An `ST`
   probe trained at digit `i` does not transfer to digit `j` (retention 0.10/0.12 ≪
@@ -278,7 +278,7 @@ Status after the 2026-07-16 probe-transfer study
 ## Q: Answer-phase binding — tape or register (A4)? — split (CE12)
 
 Status after the 2026-07-16 answer-binding study
-([CE12](maths-claim-evidence.md#ce12-answer-phase-layout-is-split--sa-is-a-just-in-time-register-absent-at---sv-is-resolvedpresent-at--but-its-per-digit-slots-are-not-orthogonal-tape-refuted-both-share-an-answer-side-template)).
+([CE12](maths-claim-evidence.md#ce12)).
 
 - **`SA` (sum digit) = just-in-time register**: absent at `=` (raw acc ≈ chance),
   present only at its own answer position — A4's just-in-time fetch supported.
@@ -300,7 +300,7 @@ Status after the 2026-07-16 answer-binding study
 ## Q: How does each map-named output-only node (ST/SA/SC) encode its value (C5 step 1)? — local class + single-step U-resolution; CE3 = redundancy (CE13)
 
 Status after the 2026-07-16 node-output-encoding study
-([CE13](maths-claim-evidence.md#ce13-map-named-st-nodes-encode-their-class-and-co-carry-single-step-u-resolution-not-multi-digit-compounding-map-named-sa-l0-heads-do-not-write-the-answer-digit),
+([CE13](maths-claim-evidence.md#ce13),
 revising [CE3](maths-claim-evidence.md)). First study under the human C5 refocus
 (start from the paper's HF verified node maps).
 
@@ -327,7 +327,7 @@ revising [CE3](maths-claim-evidence.md)). First study under the human C5 refocus
 ## Q: How is the deep carry compounded and delivered to the combiner (C5 steps 2-4 / A10)? — carry-specific distributed delivery, selection unshown (CE14)
 
 Status after the 2026-07-16 SV-compounding study
-([CE14](maths-claim-evidence.md#ce14-carry-specific-attention-edge-delivery-to-the-answer-position-combiner-a10-core-partially-confirmed-single-head-selection-not-shown-redundant-sufficiency-not-necessity)).
+([CE14](maths-claim-evidence.md#ce14)).
 
 - **A10 core partially confirmed**: patching the map-named answer-position L1
   consumer heads' output edge into the L1-MLP combiner flips the top cascade digit at
@@ -353,7 +353,7 @@ Status after the 2026-07-16 SV-compounding study
 ## Q: How is the leading digit produced in the hard case (C5 step 5)? — same as middle digits (CE15)
 
 Status after the 2026-07-16 leading-digit-walkthrough study
-([CE15](maths-claim-evidence.md#ce15-the-leading-answer-digit-is-produced-by-carry-specific-l1-head-edge-delivery-to-the-sign-position-combiner-mirrors-ce14--c5-step-5)).
+([CE15](maths-claim-evidence.md#ce15)).
 
 - The leading digit `A_top` in `99..9+1` is produced by the **same carry-specific
   L1-head-edge delivery** to the answer-position (sign) L1-MLP combiner as the
@@ -593,29 +593,22 @@ Q&A above.)*
   the CE14 ≥2-depth bar on the mixed model. Reusable cross-model sweep in
   `quanta_maths.maths_cascade`.
 
-## Open empirical questions
+## Where the story is still ambiguous
 
-- **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at
-  each answer position? And is `SV` present at `=` *beyond a full operand recompute*
-  (a fair digits-`0..n` baseline)? — the causal/fair-baseline follow-ups to CE12.
-- **Raise power on the hand-off**: a less LN-damped / multi-position edge
-  instrument + a second depth (6-digit k=4) to test whether `L1.H1`→combiner
-  delivery holds at ≥2 depths (CE10 got one depth). Neuron-level (B2) on how
-  `L1.H1` + the combiner MLP compute `carry_out`.
-- Why do 5-digit and 6-digit **differ** in delivery (5-digit direct path live,
-  6-digit not)? Cross-seed/size (B5).
-- Does a *transient* `{0,1,U}` tri-state exist at **question positions** (D'n)
-  before the answer position (the only regime A3 can still live)? Needs a
-  purpose-built question-position construction.
-- Does the tie-break economy (A6) hold for **multi-digit `...999` cascades**?
-  CE9 showed the *mechanism* is not localizable at node/pattern granularity;
-  sequential accumulated state is disfavored where testable. Two-site L0→L1
-  single-digit hand-off (B11) and the deep-chain edge path-patch (entry 1) remain.
-- Does attention aggregate or transport operands at the carry node? (A2
-  re-test.)
-- Does the model *use* digit magnitude / circular ordering in its computation,
-  regardless of a weak embedding geometry? (Causal; backlog B1.)
-- Is the tri-state `ST` code well-separated at a *confirmed* ST node in the full
-  space, or is it (like the digit circle) a low-variance projection? (Entry 2,
-  re-scoped to a confirmed ST node.)
-- Does the weak embedding circular ordering survive LayerNorm folding? (A-9.)
+Standing ambiguities that constrain interpretation (the ranked plan and backlog
+IDs live in the [experiment agenda](maths-next-steps.md); this list is only the
+open empirical uncertainty, not the schedule):
+
+- Whether the `=` resolved carry is causally USED downstream or recomputed per
+  answer position, and whether `SV` at `=` survives a fair operand-recompute
+  baseline — the open half of CE12.
+- Whether the hand-off delivery holds at ≥2 depths (CE10 established only one),
+  and how the consumer head + combiner MLP compute `carry_out` — under-powered,
+  not settled.
+- Why delivery differs by size (5-digit direct path live, 6-digit not).
+- Whether a *transient* `{0,1,U}` tri-state exists at question positions before
+  the answer position — the only regime A3 could still live in.
+- Whether the tie-break economy (A6) holds for multi-digit `...999` cascades; CE9
+  found the mechanism non-localizable at node/pattern granularity.
+- Whether the model causally *uses* digit magnitude / circular ordering despite a
+  weak embedding geometry, and whether that ordering survives LayerNorm folding.

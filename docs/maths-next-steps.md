@@ -301,6 +301,25 @@ Promote by swapping into the queue.
   model) and compare the deferral/onset-layer. Cheap (forward passes + linear
   probes, no training). Updates A11/A12 (does the eager/lazy split tighten or
   shift with size?).
+- **B15 — Maximal per-model map JSON completeness (visualization pipeline).**
+  The auto-generated mechanism docs (`results/maps/<model>_mechanism.md`, built
+  from `results/maps/<model>.json` via `scripts/gen_model_maps.py` →
+  `scripts/gen_mechanism_docs.py`; see
+  [mixed_model_mechanism.md](mixed_model_mechanism.md)) are structural-only and
+  currently miss fields the hand exemplar carried. Enrich the maximal map JSON
+  (and, upstream, the HF verified maps / `maths_hf_update.py` techniques) with:
+  (a) the map-absent cascade-resolver `SV`/`MV`/`NV` role tags (studies
+  study-mixed-sv / study-sv-implementation located these — write them into the
+  map so the logical diagram stops drawing a generic resolver box);
+  (b) the combiner `STC`/`MTC`/`NTC` `Algo` tags (currently the combiner is only
+  inferred from high-`Fail%` last-layer answer-position MLPs);
+  (c) model provenance `init_from` (e.g. `ins1_*` initialised from a d6 addition
+  model), derivable from the name/HF metadata;
+  (d) per-class positive-control accuracy for non-mixed models (mixed already has
+  it via `scripts/mixed_map.py`).
+  Pure tooling/evidence-hygiene, no new experiment — do it when the auto-doc
+  needs to reach hand-exemplar parity for the paper hand-off (entry 3). Bundles
+  with a cross-zoo `gen_model_maps.py` run once HF auth is confirmed.
 
 ## Frozen lines
 

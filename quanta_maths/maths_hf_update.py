@@ -24,8 +24,10 @@ Dry-run is the DEFAULT. Nothing is uploaded unless ``dry_run=False``.
 """
 from __future__ import annotations
 
+import filecmp
 import json
 import os
+import re
 import shutil
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -74,6 +76,10 @@ class Technique:
             removed += len(node.tags) - len(keep)
             node.tags = keep
         return removed
+
+    def is_present(self, nodes) -> bool:
+        """True if this technique's owned tags already exist in ``nodes``."""
+        return any(self.owns_tag(t) for node in nodes.nodes for t in node.tags)
 
 
 # --- built-in techniques (wrapping the existing library taggers) -----------
@@ -224,6 +230,29 @@ def list_analysis_models(require_analysis: bool = True) -> List[str]:
     return sorted(names)
 
 
+def _op_group(name: str) -> str:
+    """Operation group for ordering: 'add' | 'sub' | 'mix' (mix covers mix_/ins*_mix_/mas_)."""
+    if name.startswith("add_"):
+        return "add"
+    if name.startswith("sub_"):
+        return "sub"
+    return "mix"
+
+
+def _n_digits(name: str) -> int:
+    m = re.search(r"_d(\d+)_", name)
+    return int(m.group(1)) if m else 0
+
+
+def ordered_analysis_models(models: Optional[List[str]] = None) -> List[str]:
+    """Return processable models ordered addition -> subtraction -> mixed, each
+    small -> large by digit count (then name). Default: all ~33 analysable models."""
+    if models is None:
+        models = list_analysis_models(require_analysis=True)
+    order = {"add": 0, "sub": 1, "mix": 2}
+    return sorted(models, key=lambda n: (order[_op_group(n)], _n_digits(n), n))
+
+
 # ===========================================================================
 # Per-model update
 # ===========================================================================
@@ -239,6 +268,19 @@ def _load_nodes(model_name: str, filename: str, local_path: str):
     return nodes
 
 
+def _verify_roundtrip(path: str, major: str) -> bool:
+    """Save->reload stability check: reload the written JSON and re-serialize it;
+    the bytes must match. Confirms the file parses and round-trips losslessly."""
+    from QuantaMechInterp import UsefulNodeList
+    nl = UsefulNodeList()
+    nl.load_nodes(path)          # must parse
+    tmp = path + ".roundtrip"
+    nl.save_nodes(tmp, major)
+    ok = filecmp.cmp(path, tmp, shallow=False)
+    os.remove(tmp)
+    return ok
+
+
 def update_model(
     model_name: str,
     techniques: Optional[List[Technique]] = None,
@@ -246,14 +288,22 @@ def update_model(
     work_dir: str = "results/hf-update",
     device: str = "cpu",
     upload: bool = True,
+    skip_if_present: bool = True,
 ) -> dict:
     """Run applicable techniques on one model and (optionally) upload the results.
+
+    ``skip_if_present`` (default): a technique whose owned tags are ALREADY in the
+    model's JSON is skipped (not recomputed) -- so re-runs resume without redoing
+    work. Set False to always clear+recompute (idempotent overwrite).
+
+    Every written file is verified with a save->reload round-trip before upload;
+    a model whose files fail the round-trip is NOT uploaded and records an error.
 
     Returns a per-model manifest dict. Never raises for per-model failures -- the
     error is captured in the manifest so a batch can continue.
     """
     result = {"model": model_name, "dry_run": dry_run, "techniques": {},
-              "uploaded": False, "error": None}
+              "uploaded": False, "roundtrip_ok": None, "error": None}
     try:
         model, cfg = load_maths_model_from_analysis_repo(model_name, device=device)
 
@@ -272,10 +322,14 @@ def update_model(
             nodes_by_file[fname] = _load_nodes(
                 model_name, fname, os.path.join(backup_dir, fname))
 
-        # Run each applicable technique against its target file (idempotent).
+        # Run each applicable technique against its target file.
         changed_files = set()
         for t in applicable:
             nodes = nodes_by_file[t.target]
+            if skip_if_present and t.is_present(nodes):
+                result["techniques"][t.name] = {
+                    "target": t.target, "tags_added": 0, "skipped": "already_present"}
+                continue
             t.clear_owned(nodes)
             added = t.run(model, cfg, nodes)
             result["techniques"][t.name] = {"target": t.target, "tags_added": added}
@@ -291,17 +345,26 @@ def update_model(
         result["local_updated"] = written
         result["changed_files"] = sorted(changed_files)
 
+        # Save->reload round-trip verification (gates upload).
+        result["roundtrip_ok"] = all(
+            _verify_roundtrip(written[f], _SAVE_MAJOR[f]) for f in written)
+        if not result["roundtrip_ok"]:
+            result["error"] = "roundtrip verification failed; not uploaded"
+            return result
+
         # Upload only the changed files, and only when not a dry run.
         if upload and not dry_run and changed_files:
             from huggingface_hub import HfApi
             api = HfApi()
+            ran = [t.name for t in applicable
+                   if result["techniques"][t.name].get("tags_added", 0) > 0]
             for fname in sorted(changed_files):
                 api.upload_file(
                     path_or_fileobj=written[fname],
                     path_in_repo=fname,
                     repo_id=analysis_repo_id(model_name),
                     commit_message=f"Refresh {fname} via quanta_maths techniques "
-                                   f"({', '.join(t.name for t in applicable)})",
+                                   f"({', '.join(ran)})",
                 )
             result["uploaded"] = True
     except Exception as exc:  # per-model isolation
@@ -320,22 +383,24 @@ def update_models(
     work_dir: str = "results/hf-update",
     device: str = "cpu",
     upload: bool = True,
+    skip_if_present: bool = True,
     manifest_path: Optional[str] = None,
 ) -> dict:
-    """Run the refresh over ``models`` (default: all ~33 analysable models).
+    """Run the refresh over ``models`` (default: all ~33 analysable models, ordered
+    addition -> subtraction -> mixed, small -> large).
 
     DRY-RUN IS THE DEFAULT. Pass ``dry_run=False`` to actually upload. Returns an
     overall manifest and writes it to ``manifest_path`` (default: under work_dir).
     """
-    if models is None:
-        models = list_analysis_models(require_analysis=True)
+    models = ordered_analysis_models(models)
 
     os.makedirs(work_dir, exist_ok=True)
     per_model = []
     for name in models:
         per_model.append(update_model(
             name, techniques=techniques, dry_run=dry_run,
-            work_dir=work_dir, device=device, upload=upload))
+            work_dir=work_dir, device=device, upload=upload,
+            skip_if_present=skip_if_present))
 
     manifest = {
         "generated": datetime.now(timezone.utc).isoformat(),
@@ -343,6 +408,7 @@ def update_models(
         "uploaded_any": any(r["uploaded"] for r in per_model),
         "n_models": len(per_model),
         "n_errors": sum(1 for r in per_model if r["error"]),
+        "n_roundtrip_fail": sum(1 for r in per_model if r["roundtrip_ok"] is False),
         "registered_techniques": [t.name for t in (techniques or TECHNIQUES)],
         "models": per_model,
     }
@@ -367,6 +433,8 @@ def _main(argv=None):
                    help="Actually upload. Without this flag the run is a DRY RUN.")
     p.add_argument("--no-upload", action="store_true",
                    help="Never upload even with --execute (compute + write locally only).")
+    p.add_argument("--no-skip", action="store_true",
+                   help="Recompute every technique even if its tags are already present.")
     p.add_argument("--work-dir", default="results/hf-update")
     args = p.parse_args(argv)
 
@@ -374,11 +442,12 @@ def _main(argv=None):
         models=args.models,
         dry_run=not args.execute,
         upload=not args.no_upload,
+        skip_if_present=not args.no_skip,
         work_dir=args.work_dir,
     )
     mode = "DRY RUN" if manifest["dry_run"] else "EXECUTE"
     print(f"[{mode}] models={manifest['n_models']} errors={manifest['n_errors']} "
-          f"uploaded_any={manifest['uploaded_any']}")
+          f"roundtrip_fail={manifest['n_roundtrip_fail']} uploaded_any={manifest['uploaded_any']}")
     for r in manifest["models"]:
         tags = {k: v["tags_added"] for k, v in r["techniques"].items()}
         flag = "ERR " + r["error"] if r["error"] else ("uploaded" if r["uploaded"] else "local-only")

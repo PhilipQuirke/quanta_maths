@@ -39,6 +39,32 @@ def _san_label(text) -> str:
     return _san(str(text).replace("<br/>", "\x00")).replace("\x00", "<br/>")
 
 
+_POS_LABEL = re.compile(r"^[AD]\d+$")
+
+
+def algo_task(body: str) -> str:
+    """Extract the task code from an ``Algo:`` tag body.
+
+    Grammar: ``<posLabel>.<TASK>[.<extra>]`` where ``posLabel`` is an answer /
+    digit label (``A5``, ``D4``) and ``TASK`` is the algorithmic role
+    (``SA``, ``GT``, ``ND``, ``STC`` ...). A bare control task has no dot
+    (``OPR``, ``SGN``). Examples::
+
+        A5.SA    -> SA
+        D4.GT    -> GT
+        A5.ND.A5 -> ND     (trailing parameter ignored)
+        A0.STC   -> STC
+        OPR      -> OPR
+
+    The task is the component after an optional leading position label; the old
+    ``split('.')[-1]`` mis-read three-part tags (``A5.ND.A5`` -> ``A5``).
+    """
+    parts = body.split(".")
+    if len(parts) > 1 and _POS_LABEL.match(parts[0]):
+        return parts[1]
+    return parts[0]
+
+
 # ===========================================================================
 # Map capture (map-only; no model load)
 # ===========================================================================
@@ -63,8 +89,7 @@ def capture_role_registry(model_name: str, hf_repo: str = DEFAULT_HF_REPO,
     for node in maths:
         for t in node.get("tags", []):
             if t.startswith("Algo:"):
-                body = t.split(":", 1)[1]
-                task = body.split(".")[-1] if "." in body else body
+                task = algo_task(t.split(":", 1)[1])
                 roles.setdefault(task, []).append(loc(node))
     roles = {t: sorted(set(v), key=_loc_key) for t, v in roles.items()}
 
@@ -86,6 +111,105 @@ def capture_role_registry(model_name: str, hf_repo: str = DEFAULT_HF_REPO,
     }
     return cfg, {"model": model_name, "roles": roles, "combiners": combiners,
                  "positions": positions}
+
+
+# ===========================================================================
+# Maximal per-model map (the results/maps/<model>.json artifact)
+# ===========================================================================
+
+def build_model_map(model_name: str, cfg: MathsConfig,
+                    maths_nodes: list, behav_nodes: list) -> dict:
+    """Build the maximal per-model map dict (the ``results/maps/<model>.json``
+    schema) from already-loaded verified-map node lists.
+
+    Pure and offline: no HuggingFace download and no model forward pass, so it is
+    unit-testable with fixture node lists and is the single source of truth the
+    diagram doc is generated from. Schema::
+
+        {model, config, n_map_nodes, roles{task -> [rich node]},
+         combiners[last-layer answer-position MLPs], positions}
+
+    ``roles`` node entries carry ``loc/position/layer/is_head/num/algo`` plus the
+    node's ``impact``/``fail``/``attn`` behaviour tags. Positive-control accuracy
+    and provenance (``init_from``) are added by callers that load the model (see
+    ``scripts/mixed_map.py``); their absence from the zoo-wide maps is the
+    map-completeness backlog item in ``maths-next-steps.md``.
+    """
+    def loc(n):
+        return f"P{n['position']}L{n['layer']}{'H' if n['is_head'] else 'M'}{n['num']}"
+
+    btags = {}
+    for n in behav_nodes:
+        btags[(n["position"], n["layer"], n["is_head"], n["num"])] = n.get("tags", [])
+
+    def behav_of(n, prefix):
+        key = (n["position"], n["layer"], n["is_head"], n["num"])
+        return [t for t in btags.get(key, []) if t.startswith(prefix)]
+
+    roles: Dict[str, list] = {}
+    for n in maths_nodes:
+        for t in n.get("tags", []):
+            if not t.startswith("Algo:"):
+                continue
+            body = t.split(":", 1)[1]
+            roles.setdefault(algo_task(body), []).append({
+                "loc": loc(n), "position": n["position"], "layer": n["layer"],
+                "is_head": n["is_head"], "num": n["num"], "algo": body,
+                "impact": behav_of(n, "Impact"),
+                "fail": behav_of(n, "Fail%"),
+                "attn": behav_of(n, "Attn"),
+            })
+
+    ll = cfg.n_layers - 1
+    answer_produce_pos = {int(cfg.an_to_position_name(k)[1:]) - 1: k
+                          for k in range(cfg.n_digits + 2)}
+    combiners = []
+    for n in behav_nodes:
+        if n["is_head"] or n["layer"] != ll:
+            continue
+        if n["position"] in answer_produce_pos:
+            combiners.append({
+                "loc": loc(n), "position": n["position"], "layer": n["layer"],
+                "produces_A": answer_produce_pos[n["position"]],
+                "fail": [t for t in n.get("tags", []) if t.startswith("Fail%")],
+                "impact": [t for t in n.get("tags", []) if t.startswith("Impact")],
+            })
+
+    positions = {
+        "OPR": cfg.op_position_name(),
+        "eq": f"P{2 * cfg.n_digits + 1}",
+        "SGN": cfg.an_to_position_name(cfg.n_digits + 1),
+        "answer_digits": [cfg.an_to_position_name(k)
+                          for k in range(cfg.n_digits, -1, -1)],
+        "first_layer": 0,
+        "last_layer": ll,
+    }
+    return {
+        "model": model_name,
+        "config": {"n_digits": cfg.n_digits, "n_layers": cfg.n_layers,
+                   "n_heads": cfg.n_heads, "n_ctx": cfg.n_ctx,
+                   "perc_add": getattr(cfg, "perc_add", None),
+                   "perc_sub": getattr(cfg, "perc_sub", None)},
+        "n_map_nodes": len(maths_nodes),
+        "roles": roles,
+        "combiners": combiners,
+        "positions": positions,
+    }
+
+
+def capture_model_map(model_name: str, hf_repo: str = DEFAULT_HF_REPO,
+                      cfg: MathsConfig = None) -> dict:
+    """Download a model's verified HF map (``*_maths.json`` + ``*_behavior.json``)
+    and return the maximal per-model map dict (see :func:`build_model_map`).
+    Map-only (no model forward pass), so cheap to batch across the ~40-model zoo.
+    """
+    from QuantaMechInterp.model_train_json import download_huggingface_json
+    if cfg is None:
+        cfg = MathsConfig()
+        cfg.set_model_names(model_name)
+    maths = download_huggingface_json(hf_repo, f"{model_name}_maths.json")
+    behav = download_huggingface_json(hf_repo, f"{model_name}_behavior.json")
+    return build_model_map(model_name, cfg, maths, behav)
 
 
 # ===========================================================================
@@ -347,21 +471,61 @@ def _op_classes(registry) -> List[str]:
 # Full doc assembly
 # ===========================================================================
 
-def build_mechanism_markdown(model_name: str, hf_repo: str = DEFAULT_HF_REPO,
-                             cfg: MathsConfig = None) -> str:
-    cfg, registry = capture_role_registry(model_name, hf_repo=hf_repo, cfg=cfg)
+def _registry_from_map(model_map: dict) -> dict:
+    """Adapt a maximal model-map dict (:func:`build_model_map`) to the thin
+    registry the Mermaid builders consume: ``roles`` task -> sorted ``[loc]``,
+    ``combiners`` -> sorted ``[loc]``, and ``positions`` carrying ``last_layer``.
+    """
+    roles = {t: sorted({e["loc"] for e in entries}, key=_loc_key)
+             for t, entries in model_map.get("roles", {}).items()}
+    combiners = sorted({c["loc"] for c in model_map.get("combiners", [])},
+                       key=_loc_key)
+    last_layer = model_map.get("positions", {}).get("last_layer")
+    if last_layer is None:
+        last_layer = model_map.get("config", {}).get("n_layers", 1) - 1
+    return {"model": model_map["model"], "roles": roles,
+            "combiners": combiners, "positions": {"last_layer": last_layer}}
+
+
+def build_mechanism_markdown(model_map: dict, cfg: MathsConfig = None) -> str:
+    """Build the mechanism doc from a maximal model-map dict (the
+    ``results/maps/<model>.json`` schema; see :func:`build_model_map`).
+
+    Deterministic and offline: no model load and no HuggingFace download. Pass
+    the dict from :func:`capture_model_map` or a loaded ``results/maps/*.json``.
+    Interpretation and causal verdicts are intentionally excluded (they live in
+    the study notes and claim-evidence); per-task algorithmic meanings live in
+    the glossary, linked from the generated doc.
+    """
+    if isinstance(model_map, str):
+        raise TypeError(
+            "build_mechanism_markdown takes a model-map dict, not a model name. "
+            "Use build_mechanism_markdown_for_model(name) to capture from "
+            "HuggingFace, or load results/maps/<model>.json first.")
+    model_name = model_map["model"]
+    if cfg is None:
+        cfg = MathsConfig()
+        cfg.set_model_names(model_name)
+    registry = _registry_from_map(model_map)
     classes = ", ".join(_op_classes(registry))
     overlaps = _shared_overlaps(registry)
     overlap_lines = [f"- `{a}` and `{b}` share **{c}** node(s)"
                      for a, b, c in overlaps if c > 0][:12]
+    glossary = "../../docs/thor-glossary.md#project-terms"
 
     doc = f"""# Auto-generated mechanism doc — `{model_name}`
 
-**Generated by `quanta_maths.maths_diagram.build_mechanism_markdown` from the model's
-verified HF map** (`*_maths.json` / `*_behavior.json`). Model type: {classes}.
-Config: n_digits={cfg.n_digits}, n_layers={cfg.n_layers}, n_heads={cfg.n_heads},
-n_ctx={cfg.n_ctx}. This doc is structural (map-derived); interpretation/verdicts
-live in the study notes and claim-evidence.
+**Generated by `quanta_maths.maths_diagram.build_mechanism_markdown` from the
+model's maximal map JSON** (`results/maps/{model_name}.json`). Model type:
+{classes}. Config: n_digits={cfg.n_digits}, n_layers={cfg.n_layers}, n_heads={cfg.n_heads},
+n_ctx={cfg.n_ctx}.
+
+This doc is **structural** (map-derived). Interpretation and causal verdicts live
+in the study notes and [claim-evidence](../../docs/maths-claim-evidence.md).
+Per-task algorithmic meanings (`SA`/`MD`/`ND`, `ST`/`MT`/`NT`/`GT`,
+`SC`/`MB`/`NB`, `OPR`/`SGN`/`SLT`, `STC`/`MTC`/`NTC`) are defined in the
+[glossary]({glossary}). To regenerate, see
+[docs/mixed_model_mechanism.md](../../docs/mixed_model_mechanism.md).
 
 Legend: **green = shared** across operations (one node set), **orange =
 control/selection** (OPR/SGN/SLT), **blue = combiner** (last-layer answer MLP),
@@ -381,6 +545,8 @@ Token layout:
 
 ### Exact node inventory (from the verified map)
 
+Task-code meanings: see the [glossary]({glossary}).
+
 {node_inventory_md(registry)}
 
 ### Node sharing detected in the map (polysemantic nodes)
@@ -388,3 +554,13 @@ Token layout:
 {chr(10).join(overlap_lines) if overlap_lines else "- (no shared nodes detected)"}
 """
     return doc
+
+
+def build_mechanism_markdown_for_model(model_name: str,
+                                       hf_repo: str = DEFAULT_HF_REPO,
+                                       cfg: MathsConfig = None) -> str:
+    """Convenience: capture the maximal map from HuggingFace, then build the doc.
+    (:func:`build_mechanism_markdown` itself is offline and takes the map dict.)
+    """
+    model_map = capture_model_map(model_name, hf_repo=hf_repo, cfg=cfg)
+    return build_mechanism_markdown(model_map, cfg=cfg)

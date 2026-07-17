@@ -15,6 +15,8 @@ Confidence labels:
 
 ## Claims
 
+<a id="ce1"></a>
+
 ### CE1: Addition model — Trained addition-model digit embeddings are near-isotropic 9-D categorical codes with a weak, training-induced circular *ordering* — not a dominant low-rank circle/helix
 
 - **Confidence**: **Medium** for the near-isotropic / no-dominant-geometry part
@@ -50,6 +52,8 @@ Confidence labels:
   near-isometric here) and *seed-fragile* (2/3 seeds). Tiny 10-token vocabulary;
   n = 10 per matrix.
 
+<a id="ce2"></a>
+
 ### CE2: Addition model — At layer-0 operand-fetch heads, the value-path output is indistinguishable from linear transport of the (weakly-circular) digit embeddings
 
 - **Confidence**: **Medium** — replicated across 6 nodes in 2 accurate models
@@ -72,6 +76,8 @@ Confidence labels:
 - **Caveats**: Nodes are answer-position operand-fetch heads, not confirmed `ST`
   carry-compute nodes; says nothing about where `ST` discretization happens.
   Correlational, not causal. Does **not** score A2 (which remains untested).
+
+<a id="ce3"></a>
 
 ### CE3: Addition model — The carry is computed by binary make-carry heads at answer positions, dissociated from base-add heads; the tri-state U-resolution is a separate, unlocated path
 
@@ -112,6 +118,8 @@ Confidence labels:
   The interchange-vs-ablation gap is the expected decodability/interchange/ablation
   dissociation (outside-view sweep: Huang & Chang 2025; causal scrubbing).
 
+<a id="ce4"></a>
+
 ### CE4: Addition model — The tri-state U-resolution flip is transmitted by an MLP-heavy L0/L1 path distinct from the make-carry heads; whether it is combined or merely relayed is unresolved
 
 - **Confidence**: **Low–Medium.** The *transmission* + *distinctness from CE3*
@@ -139,6 +147,8 @@ Confidence labels:
   hypothesis, not established. Needs a real interaction/corruption control to
   confirm any node as the combiner. **Superseded by CE5**, which identifies the
   combiner.
+
+<a id="ce5"></a>
 
 ### CE5: Addition model — The tri-state U-combiner is the answer-position layer-1 MLP; layer-0 nodes relay the running carry (conduit)
 
@@ -171,6 +181,8 @@ Confidence labels:
   swaps the whole MLP output if it bundles other info. Distinct from the CE3
   binary make-carry heads (`carry_in`-inert here).
 
+<a id="ce6"></a>
+
 ### CE6: Addition model — At the U-combiner's input the carry is a clean binary code — no distinct off-axis tri-state; the resolved carry is already linearly present there
 
 - **Confidence**: **Medium** (replicated in both models; but locus-scoped and
@@ -200,6 +212,8 @@ Confidence labels:
   `U`; 2-layer; addition only. Does NOT refute a tri-state existing at an earlier
   site (untested). make-carry resolution probe 0.79/0.80 (not chance).
 
+<a id="ce7"></a>
+
 ### CE7: Addition model — No dedicated `{0,1,U}` tri-state symbol at any answer-position residual site; `U` is resolved to binary around L1-attention
 
 - **Confidence**: **Medium** (replicated in both models; independently
@@ -226,6 +240,8 @@ Confidence labels:
   binary carry*, at *answer-position* residual sites. A weak symbol, or a
   transient `U` at *question* positions (D'n, descoped), is untested.
   Representational, not causal. Single-digit `U`, 2-layer, addition only.
+
+<a id="ce8"></a>
 
 ### CE8: Addition model — Attention routing is hybrid — a few heads relocate their target with carry state (6-digit only); most cells are target-static
 
@@ -259,6 +275,8 @@ Confidence labels:
   not shown load-bearing for deep-cascade resolution at node/pattern granularity
   (a finer edge path-patch is needed). Confidence unchanged (still Medium,
   representational).
+
+<a id="ce9"></a>
 
 ### CE9: Addition model — At node/attention-pattern granularity the deep `...999` cascade mechanism is not localizable — no single-cell selection, no sequential per-digit state, real graded tail state
 
@@ -298,6 +316,8 @@ Confidence labels:
   instrument is underpowered at most cells, so this is a one-depth crumb, not a
   broad confirmation (see CE10). CE9's instrument-limit framing stands.
 
+<a id="ce10"></a>
+
 ### CE10: Addition model — At the combiner edge, a single L1 head carries the top cascade digit's computed carry at one depth — a causal crumb, but the single-position edge instrument is underpowered
 
 - **Confidence**: **Low-Medium** — one clean isolated cell per model; underpowered
@@ -327,6 +347,8 @@ Confidence labels:
 - **Caveats**: a less LN-damped / multi-position edge instrument and a second depth
   (6-digit k=4) are needed to raise power; neuron-level (B2) on `L1.H1`+combiner and
   the 5-digit/6-digit divergence (B5) are the follow-ups. 2-layer, addition only.
+
+<a id="ce11"></a>
 
 ### CE11: Addition model — The tri-state carry `ST` is position-specific at question positions (no cross-position probe transfer) and geometrically entangled with `SV` — C2/A4 template-sharing and A8 interference challenged for `ST`
 
@@ -361,6 +383,8 @@ Confidence labels:
   at this site; weight sharing is still architectural (the model applies shared
   weights per digit — the *representation* at the read site is position-tied).
 
+<a id="ce12"></a>
+
 ### CE12: Addition model — Answer-phase layout is split — `SA` is a just-in-time register (absent at `=`); `SV` is resolved/present at `=` but its per-digit slots are not orthogonal (tape refuted); both share an answer-side template
 
 - **Confidence**: **Medium** — the SA/SV split and the answer-side-template
@@ -390,6 +414,8 @@ Confidence labels:
 - **Caveats**: linear decodability, not causal use; SV isolated-operand baseline is
   weak (F1); entanglement 6-digit-only + 1-D caveat; one 5-digit `SA_1` exception
   (+0.19 at `=`); middle digits, SV_0 excluded; 2-layer addition, two models.
+
+<a id="ce13"></a>
 
 ### CE13: Addition model — Map-named ST nodes encode their class and co-carry single-step U-resolution (not multi-digit compounding); map-named SA L0 heads do not write the answer digit
 
@@ -422,6 +448,8 @@ Confidence labels:
   U-locality 5-digit-scoped (6-digit control void); some low-digit ablation nodes
   marginal (~1 SE at N=300); single-step cin toggle (not multi-digit cascade — the
   compounding question is deferred to entry 2); 2-layer addition, two models.
+
+<a id="ce14"></a>
 
 ### CE14: Addition model — Carry-specific attention-edge delivery to the answer-position combiner (A10 core partially confirmed); single-head selection not shown; redundant, sufficiency-not-necessity
 
@@ -461,6 +489,8 @@ Confidence labels:
 - **Caveats**: sufficiency-not-necessity; selection underdetermined; direct path not
   excluded; value content not head-specific; 2-layer addition, two models.
 
+<a id="ce15"></a>
+
 ### CE15: Addition model — The leading answer digit is produced by carry-specific L1-head-edge delivery to the sign-position combiner (mirrors CE14) — C5 step 5
 
 - **Confidence**: **Medium** — consolidates CE14 at the leading-digit locus;
@@ -495,6 +525,8 @@ Confidence labels:
 - **Caveats**: 5-digit genuine depth spread, 6-digit deep-chains only; economy
   uninformative at the sign locus; direct path not excluded; 2-layer addition, two
   models; a documented worked example, not a new mechanism beyond CE14.
+
+<a id="ce16"></a>
 
 ### CE16: Addition model — SV implementation — canonical resolved-carry message, distributed ST-cluster source (`=` is a depot, not a value source), head-pair (SV) path effective with negligible skip carry, class-necessary pair; A10 items i–iii resolved, iv open
 
@@ -549,6 +581,8 @@ Confidence labels:
 - **Caveats**: combiner form unestimated (F failed); skip not formally excluded
   (power matched to skip's own magnitude); source distributed not localized; 2×
   power arm does not lift "excluded"; 2-layer addition, two models.
+
+<a id="ce17"></a>
 
 ### CE17: Addition model — SV compounding arithmetic — combiner is a STEP function (A10 iv resolved); the L0 tail-relay (A11) is a single-site, unreplicated representational trace, causally undetermined; L1 edge output is local-class-sufficient — R-mixed
 
@@ -607,6 +641,8 @@ Confidence labels:
   un-regressed (CE16 co-rider rides in the blend — "step" rests on the endpoint
   gate + linear carry-proj); 2-layer addition, two models.
 
+<a id="ce18"></a>
+
 ### CE18: Addition model — Cross-size SV — the role skeleton + step combiner generalize d5→d13, but redundancy does NOT thin with size (C6 not supported); large-n causal source signatures are probe-limited
 
 - **Confidence**: **Medium-high** for role transfer + step-combiner generalization
@@ -659,6 +695,8 @@ Confidence labels:
   no gradient; interchange leg F2-ambiguous throughout. 2-layer/3-head addition
   zoo, one large-n seed family.
 
+<a id="ce19"></a>
+
 ### CE19: Addition model — Compounding locus — the multi-digit carry is compounded in the L1 consumer READ, not by an L0 positional relay (A11 not supported); decisive via a decorrelation + invisible-cell discriminator
 
 - **Confidence**: **Medium** — settles the CE17-open fork against an L0 relay where
@@ -703,6 +741,8 @@ Confidence labels:
 - **Caveats**: linear probe (non-linear relay not excluded); one readable invisible
   cell (5d); 6d underpowered (deep-chain writes wash out); KO necessity-only.
   2-layer/3-head addition, two models.
+
+<a id="ce20"></a>
 
 ### CE20: Mixed model — the addition SV representation replicates across ADD/SUB/NEG (writers encode the tri-state; resolved carry/borrow is a binary code at the last-layer combiner), and delivery is class-dependent (ADD residual-only, SUB/NEG residual + last-layer attention)
 
@@ -752,6 +792,8 @@ Confidence labels:
   representational probes linear; 3-layer/4-head mixed add/sub, initialised from
   a 6-digit addition model.
 
+<a id="ce21"></a>
+
 ### CE21: Mixed model — SGN is the top-of-cascade `D≥D'` comparison delivered to the sign-position combiner (CE15 analog); OPR is broadcast-decodable but not an additive rank-1 control at the combiner; shared SA/MD/ND heads carry a hybrid (shared-head, operation-rotated) readout
 
 - **Confidence**: **Medium-high** for SGN (three converging clean tests);
@@ -793,6 +835,8 @@ Confidence labels:
   `results/study-mixed-opr-sgn/results.json`; `scripts/mixed_opr_sgn.py`).
 - **Caveats**: single mixed model/seed; M4 rank-1 additive steer only (not
   SLT-sited); M6 subspace angles on 10-dim readouts in d_model; linear probes.
+
+<a id="ce22"></a>
 
 ### CE22: Mixed model — the SV-implementation signatures replicate across ADD/SUB/NEG: the combiner is a STEP (A10 iv), the resolved carry/borrow is a canonical format-invariant code, and `=` is not the middle-digit source; class-necessity is redundancy-blurred (not scored)
 
@@ -837,6 +881,8 @@ Confidence labels:
   probe (B4); 3-layer/4-head mixed add/sub, initialised from a 6-digit addition
   model.
 
+<a id="ce23"></a>
+
 ### CE23: Mixed model — A7's low-rank operator-control form is refuted at the selector too (rank-1 steer + single SLT head both fail); the engine is shared at the combiner but the add/sub selection is a distributed, high-dimensional L1 transformation (leans C2 on selection)
 
 - **Confidence**: **Medium-high** for the refutation (positive control passes at
@@ -875,6 +921,8 @@ Confidence labels:
 - **Caveats**: single model/seed; k=2; rank-1 additive steer only (rank-r
   subspace untested); one selector head for the head-patch arm; matched-operand
   design guards the operand confound.
+
+<a id="ce24"></a>
 
 ### CE24: Addition model — Compounding locus v2 — the canonical resolved carry is a LAYER-1 property (emerges in the L1 read, not at L0's output); conclusive layer-localization via cross-depth transfer, superseding CE19
 
@@ -942,6 +990,8 @@ Confidence labels:
   resolution computed eagerly in-place (L0); multi-digit propagation represented
   lazily at the answer read (L1)** — the token-time complement to CE24. Caveats:
   linear-probe; point estimates; coarse tail; may differ by model (run the zoo).
+
+<a id="ce25"></a>
 
 ### CE25: Mixed model — the class-dependent carry/borrow delivery pathway holds across cascade depths 2–4 (ADD residual-only; SUB/NEG residual + last-layer attention), carry/borrow-specific; reusable cross-model sweep promoted to the library
 

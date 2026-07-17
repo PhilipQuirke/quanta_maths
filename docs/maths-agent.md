@@ -96,10 +96,12 @@ the [glossary](thor-glossary.md#project-terms) and [terminology.md](terminology.
 ## Reusable Tooling
 
 Prefer the `quanta_maths` library over re-implementing harness code in one-off
-scripts. Canonical helpers (see [code migration plan](maths-code-migration-plan.md)):
-`load_maths_model_from_hf` / `make_untrained_control` (HF model loading + negative
-control), `maths_probe` (per-digit SA/ST/SV labels, read-site algebra, linear probes
-with permutation nulls, subspace angles, DFT circular geometry), `maths_edge_patch`
-(OV path, LN-fair edge patch, attention-pattern patch), `add_stc_functions`
-(`Algo:A{d}.STC` ST-combiner search), and `maths_batch.run_batch` (local cross-model
-inline tagging). All ship with positive/negative-control tests in `tests/`.
+scripts. Canonical helpers (see the `quanta_maths/` package and its `tests/`):
+`load_maths_model_from_hf` / `load_maths_model_from_analysis_repo` /
+`make_untrained_control` (HF model loading + negative control), `maths_probe`
+(per-digit SA/ST/SV labels, read-site algebra, linear probes with permutation nulls,
+subspace angles, DFT circular geometry), `maths_edge_patch` (OV path, LN-fair edge
+patch, attention-pattern patch), `add_stc_functions` (`Algo:A{d}.STC` ST-combiner
+search), and `maths_hf_update` (cross-model technique registry + dry-run/upload
+framework for the per-model analysis JSONs). All ship with positive/negative-control
+tests in `tests/`.

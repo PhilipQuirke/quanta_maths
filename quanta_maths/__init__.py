@@ -41,8 +41,8 @@ from quanta_maths.maths_run import make_question, predict_answer, verify_accurac
 from quanta_maths.maths_batch import (ACCURATE_MODELS, run_batch, tag_stc_nodes, tag_linxfer_nodes)
 
 from quanta_maths.maths_hf_update import (Technique, TECHNIQUES, register_technique,
-    techniques_for, list_analysis_models, update_model, update_models,
-    BEHAVIORS_FILE, FEATURES_FILE)
+    techniques_for, list_analysis_models, ordered_analysis_models, update_model,
+    update_models, BEHAVIORS_FILE, FEATURES_FILE)
 
 from quanta_maths.maths_cascade import (make_cascade_operands, cascade_answer_digit,
     cascade_question, combiner_delivery_flip, combiner_delivery_sweep, CLASS_OP,
@@ -50,4 +50,5 @@ from quanta_maths.maths_cascade import (make_cascade_operands, cascade_answer_di
 
 from quanta_maths.maths_diagram import (capture_role_registry, token_layout_md,
     node_inventory_md, logical_mechanism_mermaid, implementation_mermaid,
-    build_mechanism_markdown)
+    build_mechanism_markdown, build_mechanism_markdown_for_model,
+    build_model_map, capture_model_map, algo_task)

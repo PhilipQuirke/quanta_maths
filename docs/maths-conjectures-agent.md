@@ -20,7 +20,7 @@ My expected end-to-end story for how a trained addition model computes
    mod-10 geometry, possibly plus an ordered magnitude component — rather than
    as 10 arbitrary near-orthogonal symbols (A1). *[2026-07-14: this stage took
    damage — the embedding is near-isotropic with only a weak circular ordering;
-   see A1 confidence update and [CE1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix).
+   see A1 confidence update and [CE1](maths-claim-evidence.md#ce1).
    The "how it computes" weight now leans on stages 2–5 (activation/MLP), not
    the embedding.]*
 2. **Aggregate, then discretize.** Fixed position-based attention (the double
@@ -258,7 +258,7 @@ mode.
   one direction per feature" may not; the natural unit is a small subspace
   with circular content.
 - **Confidence**: LOWERED 2026-07-14 after the digit-embedding study
-  ([CE1](maths-claim-evidence.md#ce1-trained-addition-model-digit-embeddings-are-near-isotropic-9-d-categorical-codes-with-a-weak-training-induced-circular-ordering--not-a-dominant-low-rank-circlehelix)):
+  ([CE1](maths-claim-evidence.md#ce1)):
   the strong "dominant circular/helical geometry at the token level" form is
   **refuted** for these models' embeddings (near-isotropic 9-D; circular
   *variance* at noise floor; unembedding unstructured and misaligned). A weak
@@ -866,7 +866,7 @@ mode.
   PASS-WITH-CORRECTIONS (F1 "skip carries ≈0" not "excluded"; F2 "ST cluster
   distributed" not "deciding-ST"; F3 co-rider = decode-existence). Backlink:
   [study-sv-implementation.md](study-maths/study-sv-implementation.md),
-  `results/study-sv-implementation/results.json`, CE16.
+  [CE16](maths-claim-evidence.md#ce16).
 - **Update 2026-07-16 (Mixed model, CE20/CE22/CE25):** A10's core wiring +
   implementation **replicate on the 3-layer mixed model across ADD/SUB/NEG** — the
   combiner is a STEP (CE22 iv), the delivered carry/borrow is canonical and
@@ -948,7 +948,7 @@ mode.
   single unreplicated cell). Post-result gate downgraded two over-claims (H
   "replication"; Y "redundancy-masked" → "causally undetermined"). Backlink:
   [study-compounding-arithmetic.md](study-maths/study-compounding-arithmetic.md),
-  `results/study-compounding-arithmetic/results.json`, CE17.
+  [CE17](maths-claim-evidence.md#ce17).
 - **Update 2026-07-16 (CE19, compounding-locus; dual-gated): A11 NOT SUPPORTED,
   held at low (not formally rejected).** A redesigned assay used a natural
   **decorrelation** (a chain-ST site inside the 999-run has local class fixed at U
@@ -977,7 +977,7 @@ mode.
   per-depth readability control → 6d underpowered), F3 (dropped 5d
   "self-computation" over-label), F4 (KO is necessity-only, DH load-bearing).
   Backlink: [study-compounding-locus.md](study-maths/study-compounding-locus.md),
-  `results/study-compounding-locus/results.json`, CE19.
+  [CE19](maths-claim-evidence.md#ce19).
 - **Update 2026-07-16 (CE24, compounding-locus-v2; dual-gated): CONCLUSIVE — the
   compounding is an L1-read; A11 (positional L0 relay) rejected/low.** A redesign
   (fixing CE19's OV-write washout + the ill-posed invisible-cell discriminator via
@@ -994,7 +994,7 @@ mode.
   probe; L0 tested at `=` (ST/sign via CE17/CE19). **A11 stays rejected/low; A9
   retired.** Backlink:
   [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md),
-  `results/study-compounding-locus-v2/results.json`, CE24.
+  [CE24](maths-claim-evidence.md#ce24).
 - **Update 2026-07-16 (CE24 TF addendum, token-time; dual-gated): the propagated
   carry is finalized LAZILY at the answer read (L1), single-step eagerly in-place
   (L0).** Closing the token-time question (CE24 settled the layer): the canonical
@@ -1008,7 +1008,7 @@ mode.
   L1-read locus). Reusable cross-model tool
   `quanta_maths/maths_temporal_finalization.py` (may differ by model — run the zoo).
   Backlink: [study-compounding-locus-v2.md](study-maths/study-compounding-locus-v2.md#addendum--battery-tf-temporal-finalization--token-time--run-2026-07-16),
-  `results/study-compounding-locus-tf/results.json`.
+  [CE24](maths-claim-evidence.md#ce24) (TF addendum).
 
 ### A12: The SV interface generalizes across model sizes, and the implementation tightens as n grows
 
@@ -1074,7 +1074,7 @@ mode.
   combiner confirmed, source probe-limited"; F2 C6 "refuted" → "not supported, d13
   inconclusive"). Backlink:
   [study-cross-size-sv.md](study-maths/study-cross-size-sv.md),
-  `results/study-cross-size-sv/results.json`, CE18.
+  [CE18](maths-claim-evidence.md#ce18).
 - **Update 2026-07-16 (Mixed model, CE20/CE22/CE25):** A12 generalization holds on
   a **new axis** — not just size but a **different architecture (3 layers/4 heads)
   and the borrow/neg-borrow task families**: the SV representation + STEP combiner +
@@ -1180,480 +1180,13 @@ External:
   study: parallel lookup and magnitude paths),
   [transformer-circuits.pub](https://transformer-circuits.pub/2025/attribution-graphs/biology.html).
 
-## Reflection log (optional)
+## Reflection log
 
-*Scope (multi-thread): entries concern the **addition** models unless tagged
-**(Mixed model)**. The conjectures A1–A12 above are model-general beliefs (A7/A12
-explicitly span mixed and cross-size).*
-
-- **2026-07-14** — Initial population, at the human's request, from priors and
-  external literature before any experiments in this thread. Contains no
-  empirical content. The "update only after the post-result skeptic gate"
-  rule applies from the first study onward.
-- **2026-07-14** — After the digit-embedding geometry study (Gate 2 passed;
-  [study note](study-maths/study-digit-embedding-geometry.md),
-  [CE1](maths-claim-evidence.md)): lowered **A1** (strong dominant-geometry form
-  refuted at the token embedding; weak circular *ordering* survives,
-  provisional pending LN-aware A-9) and annotated **A8** (embedding matrix is
-  near-isotropic, not low-rank — but that is partly true of the untrained model
-  too; the activation-level A8 claim is untouched). Stage 1 of the overall
-  picture annotated. Prediction scoring lives in the study note; these are the
-  post-gate belief updates. No change to A2–A7 (untouched by a weights-only
-  study). Reframe: the "how it computes" story now hinges on the
-  activation/MLP stages and a causal test, not on a clean embedding geometry.
-- **2026-07-14** — After the pair-sum sufficiency study (Gate 2 returned BLOCK,
-  resolved; `instrument failure`;
-  [study note](study-maths/study-pair-sum-sufficiency.md),
-  [CE2](maths-claim-evidence.md)): **A2 confidence HELD** (not lowered) — the
-  assay mis-targeted (answer-position heads, not confirmed `ST` nodes) and its
-  metric could not separate aggregation from transport, so A2 is untested. Added
-  the value-path transport by-product as CE2. No change to A3 (deferred to the
-  re-scoped entry 2) or C3 (MLP-transform half untested). Method lesson recorded
-  in the results synthesis: tidy low-D structures keep being low-variance
-  projections; require nulls + independent node-role confirmation.
-- **2026-07-16** — After the attention-invariance census (Gate 2 PASS WITH
-  CONDITIONS; [study note](study-maths/study-attention-invariance.md),
-  [CE8](maths-claim-evidence.md)): **A5's strong static-wiring form falsified /
-  narrowed to hybrid** (lowered to medium) — a few L1 heads (+one L0) relocate
-  their attention target with the carry state (value-matched contrast, clean in
-  6-digit, Bonferroni-safe; A5's own falsifier). This **breaks the recent
-  A3-family refuted/untouched streak** with a genuine new structural fact — but
-  a narrow one (6-digit only; representational, not causal). **C3** routing half
-  supported (the content-dependence *refines A5*, not new C3 — human-owned,
-  noted). **A6 untouched** (no cascade patching; the routing cells are candidate
-  nodes for the entry-3 causal test, not an A6 test). Gate-2 correctly stopped
-  two over-reaches: scoring the noisy 5-digit as a "replication" (it is
-  inconclusive), and the "answer-position/CE5-combiner-locus" gloss (the cleanest
-  cell is an operand-read position, which actually strengthens the finding by
-  rebutting the trivial "answer-digit-depends-on-carry" reading). Method: only a
-  value-matched target-move falsifies A5 — pattern-variance is A5-consistent
-  because a static head still has value-dependent softmax weights.
-- **2026-07-16** — After the LN-aware digit-embedding close-out (Gate 2 PASS
-  WITH CONDITIONS; [study note](study-maths/study-ln-aware-embedding.md),
-  revises [CE1](maths-claim-evidence.md)): the CE1 circular-**ordering** signal
-  is **de-provisionalized** — it persists in the LN-effective geometry, but only
-  *weakly* (LN is near-isometric here, γ std ~0.005) and it is **seed-fragile**
-  (2 of 3 independent seeds; fails s173289). A1's ordering sub-claim scored
-  "weak ordering, LN-robust modestly, 2/3 seeds — not confirmed-strong"; C1
-  weakly/narrowly supported (near-isometric LN adds no curvature — low-info).
-  Evidence integrity clean (raw arm reproduced CE1 bit-for-bit in the committed
-  script). The embedding-geometry line is now closed at the representational
-  level; the only deeper embedding question is *causal* (B1). Gate-2 caught a
-  headline over-read (near-isometry makes "LN-robust" weak) and a replication
-  over-count (model-count vs seed-count) — both corrected.
-- **2026-07-16** — After the earliest-tri-state-site study (Gate 2 PASS WITH
-  CONDITIONS; [study note](study-maths/study-earliest-tristate-site.md),
-  [CE7](maths-claim-evidence.md)): **A3 off-axis-third-symbol form refuted across
-  all answer-position residual sites** (dropped to low); the binary resolution is
-  applied around L1-attention, never a dedicated `U` symbol. C1 narrowly
-  supported (binary linear carry throughout — human-owned, noted). A6/A2
-  untouched. **STREAK SIGNAL (Evidence Rules)**: this is the *fourth consecutive*
-  A3-family refuted/untouched result (pair-sum instrument-failure → U-resolution
-  ambiguous → CE6 combiner refuted → CE7 all-sites refuted). The "U as a distinct
-  tri-state symbol" conceptual frame is **stale** at answer positions; the
-  productive next moves are the *question-position* transient-U probe and the
-  *multi-digit `...999` cascade* (A6), NOT more answer-position geometry sweeps.
-  The Gate-1 lesson recurred usefully: the `U ≡ SA_n=9` identity + a
-  metric-vs-hypothesis mismatch (centroid distance vs the is-U subspace) had to
-  be fixed before the assay could discriminate — the axis-decomposition
-  discriminator was the fix.
-- **2026-07-15** — After the tri-state-geometry study (Gate 2 BLOCK, resolved;
-  [study note](study-maths/study-st-tristate-geometry.md),
-  [CE6](maths-claim-evidence.md)): **A3 off-axis-third-symbol form refuted at the
-  combiner input** (locus-scoped; `U` on the 0–1 axis, split by resolution),
-  lowered to low-medium; A3's live remnant is a possible tri-state at an earlier
-  (untested) site. **C1** narrowly supported at this locus (clean binary linear
-  carry) — human-owned, noted not edited. **A2/A6 untouched** (the assay can't
-  show the U-decision is upstream vs in the MLP — `carry_in` ingredients are
-  linearly present at the input; consistent with CE5). Gate-2 fixed an
-  evidence-integrity gap (headline numbers now reproducible in the script) and
-  the "resolution is upstream / no-L0-attribution" over-reach. Method lesson: a
-  site linearly separating an outcome ≠ that site computing it (ingredients vs
-  decision), and `U ≡ SA_n=9` is a fatal confound the resolution variable breaks.
-- **2026-07-15** — After the combiner-vs-conduit study (Gate 2 PASS WITH
-  CONDITIONS — first pass after three BLOCKs;
-  [study note](study-maths/study-combiner-vs-conduit.md),
-  [CE5](maths-claim-evidence.md)): **A6 carried+combined sub-claim supported**
-  (L0 conduits + answer-position **L1 MLP combiner** resolves `U`;
-  tie-break-economy still untested); **A2 supported at the U-combine step** (the
-  nonlinear carry-class combination is in the L1 MLP output; pre-MLP
-  sum-sufficiency still untested); **A5 partial** (U branch in the MLP); **A3
-  anchored** (geometry not measured; combiner locus `P14/P16.L1.MLP` now
-  confirmed for entry 2). The working discriminator was node-level activation
-  invariance (definite-invariant / U-variant), the endpoint-independent fix for
-  the definite-digit carry-independence trap that vacuated the prior gate.
-- **2026-07-15** — After the U-resolution study (Gate 2 returned BLOCK,
-  resolved; positive-but-ambiguous;
-  [study note](study-maths/study-u-resolution-path.md),
-  [CE4](maths-claim-evidence.md)): **no conjecture updated** — A6/A2/A5/A3 all
-  scored **untouched**. The study located an MLP-heavy L0/L1 path that
-  *transmits* the tri-state U-flip and is distinct from the CE3 make-carry heads
-  (reconfirming "separate paths" with named nodes), but its pre-registered
-  combiner discriminator was **vacuous** (a definite digit's `A_{n+1}` has no
-  lower-carry dependence, so the trivial readout also passed), so it cannot tell
-  a U-combiner from a carry-conduit. Method lesson: an interaction gate needs a
-  control arm with a signal a non-target node could transmit; use a *corruption*
-  control next. This tempers the temptation to score A6 "carried state
-  supported" — a question-position MLP transmitting is exactly what transport
-  looks like.
-- **2026-07-14** — After the confirm-ST-node study (Gate 2 returned BLOCK,
-  resolved; [study note](study-maths/study-confirm-st-node.md),
-  [CE3](maths-claim-evidence.md)): **A5 partial support** (confirmed carry heads
-  are static-position, question-independent-attention, value-path-causal).
-  **A6 untouched** (the `=`-resolution sub-claim could not be scored — the `=`
-  patch was layer-0-only and autoregressively confounded). **A2** now has a
-  better anchor (a causally-confirmed carry node) but it is `SC`-grade, not the
-  tri-state `ST` node A2 ultimately concerns. **New incidental finding** (candidate
-  for a future conjecture): the *binary make-carry* and the *tri-state
-  `U`-resolution* are computed by **different paths** — the make-carry head does
-  not transmit U-resolution, yet the model resolves `U` correctly. This splits
-  A2/A3's implicit "one ST node does it all" picture and makes *locating the
-  U-resolution path* the top mechanistic question.
-- **2026-07-16** — After the leading-digit-walkthrough study (C5 step 5; Gate 2 PASS
-  WITH CONDITIONS, nearly clean; [study note](study-maths/study-leading-digit-walkthrough.md),
-  [CE15](maths-claim-evidence.md)): the C5 capstone. The leading digit `A_top` in the
-  hard case is produced by the **same carry-specific L1-head-edge delivery** to the
-  sign-position combiner as the middle digits (CE14) — Link 3 verified (5-digit
-  genuine depth spread; 6-digit deep-chains only, shallow unadjudicated). **A10
-  consolidated across all answer digits incl. the hardest, but NOT raised** (held at
-  medium; Link-4 readout quarantined; economy uninformative at the sign bottleneck;
-  direct path not excluded; inherits all CE14 caveats). **This completes C5's 5-step
-  program for the addition model** (CE13 → CE14 → CE15). Notably the *first nearly-
-  clean Gate 2 of the session* — the discipline forced by CE14's three-round ordeal
-  (quarantine the readout patch; consolidate-not-raise as a machine tag; deciding-
-  matched null; verified only at ≥2 genuine depths) carried over and pre-empted the
-  over-reach. One fix: two adjacent maximal chains ≠ an independent 2-depth spread
-  (6-digit re-labeled deep-chains-only). Next: the mixed model (C5 "then repeat"),
-  and a consolidation/referee checkpoint on the addition-model story is warranted
-  before it (A10 is *partial*, hard-won).
-- **2026-07-16** — After the SV-compounding study (C5 steps 2–4; Gate 2 PASS after
-  THREE rounds; [study note](study-maths/study-sv-compounding.md),
-  [CE14](maths-claim-evidence.md)): the core test of the agent's flagship A10.
-  **A10's fetch-to-combiner core is PARTIALLY confirmed** — carry-specific
-  (deciding-matched null = 0.00), ≥2-depth causal, consumer-head-specific
-  attention-edge delivery to the L1-MLP combiner, both models (attention delivers,
-  not the direct path). **But selection (A9/A10-b) is NOT shown** (tracking head H2
-  ≠ single-depth-edge-causal H1), it is **sufficiency not necessity** (H1 ablation
-  inert; H2 necessary+tracking → redundant pair), the direct path is **not excluded**
-  (underpowered), and value content is not head-specific. **A10 held at medium**
-  (core partially confirmed, selection unsupported); **A9 not supported**; **A6
-  economy supported at H2**; **A5** hybrid routing partial causal support. This took
-  **three** Gate-2 rounds on the flagship conjecture: round 1 over-claimed
-  "R-A10-selection at L1.H1" (a three-attribution smear — single-depth edge on H1,
-  tracking on H2, necessity on H2); round 2 over-corrected to "not carry-specific /
-  A10 not confirmed" on a **broken specificity null** (a "same-class null" that
-  actually re-toggled the deciding carry, so null=real=1.0 was the *expected*
-  signature of a carry-specific head); round 3 fixed the null to deciding-matched
-  (null = 0.00) → the calibrated middle. Durable method lessons: (1) a specificity
-  null MUST hold the tested variable fixed — re-toggling it proves nothing (reuse
-  the CE10/CE13 `same_class_diff_operand` convention); (2) edge SUFFICIENCY
-  (patching flips) ≠ NECESSITY (ablation) — report both, they can land on different
-  heads; (3) on one's own flagship conjecture, expect and pre-empt the smear of
-  distinct attributions (tracking/sufficiency/necessity) into one "selection cell".
-  This is the sixth consecutive study needing a Gate-2 correction — the gates are
-  doing essential work against a persistent first-draft optimism.
-- **2026-07-16** — After the node-output-encoding study (C5 step 1; Gate 2 PASS
-  after TWO rounds; [study note](study-maths/study-node-output-encoding.md),
-  [CE13](maths-claim-evidence.md); revises [CE3](maths-claim-evidence.md)): the
-  first study under the human C5 refocus (start from the HF verified node maps).
-  Map-named `ST`/`SC` nodes **encode** their class (paper tags confirmed); the `ST`
-  write **co-carries single-step local U-resolution** (cin-dependent on `U`) —
-  **A10 premise refined**, not supported, and NOT shown to be multi-digit
-  compounding. **CE3 refined to redundancy, baseline-controlled** (interchange
-  flips nothing, but low-digit ST-node ablation exceeds an untagged-head baseline —
-  the map's causal tags **vindicated**, a C5 win; high-digit redundant). Map-named
-  `SA` L0 heads do **not** write the answer digit except the leading one. A2
-  untouched; A3 weakly-against. **Two Gate-2 rounds** corrected over-reach in
-  **both** directions (first draft "ST write is local"; the fix over-swung to
-  "compounding begins at the ST write"; settled on "single-step U-resolution
-  co-located, not multi-digit compounding"). Method lessons: (1) a locality test
-  must use the case where the toggled variable *can* matter (U pair, not definite)
-  and report a ratio, not a slack-dominated threshold; (2) an ablation-impact claim
-  needs an untagged-head baseline; (3) distinguish a *single-step* cin dependence
-  (local resolution, definitionally expected on U) from *multi-digit* compounding
-  before scoring A10. This C5-anchored study is the counterweight to the earlier
-  paper-disconnected breadth studies — starting from the verified map made the
-  findings sharper and the conjecture scoring more mechanical.
-- **2026-07-16** — After the answer-position binding study (Gate 2 PASS WITH
-  CONDITIONS; [study note](study-maths/study-answer-binding.md),
-  [CE12](maths-claim-evidence.md)): the CE11 follow-up. **Answer phase is a split
-  layout**: `SA` (sum) is a just-in-time **register** (absent at `=`) — **A4
-  just-in-time fetch supported, raised to medium-high**; `SV` (carry) is
-  resolved/present at `=` (CE7-consistent) but its per-digit slots are **not
-  orthogonal** — **A4's orthogonal-tape alternative refuted**; both `SA`/`SV`
-  **transfer across answer positions** (shared answer-side template), unlike the
-  question-side `ST` (CE11), so A4's template claim is
-  **position-of-computation-dependent**. **C2/A8 non-orthogonality reinforced** (SV
-  slots not orthogonal, 6-digit entangled-below-null with a 1-D caveat). **A6/C3
-  untouched** (AB-3 gate: SV presence at `=` is resolution, not shown stored; no
-  causal test). Gate 2 caught an over-reach (a "coexistent carry bus beyond
-  re-derivation" claim resting on a too-weak isolated-operand baseline — SV depends
-  on all lower digits) and I reframed it CE7-consistent. Method lesson: a
-  binding/coexistence baseline must include *all* the label's causal determinants,
-  not just the same-index operands. Both models agree on the split. Next: the
-  effective-dimensionality breadth study (entry 1 now); a causal "is the `=` carry
-  used?" test is backlog.
-- **2026-07-16** — After the cross-position/cross-subtask probe-transfer study
-  (Gate 2 PASS WITH CONDITIONS; [study note](study-maths/study-probe-transfer.md),
-  [CE11](maths-claim-evidence.md)): a breadth study (cascade line paused for
-  breadth). **New structural fact for `ST`**: at question positions the tri-state
-  carry is **position-specific** (an `ST` probe does not transfer across digits;
-  mean-centering doesn't restore it) — **A4's transfer-for-free and C2's
-  shared-template halves falsified for `ST`** — and `ST`/`SV` are **geometrically
-  entangled** beyond their (independent) labels — **C2 orthogonality + A8
-  interference challenged**. **A4 template-sharing lowered to low-medium**; **A8
-  interference half lowered**; **C2 lowered for the ST question-position case**
-  (human-owned, noted). Scope: `ST`-only (SA/SV diag-weak at the question site; SA
-  lives at the answer position, confirming CE2/CE3); linear probes; both models
-  agree — a rare clean cross-model replication. Gate 2 narrowed an initial
-  over-reach (first draft claimed *all* sub-tasks position-specific + leaned on the
-  trivial "position decodes at 1.00"; corrected to ST-scoped, mechanism = the
-  centering-fails discriminator). The sharp follow-up is the **answer-phase** binding
-  (B4, tape-vs-register) — promoted. Method lesson: a "no transfer" verdict is only
-  valid where the diagonal probe passes; and a positional-embedding truism
-  (position decodes perfectly) must not be dressed as a mechanism.
-- **2026-07-16** — After the deep-cascade hand-off edge path-patch (Gate 2 PASS
-  WITH CONDITIONS after one BLOCK; [study note](study-maths/study-cascade-handoff-edge-patch.md),
-  [CE10](maths-claim-evidence.md)): the edge path-patch gives a **one-depth causal
-  crumb** — `L1.H1` (the CE8 cell CE9 found inert) causally drives the combiner at
-  6-digit k=3 with a computed, deciding-selective carry through the MLP. But the
-  single-position edge instrument is underpowered at most cells (LN renormalization
-  damps single-head edges), no head clears the ≥2-depth bar, and 5-digit has a live
-  direct residual path. **A9 held at low-medium** (first causal crumb, not
-  confirmed); **A6 held (not refuted)**; **A5 noted** (`L1.H1` causal at k=3, not
-  raised). Gate 2 round 1 BLOCKed an **inverted power control** (scaled the direct
-  path UP ~20×, over-claiming "A9 confirmed / A6 refuted / direct-path inert 0/9");
-  corrected (scale DOWN to per-cell head-edge norm) → 6/9 cells underpowered. This
-  is the **third** skeptic catch in the cascade line (CE9 ×2 + this), twice
-  positive-direction. Durable method lessons: (1) a power/underpower control must be
-  built at the *effect's own magnitude* and its scaling *direction verified*; (2) LN
-  renormalization makes single-head edge patches systematically underpowered — a
-  hand-off question needs a less-damped / multi-position edge instrument.
-- **2026-07-16** — After the deep-cascade mechanism study (Gate 2 PASS after two
-  BLOCK rounds; [study note](study-maths/study-deep-cascade-mechanism.md),
-  [CE9](maths-claim-evidence.md)): the deep `...999` fork — the thread's #1 — was
-  tested and found **not resolvable at node/attention-pattern granularity**.
-  **A9 held at low-medium** (its predicted single-cell tracking+causation
-  convergence is absent: causal-selective `L1.H0` and tracking `L1.H2` are
-  different heads; CE8 `L1.H1` causally inert); **A6's sequential-accumulated deep
-  form weakly disfavored** (no intermediate-digit identity where testable) but not
-  refuted; **A5's CE8 routing cell stays representational** (causally inert under
-  single-head redirect — the round-2 "load-bearing" over-claim withdrawn); **C3's
-  physical-cascade clause weakly disfavored where testable** (human-owned, noted).
-  Two skeptic rounds were decisive and instructive: round 1 caught a
-  **negative over-reach** (unearned refutations resting on an uncontrolled
-  intermediate-locus, an unimplemented tracking metric, and no selectivity
-  baseline); round 2 caught the symmetric **positive over-reach** (A9 "confirmed"
-  assembled from a value-matched metric asserted-but-not-coded, a units-end
-  boundary-artifact tracking gap, and three signatures pulled from three different
-  cells). Method lessons: (1) a null result needs a positive control *on the same
-  locus/unit* or it is `invalid`, not `negative`; (2) a metric named in a docstring
-  must be the metric in the code (integrity trap); (3) require a mechanism's
-  predicted signatures to converge on the *same* cell before scoring the
-  mechanism; (4) single-head uniform pattern-redirect is too blunt — the
-  selection→combiner hand-off needs an **edge path-patch** (B11, now the promoted
-  confirming test). No conjecture confidence raised on this study — the honest
-  outcome is an instrument limit, and the fork stays open.
-- **2026-07-15** — After the human's C4 reflections (all nine studies gated;
-  no new empirical result — a conjecture-level update triggered by human
-  review, with the human's answers to three clarifying questions recorded).
-  C4 makes two points this file accepts: the `U` evidence base (CE4–CE7) is
-  single-digit-`U`, middle-answer-digit only, so the CE5 combiner is not shown
-  to be "the whole `U` mechanism"; and the leading answer digit forces full
-  cascade resolution at or before the answer-sign position (mixed-model sign:
-  at or before `=`) — a locus no study probed. Changes: **A6** support
-  explicitly scoped to single-digit `U`, deep-chain mechanism reopened as the
-  top fork; **A9 added** — deep cascades resolved by one-hop attention
-  selection of the deciding digit (agent lean), against the human's recorded
-  sequential-cascade lean; **A2** confidence updated in place (CE5 U-combine
-  support; discretization target revised to binary carry per CE6/CE7);
-  **A3/A5** annotated (leading-digit motivation for B12; CE8 routing cells as
-  candidate A9 machinery); overall-picture stages 2/4 annotated; sharpest
-  forks reranked (deep-cascade mechanism now #1). Note: C4 was written before
-  studies #8–#9 landed; CE8's carry-state routing in fact supplies candidate
-  machinery for the very cascade C4 found missing — convergent pressure
-  toward the same fork from human reflection and agent data.
-- **2026-07-15** — After the human's C5 reflections (studies #10–#13 gated; a
-  conjecture-level update triggered by human review, plus a direct read of the
-  paper's per-model verified maps — `behaviors.json`/`features.json` from
-  `PhilipQuirke/VerifiedArithmetic` — for both studied models). **C5 accepted
-  with a self-correction**: the thread spent much of studies #2–#13
-  re-locating nodes the maps already name, and the last four studies
-  (CE9–CE12) rediscovered the SP-tagged answer-position L1 wiring the maps
-  record outright; worse, CE3's dismissal of the paper's question-position ST
-  candidates used a no-lower-carry stimulus that removes exactly the regime
-  where ST matters, while the maps show those nodes failing 14–23% of random
-  questions with multi-digit Impact — that dismissal is flagged suspect and
-  must be re-examined in a gated study before it is relied on again (CE docs
-  untouched pending that study; conjecture-level flag only). Changes: **A10
-  added** (map-anchored SV mechanism: question-tail/sign L0 ST nodes →
-  SP-tagged answer-position L1 heads attending `=`+ST sites → L1-MLP combine;
-  A6/A9 recast as its variants a/b/c); **A9 sharpened** to
-  selection-within-the-fetched-ST-cluster; **C5 relation bullet added**
-  (anchor-not-ceiling caveat: interchange fills map gaps, e.g. the unlisted
-  5-digit A2.SC role at `P14L0H0`); **overall picture annotated** (the maps
-  name stages 2–5's physical instantiation; the open work is the content and
-  combination rule on named wires); **sharpest forks reworked** to the C5
-  five-step program; **agenda reworked** accordingly (effective-dim/SAE
-  breadth entry demoted to backlog — not on the C5 critical path). Method
-  lesson recorded: consult the project's own verified artifacts before
-  designing de-novo assays; re-verification is a by-product, not a goal.
-- **2026-07-16** — After the human's over-caution feedback and the ~40-hour
-  paper-revision deadline (also back-filling this log for CE13–CE15, whose
-  updates had landed only in A10's confidence trail). **Mode shift adopted as
-  the new [Working axioms](#working-axioms)**: (1) a working SV implementation
-  exists (behaviorally entailed) — experiments are attribution/estimation,
-  never existence tests; (2) redundancy is the norm — single-node necessity
-  failures are expected, the standard is sufficiency + specificity +
-  replication with class-level necessity; (3) the map is trusted wiring; plus
-  the aggregation corollary. Under these axioms the CE13+CE14+CE15
-  convergence (two models, ≥ 2 depths, every answer digit including the sign
-  position, carry-specific with matched nulls) justifies **raising A10's core
-  wiring to medium-high** — the per-study "hold at medium" verdicts were each
-  single-study-scoped; cross-study aggregation is evidence the individual
-  gates could not use. **A9 parked** (variant detail; two attempts failed to
-  show selection; the sprint's source decode may settle it as a by-product).
-  Sharpest forks rewritten to A10's four implementation gaps; agenda rebuilt
-  as the 40-hour sprint (entry 1 = edge message / source / path shares /
-  necessity; entry 2 = paper hand-off consolidation merged with the referee
-  checkpoint; mixed-model deferred past the deadline). One point of retained
-  pushback, recorded for honesty: the skeptic gates caught real errors in
-  *both* directions (CE14's three rounds included a broken null that would
-  have shipped a false negative), so the sprint *compresses* gating (one
-  combined pass per study, proposed to the human) rather than dropping it —
-  the over-caution was in the framing (existence tests; refusing cross-study
-  aggregation), not in having adversarial review.
-- **2026-07-16** — After the SV-implementation sprint (CE16; combined gate
-  PASS-WITH-CORRECTIONS; the working thread applied the A10 annotations —
-  this entry back-fills the log and adds the synthesis). CE16 settles A10
-  items i–iii: **canonical format-invariant carry** on the head→combiner
-  edge (deciding position decodable as a non-causal co-rider); source = the
-  **question-tail ST cluster, distributed, never `=`**; the **head pair is
-  the effective and class-necessary carrier** (skip carries ≈200×-smaller
-  carry; power-matched injection at that magnitude moves nothing). Human-lean
-  scoring, honest in both directions: the "`=` as carry depot *read as a
-  value source*" reading is **causally refuted** (CE12's SV-at-`=` was
-  presence-not-use), which damages the paper's "resolved at `=`" delivery
-  story — but the new **A11** (added now) partially revives the sequential
-  lean: the causal mask plus the map's tail ST placements force each later
-  site to see one more digit pair, so compounding plausibly proceeds
-  **sequentially across L0 tail positions** (CE13's single-step
-  co-resolution = horizon-1), with L1 fetching the most-resolved relay. A9
-  stays retired at the L1-selection level; A11's falsifier would partially
-  revive its spirit at L1. Forks rewritten (compounding locus #1; combiner
-  transfer #2, redesigned on-manifold so the Battery-F dead-instrument
-  failure cannot recur). Agenda: completed sprint entry deleted; new entry 1
-  = compounding-arithmetic + combiner-transfer study (both batteries reuse
-  CE16/CE13 artifacts); paper hand-off held at entry 2 per the human's defer,
-  trigger no later than ~T-12h.
-- **2026-07-16** — After the compounding-arithmetic study (CE17; combined gate
-  PASS-WITH-CORRECTIONS; A11/A10-iv/fork annotations applied by the working
-  thread — this entry adds the log record and the human's new input). CE17's
-  verdict is **R-mixed**: the combiner is a **step** (α*≈0.75, both models —
-  A10 iv resolved, all four implementation items now closed); A11's horizon
-  relay shows a single-cell, unreplicated representational trace and is
-  **causally undetermined** (relay interchange 0.00 everywhere, but the
-  control validates a different unit, so redundancy vs weak-instrument cannot
-  be split — the CE16-F1 trap, correctly not over-read); the consumer edge
-  output is local-class-sufficient (with a stated ceiling caveat). **A11 →
-  low; A9 stays retired; the human's sequential lean is neither vindicated
-  nor refuted.** New human input recorded: **C6** (redundancy is small-model
-  slack; n=10+ forces a tighter algorithm) + the layer-generality directive
-  (phrase roles, not L0/L1). Adopted: axiom-2 size-scoped; **A12 added**
-  (cross-size role transfer + tightening — its sharpest implication is that
-  the compounding-locus fork, unresolvable under 6-digit redundancy, may be
-  resolvable at n=10/13); overall picture annotated layer-generally; forks
-  reranked (cross-size tightness is the new #1); agenda rebuilt (entry 1 =
-  cross-size SV validation + tightness census on d10/d13, absorbing backlog
-  B5's addition-side; paper hand-off trigger unchanged at ~T-12h).
-- **2026-07-16 (Mixed model)** — After the mixed-model SV replication (entry 2,
-  parallel thread; CE20 + CE21; combined sprint gate; studies
-  [study-mixed-sv-replication.md](study-maths/study-mixed-sv-replication.md),
-  [study-mixed-opr-sgn.md](study-maths/study-mixed-opr-sgn.md); plan
-  [study-mixed-plan.md](study-maths/study-mixed-plan.md)). The addition→mixed
-  generalization the paper needs. **A12 → confirmed onto a new axis** (3-layer/
-  4-head architecture + the borrow/neg-borrow task families, not just size): the
-  SV *representation* replicates on `ins1_mix_d6_l3_h4_t40K_s372001` across all
-  three classes — writers encode the tri-state (ST/MT/NT ~1.00 vs untrained
-  ~chance, CE13) and the resolved carry/borrow is a clean binary at the
-  last-layer combiner input (SV/MV/NV ~1.00, CE6/CE7). **A10 → confirmed at the
-  representation level, refined on delivery**: the resolved cascade reaches the
-  combiner carry/borrow-specifically (deciding-matched null 0.00), but the
-  *pathway is class-dependent* — ADD (the inserted addition circuit) delivers via
-  the **residual only** (last-layer attention inert), while SUB/NEG (learned
-  fresh) also deliver via **last-layer attention** (the 2-layer CE14 picture). So
-  the extra layer relocates ADD's delivery earlier — a layer-general refinement
-  of "attention delivers", not a contradiction. **A10 extended to the sign
-  (CE15 analog)**: SGN is the top-of-cascade `D≥D'` comparison delivered to the
-  `=` combiner (boundary flip 1.00; sign binary-decodable 1.00 at `=`; sign edge
-  flip 1.00, deciding null 0.00). **C5 → confirmed on a new model** (map ST/MT/NT
-  writers, SLT selector, L2 combiner MLPs all borne out). **A7 and C2 both take
-  damage (hybrid verdict)**: the operator is broadcast-decodable everywhere (A7's
-  low-D-signal-available-broadly half, FOR) but is **not an additive rank-1
-  control at the combiner** (a norm-20.6 add−sub steer flips 0.00 — consumed
-  upstream at the SLT selector, AGAINST A7's steer-the-readout form); and on the
-  shared SA/MD/ND heads the per-operation readouts are **more separated than a
-  random-init control for ADD-vs-subtraction** (68–71° vs 46–50°; C2-leaning) yet
-  **overlapping for SUB-vs-NEG** (48°≈46°; A7-leaning). Net: shared heads
-  (structural A7) with operation-specific readout rotations — strong A7 (heavy
-  overlap / rank-1 steer) and strong C2 (near-orthogonal) both refuted; A7/C2
-  held at **medium, hybrid**. Library: added `neg_labels`, `neg_ntc_functions`
-  (NTC), `NT`/`NTC` tags, class-aware `_combiner_is_causal` (all tested). Gate
-  caught two errors, both corrected before scoring: a label-alignment bug in the
-  M4 operator decode (0.49→1.00) and the temptation to read `full_resid`/
-  zero-ablation as trained-structure evidence (the deciding-matched null and the
-  A/C-vs-untrained separation carry it instead). Open (post-deadline): an
-  SLT-sited operator steer (proper A7 test), a ≥2-depth delivery sweep on the
-  subtraction classes, and the d3 writer-locus pin.
-- **2026-07-16 (Mixed model)** — After the mixed SV-implementation batteries
-  (entry 2a; [CE22](maths-claim-evidence.md);
-  [study-mixed-sv-implementation.md](study-maths/study-mixed-sv-implementation.md))
-  and the SLT-sited shared-engine test (entry 2b; [CE23](maths-claim-evidence.md);
-  [study-mixed-shared-engine.md](study-maths/study-mixed-shared-engine.md)). These
-  complete entry 2's "Done when". **A10 iv/i/ii confirmed on the mixed model,
-  all three classes**: the combiner is a **STEP** (on-manifold α-sweep, α*≈0.5,
-  endpoints gated — CE17 generalizes to 3 layers + borrow/neg), the delivered
-  carry/borrow is a **canonical format-invariant** code (cross-digit probe
-  transfer 1.00), and **`=` is not the middle-digit value source** (`=`-patch
-  flip 0 vs combiner-input control 1). So the SV *mechanism* (not just the CE20
-  representation) ports to the mixed model. **A12 strengthened** (implementation
-  signatures transfer, not only representation). **A6 not scored** on mixed —
-  class-necessity is redundancy-blurred (ADD/SUB writer-class ablation == a
-  truly-untagged baseline, both harmless; NEG signal confounded by cascade-stimulus
-  triviality); consistent with the CE18 "redundancy is intrinsic" reading. **A7's
-  low-rank / function-vector control form is now REFUTED** (2b): a rank-1 operator
-  steer flips the add/sub readout 0% at **both** the combiner (CE21) and the
-  selector (CE23), and the single SLT head does not select; yet the full
-  `resid_post(L1)` patch flips to the correct ADD digit 0.96 (the L2 combiner is
-  shared). So the engine is **shared at the combiner** but the operation selection
-  is a **distributed, high-dimensional L1 transformation**, not a compact control
-  — with M6 (ADD readout more separated than a random-init control) this **leans
-  C2 on the selection mechanism** while retaining a shared combiner. Net:
-  **A7 → low on the control mechanism (hybrid); C2 → partially up on selection;
-  A10 iv/i/ii + A12 → confirmed/strengthened on mixed; A6 untouched.** Skeptic
-  caught a first-run invalid necessity baseline (untagged set hit tagged
-  non-writer heads; full-accuracy conflated the sign) → refixed to a truly-untagged
-  baseline + digit-only accuracy, still redundancy-blurred → reported not-scored.
-  Scope caveat: rank-1 additive only (a learned rank-r operator subspace is
-  untested — the residual A7 escape hatch); single model/seed, k=2.
-- **2026-07-16 (Mixed model)** — After the ≥2-depth delivery sweep (entry 2(i);
-  [CE25](maths-claim-evidence.md);
-  [study-mixed-delivery-depth.md](study-maths/study-mixed-delivery-depth.md)).
-  **A10 delivery confirmed at depth on the mixed model**: CE20's class-dependent
-  delivery pathway holds across cascade depths 2/3/4 (not just single-step k=1) —
-  ADD delivers the resolved carry via the residual only (last-layer attention flip
-  0.00 at every depth), SUB/NEG deliver via residual + last-layer attention (1.00
-  at every depth), all deciding-matched nulls 0.00, untrained control delivers
-  nothing. This clears the CE14 ≥2-depth bar on the mixed model and confirms the
-  class-dependent route is a genuine multi-digit-cascade property (a layer-general
-  refinement of "attention delivers": true for the freshly-learned subtraction
-  families; ADD, the inserted addition circuit, resolves early and rides the
-  residual). **A12** further supported (depth-general on the new architecture).
-  Skeptic caught a tautological negative control (first used the whole-vector
-  `resid_pre` arm, which spuriously "delivered" on the untrained model) → switched
-  the negative control to the discriminating `lastlayer_attn` arm. **Reusable
-  cross-model sweep promoted** to `quanta_maths/maths_cascade.py`
-  (`make_cascade_operands`, `combiner_delivery_flip`, `combiner_delivery_sweep`) +
-  tests, per the human's directive that this be run across the zoo (delivery may
-  differ by model). Scope: single mixed model/seed; depths 2–4; whole-last-layer
-  attention patch (not per-head).
+Per-study belief-update history is empirical/process content and is not kept here
+(it duplicated the ledger and drifted this conjecture doc into a "we observed"
+record). The chronological trail lives in the
+[results ledger](maths-results-by-time.md) and the per-study notes under
+`study-maths/`; durable claims and their evidence live in the
+[claim-evidence map](maths-claim-evidence.md). Each conjecture above carries its
+current confidence with CE backlinks; update those (post-gate) rather than
+re-adding a chronological log here.

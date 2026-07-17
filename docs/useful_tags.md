@@ -78,8 +78,8 @@ Model-level scalars ride as a numeric `=NN` suffix. Currently registered:
 Run across the model zoo via `python -m quanta_maths.maths_hf_update` (dry-run
 default; `--execute` to upload). Techniques are idempotent and gated by
 `applies_to(cfg)` (operation/size). Adding a technique: see the
-technique-authoring contract in
-[maths-code-migration-plan.md](maths-code-migration-plan.md).
+technique-authoring contract in the `quanta_maths/maths_hf_update.py` module
+docstring and the `Technique` dataclass.
 
 **Consistency invariant (all add/sub/mixed techniques).** Two JSON files are kept
 separate and saved with a major-tag filter: `features.json` keeps only `Algo:*`

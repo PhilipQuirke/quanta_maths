@@ -12,8 +12,10 @@ import unittest
 from quanta_maths.maths_config import MathsConfig
 from quanta_maths.maths_diagram import (
     _summarize_locs, _pos_ranges, _shared_overlaps, _san, _op_classes,
-    token_layout_md, node_inventory_md,
+    token_layout_md, node_inventory_md, algo_task, build_model_map,
+    _registry_from_map,
     logical_mechanism_mermaid, implementation_mermaid, build_mechanism_markdown,
+    build_mechanism_markdown_for_model,
 )
 
 RUN_HF = os.environ.get("RUN_HF_TESTS") == "1"
@@ -74,6 +76,96 @@ class TestHelpers(unittest.TestCase):
     def test_op_classes(self):
         self.assertEqual(_op_classes(SYNTH_REGISTRY), ["ADD", "SUB", "NEG"])
 
+    def test_algo_task(self):
+        self.assertEqual(algo_task("A5.SA"), "SA")
+        self.assertEqual(algo_task("D4.GT"), "GT")
+        self.assertEqual(algo_task("A0.STC"), "STC")
+        self.assertEqual(algo_task("OPR"), "OPR")
+        self.assertEqual(algo_task("SGN"), "SGN")
+        # regression: three-part tag must resolve to the task, not the trailing
+        # position parameter (old split('.')[-1] returned 'A5').
+        self.assertEqual(algo_task("A5.ND.A5"), "ND")
+
+
+# maths.json / behavior.json fixtures (no HF) exercising build_model_map,
+# including the three-part-tag regression (A5.ND.A5 -> ND, not a bogus 'A5').
+FIX_MATHS = [
+    {"position": 6, "layer": 0, "is_head": True, "num": 0, "tags": ["Algo:OPR"]},
+    {"position": 15, "layer": 0, "is_head": True, "num": 2,
+     "tags": ["Algo:A5.SA", "Algo:A5.MD", "Algo:A5.ND.A5"]},
+    {"position": 16, "layer": 0, "is_head": True, "num": 1,
+     "tags": ["Algo:A4.SA", "Algo:A4.ND"]},
+    {"position": 9, "layer": 0, "is_head": True, "num": 1, "tags": ["Algo:A4.ST"]},
+]
+FIX_BEHAV = [
+    {"position": 15, "layer": 0, "is_head": True, "num": 2,
+     "tags": ["Fail%:57", "Impact:A5", "Attn:P0=49"]},
+    {"position": 16, "layer": 0, "is_head": True, "num": 1,
+     "tags": ["Fail%:50", "Impact:A4"]},
+    {"position": 15, "layer": 2, "is_head": False, "num": 0,
+     "tags": ["Fail%:0", "Impact:A5"]},   # combiner (last layer, answer pos)
+    {"position": 20, "layer": 2, "is_head": False, "num": 0,
+     "tags": ["Fail%:1", "Impact:A0"]},   # combiner
+]
+
+
+class TestBuildModelMap(unittest.TestCase):
+    def setUp(self):
+        self.cfg = MathsConfig()
+        self.cfg.set_model_names(MIX6)
+        self.m = build_model_map(MIX6, self.cfg, FIX_MATHS, FIX_BEHAV)
+
+    def test_three_part_tag_regresses_to_task(self):
+        self.assertNotIn("A5", self.m["roles"])            # no bogus role
+        nd = {e["loc"] for e in self.m["roles"]["ND"]}
+        self.assertIn("P15L0H2", nd)                        # A5.ND.A5 -> ND@P15
+        self.assertIn("P16L0H1", nd)                        # A4.ND
+
+    def test_roles_and_behaviour_attached(self):
+        sa = {e["loc"] for e in self.m["roles"]["SA"]}
+        self.assertEqual(sa, {"P15L0H2", "P16L0H1"})
+        p15 = next(e for e in self.m["roles"]["SA"] if e["loc"] == "P15L0H2")
+        self.assertEqual(p15["fail"], ["Fail%:57"])
+        self.assertEqual(p15["impact"], ["Impact:A5"])
+        self.assertEqual(p15["attn"], ["Attn:P0=49"])
+
+    def test_combiners_detected(self):
+        self.assertEqual({c["loc"] for c in self.m["combiners"]},
+                         {"P15L2M0", "P20L2M0"})
+        self.assertTrue(all(isinstance(c["produces_A"], int)
+                            for c in self.m["combiners"]))
+
+    def test_schema_keys(self):
+        for k in ("model", "config", "n_map_nodes", "roles", "combiners",
+                  "positions"):
+            self.assertIn(k, self.m)
+        self.assertEqual(self.m["n_map_nodes"], len(FIX_MATHS))
+        self.assertEqual(self.m["positions"]["OPR"], "P6")
+        self.assertEqual(self.m["positions"]["last_layer"], 2)
+
+
+class TestBuildDocFromMap(unittest.TestCase):
+    """The doc generator consumes the map dict offline (no HF)."""
+    def setUp(self):
+        cfg = MathsConfig(); cfg.set_model_names(MIX6)
+        self.doc = build_mechanism_markdown(
+            build_model_map(MIX6, cfg, FIX_MATHS, FIX_BEHAV))
+
+    def test_two_wellformed_diagrams(self):
+        blocks = re.findall(r"```mermaid\n(.*?)```", self.doc, re.S)
+        self.assertEqual(len(blocks), 2)
+        for b in blocks:
+            self.assertEqual(mermaid_wellformed(b), [])
+
+    def test_inventory_uses_fixed_task(self):
+        self.assertIn("`ND`", self.doc)
+        self.assertNotIn("`A5`", self.doc)      # no bogus role leaks into doc
+        self.assertIn("glossary", self.doc)     # task-code meanings linked out
+
+    def test_requires_dict_not_name(self):
+        with self.assertRaises(TypeError):
+            build_mechanism_markdown(MIX6)
+
 
 class TestGeneratorsOffline(unittest.TestCase):
     def setUp(self):
@@ -118,7 +210,7 @@ class TestGeneratorsOffline(unittest.TestCase):
 @unittest.skipUnless(RUN_HF, "set RUN_HF_TESTS=1 to run HuggingFace integration tests")
 class TestBuildDocHF(unittest.TestCase):
     def test_build_mixed_doc(self):
-        doc = build_mechanism_markdown(MIX6)
+        doc = build_mechanism_markdown_for_model(MIX6)
         blocks = re.findall(r"```mermaid\n(.*?)```", doc, re.S)
         self.assertEqual(len(blocks), 2)
         for b in blocks:
