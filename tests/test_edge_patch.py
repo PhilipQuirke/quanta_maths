@@ -14,6 +14,7 @@ import torch
 from quanta_maths.maths_config import MathsConfig
 from quanta_maths.maths_edge_patch import (
     answer_positions, consuming_pos, ln_scale, head_ov,
+    head_group_ov, attention_mass_by_group,
     head_edge_delta, run_edge_patch, pattern_patch_prediction,
     synthetic_redirect_prediction,
 )
@@ -114,6 +115,35 @@ class TestEdgePatchHF(unittest.TestCase):
         pred = pattern_patch_prediction(self.model, self.cfg, tq, tq,
                                         layer=0, head=0, query_pos=cpos)
         self.assertTrue(torch.equal(pred, clean))
+
+    def test_head_group_ov_group_is_sum_and_matches_head_ov(self):
+        qs = torch.stack([self._make_q(12345 + i, 6789 + i) for i in range(6)])
+        cpos = consuming_pos(self.cfg, 2)
+        ll = self.cfg.n_layers - 1
+        heads = list(range(self.cfg.n_heads))
+        group, per_head = head_group_ov(self.model, self.cfg, qs, cpos, ll, heads)
+        self.assertEqual(group.shape, (6, self.model.cfg.d_model))
+        # group == sum over heads
+        summed = sum(per_head[h] for h in heads)
+        self.assertTrue(np.allclose(group, summed, atol=1e-4))
+        # per-head write matches the head_ov primitive on the cached z
+        zname = f"blocks.{ll}.attn.hook_z"
+        with torch.no_grad():
+            _, c = self.model.run_with_cache(qs, names_filter=lambda nm: nm == zname)
+        ov0 = head_ov(self.model, c[zname][0, cpos, 0, :], ll, 0).detach().numpy()
+        self.assertTrue(np.allclose(per_head[0][0], ov0, atol=1e-4))
+
+    def test_attention_mass_by_group_is_distribution(self):
+        qs = torch.stack([self._make_q(12345 + i, 6789 + i) for i in range(6)])
+        cpos = consuming_pos(self.cfg, 0)
+        # one group = every causal key before the query; group+self must ~cover mass
+        groups = {"before": list(range(cpos))}
+        out = attention_mass_by_group(self.model, self.cfg, qs, cpos, 0, 0, groups)
+        for v in out.values():
+            self.assertGreaterEqual(v, -1e-6)
+            self.assertLessEqual(v, 1.0 + 1e-6)
+        self.assertAlmostEqual(out["before"] + out["self"] + out["other"], 1.0, places=4)
+        self.assertLess(out["other"], 0.02)  # keys after query are causally ~0
 
 
 if __name__ == "__main__":

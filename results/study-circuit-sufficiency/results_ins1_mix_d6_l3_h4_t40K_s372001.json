@@ -1,0 +1,30 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "keep_heads": 72,
+  "keep_mlps": 26,
+  "total_heads": 264,
+  "total_mlps": 66,
+  "classes": {
+    "ADD": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.8933333333333333,
+      "keep_useful_resample": 0.5266666666666666,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    },
+    "SUB": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.48333333333333334,
+      "keep_useful_resample": 0.04666666666666667,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    },
+    "NEG": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.3566666666666667,
+      "keep_useful_resample": 0.04666666666666667,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    }
+  }
+}

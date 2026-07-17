@@ -1,0 +1,16 @@
+{
+  "model": "add_d5_l2_h3_t15K_s372001",
+  "keep_heads": 31,
+  "keep_mlps": 17,
+  "total_heads": 114,
+  "total_mlps": 38,
+  "classes": {
+    "ADD": {
+      "baseline": 1.0,
+      "keep_useful_mean": 0.9433333333333334,
+      "keep_useful_resample": 0.6233333333333333,
+      "keep_random_mean": 0.0,
+      "keep_random_resample": 0.0
+    }
+  }
+}

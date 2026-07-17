@@ -1256,3 +1256,191 @@ Confidence labels:
   check); T4 additivity is tested per-consumer but the enumeration assumes the
   measured per-site class means compose; G3 low-digit gaps not discriminated from
   irrelevance; figures deferred (numbers in `results.json`).
+
+<a id="ce29"></a>
+### CE29: Circuit sufficiency — the map-useful nodes are sufficient for ADDITION (keep-them / destroy-the-rest retains ~0.9 accuracy) but INCOMPLETE for the mixed model's SUBTRACTION (retention ~0.4); the useful set is specifically load-bearing (keep-random → 0)
+
+- **Confidence**: **Medium-high** — clean design (baseline 1.00; keep-random 0.00
+  control; mean-vs-resample bracket), two models. The sufficiency **complement** to
+  CE13–CE26's per-node necessity. Single seed per (model, class).
+- **What it establishes** (keep the published `behavior.json` useful nodes intact;
+  destroy the position-specific complement of heads+MLPs by mean- or
+  resample-ablation from same-class inputs):
+  - **Addition circuit is largely sufficient (mean-ablation bracket).**
+    `add_d5_l2_h3_t15K_s372001` (keep 48/152 nodes): **mean-ablation retention
+    0.94** (resample 0.62 — a harsher, residual-polluting lower bound; so
+    "sufficient" is bracketed ≈ [0.62, 0.94], not "carries all the computation"),
+    vs **keep-random 0.00 under BOTH mean and resample** (matched control) — the
+    useful set is specifically load-bearing. (ADD operands are drawn from
+    [0, 10^n/2) so no leading overflow — mean retention is range-robust, resample
+    is optimistic.)
+  - **On the mixed model, addition is again largely sufficient** (mean 0.89) but
+    **subtraction is NOT**: keep-useful mean-ablation retention **~0.5 (0.48–0.58
+    across seeds) for SUB / ~0.37 for NEG** (resample ~0.05), keep-random 0.00.
+    So the ablation-discovered map **misses load-bearing nodes for the subtraction
+    classes**.
+  - **The deficit is in the subtraction DIGIT/BORROW engine, NOT selection**
+    (skeptic-verified): under keep-useful the **sign token `SGN` is retained at
+    1.00 for ADD, SUB and NEG** (add/sub/neg selection is fully captured by the
+    map), while specific **answer-digit positions fail** (SUB drops at 10^5 → 0.71
+    and hundreds → 0.73; NEG at 10^5 → 0.53, hundreds → 0.66). So the missing
+    nodes serve the per-digit borrow computation, not operation selection — a
+    distinct locus from CE23 (which is about selection).
+  - The **mean-vs-resample gap** is **residual-stream pollution** (resampling
+    injects a random same-class input's signals into the shared stream the kept
+    circuit reads), not hidden computation in the complement — mean-ablation is
+    the cleaner sufficiency measure.
+- **What it does NOT establish**: which specific subtraction nodes are missing
+  (the entry-1 follow-up); whether a larger keep-set restores mixed SUB/NEG;
+  addition zoo + d8 mixed (not yet run). Single headline seed for the SUB/NEG
+  result (0.48–0.58 seed range).
+- **Relation to conjectures**: **C5 refined** — map nodes are load-bearing +
+  specific + **sufficient for addition**, but **incomplete for the mixed model's
+  subtraction DIGIT engine** (selection/sign is captured). **A10/A12** — the SV
+  circuit is sufficient for addition/mixed-ADD; the complete subtraction digit
+  engine exceeds the map. **A6/redundancy** corroborated (distributed redundant
+  subtraction digit nodes, individually low-`Fail%` hence map-omitted, are
+  collectively load-bearing). NOT a restatement of CE23 (selection): this is the
+  first end-to-end sufficiency measurement and it localizes the gap to the digit
+  engine with selection intact.
+- **Supporting evidence**: 2026-07-16 circuit-sufficiency study
+  ([study-circuit-sufficiency.md](study-maths/study-circuit-sufficiency.md),
+  `results/study-circuit-sufficiency/results_add_d5_l2_h3_t15K_s372001.json`,
+  `results_ins1_mix_d6_l3_h4_t40K_s372001.json`; `scripts/circuit_sufficiency.py`).
+  Resample-ablation of the position-specific complement + mean-ablation bracket +
+  keep-random control; baseline 1.00 positive control. **Separate-thread skeptic
+  gate: HOLD WITH CAVEATS** — reproduced both claims (2 seeds); verified masks are
+  genuine (layer-shift → 0.007, head-shift → 0.470, so a broken keep-mask cannot
+  score 0.94); added the matched keep-random-**mean** = 0.00 control; established
+  the sign-token/selection is retained (deficit is the digit engine); flagged the
+  ADD operand-range restriction and single-seed SUB precision (corrections folded
+  above).
+- **Caveats**: single seed per (model,class); keep-set = the ablation-discovered
+  map (its completeness is what's under test); resample pollutes the shared
+  residual (mean-ablation fairer); 2-layer add + 3-layer mixed, one seed each.
+
+### CE30: The subtraction nodes CE29's map misses are the LAST-LAYER (L2) attention heads at the answer-producing positions of the failing digits (P15→A5, P18→A2) — heads tagged useful *elsewhere* but UNDER-TAGGED at these positions; restoring a compact ~10-node set recovers mixed SUB/NEG, beats same-size random-augment, and targets exactly the failing digits, with sign/selection already intact
+
+- **Confidence**: **Medium** — SUB and NEG independently converge on the same
+  locus; the effect is large, specific (beats random-augment) and digit-targeted.
+  Tempered by: single headline seed, and NEG's recovery is mean-ablation-dependent
+  (resample weaker). Pins the CE29 gap to a concrete node set.
+- **What it establishes** (mixed d6 `ins1_mix_d6_l3_h4_t40K_s372001`; keep-set =
+  published map, 98 nodes; complement 232; **restore** complement groups/nodes into
+  the keep-set and measure recovery; mean-ablation from same-class inputs unless
+  noted; keep-all 1.00 / keep-map 0.48 SUB / 0.36 NEG bracket the recovery):
+  - **Localization (Phase 1).** Restoring only the complement's **layer-2
+    (last-layer) nodes** recovers SUB 0.48→**0.997** / NEG 0.36→**0.993**; restoring
+    only **answer-position** nodes → **1.00** both; restoring only **heads** → 1.00
+    both. Restoring **MLPs** (SUB 0.49 / NEG 0.36), **question-region** (0.52 /
+    0.35) or **entirely-untagged heads** (0.66 / 0.36) does **not** recover. So the
+    missing mass is **last-layer attention at answer positions**, not MLPs/earlier
+    layers/the question tail.
+  - **Disambiguation (skeptic-required).** Restoring **heads that ARE tagged useful
+    somewhere, at their *untagged* positions** recovers (SUB **1.00** / NEG 0.99);
+    restoring the **entirely-untagged** heads does not (SUB 0.66 / NEG 0.36). So the
+    map's gap is **under-tagged POSITIONS of already-known heads**, not a missing
+    head *type*.
+  - **Minimality + specificity (Phase 2).** Cumulative restoration of the top-k
+    reaches ≥0.94 by **k=5** (SUB +top5 0.94, +top20 1.00; NEG +top5 0.99, +top10
+    1.00), while a **same-size RANDOM-augment** of the map stays ≈0.5-0.6 (SUB) /
+    ≈0.36 (NEG) until k≥80 — the recovering nodes are **specific**, not a generic
+    "more nodes help" effect.
+  - **The nodes.** Top-ranked are dominated by **P15L2H{0-3} and P18L2H{0-3}**
+    (both classes), plus P16/P17/P19 L2 heads and a few L1/L0 nodes (P13L1M0,
+    P6L0H3, P13L0H2). **P15 and P18 are the produce-positions of A5 (10^5) and A2
+    (hundreds)** — exactly CE29's two failing digits.
+  - **Digit-targeting (Phase 3).** keep-map fails **A5** (SUB 0.71 / NEG 0.53) and
+    **A2** (0.73 / 0.66), all other digits + `SGN` ≥0.97; **+top40 restores every
+    digit to 1.00**. Restoration hits exactly the failing digits; the sign/selection
+    was already 1.00 (consistent with CE29).
+- **What it does NOT establish**: WHAT these heads compute (the borrow/digit
+  algorithm) — the next study. Single seed; d8 not run. **Resample caveat**: under
+  the harsher resample-ablation the top40 restores **SUB to 0.83** (method-robust)
+  but **NEG only to 0.46** — NEG's mean-recovery is partly modal-digit inflation, so
+  the **NEG identification is mean-ablation-dependent / more distributed** than SUB.
+- **Relation to conjectures**: pins CE29's incompleteness to a concrete locus — the
+  **last-layer answer-position attention heads that CE20/CE25 identified as the
+  SUB/NEG SV-delivery (residual+attention) route**. The ablation-built map
+  under-tags their *positions* because they are individually redundant (**A6**).
+  Refines **C5/A10/A12**: the map's subtraction gap = **under-tagged positions of
+  the last-layer borrow-delivery heads**, not a missing subsystem; selection/sign is
+  fully captured. Not CE23 (selection).
+- **Supporting evidence**: 2026-07-17 missing-sub-nodes study
+  ([study-missing-sub-nodes.md](study-maths/study-missing-sub-nodes.md),
+  `results/study-missing-sub-nodes/results_ins1_mix_d6_l3_h4_t40K_s372001.json`;
+  `scripts/find_missing_sub_nodes.py`). Phase-1 group restoration + Phase-2
+  cumulative top-k with matched **random-augment** control + Phase-3 per-digit +
+  mean/resample bracket. Group-aware by construction (per-node ablation misses these
+  redundant nodes; CE29 is their necessity complement).
+- **Caveats**: single seed (`make_batch` seed 0); mixed d6 only (d8 not run);
+  mean-ablation recovery can inflate via modal-digit defaults (random-augment +
+  per-digit + resample guard this; NEG resample weak); exact node ranking is
+  single-seed (the group-level localization is the robust part).
+
+### CE31: The CE30 map-missed subtraction heads are borrow-in DELIVERY heads — at the producing position they attend to the LOWER-digit operands (the borrow source), write the resolved borrow-in `SV[k]` (not the base difference), and the group causally delivers it to the combiner; individually redundant (why per-node ablation missed them)
+
+- **Confidence**: **Medium-high** — three independent readouts (attention / OV
+  encode / causal interchange) converge on the same answer, for both failing digits
+  (A5, A2) × both classes (SUB, NEG), 3 seeds (OV `SV`-decode 1.00±0.00), with clean
+  permutation + deciding-matched nulls and an untrained control that fails the
+  causal test. Tempered by: the causal test uses one (deterministic) cascade
+  stimulus per cell (the CE25 harness), the OV probe has a format floor, and d6 only.
+  This is the mechanistic content of CE30.
+- **What it establishes** (mixed d6; last-layer `L2`; producing positions
+  `P15`=produce-pos(A5), `P18`=produce-pos(A2); heads H0-H3; class-correct
+  `sub_labels`/`neg_labels`; the discriminator is that borrow-in `SV[k]` is a
+  function of the **lower** digits only whereas base-diff `SA[k]`/tri-state `ST[k]`
+  depend on digit k's **own** operands):
+  - **READ (attention).** At the producing position the heads attend to the
+    **lower-digit operands** (the borrow source; H0-H2 mass ≈0.08-0.52) and the
+    `=`/`SGN` staging region, with **near-zero mass on their own digit's operands**
+    (≈0.005-0.045, 3-seed stable). Labor split: H0 is the strongest lower-operand
+    reader, H1 reads mostly `=`/`SGN`, H3 reads only `=`/`SGN`+self (not a borrow
+    reader).
+  - **WRITE (OV encode).** The head-group OV write `z @ W_O` at the producing
+    position **decodes the borrow-in `SV[k]` at 1.00±0.00** (3 seeds, every cell),
+    far above the **base difference `SA[k]` (0.68-0.78)** and the final digit `A_k`
+    (0.52-0.81). Per-head H0/H1/H2 decode `SV`=1.00 with **low `SA` (0.11-0.5)** —
+    they write the borrow, not the difference; H3 is weaker (`SV` 0.61-0.84).
+  - **CARRY (causal).** Interchange-patching the last-layer heads' OV at the
+    producing position on a depth-k `U` cascade (borrow-in toggled) flips `A_k` at
+    **group rate 1.00 with deciding-matched null 0.00** in all four cells; **per-head
+    ≈0.00** (redundant; only NEG-A5 H0=1.00) — exactly why per-node ablation
+    (the map builder) under-tagged them (A6 redundancy).
+  - **MAP cross-check.** The published map tags `L2H0` at P13/P16/P17/P19 (roles
+    `OPR`/`SGN`) but **not at P15/P18** — the *same head*, under-tagged at the
+    producing positions *and* with an unrecognized (borrow-delivery) role. Confirms
+    CE30's "tagged-elsewhere heads, under-tagged positions".
+  - **Controls.** Untrained twin: OV `SV`-decode 0.76 (a format floor, not learned
+    structure) but **causal flip 0.00** (fails) — so the delivery is learned and the
+    causal test is the decisive, control-clean evidence; permutation null (probe)
+    and deciding-matched null (causal) both pass.
+- **Mechanism (assembled).** At produce-pos(k), heads H0-H2 attend back to the
+  lower-digit operands (borrow source) + the `=`/`SGN` staging area and write the
+  **resolved borrow-in** into the residual, where the already-mapped last-layer
+  combiner MLP (`MTC`/`NTC`) integrates it with the base difference to emit `A_k`.
+  The delivery is carried redundantly across H0-H2, so per-node ablation missed it
+  at the high (most-redundant) digits — this is the concrete "subtraction digit
+  engine" gap CE29/CE30 measured. H3 is not a borrow deliverer (labor split).
+- **What it does NOT establish**: how the borrow-in is *computed/resolved* upstream
+  (this pins the last-layer DELIVERY, not the L0/L1 resolution); d8 (deferred —
+  needs d8 missing-node ID first); the exact role of H3 / the `=`/`SGN` staging.
+- **Relation to conjectures**: the mechanistic resolution of **CE30**; corroborates
+  **A6** (redundancy is why the map omitted them) and refines **A10/A12** — CE25's
+  "SUB/NEG deliver via last-layer attention" is now resolved to **`SV`-borrow-in
+  delivery with a per-head labor split**. **Addresses the CE30 NEG-resample caveat**:
+  NEG's delivery is just as clean as SUB's (`SV`=1.00, flip=1.00), so the weak
+  NEG-resample was a mean/modal-digit artifact, not a different mechanism.
+- **Supporting evidence**: 2026-07-17 missing-sub-mechanism study
+  ([study-missing-sub-mechanism.md](study-maths/study-missing-sub-mechanism.md),
+  `results/study-missing-sub-mechanism/results_ins1_mix_d6_l3_h4_t40K_s372001.json`
+  + `multiseed.json`; `scripts/missing_sub_mechanism.py`). READ attention profile +
+  WRITE OV-encode probe (`head_ov` + permutation-null probe) + CARRY interchange
+  (`make_cascade_operands` + `combiner_delivery_flip` group / per-head OV patch) +
+  untrained control + map cross-check.
+- **Caveats**: one (deterministic) cascade stimulus per (class,digit) in the causal
+  test (CE25 harness); OV probe has a ~0.76 format floor on the untrained twin (so
+  the causal flip, not the probe, is decisive); `SV`/`SA`/`ST` correlated (the READ
+  own-vs-lower profile is the independent cross-check); d6 only; H3's role
+  unresolved (attends `=`/`SGN`, not the borrow).

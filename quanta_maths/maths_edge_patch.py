@@ -65,6 +65,64 @@ def head_ov(model, z_row: torch.Tensor, layer: int, head: int) -> torch.Tensor:
     return z_row @ model.blocks[layer].attn.W_O[head]
 
 
+def head_group_ov(model, cfg, questions: torch.Tensor, cpos: int, layer: int,
+                  heads: Sequence[int], chunk: int = 64):
+    """Per-question OV writes (``z @ W_O``) at position ``cpos`` for a set of heads.
+
+    Returns ``(group, per_head)`` where ``group`` is ``[n, d_model]`` (the sum of the
+    heads' OV writes) and ``per_head[h]`` is ``[n, d_model]``, as numpy arrays. This
+    is the "what does a head-group write into the residual at this position" feature
+    collector (probe it for the quantity a consumer head delivers). Model-general,
+    layer-parameterized; batched. ``questions`` is ``[n, n_ctx]``.
+    """
+    zname = f"blocks.{layer}.attn.hook_z"
+    group_parts, head_parts = [], {h: [] for h in heads}
+    for s in range(0, questions.shape[0], chunk):
+        with torch.no_grad():
+            _, c = model.run_with_cache(questions[s:s + chunk],
+                                        names_filter=lambda nm: nm == zname)
+        z = c[zname][:, cpos]  # [b, head, d_head]
+        g = None
+        for h in heads:
+            ov = z[:, h] @ model.blocks[layer].attn.W_O[h]  # [b, d_model]
+            head_parts[h].append(ov.detach().cpu().numpy())
+            g = ov if g is None else g + ov
+        group_parts.append(g.detach().cpu().numpy())
+    group = np.concatenate(group_parts, 0)
+    per_head = {h: np.concatenate(head_parts[h], 0) for h in heads}
+    return group, per_head
+
+
+def attention_mass_by_group(model, cfg, questions: torch.Tensor, query_pos: int,
+                            layer: int, head: int, key_groups: dict,
+                            chunk: int = 64) -> dict:
+    """Mean attention mass from ``(layer, head, query_pos)`` onto named key-position
+    groups, averaged over a batch of ``questions`` ``[n, n_ctx]``.
+
+    ``key_groups`` maps ``name -> [key positions]`` (should be disjoint and exclude
+    ``query_pos``). Returns ``{name: mean_mass, 'self': mass_on_query_pos,
+    'other': remainder}`` (a distribution summing to ~1). Use to decide WHAT a
+    consumer head reads (e.g. own-operands vs lower-operands = the borrow source).
+    Model-general, layer-parameterized; batched.
+    """
+    name = f"blocks.{layer}.attn.hook_pattern"
+    n = questions.shape[0]
+    tot = {g: 0.0 for g in key_groups}
+    tot["self"] = 0.0
+    for s in range(0, n, chunk):
+        with torch.no_grad():
+            _, c = model.run_with_cache(questions[s:s + chunk],
+                                        names_filter=lambda nm: nm == name)
+        rows = c[name][:, head, query_pos, :]  # [b, key]
+        tot["self"] += float(rows[:, query_pos].sum())
+        for g, ps in key_groups.items():
+            if ps:
+                tot[g] += float(rows[:, list(ps)].sum())
+    out = {g: tot[g] / n for g in tot}
+    out["other"] = max(0.0, 1.0 - sum(out.values()))
+    return out
+
+
 # ===========================================================================
 # Head -> resid edge delta + patch (raw / LN-fair / MLP-only arms)
 # ===========================================================================

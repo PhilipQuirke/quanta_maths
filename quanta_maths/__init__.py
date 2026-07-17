@@ -30,6 +30,7 @@ from quanta_maths.maths_probe import (sub_labels, neg_labels, TASK_CHANCE, ALL_S
     dft_permutation_pvalues)
 
 from quanta_maths.maths_edge_patch import (answer_positions, consuming_pos, ln_scale, head_ov,
+    head_group_ov, attention_mass_by_group,
     head_edge_delta, direct_path_delta, run_edge_patch, run_multi_head_edge_patch,
     pattern_patch_prediction, synthetic_redirect_prediction,
     mean_ablate_heads_prediction, flip_rate_with_matched_null)
@@ -55,3 +56,6 @@ from quanta_maths.maths_diagram import (capture_role_registry, token_layout_md,
     node_inventory_md, logical_mechanism_mermaid, implementation_mermaid,
     build_mechanism_markdown, build_mechanism_markdown_for_model,
     build_model_map, capture_model_map, algo_task)
+
+from quanta_maths.maths_sufficiency import (load_keep_set, masks_from_set,
+    random_keep_set, ablate_accuracy, baseline_accuracy, circuit_sufficiency)

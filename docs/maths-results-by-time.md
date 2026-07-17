@@ -829,3 +829,65 @@ live — not the current best story (that goes in
   tagging work on large/redundant models across the zoo. Unblocks the d8
   writer-necessity / SLT shared-engine / mechanism-diagram follow-ups.
 - Artifacts: `scripts/run_d8_map.py`, `results/hf-update/ins1_mix_d8_l3_h4_t70K_s572091/`.
+
+### 2026-07-17 — Circuit sufficiency + localizing the subtraction gap (CE29 + CE30)
+
+- **CE29 (circuit sufficiency).** Keep only the published map-useful nodes, destroy
+  the position-specific complement (mean-/resample-ablation from same-class inputs).
+  **Addition is sufficient** — `add_d5` keep-useful mean retention **0.94** (bracket
+  [0.62,0.94] with resample; mixed-ADD 0.89), vs keep-random **0.00** under both
+  methods (specific). **Mixed subtraction is NOT** — keep-useful retention **~0.5
+  (SUB, 0.48-0.58 across seeds) / 0.37 (NEG)** even under gentle mean-ablation. The
+  **deficit is the subtraction DIGIT/BORROW engine, not selection**: the sign token
+  `SGN` is retained **1.00** for all three classes; specific answer digits fail (SUB
+  10^5→0.71, hundreds→0.73; NEG 10^5→0.53, hundreds→0.66). **Separate-thread skeptic
+  gate: HOLD WITH CAVEATS** — masks verified genuine (layer-shift→0.007,
+  head-shift→0.470), matched keep-random-mean=0.00 added, ADD operand-range +
+  single-seed flags folded. C5 refined; A10/A12 for addition. Harness promoted to
+  `quanta_maths.maths_sufficiency` (+ tests).
+- **CE30 (localize the gap).** Restoration (add complement nodes back, measure
+  recovery — group-aware since the nodes are individually redundant). The missing
+  subtraction nodes are the **last-layer (L2) attention heads at the answer-producing
+  positions** — dominated by **P15L2H{0-3} and P18L2H{0-3} = produce-pos(A5) and
+  produce-pos(A2)**, exactly CE29's failing digits. Restoring only layer-2 /
+  answer-region / heads recovers SUB 0.48→~1.00, NEG 0.36→~0.99; a **compact ~5-10
+  nodes suffice** (SUB +top20→1.00, NEG +top10→1.00) and **beat a same-size
+  random-augment** (≈0.5-0.6 SUB / ≈0.36 NEG). **Disambiguation**: they are heads
+  **tagged useful *elsewhere* but under-tagged at these positions** (tagged-elsewhere
+  restore→1.00; entirely-untagged→no) — i.e. the map under-tags the *positions* of
+  the CE20/CE25 last-layer SV borrow-delivery heads, not a missing subsystem. +top40
+  restores every digit to 1.00. **Resample caveat**: top40 restores SUB→0.83
+  (robust) but NEG→0.46 (mean-inflated / more distributed). Single seed; d8 not run.
+- Artifacts: `scripts/circuit_sufficiency.py`,
+  `results/study-circuit-sufficiency/`; `scripts/find_missing_sub_nodes.py`,
+  `results/study-missing-sub-nodes/results_ins1_mix_d6_l3_h4_t40K_s372001.json`.
+  Studies: [study-circuit-sufficiency.md](study-maths/study-circuit-sufficiency.md),
+  [study-missing-sub-nodes.md](study-maths/study-missing-sub-nodes.md). **Next**: what
+  do these heads compute (borrow/digit algorithm), + multi-seed/d8.
+
+### 2026-07-17 — What the CE30 map-missed subtraction heads COMPUTE (CE31)
+
+- **CE31.** Characterized the CE30 heads (last-layer L2 attention at produce-pos of
+  the failing digits A5/A2) with three independent readouts. They are **borrow-in
+  DELIVERY heads**: (READ) at the producing position they attend to the **lower-digit
+  operands** (the borrow source) + the `=`/`SGN` staging region, with **~0 mass on
+  their own operands** (3-seed mean own 0.005-0.045); (WRITE) their OV write `z @ W_O`
+  **decodes the resolved borrow-in `SV[k]` at 1.00±0.00** (3 seeds, all cells), far
+  above the base difference `SA[k]` (0.68-0.78) — they carry the borrow, not the
+  difference; (CARRY) interchange-patching the group's OV flips `A_k` at **1.00 with
+  deciding-matched null 0.00**, while **per-head ≈0.00** (individually redundant —
+  why per-node ablation missed them; A6). Mechanism: H0-H2 fetch the borrow-in and
+  the already-mapped last-layer combiner MLP integrates it with the base difference
+  to emit `A_k`; H3 is not a borrow deliverer (labor split). **Map cross-check**:
+  L2H0 is tagged OPR/SGN at P13/P16/P17/P19 but **not at P15/P18** (same head,
+  under-tagged positions + unrecognized role). **Controls**: untrained twin OV
+  `SV`=0.76 (format floor) but **causal flip 0.00** (fails) → learned, and the causal
+  test is decisive. **Resolves the CE30 NEG-resample caveat** (NEG delivery just as
+  clean → mean/modal artifact, not a different mechanism). Confidence Medium-high
+  (three readouts agree, 2 digits × 2 classes × 3 seeds, clean nulls). d6 only.
+- Artifacts: `scripts/missing_sub_mechanism.py`,
+  `results/study-missing-sub-mechanism/results_ins1_mix_d6_l3_h4_t40K_s372001.json`
+  + `multiseed.json`. Study:
+  [study-missing-sub-mechanism.md](study-maths/study-missing-sub-mechanism.md).
+  **Next**: how the borrow-in is *resolved* upstream (L0/L1); d8 (identify d8 missing
+  nodes first); H3 / `=`/`SGN` staging role.

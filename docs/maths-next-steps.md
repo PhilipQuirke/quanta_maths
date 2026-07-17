@@ -62,6 +62,7 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Owner | Experiment | Updates |
 | --- | --- | --- | --- | --- |
+| 1 | landed (CE29, CE30, CE31) | **`maths` mixed thread** | [Circuit sufficiency: randomize the complement of the map-useful nodes, retain accuracy?](#1-circuit-sufficiency-randomize-the-complement-of-the-map-useful-nodes-retain-accuracy) | C5, A10, A12 |
 | 2 | mostly done | **`maths` mixed thread** | [Mixed model: remaining follow-ups (SV mechanism + A7 landed)](#2-mixed-model-remaining-follow-ups-sv-mechanism--a7-landed) | A10, A6, depth |
 | 3 | **DELIVERED 2026-07-17 ~T-8h** — consolidated §a+§b with referee tags in the [synthesis hand-off section](maths-results-synthesis.md#paper-hand-off-2026-07-17-t-8h--consolidated-evidence-for-the-revision); `maths` on-call for evidence queries until the deadline | **`paper` + `maths`** | [Paper hand-off: consolidate SV mechanism (a) + latent-geometry (b) sections](#3-paper-hand-off-consolidation-and-referee-checkpoint) | — |
 
@@ -114,6 +115,64 @@ Router docs (claim-evidence, results-by-time/summary/synthesis, conjectures) are
 rewrite the other thread's. On any dirty-file collision in `git status`, assume
 it belongs to the other thread and leave it. The paper hand-off (entry 3)
 consolidates BOTH threads' outputs and triggers **no later than ~T-12h**.
+
+### 1. Circuit sufficiency: randomize the complement of the map-useful nodes, retain accuracy?
+
+**LANDED 2026-07-16 (CE29;
+[study-circuit-sufficiency.md](study-maths/study-circuit-sufficiency.md)):** keep
+only the map-useful nodes, destroy the position-specific complement
+(resample-/mean-ablation from same-class inputs). **Addition is sufficient** —
+`add_d5` keep-useful mean-ablation retention **0.94** (mixed-ADD 0.89), vs
+keep-random **0.00** (specific). **Mixed subtraction is NOT** — keep-useful
+retention **0.48 (SUB) / 0.36 (NEG)** even under gentle mean-ablation → the
+ablation-discovered map **misses load-bearing subtraction nodes** (distributed;
+CE23). **C5 refined** (map reliable+specific+sufficient for addition, incomplete
+for mixed subtraction); A10/A12 supported for addition. Reusable harness promoted
+to `quanta_maths.maths_sufficiency` (+ tests). **Follow-ups**: (a) **LANDED
+2026-07-17 (CE30 → CE31):** CE30
+([study-missing-sub-nodes.md](study-maths/study-missing-sub-nodes.md)) localized the
+missing subtraction nodes to the **last-layer (L2) attention heads at the
+answer-producing positions P15/P18 = the failing digits A5/A2** (tagged elsewhere,
+under-tagged here). CE31
+([study-missing-sub-mechanism.md](study-maths/study-missing-sub-mechanism.md)) then
+showed **what they compute**: they are **borrow-in DELIVERY heads** — attend to the
+lower-digit operands (borrow source), write the resolved borrow-in `SV[k]` (OV-decode
+1.00±0.00, 3 seeds; not the base difference), group causally delivers it (flip
+1.00/null 0.00) while individually redundant (per-head ≈0.00). Multi-seed done;
+NEG-resample caveat resolved (NEG delivery just as clean → mean/modal artifact).
+*Remaining*: (a-i) how the borrow-in is *resolved* upstream (L0/L1); (a-ii) d8
+(identify d8 missing nodes first, then re-run the model-general
+`scripts/missing_sub_mechanism.py`); (a-iii) H3 / `=`/`SGN` staging role. (b) run
+across the addition zoo + d8 mixed; (c) a per-class map-completeness score as a
+`maths_hf_update` technique.
+
+*(Owner: `maths` mixed thread; model-general. Original framing below.)*
+
+We believe we have located **where** the arithmetic is computed — the verified
+per-model map's useful nodes (question-tail `ST`/`MT`/`GT` writers, answer-position
+`SA`/`MD`/`ND` + `SC`/`MB`/`NB` heads, `OPR`/`SGN`/`SLT` control, and the L2
+`STC`/`MTC`/`NTC` combiner MLPs). If that account is right, the model's accuracy
+should be carried **entirely by those nodes**: destroying (randomizing/ablating)
+**every OTHER node** should retain per-class accuracy. This is the
+**sufficiency** complement to the ablation-**necessity** evidence — a strong,
+end-to-end test of the whole map + SV account in one shot, and a sharp check on
+map *completeness* (if accuracy drops, the map is missing load-bearing nodes).
+
+What to learn / why it matters:
+- **Is the identified circuit sufficient?** Keep the map-useful nodes intact and
+  destroy the complement; measure per-class (ADD/SUB/NEG) accuracy vs the clean
+  baseline. High retention ⇒ the map captures the computation (C5 map
+  completeness; A10/A12 the SV circuit is the mechanism). A drop localizes what
+  the map misses.
+- Complements CE13–CE26's per-node/per-edge necessity + redundancy findings with
+  a **global** knockout-of-the-complement.
+
+Done when: per-class accuracy under complement-destruction is scored against the
+clean baseline and a matched control (destroying a same-size RANDOM node set must
+hurt more), with the destruction method + node granularity fixed in the study
+note. Reusable across the zoo (map + a complement-ablation harness). Owns
+`study-maths/study-mixed-sufficiency-*.md`, `scripts/mixed_sufficiency*.py`,
+`results/study-mixed-sufficiency*/`.
 
 ### 2. Mixed model: remaining follow-ups (SV mechanism + A7 landed)
 

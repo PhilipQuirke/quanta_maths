@@ -24,6 +24,18 @@ canonically-coded carry delivered by a redundant attention head-pair*; explicit
 limit that **single-head carry selection is not established** and much is 2-layer /
 linear-probe.
 
+### Front-matter status (2026-07-17) — human considers these FROZEN
+
+Abstract, Introduction, Related Work, Methodology, and Training Models / Training
+mixed models are drafted and **frozen** by the human. Also completed this session:
+Experimental Results reworked to the Tier-1/Tier-2 structure; LLM-survey + Fig 2 +
+survey appendix removed; dead code stripped (ICLR/arXiv toggles, `\textcolor{blue}`,
+commented Hyp1/2, TriAdd); confirmation-bias reframe applied (inductive
+observe→hypothesise→confirm narrative + refuted-hypotheses note with a TODO); model
+count corrected (49→46, seed-sensitivity 48→45); addition-table d11–d14 seeds fixed
+(173289→572091) to match HF; US spelling standardized throughout; `Analysis
+Techniques` appendix stub + table added. Remaining work is in the ranked queue below.
+
 ### Reporting structure ("~40 then 4")
 
 - **Tier 1 — general (~40 accurate models)**: role skeleton found across the family
@@ -39,9 +51,9 @@ linear-probe.
 | Target | 99.999%? | Deep SV battery | Map JSON | Gap |
 | --- | --- | --- | --- | --- |
 | 6d addition (`add_d6_l2_h3_t20K_s173289`) | yes (0) | full (CE13–24) | HF | none |
-| 8d addition (`add_d8_l2_h3_t45K_s173289`) | yes (0) | **full — done** (confirmatory: STC combiner, CE2 transport, =-depot, class-necessity, step combiner, intrinsic redundancy, L1-locus, lazy-TF; source-fork probe-limited) | pending upload | upload maps |
+| 8d addition (`add_d8_l2_h3_t45K_s173289`) | yes (0) | **full — done** (confirmatory: STC combiner, CE2 transport, =-depot, class-necessity, step combiner, intrinsic redundancy, L1-locus, lazy-TF; source-fork probe-limited) | **HF** (per-model repo) | none |
 | 6d mixed (`ins1_mix_d6_l3_h4_t40K_s372001`) | yes (0/0) | CE20–25 | HF + local | none |
-| 8d mixed (`mix_d8_l3_h4_t60K_s173289`, from-scratch) | yes (7) | in progress (HO-2) | not on HF | run full battery; generate/upload map |
+| 8d mixed (`mix_d8_l3_h4_t60K_s173289`, from-scratch) | yes (7 — re-verified 1.0000/class, 300 each) | map-level done; causal write-up pending | **HF (deep: roles + STC/NTC + Probe LINXFER/CARRY/DELIVERY)** | run/verify causal SV battery + CE write-up (map already on HF) |
 
 Notes:
 - 8d mixed is a **from-scratch** model; the 6d mixed capstone (`ins1`) carries the
@@ -50,13 +62,31 @@ Notes:
   cross-size generalization point only.
 - No clean 99.999% 10d mixed exists (from-scratch 295 sub fails; init 13 fails).
   Deferred; 8d chosen instead.
-- HF holds analysis JSON for only ~14 models; the Tier-1 general claim rests on the
-  accuracy-table analysis summaries, not full maps.
+- HF coverage (per [hugging_models.md](hugging_models.md), verified 2026-07-16):
+  per-model analysis repos (`behaviors.json` + `features.json`) exist for **all 53
+  models**; the legacy flat repo carries 33 — so the Tier-1 "in all models" breadth is
+  well-covered. Map *depth* still varies (5/6-digit fullest; large-n lack L1 consumer-head tags).
+- Model count: the paper studies **46 models** (per Tabs.); HF hosts a superset (48
+  flat weight-sets / 53 per-model repos, incl. d20, d15 and `gf` training-variant
+  twins not in the paper). Paper prose corrected 49→46 and seed-sensitivity 48→45.
+- **Correction (2026-07-17, `maths` thread verified)**: row 44's "Map JSON: not on HF"
+  was stale. The deep verified map for `mix_d8_l3_h4_t60K_s173289` is live at
+  `PhilipQuirke/QuantaMaths_mix_d8_l3_h4_t60K_s173289` — `behaviors.json` +
+  `features.json` (168 nodes: `Fail%`/`Impact`/`Math.Add|Sub|Neg`/`Attn`; Algo roles
+  MT/ST/GT/SA/MD/ND/MB/NB/SC/OPR/SGN + **STC(4)/NTC(5) combiners**; Probe `LINXFER`,
+  `CARRYDEFER`/`CARRYLAYER`, and **21 `DELIVERY.{ADD,SUB,NEG}=resatt`** CE25 route
+  tags) + `model.pth`. The whole `mix_*` from-scratch zoo is similarly tagged
+  (standard `maths_hf_update` pipeline; d5/d9 spot-checked). So **map
+  generation/upload is DONE**; the remaining HO-2 gap is the *causal* SV-battery CE
+  write-up (no local `results/` artifacts for this model), not the map. Accuracy `(7)`
+  re-verified: ADD/SUB/NEG all 1.0000 on 300/class (8-digit, 3L/4H, n_ctx=28).
 
 ### Decisions still needed from human
 
-1. **Spine confirmation**: 6d addition (core) + 6d mixed (capstone), with 8d as the
-   cross-size generalization for both operations — confirmed direction, pending HO-2.
+1. **Spine confirmed** (2026-07-17): 6d addition (core) + 6d mixed (capstone), with 8d
+   addition + 8d mixed as the cross-size generalization. No open spine decisions.
+2. **Open**: whether to add an Appendix sentence mapping the paper's 46 studied models
+   to the HF superset (48 flat / 53 per-model repos incl. d20/d15/`gf` extras).
 
 ## Handoff tasks to the `maths` thread (this thread is read-only on experiments)
 
@@ -73,30 +103,42 @@ Notes:
     (`d8_sv_summary.json`, `results.json`, `ce24_d8.json`),
     `results/study-d8-wired-techniques/results.json`. Documented in
     maths-results-by-time.md + A12 block (confirmatory, not a new CE).
-  - **8d mixed — in progress** (`mix_d8_l3_h4_t60K_s173289`, from-scratch). Report per
-    model: role skeleton? step combiner endpoint-gated? carry-specific delivery
-    (deciding-matched null 0.00)? polysemantic node reuse across add/sub?
-- **HO-3 — Tier-1 breadth.** For the ~40 accurate models, confirm the role-skeleton /
-  subtask-coverage summary is derived from actual per-model analysis (not asserted),
-  and upload the per-model maps (behaviors.json / maths.json / train.json) to HF so
-  the family claim is reproducible — including maps for the 8d worked-example models.
+  - **8d mixed — map on HF; causal write-up pending** (`mix_d8_l3_h4_t60K_s173289`,
+    from-scratch; re-verified accurate 1.0000/class). The `QuantaMaths_` analysis repo
+    already carries the role skeleton + STC/NTC combiners + CE25 delivery route
+    (`DELIVERY.ADD/SUB/NEG=resatt`) + `LINXFER`/`CARRYDEFER` (standard-pipeline map).
+    Still to do IN-REPO (no local `results/` yet): the causal write-up — step combiner
+    endpoint-gated? carry-specific delivery (deciding-matched null 0.00)? polysemantic
+    node reuse across add/sub? (The model-general batteries exist:
+    `scripts/mixed_sv.py`, `maths_cascade.combiner_delivery_sweep`,
+    `scripts/missing_sub_mechanism.py` — point them at this model.)
+- **HO-3 — Tier-1 breadth. Largely DONE (2026-07-16).** Per-model analysis repos
+  (`behaviors.json` + `features.json`) now exist for **all 53 HF models** (verified;
+  see [hugging_models.md](hugging_models.md)), so the "in all models" family claim is
+  reproducible. Residual: map *depth* varies (5/6-digit fullest; large-n lack L1
+  consumer-head tags) and the paper-table numeric columns (fails/M, heads/MLPs-used)
+  are not yet re-verified against the maps — see queue item on numeric-column audit.
 
 ## Ranking logic
 
-- Unblock the honest "in all models" reporting first (HO-2/HO-3), then prose.
+- Front matter is frozen; remaining work is back matter (Conclusion/Limitations),
+  the appendix, and submission mechanics (anonymization, build).
 - Prefer changes that reduce reviewer doubt that the claimed algorithm was actually
   found (the prior rejection reason): calibrated SV confirmation + cross-model breadth.
+- Shipped entries are deleted from this queue (per the agenda contract), not marked
+  done in place; the session summary lives in Front-matter status above.
 
 ## Ranked queue
 
 | Priority | Status | Piece | Evidence source | Done when |
 | --- | --- | --- | --- | --- |
-| 1 | in progress | Abstract reframe (confidence / worked-example / enrichment / family) | claim-evidence CE13–24, CE20–25 | draft approved by human |
-| 2 | blocked on HO-2/HO-3 | Rework Experimental Results (Tier-1 general → Tier-2 4-model deep dive; name techniques, detail to appendix) | maths-results-summary + claim-evidence | body reads at right level, "in all models" honest |
-| 3 | pending | Appendix de-dump + techniques table (technique → tests → establishes → models/scale → confidence) | study-maths/* | table added, dead sections cut |
-| 4 | pending | Cut LLM survey (Fig 2 / ModelScores + App: Surveying LLM Addition Capability) + related-work trim | n/a | removed, intro re-hooked |
-| 5 | pending | Subtraction-only models → appendix (keep subtraction **algorithm** in main body — novel) | n/a | main body slimmed |
-| 6 | pending | Strip multi-venue cruft (ICLR/arXiv toggles, `\textcolor{blue}` notes, commented Hyp1/2, TriAdd) | n/a | paper.tex clean, compiles under acl.sty |
+| 1 | pending | **Conclusion + Limitations & Future Work** — align to new framing; keep honest limits (single-head selection not shown, 2-layer, linear-probe); drop any stale/overclaiming lines | claim-evidence caveats | reads consistently with frozen front matter |
+| 2 | in progress | **Appendix de-dump + flesh out `Analysis Techniques` appendix** (stub table exists) and add an **SV-detail appendix** (CE13–24/CE20–25 detail referenced from the reworked Results); cut remaining dumping-ground appendices | study-maths/*, claim-evidence | techniques + SV detail complete; dead appendices cut |
+| 3 | pending | **Subtraction-only models → appendix**; verify main body keeps only the (novel) subtraction *algorithm* | n/a | main body slimmed, no stray sub-only prose |
+| 4 | pending | **Restore brief "Refuted hypotheses" content** (intro carries a `% TODO`); name 1–2 ruled-out mechanisms (e.g. no single carry-selecting head; old compact-representation Hyp) | claim-evidence (A3/A9/A11); old Hyp1/2 | note/short appendix added, TODO cleared |
+| 5 | pending | **Anonymization** — regenerate the two anon repo URLs for BlackboxNLP (2 `% TODO` comments in `paper.tex`); keep third-person self-cites | n/a | valid anonymized links for review build |
+| 6 | blocked (maths) | **8d-mixed causal SV write-up** (HO-2 residual) + **numeric-column audit** of both model tables (fails/M, heads/MLPs-used) against HF maps | maths thread | Tier-2 8d-mixed complete; table numbers verified |
+| 7 | pending | **Build** — add `Figures/` PNGs/PDFs + `acl.sty`/`acl_natbib.bst`; compile under `acl.sty`; fix floats/overfull; confirm ≤ 8pp main text | assets/, ACL style repo | compiles to a within-limit PDF |
 
 ## Deliberately paused
 

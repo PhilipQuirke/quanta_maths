@@ -57,7 +57,7 @@ sweep (CE18) and the latent-geometry dynamic-range battery (CE27 certificate).
 ### "ins3" 6-digit Mixed model initialised with 6-digit addition model. Reset useful heads & MLPs every 100 epochs.
 - ins3_mix_d6_l4_h3_t40K_s372001: Inaccurate 6-digit, 3-layers, 4-head mixed initialise with addition model. Reset useful heads and MLP every 100 epochs. 
 
-## Complete model inventory (HF, verified 2026-07-16)
+## Complete model inventory  
 
 The sections above annotate accuracy for the studied models. This is the **full**
 set actually present on HuggingFace. Accuracy is NOT asserted for the unstudied

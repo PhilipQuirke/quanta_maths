@@ -257,6 +257,39 @@ model (entry 2).
   irrelevance). Controls: untrained twin (sep→2.7), wrong-axis (gap collapse
   ~100×), local-rail refit, PC1 1.00/0.00. **G2 partial (low-medium); G3 low.**
   See [maths-claim-evidence.md#ce28](maths-claim-evidence.md#ce28).
+- **CE29 + CE30 (circuit sufficiency → localize the subtraction gap; `maths` mixed
+  thread)** — Keep only the map-useful nodes, destroy the position-specific
+  complement. **Addition is sufficient** (`add_d5` mean retention 0.94, bracket
+  [0.62,0.94]; mixed-ADD 0.89) vs **keep-random 0.00** (specific); **mixed
+  subtraction is NOT** (keep-useful ~0.5 SUB / 0.37 NEG). The deficit is the
+  **subtraction DIGIT/BORROW engine, not selection** — sign token retained 1.00 all
+  classes; specific digits (10^5, hundreds) fail. Skeptic-gated HOLD-WITH-CAVEATS
+  (masks genuine; keep-random-mean=0.00). **CE30** localizes the gap: the
+  map-omitted subtraction nodes are the **last-layer (L2) attention heads at the
+  answer-producing positions of the failing digits (P15→A5, P18→A2)** — heads tagged
+  useful *elsewhere* but **under-tagged at these positions** (the CE20/CE25 SV
+  borrow-delivery route); a compact ~10-node restore recovers SUB/NEG, beats
+  same-size random-augment, and targets exactly the failing digits. Resample caveat:
+  top40 restores SUB→0.83 but NEG→0.46 (NEG more distributed). Reusable harness
+  `quanta_maths.maths_sufficiency`; single seed, d6 only. **C5 refined** (map
+  reliable+specific+sufficient for addition, incomplete-but-now-localized for mixed
+  subtraction); A10/A12 for addition; A6 corroborated. See
+  [maths-claim-evidence.md#ce29](maths-claim-evidence.md#ce29) /
+  [#ce30](maths-claim-evidence.md#ce30).
+- **CE31 (what the CE30 heads COMPUTE; `maths` mixed thread)** — the map-missed
+  last-layer heads are **borrow-in DELIVERY heads**. Three independent readouts agree
+  (2 failing digits × 2 classes × 3 seeds): they **attend to the lower-digit operands**
+  (borrow source), ~0 on their own operands; their **OV write decodes the resolved
+  borrow-in `SV[k]` at 1.00±0.00** (» base-diff `SA` 0.68-0.78 — they carry the
+  borrow, not the difference); and the **group causally delivers it** (flip 1.00 /
+  deciding-null 0.00) while **per-head ≈0.00** (redundant → why the ablation map
+  missed them). The last-layer combiner MLP (already mapped) then integrates the
+  borrow-in with the base difference to emit `A_k`. Untrained twin fails the causal
+  test (flip 0.00). Map cross-check: same head (L2H0) tagged OPR/SGN elsewhere but not
+  at the producing positions. **Resolves the CE30 NEG-resample caveat** (NEG delivery
+  just as clean → mean/modal artifact). Corroborates A6; refines A10/A12 (CE25's
+  last-layer-attention delivery = `SV`-borrow-in delivery, per-head labor split).
+  d6 only. See [maths-claim-evidence.md#ce31](maths-claim-evidence.md#ce31).
 
 **Paper hand-off (2026-07-17, ~T-8h)**: the consolidated, referee-tagged
 two-section account for the revision — §(a) SV mechanism, §(b) latent-space
