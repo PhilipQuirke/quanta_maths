@@ -21,14 +21,13 @@ import os
 import numpy as np
 import torch
 
-from quanta_maths import capture_model_map, load_maths_model_from_hf
+from quanta_maths import capture_model_map, load_maths_model_from_analysis_repo
 from quanta_maths.maths_constants import MathsToken
 from quanta_maths.maths_utilities import make_a_maths_question_and_answer
 from quanta_maths.maths_edge_patch import answer_positions
 from quanta_maths.maths_probe import last_layer
 
 MODEL = "ins1_mix_d6_l3_h4_t40K_s372001"
-HF_REPO = "PhilipQuirke/VerifiedArithmetic"
 OUT_DIR = "results/study-mixed-map"
 
 
@@ -67,7 +66,7 @@ def class_accuracy(model, cfg, op, cls, n=500, seed=0):
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    model, cfg = load_maths_model_from_hf(MODEL, device="cpu")
+    model, cfg = load_maths_model_from_analysis_repo(MODEL, device="cpu")
 
     print("=== M0 [1/2] per-class accuracy (positive control) ===")
     acc = {
@@ -79,7 +78,7 @@ def main():
         print(f"  {k}: {v:.4f}")
 
     print("=== M0 [2/2] verified-map registry (shared capture_model_map) ===")
-    m = capture_model_map(MODEL, hf_repo=HF_REPO, cfg=cfg)
+    m = capture_model_map(MODEL, cfg=cfg)
     for task in sorted(m["roles"], key=lambda t: -len(m["roles"][t])):
         locs = [e["loc"] for e in m["roles"][task]]
         print(f"  {task:6} x{len(locs):2}: {locs}")

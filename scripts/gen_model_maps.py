@@ -22,7 +22,8 @@ import json
 import os
 import sys
 
-from quanta_maths import ACCURATE_MODELS, capture_model_map
+from quanta_maths import capture_model_map
+from quanta_maths.maths_hf_update import ordered_analysis_models
 
 OUT_DIR = "results/maps"
 
@@ -42,6 +43,6 @@ def main(models):
 
 
 if __name__ == "__main__":
-    models = sys.argv[1:] or ACCURATE_MODELS
+    models = sys.argv[1:] or ordered_analysis_models()
     print(f"writing maximal map JSONs for {len(models)} model(s) -> {OUT_DIR}/")
     main(models)

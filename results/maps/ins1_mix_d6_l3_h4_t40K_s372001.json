@@ -8,11 +8,6 @@
     "perc_add": 20,
     "perc_sub": 80
   },
-  "positive_control_accuracy": {
-    "ADD": 1.0,
-    "SUB": 1.0,
-    "NEG": 1.0
-  },
   "n_map_nodes": 98,
   "roles": {
     "OPR": [
@@ -1750,6 +1745,115 @@
           "Attn:P12=52",
           "Attn:P5=45"
         ]
+      }
+    ],
+    "MTC": [
+      {
+        "loc": "P15L2M0",
+        "position": 15,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A5.MTC",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:0"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P19L2M0",
+        "position": 19,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A1.MTC",
+        "impact": [
+          "Impact:A1"
+        ],
+        "fail": [
+          "Fail%:4"
+        ],
+        "attn": []
+      }
+    ],
+    "NTC": [
+      {
+        "loc": "P15L2M0",
+        "position": 15,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A5.NTC",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:0"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P16L2M0",
+        "position": 16,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A4.NTC",
+        "impact": [
+          "Impact:A4"
+        ],
+        "fail": [
+          "Fail%:2"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P17L2M0",
+        "position": 17,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A3.NTC",
+        "impact": [
+          "Impact:A3"
+        ],
+        "fail": [
+          "Fail%:5"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P18L2M0",
+        "position": 18,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A2.NTC",
+        "impact": [
+          "Impact:A2"
+        ],
+        "fail": [
+          "Fail%:7"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P19L2M0",
+        "position": 19,
+        "layer": 2,
+        "is_head": false,
+        "num": 0,
+        "algo": "A1.NTC",
+        "impact": [
+          "Impact:A1"
+        ],
+        "fail": [
+          "Fail%:4"
+        ],
+        "attn": []
       }
     ],
     "SLT": [

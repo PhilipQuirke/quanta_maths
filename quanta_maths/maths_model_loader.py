@@ -101,6 +101,7 @@ def load_maths_model_from_hf(
     """
     cfg = build_maths_config(model_name, hf_repo=hf_repo, use_train_json=use_train_json,
                              train_filename=train_filename)
+    cfg.use_cuda = str(device).startswith("cuda")
 
     htc = cfg.get_HookedTransformerConfig()
     htc.device = device

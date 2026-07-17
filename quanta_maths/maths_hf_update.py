@@ -230,6 +230,25 @@ def list_analysis_models(require_analysis: bool = True) -> List[str]:
     return sorted(names)
 
 
+def list_trainonly_models() -> List[str]:
+    """List QuantaMaths_<name> repos that have model.pth + training_loss.json but
+    LACK behaviors.json/features.json -- the repos needing discovery."""
+    from huggingface_hub import HfApi
+    api = HfApi()
+    names = []
+    for m in api.list_models(author="PhilipQuirke"):
+        rid = m.id
+        if "/QuantaMaths_" not in rid:
+            continue
+        try:
+            files = set(api.list_repo_files(rid))
+        except Exception:
+            continue
+        if "model.pth" in files and not ({BEHAVIORS_FILE, FEATURES_FILE} <= files):
+            names.append(rid.split("/QuantaMaths_", 1)[1])
+    return sorted(names)
+
+
 def _op_group(name: str) -> str:
     """Operation group for ordering: 'add' | 'sub' | 'mix' (mix covers mix_/ins*_mix_/mas_)."""
     if name.startswith("add_"):
@@ -281,6 +300,34 @@ def _verify_roundtrip(path: str, major: str) -> bool:
     return ok
 
 
+def _repo_has_analysis(model_name: str) -> bool:
+    """True if the repo already contains both behaviors.json and features.json."""
+    from huggingface_hub import HfApi
+    try:
+        files = set(HfApi().list_repo_files(analysis_repo_id(model_name)))
+    except Exception:
+        return False
+    return {BEHAVIORS_FILE, FEATURES_FILE} <= files
+
+
+def _run_techniques(model, cfg, nodes, target, applicable, skip_if_present, results):
+    """Run the applicable techniques whose target == ``target`` against ``nodes``.
+    Records per-technique outcome in ``results``; returns True if any tag added."""
+    changed = False
+    for t in applicable:
+        if t.target != target:
+            continue
+        if skip_if_present and t.is_present(nodes):
+            results[t.name] = {"target": t.target, "tags_added": 0, "skipped": "already_present"}
+            continue
+        t.clear_owned(nodes)
+        added = t.run(model, cfg, nodes)
+        results[t.name] = {"target": t.target, "tags_added": added}
+        if added:
+            changed = True
+    return changed
+
+
 def update_model(
     model_name: str,
     techniques: Optional[List[Technique]] = None,
@@ -289,24 +336,27 @@ def update_model(
     device: str = "cpu",
     upload: bool = True,
     skip_if_present: bool = True,
+    allow_discovery: bool = True,
 ) -> dict:
     """Run applicable techniques on one model and (optionally) upload the results.
 
-    ``skip_if_present`` (default): a technique whose owned tags are ALREADY in the
-    model's JSON is skipped (not recomputed) -- so re-runs resume without redoing
-    work. Set False to always clear+recompute (idempotent overwrite).
+    If the repo already has behaviors.json + features.json, those node lists are
+    downloaded and the techniques extend them. If they are MISSING and
+    ``allow_discovery`` is set, the QMAnalyse discovery pipeline
+    (``maths_analysis``) first CREATES them from the model, then the techniques run.
 
-    Every written file is verified with a save->reload round-trip before upload;
-    a model whose files fail the round-trip is NOT uploaded and records an error.
+    ``skip_if_present`` (default): a technique whose owned tags are already present
+    is skipped (resumable re-runs). Discovery never overwrites existing analysis
+    files -- a repo that already has them takes the extend path.
 
-    Returns a per-model manifest dict. Never raises for per-model failures -- the
-    error is captured in the manifest so a batch can continue.
+    Every written file is round-trip verified (save->reload) before upload.
+    Per-model errors are captured, not raised, so a batch continues.
     """
     result = {"model": model_name, "dry_run": dry_run, "techniques": {},
-              "uploaded": False, "roundtrip_ok": None, "error": None}
+              "discovered": False, "uploaded": False, "roundtrip_ok": None, "error": None}
     try:
+        has_analysis = _repo_has_analysis(model_name)
         model, cfg = load_maths_model_from_analysis_repo(model_name, device=device)
-
         applicable = techniques_for(cfg, techniques)
         result["applicable"] = [t.name for t in applicable]
 
@@ -315,33 +365,49 @@ def update_model(
         out_dir = os.path.join(model_dir, "updated")
         os.makedirs(backup_dir, exist_ok=True)
         os.makedirs(out_dir, exist_ok=True)
-
-        # Load both node lists (kept separate; see module docstring).
-        nodes_by_file = {}
-        for fname in (BEHAVIORS_FILE, FEATURES_FILE):
-            nodes_by_file[fname] = _load_nodes(
-                model_name, fname, os.path.join(backup_dir, fname))
-
-        # Run each applicable technique against its target file.
-        changed_files = set()
-        for t in applicable:
-            nodes = nodes_by_file[t.target]
-            if skip_if_present and t.is_present(nodes):
-                result["techniques"][t.name] = {
-                    "target": t.target, "tags_added": 0, "skipped": "already_present"}
-                continue
-            t.clear_owned(nodes)
-            added = t.run(model, cfg, nodes)
-            result["techniques"][t.name] = {"target": t.target, "tags_added": added}
-            if added:
-                changed_files.add(t.target)
-
-        # Write updated JSON locally (always -- lets you inspect a dry run).
         written = {}
-        for fname, nodes in nodes_by_file.items():
-            path = os.path.join(out_dir, fname)
-            nodes.save_nodes(path, _SAVE_MAJOR[fname])
-            written[fname] = path
+        changed_files = set()
+
+        if has_analysis:
+            # EXTEND path: download both lists, run techniques (skip-if-present).
+            nodes_by_file = {
+                f: _load_nodes(model_name, f, os.path.join(backup_dir, f))
+                for f in (BEHAVIORS_FILE, FEATURES_FILE)}
+            for fname in (BEHAVIORS_FILE, FEATURES_FILE):
+                if _run_techniques(model, cfg, nodes_by_file[fname], fname,
+                                   applicable, skip_if_present, result["techniques"]):
+                    changed_files.add(fname)
+            for fname, nodes in nodes_by_file.items():
+                path = os.path.join(out_dir, fname)
+                nodes.save_nodes(path, _SAVE_MAJOR[fname])
+                written[fname] = path
+        else:
+            # DISCOVERY path: create behaviors.json + features.json from scratch.
+            if not allow_discovery:
+                result["error"] = "no analysis JSON and discovery disabled"
+                return result
+            from quanta_maths.maths_analysis import discover_behaviors, discover_features
+            result["discovered"] = True
+
+            # behaviours first; then behaviour-targeted techniques; SAVE behaviors.json
+            # BEFORE any Algo tags exist (keeps behaviors.json Algo-free).
+            discover_behaviors(cfg, model)
+            _run_techniques(model, cfg, cfg.useful_nodes, BEHAVIORS_FILE,
+                            applicable, skip_if_present, result["techniques"])
+            bpath = os.path.join(out_dir, BEHAVIORS_FILE)
+            cfg.useful_nodes.save_nodes(bpath, _SAVE_MAJOR[BEHAVIORS_FILE])
+            written[BEHAVIORS_FILE] = bpath
+            changed_files.add(BEHAVIORS_FILE)
+
+            # features (Algo) next; then feature-targeted techniques; SAVE features.json
+            discover_features(cfg)
+            _run_techniques(model, cfg, cfg.useful_nodes, FEATURES_FILE,
+                            applicable, skip_if_present, result["techniques"])
+            fpath = os.path.join(out_dir, FEATURES_FILE)
+            cfg.useful_nodes.save_nodes(fpath, _SAVE_MAJOR[FEATURES_FILE])
+            written[FEATURES_FILE] = fpath
+            changed_files.add(FEATURES_FILE)
+
         result["local_updated"] = written
         result["changed_files"] = sorted(changed_files)
 
@@ -352,19 +418,17 @@ def update_model(
             result["error"] = "roundtrip verification failed; not uploaded"
             return result
 
-        # Upload only the changed files, and only when not a dry run.
+        # Upload changed files, only when not a dry run.
         if upload and not dry_run and changed_files:
             from huggingface_hub import HfApi
             api = HfApi()
-            ran = [t.name for t in applicable
-                   if result["techniques"][t.name].get("tags_added", 0) > 0]
+            note = "discovery + techniques" if result["discovered"] else "techniques"
             for fname in sorted(changed_files):
                 api.upload_file(
                     path_or_fileobj=written[fname],
                     path_in_repo=fname,
                     repo_id=analysis_repo_id(model_name),
-                    commit_message=f"Refresh {fname} via quanta_maths techniques "
-                                   f"({', '.join(ran)})",
+                    commit_message=f"Refresh {fname} via quanta_maths {note}",
                 )
             result["uploaded"] = True
     except Exception as exc:  # per-model isolation

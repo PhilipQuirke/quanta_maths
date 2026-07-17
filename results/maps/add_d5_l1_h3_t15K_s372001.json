@@ -1,0 +1,489 @@
+{
+  "model": "add_d5_l1_h3_t15K_s372001",
+  "config": {
+    "n_digits": 5,
+    "n_layers": 1,
+    "n_heads": 3,
+    "n_ctx": 19,
+    "perc_add": 100,
+    "perc_sub": 0
+  },
+  "n_map_nodes": 21,
+  "roles": {
+    "ST": [
+      {
+        "loc": "P12L0H0",
+        "position": 12,
+        "layer": 0,
+        "is_head": true,
+        "num": 0,
+        "algo": "A4.ST",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:23"
+        ],
+        "attn": [
+          "Attn:P0=51",
+          "Attn:P6=48"
+        ]
+      },
+      {
+        "loc": "P12L0H1",
+        "position": 12,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A1.ST",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:9"
+        ],
+        "attn": [
+          "Attn:P8=29",
+          "Attn:P2=28",
+          "Attn:P3=8",
+          "Attn:P9=8"
+        ]
+      },
+      {
+        "loc": "P12L0H1",
+        "position": 12,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A2.ST",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:9"
+        ],
+        "attn": [
+          "Attn:P8=29",
+          "Attn:P2=28",
+          "Attn:P3=8",
+          "Attn:P9=8"
+        ]
+      },
+      {
+        "loc": "P12L0H2",
+        "position": 12,
+        "layer": 0,
+        "is_head": true,
+        "num": 2,
+        "algo": "A3.ST",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:10"
+        ],
+        "attn": [
+          "Attn:P1=52",
+          "Attn:P7=45"
+        ]
+      }
+    ],
+    "STC": [
+      {
+        "loc": "P12L0M0",
+        "position": 12,
+        "layer": 0,
+        "is_head": false,
+        "num": 0,
+        "algo": "A5.STC",
+        "impact": [
+          "Impact:A5"
+        ],
+        "fail": [
+          "Fail%:31"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P13L0M0",
+        "position": 13,
+        "layer": 0,
+        "is_head": false,
+        "num": 0,
+        "algo": "A4.STC",
+        "impact": [
+          "Impact:A4"
+        ],
+        "fail": [
+          "Fail%:65"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P14L0M0",
+        "position": 14,
+        "layer": 0,
+        "is_head": false,
+        "num": 0,
+        "algo": "A3.STC",
+        "impact": [
+          "Impact:A3"
+        ],
+        "fail": [
+          "Fail%:67"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P15L0M0",
+        "position": 15,
+        "layer": 0,
+        "is_head": false,
+        "num": 0,
+        "algo": "A2.STC",
+        "impact": [
+          "Impact:A2"
+        ],
+        "fail": [
+          "Fail%:84"
+        ],
+        "attn": []
+      },
+      {
+        "loc": "P16L0M0",
+        "position": 16,
+        "layer": 0,
+        "is_head": false,
+        "num": 0,
+        "algo": "A1.STC",
+        "impact": [
+          "Impact:A1"
+        ],
+        "fail": [
+          "Fail%:84"
+        ],
+        "attn": []
+      }
+    ],
+    "SC": [
+      {
+        "loc": "P13L0H0",
+        "position": 13,
+        "layer": 0,
+        "is_head": true,
+        "num": 0,
+        "algo": "A3.SC",
+        "impact": [
+          "Impact:A4"
+        ],
+        "fail": [
+          "Fail%:23"
+        ],
+        "attn": [
+          "Attn:P1=52",
+          "Attn:P7=45"
+        ]
+      },
+      {
+        "loc": "P14L0H0",
+        "position": 14,
+        "layer": 0,
+        "is_head": true,
+        "num": 0,
+        "algo": "A2.SC",
+        "impact": [
+          "Impact:A3"
+        ],
+        "fail": [
+          "Fail%:26"
+        ],
+        "attn": [
+          "Attn:P8=52",
+          "Attn:P2=47"
+        ]
+      },
+      {
+        "loc": "P15L0H0",
+        "position": 15,
+        "layer": 0,
+        "is_head": true,
+        "num": 0,
+        "algo": "A1.SC",
+        "impact": [
+          "Impact:A2"
+        ],
+        "fail": [
+          "Fail%:31"
+        ],
+        "attn": [
+          "Attn:P3=56",
+          "Attn:P9=43"
+        ]
+      },
+      {
+        "loc": "P16L0H0",
+        "position": 16,
+        "layer": 0,
+        "is_head": true,
+        "num": 0,
+        "algo": "A0.SC",
+        "impact": [
+          "Impact:A1"
+        ],
+        "fail": [
+          "Fail%:22"
+        ],
+        "attn": [
+          "Attn:P4=51",
+          "Attn:P10=47"
+        ]
+      }
+    ],
+    "SA": [
+      {
+        "loc": "P13L0H1",
+        "position": 13,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A4.SA.A4",
+        "impact": [
+          "Impact:A4"
+        ],
+        "fail": [
+          "Fail%:89"
+        ],
+        "attn": [
+          "Attn:P6=40",
+          "Attn:P0=40",
+          "Attn:P5=5",
+          "Attn:P12=5"
+        ]
+      },
+      {
+        "loc": "P14L0H1",
+        "position": 14,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A3.SA",
+        "impact": [
+          "Impact:A3"
+        ],
+        "fail": [
+          "Fail%:89"
+        ],
+        "attn": [
+          "Attn:P1=40",
+          "Attn:P7=40",
+          "Attn:P10=4",
+          "Attn:P4=4"
+        ]
+      },
+      {
+        "loc": "P15L0H1",
+        "position": 15,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A2.SA",
+        "impact": [
+          "Impact:A2"
+        ],
+        "fail": [
+          "Fail%:74"
+        ],
+        "attn": [
+          "Attn:P2=49",
+          "Attn:P8=49"
+        ]
+      },
+      {
+        "loc": "P16L0H1",
+        "position": 16,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A1.SA",
+        "impact": [
+          "Impact:A1"
+        ],
+        "fail": [
+          "Fail%:76"
+        ],
+        "attn": [
+          "Attn:P9=49",
+          "Attn:P3=49"
+        ]
+      },
+      {
+        "loc": "P17L0H1",
+        "position": 17,
+        "layer": 0,
+        "is_head": true,
+        "num": 1,
+        "algo": "A0.SA",
+        "impact": [
+          "Impact:A0"
+        ],
+        "fail": [
+          "Fail%:83"
+        ],
+        "attn": [
+          "Attn:P4=48",
+          "Attn:P10=48"
+        ]
+      }
+    ],
+    "SS": [
+      {
+        "loc": "P13L0H2",
+        "position": 13,
+        "layer": 0,
+        "is_head": true,
+        "num": 2,
+        "algo": "A3.SS",
+        "impact": [
+          "Impact:A4"
+        ],
+        "fail": [
+          "Fail%:17"
+        ],
+        "attn": [
+          "Attn:P8=41",
+          "Attn:P2=37",
+          "Attn:P3=6",
+          "Attn:P9=5"
+        ]
+      },
+      {
+        "loc": "P14L0H2",
+        "position": 14,
+        "layer": 0,
+        "is_head": true,
+        "num": 2,
+        "algo": "A2.SS",
+        "impact": [
+          "Impact:A3"
+        ],
+        "fail": [
+          "Fail%:14"
+        ],
+        "attn": [
+          "Attn:P3=43",
+          "Attn:P9=37",
+          "Attn:P10=8",
+          "Attn:P4=7"
+        ]
+      },
+      {
+        "loc": "P15L0H2",
+        "position": 15,
+        "layer": 0,
+        "is_head": true,
+        "num": 2,
+        "algo": "A1.SS",
+        "impact": [
+          "Impact:A2"
+        ],
+        "fail": [
+          "Fail%:13"
+        ],
+        "attn": [
+          "Attn:P4=49",
+          "Attn:P10=45",
+          "Attn:P11=1"
+        ]
+      }
+    ]
+  },
+  "combiners": [
+    {
+      "loc": "P12L0M0",
+      "position": 12,
+      "layer": 0,
+      "produces_A": 5,
+      "fail": [
+        "Fail%:31"
+      ],
+      "impact": [
+        "Impact:A5"
+      ]
+    },
+    {
+      "loc": "P13L0M0",
+      "position": 13,
+      "layer": 0,
+      "produces_A": 4,
+      "fail": [
+        "Fail%:65"
+      ],
+      "impact": [
+        "Impact:A4"
+      ]
+    },
+    {
+      "loc": "P14L0M0",
+      "position": 14,
+      "layer": 0,
+      "produces_A": 3,
+      "fail": [
+        "Fail%:67"
+      ],
+      "impact": [
+        "Impact:A3"
+      ]
+    },
+    {
+      "loc": "P15L0M0",
+      "position": 15,
+      "layer": 0,
+      "produces_A": 2,
+      "fail": [
+        "Fail%:84"
+      ],
+      "impact": [
+        "Impact:A2"
+      ]
+    },
+    {
+      "loc": "P16L0M0",
+      "position": 16,
+      "layer": 0,
+      "produces_A": 1,
+      "fail": [
+        "Fail%:84"
+      ],
+      "impact": [
+        "Impact:A1"
+      ]
+    },
+    {
+      "loc": "P17L0M0",
+      "position": 17,
+      "layer": 0,
+      "produces_A": 0,
+      "fail": [
+        "Fail%:78"
+      ],
+      "impact": [
+        "Impact:A0"
+      ]
+    }
+  ],
+  "positions": {
+    "OPR": "P5",
+    "eq": "P11",
+    "SGN": "P12",
+    "answer_digits": [
+      "P13",
+      "P14",
+      "P15",
+      "P16",
+      "P17",
+      "P18"
+    ],
+    "first_layer": 0,
+    "last_layer": 0
+  }
+}

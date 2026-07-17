@@ -76,6 +76,13 @@ class TestHelpers(unittest.TestCase):
     def test_op_classes(self):
         self.assertEqual(_op_classes(SYNTH_REGISTRY), ["ADD", "SUB", "NEG"])
 
+    def test_op_classes_name_fallback(self):
+        # role tags too sparse to infer op -> fall back to the model-name operation
+        self.assertEqual(_op_classes({"model": "add_d14_l2_h3_t60K_s572091",
+                                      "roles": {"ST": ["P26L0H0"]}}), ["ADD"])
+        self.assertEqual(_op_classes({"model": "sub_d6_l2_h3_t30K_s372001",
+                                      "roles": {}}), ["SUB", "NEG"])
+
     def test_algo_task(self):
         self.assertEqual(algo_task("A5.SA"), "SA")
         self.assertEqual(algo_task("D4.GT"), "GT")
@@ -195,6 +202,16 @@ class TestGeneratorsOffline(unittest.TestCase):
         md = node_inventory_md(SYNTH_REGISTRY)
         self.assertIn("`ST`", md)
         self.assertIn("combiner", md)
+
+    def test_node_inventory_surfaces_all_roles(self):
+        # SS (unknown-to-taxonomy) and STC (combiner Algo tag) must not be
+        # silently dropped -- the inventory is a lossless view of the map.
+        reg = {"model": MIX6, "roles": {
+                   "SA": ["P15L0H1"], "SS": ["P15L0H1"], "STC": ["P15L2M0"]},
+               "combiners": ["P15L2M0"], "positions": {"last_layer": 2}}
+        md = node_inventory_md(reg)
+        self.assertIn("`SS`", md)                       # catch-all role surfaced
+        self.assertIn("`STC` (combiner tag)", md)       # combiner Algo tag row
 
     def test_add_only_registry_omits_control(self):
         # a pure-addition registry has no OPR/SGN/SLT -> logical diagram omits them

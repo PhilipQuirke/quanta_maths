@@ -1,5 +1,8 @@
-\documentclass{article} % For LaTeX2e
-\usepackage{iclr2026_conference,times} % FOR ICLR
+\documentclass[11pt]{article}
+\usepackage[review]{acl}   % [review] = line numbers + anonymized; drop to \usepackage{acl} for camera-ready
+\usepackage{times}
+%\documentclass{article} % For LaTeX2e
+%\usepackage{iclr2026_conference,times} % FOR ICLR
 %\usepackage{arxiv}  % FOR ARXIV
 %\usepackage{natbib} % FOR ARXIV
 % arXiv subjects: cs.LG (Machine Learning), cs.AI (Artificial Intelligence), cs.CL (Computation and Language)
@@ -140,8 +143,8 @@ Large language models (LLMs) achieve remarkable performance across diverse tasks
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.55\columnwidth]{Figures/AdditionAlgorithm.png}
-\caption{Our n-digit addition algorithm is mathematically sound. It uses 4 features: It calculates single-digit carry-one values $(ST_n$), combining them into multidigit carry-one values $(SV_n$). Any $SV_n$ uncertain (U) values are refined to 0 or 1 over tokens (highlighted). By the “+" token, $SV2$ gives the A3 value as 0 or 1. The other answer digits \AN $ $ are calculated from $SA_n$ and \AMSV values.}
+\includegraphics[width=\columnwidth]{Figures/AdditionAlgorithm.png}
+\caption{Our novel n-digit addition algorithm is sound. Working left to right, it calculates single-digit carry-one values $(ST_n$), combining them into multidigit carry-one values $(SV_n$). Uncertain $SV$ values (U) are progressively refined to 0 or 1 (highlighted) until by the “=" token there is no $SV$ uncertainty. The answer digits \AN $ $ are calculated from $SA_n$ and \AMSV values.}
 \label{fig:AdditionAlgorithm}
 \end{figure}
 
@@ -149,13 +152,13 @@ We construct (effectively infinite) synthetic training data enriched with the ha
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.8\columnwidth]{Figures/AdditionModelScores.png}
+\includegraphics[width=\columnwidth]{Figures/AdditionModelScores.png}
 \caption{We score the addition and subtraction capability of 180 public LLMs. A score of 5 means the LLM handled two 5 digits numbers correctly but failed with 6 digit numbers. 7\% of addition and 12\% of subtraction models get the maximum test score 15. The top models can call external tools.}
 \label{fig:ModelScores}
 \end{figure}
 
 %We introduce a novel, simple, mathematically exact algorithm for n-digit addition (Figure \ref{fig:AdditionAlgorithm}). The algorithm respects the transformer’s left-to-right processing constraint, handling high-value digits before low-value ones. We also introduce a novel, exact algorithm for subtraction.
-\textcolor{blue}{ We introduce a novel, simple, mathematically exact algorithm for n-digit addition (Figure \ref{fig:AdditionAlgorithm}). Unlike human calculation (right-to-left), the algorithm processes digits left-to-right—the natural ordering in which arithmetic appears in training corpora and the constraint under which LLMs must operate. We also introduce a novel, exact algorithm for subtraction. }
+\textcolor{blue}{ We introduce novel, accurate algorithms for n-digit addition and subtraction (Fig. \ref{fig:AdditionAlgorithm} and \ref{fig:SubtractionAlgorithm}) that (unlike humans) processes digits left-to-right — the ordering in which arithmetic appears in training corpora and the constraint under which LLMs must operate. }
 
 We then ask whether our trained models actually implement these algorithms. To do so, a model must realize each algorithmic subtask. We hypothesize the existence of specific calculation “nodes” capable of carrying out these subtasks, and develop code to automatically search for candidate nodes.
 We evaluate these candidates through systematic ablations. Each ablation is designed around a specific subtask, allowing us to precisely predict how the model’s output should change when we intervene. The predictions match perfectly: intervening on the identified node produces exactly the expected effect. Every model we study contains nodes corresponding to all subtasks, though in some cases a single logical role is distributed across two attention heads.
@@ -203,7 +206,7 @@ For addition and subtraction of two $n$-digit numbers, we use the Fig.~\ref{fig:
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\columnwidth]{Figures/AdditionExampleWithPlus.png}
+\includegraphics[width=\columnwidth]{Figures/AdditionExampleWithPlus.png}
 \caption{For 5-digit addition and subtraction, our notation for the main input tokens is $D4$, ..., $D0$ and $D'4$, ..., $D'0$. For output tokens it is $A6$, .., $A0$. For n-digits, we use the notation \DN, .., $D0$, \DND, .., $D'0$ and \AN, .., $A0$.}
 \label{fig:AdditionTerms}
 \end{figure} 
@@ -231,9 +234,9 @@ First, we introduce subtask ST. It classifies a digit pair sum as \textit{defini
 \begin{equation}
     \underbrace{ST_n}_{(D_n, D'_n)} =
     \begin{cases}
+    0 & \text{if } (D_n + D'_n) \le 8 \text{ or } n = 0 \\
     1 & \text{if } (D_n + D'_n) \geq 10 \\
-    0 & \text{if } (D_n + D'_n) \le 8 \text{ or } n = 0 \hspace{1cm}\text{Note ST0 is always 0 or 1.} \\
-    U & \text{otherwise} \hspace{3.55cm} \text{Sums to 9, so carry is uncertain} \\
+    U & \text{otherwise. (U for uncertain)} \\
     \end{cases}
 \end{equation}
 
@@ -257,7 +260,7 @@ Finally, we introduce the SV subtask that uses TriAdd to handle multidigit carry
 
 The highlighted (solid-color) part of Figure~\ref{fig:AdditionAlgorithm} illustrates the SV2 calculation. Note that the calculation first combines ST2 and ST1 (the higher value digits) before combining the result with ST0. This formulation mirrors the left to right order in which the model processes tokens i.e. from higher value digits to lower value digits. The last term in all $SV_n$ calculations is ST0 which is always 0 or 1, so all $SV_n$ evaluate 0 or 1. That is, at the end of the $SV_n$ calculation any uncertainty has been resolved. 
 
-The $SV_n$ are perfectly accurate multidigit cascade carry values. Their calculation occurs across multiple tokens and is completed by the “=" token. Combining the \ANSV values with the \SAN values as shown in Figure~\ref{fig:AdditionAlgorithm} gives perfectly accurate answer tokens.
+The $SV_n$ are accurate multidigit cascade carry values. Their calculation occurs across multiple tokens and is completed by the “=" token. Combining the \ANSV values with the \SAN values as shown in Figure~\ref{fig:AdditionAlgorithm} gives accurate answer tokens.
 
 \subsection{Subtraction Algorithm Description}
 \label{Sec:SubtractionFramework}
@@ -282,7 +285,8 @@ Subtraction poses an additional algorithmic difficulty - some questions give a p
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{Figures/SubtractionAlgorithm.png}
-\caption{Our subtraction algorithm parallels our addition algorithm but it refines “cascading borrow one" uncertainty over multiple tokens. The refined $MV2$ value determines both the answer sign (“+" or “-") and which digit values ($MD_n$ or $ND_n$) to use for the final output.}
+\caption{
+Our novel n-digit subtraction algorithm is sound. It parallels our addition algorithm but instead refines “cascading borrow one" uncertainty over multiple tokens. The refined $MV2$ value determines both the answer sign (“+" or “-") and which digit values ($MD_n$ or $ND_n$) to use for the final output.}
 \label{fig:SubtractionAlgorithm}
 \end{figure*}
 
@@ -382,7 +386,7 @@ Testing our fifteen 2-layer addition models, we find all models contain the subt
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.9\columnwidth]{Figures/PCA_trigrams_D5_selected.png}
+\includegraphics[width=\columnwidth]{Figures/PCA_trigrams_D5_selected.png}
 %\caption{For a 5-digit addition model, these three sample PCAs show one attention head at one token position tested for one answer digit each. Each dot represents a question - colored by the question's expected ST value (0, 1 or U as red, green, blue respectively). The PCA data differs somewhat per case, but there is a strong correlation between the PCA and the expected 3 ST values.}
 \caption{For a 5-digit addition model, these three sample PCAs each show 1 attention head at a token position tested for 1 answer digit. Each dot represents a question, colored by the question's expected ST value (0, 1, or U). While the PCA data varies across cases, the 3 ST classes form visually distinct clusters in each plot, suggesting that the attention head's activation patterns differ systematically based on ST value and that the model could potentially distinguish between these 3 cases.}
 \label{fig:PCATrigrams5D}
@@ -480,7 +484,7 @@ We believe that this adaptation was likely because these three operations share 
     \label{tab:Coverage_SNM}
     \vspace{0.1in}
     \centering
-    \begin{tabularx}{0.66\columnwidth}{|X|c c|c c|}
+    \begin{tabularx}{\columnwidth}{|X|c c|c c|}
         \hline
         & \multicolumn{2}{c|}{\textbf{Used}} & \multicolumn{2}{c|}{\textbf{Inserted}} \\
         \hline
@@ -514,7 +518,8 @@ Fully reverse engineering neural networks faces significant challenges, includin
 Our models may be useful to researchers investigating the universality of representations / circuits across models. 
 
 \bibliography{paper}
-\bibliographystyle{iclr2026_conference} % ICLR
+%\bibliographystyle{acl_natbib}
+%\bibliographystyle{iclr2026_conference} % ICLR
 %\bibliographystyle{plainnat} % ARXIV
 
 \appendix
@@ -930,28 +935,28 @@ To analyze question difficulty, we categorized addition questions by the complex
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
+\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
 \caption{For a sample \textbf{5-digit} 2-layer 3-head \textbf{addition} model, this map shows a compacted view of all useful token positions (horizontally) and all useful attention heads and MLP layers (vertically) used in predictions as green cells. Each cell shows the simplest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. The model only uses nodes in ten token positions. }
 \label{fig:Complexity5D}
 \end{figure}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
+\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
 \caption{This map shows the \textbf{\% of enriched questions} that fail when we ablate each node in a \textbf{5-digit} 2-layer 3-head addition model. The model only uses nodes in token positions P6 to P17 (i.e. tokens D'4 to A1). Lower percentages correspond to rarer edge cases. The grey space represents nodes that are not used by the model.}
 \label{fig:FailPerc5D}
 \end{figure}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AttentionBehaviorPerHead.pdf}
+\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AttentionBehaviorPerHead.pdf}
 \caption{This map shows the input tokens each attention head attends to at each token position in a \textbf{5-digit} 2-layer 3-head addition model. At token position P12 the model predicts the first answer digit A5. \textbf{All} digit pairs (e.g. D2 D'2) are attended to by P12.}
 \label{fig:Attention5D}
 \end{figure}
 
 %\begin{figure}[ht]
 %\centering
-%\includegraphics[width=0.66\columnwidth]{Figures/PCA_Bigrams_D5.pdf}
+%\includegraphics[width=\columnwidth]{Figures/PCA_Bigrams_D5.pdf}
 %\caption{For 5-digit addition, for these attention heads, for exactly 1 digit \AN { } each, PCA shows these interpretable results. The dot colours show the TriCase value of each question. The PCA and TriCase data are strongly correlated, but the PCA data has 2 states. }
 %\label{fig:PCABigrams5D}
 %\end{figure}
@@ -999,14 +1004,14 @@ The addition models perform addition accurately. Visualizations that provided in
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.66\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
+\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
 \caption{This map shows the simpliest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node in the \textbf{5-digit} 2-layer 3-head \textbf{addition} model. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. }
 \label{fig:Complexity5D_app}
 \end{figure}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.66\columnwidth]{Figures/add_d6_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
+\includegraphics[width=\columnwidth]{Figures/add_d6_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
 \caption{This map shows the \textbf{\% of questions} that fail when we ablate each node in the \textbf{6-digit} 2-layer 3-head addition model. The model only uses nodes in token positions P11 to P20. Lower percentages correspond to rarer edge cases. The grey space represents nodes that are not useful. }
 \label{fig:FailPerc6D}
 \end{figure}
@@ -1066,21 +1071,21 @@ The mixed models perform addition and subtraction accurately. Visualizations tha
 % Show the re-use/generalization of the inserted addition nodes
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\columnwidth]{Figures/Coverage_SNM.pdf}
+\includegraphics[width=\columnwidth]{Figures/Coverage_SNM.pdf}
 \caption{ This map of a sample 6-digit \textbf{mixed} model shows the 98 nodes used to predict answers to addition (S), positive-answer subtraction (M) and/or negative-answer subtraction (N) questions. Before training the mixed model, 48 nodes were initalized pre-training with a smaller \textbf{addition} model's weights. These are have a red border. During mixed model training, 39 of 48 of the initalized monosemantic nodes were generalized (become poly-semantic) and now help predict two or three question classes. }
 \label{fig:Coverage_SNM}
 \end{figure}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AdditionMinComplexity.pdf}
+\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AdditionMinComplexity.pdf}
 \caption{This map shows the simplest \textbf{complexity} quanta S0, S1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model when doing \textbf{addition} questions.}
 \label{fig:mix_add_complexity}
 \end{figure}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001PositiveanswerSubtractionMinComplexity.pdf}
+\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001PositiveanswerSubtractionMinComplexity.pdf}
 \caption{This map shows the simpliest \textbf{complexity} quanta M0, M1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model for \textbf{subtraction} questions with positive answers. }
 \label{fig:mix_sub_complexity}
 \end{figure}

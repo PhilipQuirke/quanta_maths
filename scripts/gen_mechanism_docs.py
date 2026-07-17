@@ -19,7 +19,8 @@ import json
 import os
 import sys
 
-from quanta_maths import ACCURATE_MODELS, build_mechanism_markdown, capture_model_map
+from quanta_maths import build_mechanism_markdown, capture_model_map
+from quanta_maths.maths_hf_update import ordered_analysis_models
 
 MAP_DIR = "results/maps"
 
@@ -55,6 +56,6 @@ def main(models):
 
 
 if __name__ == "__main__":
-    models = sys.argv[1:] or ACCURATE_MODELS
+    models = sys.argv[1:] or ordered_analysis_models()
     print(f"generating mechanism docs for {len(models)} model(s) -> {MAP_DIR}/")
     main(models)

@@ -24,7 +24,7 @@ once in the [glossary](thor-glossary.md#project-terms).
 
 | Stage | Script | Reads | Writes |
 | --- | --- | --- | --- |
-| 1. Capture the map | `scripts/gen_model_maps.py` | HF `*_maths.json` + `*_behavior.json` | `results/maps/<model>.json` |
+| 1. Capture the map | `scripts/gen_model_maps.py` | `PhilipQuirke/QuantaMaths_<model>`: `features.json` (Algo roles) + `behaviors.json` (Fail%/Impact/Attn/Probe) | `results/maps/<model>.json` |
 | 2. Render the doc | `scripts/gen_mechanism_docs.py` | `results/maps/<model>.json` | `results/maps/<model>_mechanism.md` |
 
 ```bash
@@ -37,9 +37,11 @@ PYTHONPATH=. python scripts/gen_model_maps.py [model_name ...]
 PYTHONPATH=. python scripts/gen_mechanism_docs.py [model_name ...]
 ```
 
-Both default to the accurate model set (`quanta_maths.ACCURATE_MODELS`) if no
-model names are given. View the Mermaid diagrams with GitHub's renderer or the
-VS Code Mermaid preview.
+Both default to the full analysable set
+(`quanta_maths.maths_hf_update.ordered_analysis_models()` — the ~33 models whose
+repo has both `behaviors.json` and `features.json`, ordered add → sub → mix,
+small → large) if no model names are given. View the Mermaid diagrams with
+GitHub's renderer or the VS Code Mermaid preview.
 
 ## Library entry points (`quanta_maths/maths_diagram.py`)
 
@@ -83,11 +85,15 @@ and its rendered doc
 
 ## Known gap (map completeness)
 
-The zoo-wide maps are not yet "maximal" in every field the diagrams could use.
-Tracked as the map-completeness item in
-[maths-next-steps.md](maths-next-steps.md): the map-absent cascade-resolver
-(`SV`/`MV`/`NV`) and combiner (`STC`/`MTC`/`NTC`) role tags, model provenance
-(`init_from`), and per-class positive-control accuracy still need the analysis
-stage to write them into `results/maps/<model>.json`. Until then the logical
-diagram draws a generic "cascade resolver" box and the combiner is inferred from
-the last-layer answer-position MLPs.
+The zoo-wide maps (33 models on HF as of 2026-07-16) are richer than the first
+cut — the combiner `STC`/`MTC`/`NTC` `Algo` tags and the `Probe:*` behaviour tags
+are now present — but not yet "maximal" in every field. Tracked as the
+map-completeness item in [maths-next-steps.md](maths-next-steps.md):
+
+- the map-absent cascade-resolver `SV`/`MV`/`NV` role tags (so the logical diagram
+  still draws a generic "cascade resolver" box);
+- model provenance `init_from` (e.g. `ins1_*` initialised from a d6 addition model);
+- per-class positive-control accuracy for non-mixed models;
+- **sparse base-digit tagging on some large models** — e.g. `add_d14` has no `SA`
+  tag, so its base-writer box shows "none" and the op class is inferred from the
+  model name. Faithful to the map; fix upstream in the HF `features.json`.

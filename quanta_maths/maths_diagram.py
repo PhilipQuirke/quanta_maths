@@ -14,17 +14,19 @@ Mermaid versions (GitHub / VS Code).
 """
 from __future__ import annotations
 
+import json
 import re
 from typing import Dict, List, Tuple
 
 from quanta_maths.maths_config import MathsConfig
-from quanta_maths.maths_model_loader import DEFAULT_HF_REPO
+from quanta_maths.maths_model_loader import DEFAULT_HF_REPO, analysis_repo_id
 
 # Task families (the algorithm's logical roles).
 BASE_TASKS = ["SA", "MD", "ND"]        # base digit: add-sum / pos-diff / neg-diff
 CARRY_TASKS = ["SC", "MB", "NB"]       # carry / borrow one
 TRI_TASKS = ["ST", "MT", "NT", "GT"]   # tri-state + greater-than compare
 CTRL_TASKS = ["OPR", "SGN", "SLT"]     # operator / sign / selector
+COMBINER_TASKS = ["STC", "MTC", "NTC"]  # per-class combiner Algo tags (answer MLPs)
 
 _FORBIDDEN = re.compile(r"[\[\]{}|<>()]")
 
@@ -197,19 +199,29 @@ def build_model_map(model_name: str, cfg: MathsConfig,
     }
 
 
-def capture_model_map(model_name: str, hf_repo: str = DEFAULT_HF_REPO,
+def capture_model_map(model_name: str, repo_id: str = None,
                       cfg: MathsConfig = None) -> dict:
-    """Download a model's verified HF map (``*_maths.json`` + ``*_behavior.json``)
-    and return the maximal per-model map dict (see :func:`build_model_map`).
-    Map-only (no model forward pass), so cheap to batch across the ~40-model zoo.
+    """Download a model's canonical analysis JSONs and return the maximal
+    per-model map dict (see :func:`build_model_map`).
+
+    Source: the per-model ``PhilipQuirke/QuantaMaths_<name>`` repo, which holds
+    ``features.json`` (Algo role tags -> role nodes) and ``behaviors.json``
+    (``Fail%``/``Impact``/``Attn``/``Probe`` tags -> behaviour nodes). Both are
+    plain ``[{position, layer, is_head, num, tags}]`` lists. Map-only (no model
+    forward pass), so cheap to batch across the ~33-model analysable zoo.
     """
-    from QuantaMechInterp.model_train_json import download_huggingface_json
+    from huggingface_hub import hf_hub_download
+    from quanta_maths.maths_hf_update import BEHAVIORS_FILE, FEATURES_FILE
+    if repo_id is None:
+        repo_id = analysis_repo_id(model_name)
     if cfg is None:
         cfg = MathsConfig()
         cfg.set_model_names(model_name)
-    maths = download_huggingface_json(hf_repo, f"{model_name}_maths.json")
-    behav = download_huggingface_json(hf_repo, f"{model_name}_behavior.json")
-    return build_model_map(model_name, cfg, maths, behav)
+    with open(hf_hub_download(repo_id=repo_id, filename=FEATURES_FILE)) as f:
+        feats = json.load(f)          # Algo role tags
+    with open(hf_hub_download(repo_id=repo_id, filename=BEHAVIORS_FILE)) as f:
+        behav = json.load(f)          # Fail% / Impact / Attn / Probe tags
+    return build_model_map(model_name, cfg, feats, behav)
 
 
 # ===========================================================================
@@ -302,12 +314,21 @@ def capture_positions(cfg: MathsConfig) -> dict:
 
 
 def node_inventory_md(registry) -> str:
-    order = TRI_TASKS + BASE_TASKS + CARRY_TASKS + CTRL_TASKS
+    """Every tagged role in the map, so the inventory is a faithful, lossless
+    view of the JSON: the known task families in canonical order, then the
+    per-class combiner Algo tags, then any other tagged role (e.g. `SS`,
+    `SV`/`MV`/`NV`), then the behaviour-derived combiner MLPs."""
+    known = TRI_TASKS + BASE_TASKS + CARRY_TASKS + CTRL_TASKS + COMBINER_TASKS
+    roles = registry["roles"]
     rows = ["| Task | Nodes |", "| --- | --- |"]
-    for t in order:
-        locs = registry["roles"].get(t)
-        if locs:
-            rows.append(f"| `{t}` | {', '.join(locs)} |")
+    for t in TRI_TASKS + BASE_TASKS + CARRY_TASKS + CTRL_TASKS:
+        if roles.get(t):
+            rows.append(f"| `{t}` | {', '.join(roles[t])} |")
+    for t in COMBINER_TASKS:
+        if roles.get(t):
+            rows.append(f"| `{t}` (combiner tag) | {', '.join(roles[t])} |")
+    for t in sorted(k for k in roles if k not in known):
+        rows.append(f"| `{t}` | {', '.join(roles[t])} |")
     if registry["combiners"]:
         rows.append(f"| combiner (last-layer answer MLP) | {', '.join(registry['combiners'])} |")
     return "\n".join(rows)
@@ -464,7 +485,19 @@ def _op_classes(registry) -> List[str]:
         cls.append("SUB")
     if registry["roles"].get("ND") or registry["roles"].get("NB"):
         cls.append("NEG")
-    return cls or ["the task"]
+    if cls:
+        return cls
+    # Fall back to the model-name operation when the map's role tags are too
+    # sparse to infer the class set (e.g. a large addition model whose map has
+    # no SA base-digit tag).
+    name = registry.get("model", "")
+    if name.startswith("add_"):
+        return ["ADD"]
+    if name.startswith("sub_"):
+        return ["SUB", "NEG"]
+    if "mix" in name:
+        return ["ADD", "SUB", "NEG"]
+    return ["the task"]
 
 
 # ===========================================================================
@@ -556,11 +589,10 @@ Task-code meanings: see the [glossary]({glossary}).
     return doc
 
 
-def build_mechanism_markdown_for_model(model_name: str,
-                                       hf_repo: str = DEFAULT_HF_REPO,
+def build_mechanism_markdown_for_model(model_name: str, repo_id: str = None,
                                        cfg: MathsConfig = None) -> str:
     """Convenience: capture the maximal map from HuggingFace, then build the doc.
     (:func:`build_mechanism_markdown` itself is offline and takes the map dict.)
     """
-    model_map = capture_model_map(model_name, hf_repo=hf_repo, cfg=cfg)
+    model_map = capture_model_map(model_name, repo_id=repo_id, cfg=cfg)
     return build_mechanism_markdown(model_map, cfg=cfg)
