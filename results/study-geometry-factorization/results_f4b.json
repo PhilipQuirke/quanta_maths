@@ -1,0 +1,165 @@
+{
+  "model": "ins1_mix_d6_l3_h4_t40K_s372001",
+  "mode": "full",
+  "n_q_trained": 300,
+  "n_q_untrained": 120,
+  "read_digits": [
+    2,
+    3
+  ],
+  "null_band_abs_cos": {
+    "mean": 0.03931623829815635,
+    "p95": 0.09151424721788617
+  },
+  "baseline": {
+    "2": {
+      "pairwise_abs_cos": {
+        "ADD-SUB": 0.20666977763175964,
+        "ADD-NEG": 0.22572457790374756,
+        "SUB-NEG": 0.8979179859161377
+      },
+      "shared_dir_var": 0.6640497446060181,
+      "decode_trained": {
+        "ADD": 1.0,
+        "SUB": 1.0,
+        "NEG": 1.0
+      },
+      "decode_untrained": {
+        "ADD": 0.583011583011583,
+        "SUB": 0.6111111111111112,
+        "NEG": 0.5193498452012384
+      }
+    },
+    "3": {
+      "pairwise_abs_cos": {
+        "ADD-SUB": 0.20540747046470642,
+        "ADD-NEG": 0.22567833960056305,
+        "SUB-NEG": 0.8281691074371338
+      },
+      "shared_dir_var": 0.6427595019340515,
+      "decode_trained": {
+        "ADD": 1.0,
+        "SUB": 1.0,
+        "NEG": 1.0
+      },
+      "decode_untrained": {
+        "ADD": 0.6019305019305019,
+        "SUB": 0.555984555984556,
+        "NEG": 0.5944055944055944
+      }
+    }
+  },
+  "arm1_projection": {
+    "2": {
+      "pairwise_abs_cos_clean": {
+        "ADD-SUB": 0.20431482791900635,
+        "ADD-NEG": 0.22072502970695496,
+        "SUB-NEG": 0.8976752758026123
+      },
+      "shared_dir_var_clean": 0.6630049347877502,
+      "decode_trained_after_projection": {
+        "ADD": 1.0,
+        "SUB": 1.0,
+        "NEG": 1.0
+      },
+      "decode_untrained_heldout_after_projection": {
+        "ADD": 0.5857142857142856,
+        "SUB": 0.5976190476190476,
+        "NEG": 0.5261904761904762
+      },
+      "axis_shift_abs_cos_raw_vs_clean": {
+        "ADD": 0.99362713098526,
+        "SUB": 0.9968371987342834,
+        "NEG": 0.9950441122055054
+      }
+    },
+    "3": {
+      "pairwise_abs_cos_clean": {
+        "ADD-SUB": 0.1993425339460373,
+        "ADD-NEG": 0.22140094637870789,
+        "SUB-NEG": 0.8282489776611328
+      },
+      "shared_dir_var_clean": 0.6413503289222717,
+      "decode_trained_after_projection": {
+        "ADD": 1.0,
+        "SUB": 1.0,
+        "NEG": 1.0
+      },
+      "decode_untrained_heldout_after_projection": {
+        "ADD": 0.3476190476190476,
+        "SUB": 0.4754901960784314,
+        "NEG": 0.4681372549019608
+      },
+      "axis_shift_abs_cos_raw_vs_clean": {
+        "ADD": 0.9944155216217041,
+        "SUB": 0.9969955086708069,
+        "NEG": 0.9978375434875488
+      }
+    }
+  },
+  "arm2_cross_digit": {
+    "within_class_cross_digit_abs_cos_trained": {
+      "ADD": 0.9814063310623169,
+      "SUB": 0.976891279220581,
+      "NEG": 0.9750820398330688
+    },
+    "within_class_cross_digit_abs_cos_untrained": {
+      "ADD": 0.4145813584327698,
+      "SUB": 0.09869846701622009,
+      "NEG": 0.2231702208518982
+    },
+    "cross_class_cross_digit_abs_cos": {
+      "ADD-SUB": {
+        "mean": 0.20834562182426453,
+        "vals": [
+          0.19753199815750122,
+          0.21915924549102783
+        ]
+      },
+      "ADD-NEG": {
+        "mean": 0.22353240847587585,
+        "vals": [
+          0.21696579456329346,
+          0.23009902238845825
+        ]
+      },
+      "SUB-NEG": {
+        "mean": 0.8768776953220367,
+        "vals": [
+          0.8704864978790283,
+          0.8832688927650452
+        ]
+      }
+    }
+  },
+  "abs_cos_SGN_vs_cleaned_axes_rd2": {
+    "ADD": 0.009406803175807,
+    "SUB": 0.04089383780956268,
+    "NEG": 0.07324221730232239
+  },
+  "verdict": {
+    "arm1_controls_pass": true,
+    "SUB_NEG_shared_borrow_rail_genuine": false,
+    "ADD_orthogonal_established": true,
+    "single_shared_rail_after_cleaning": false,
+    "read": "see components / scoped"
+  },
+  "untrained_registered_bar_check": {
+    "untrained_cross_class_abs_cos_rd2": {
+      "ADD-SUB": 0.3140861988067627,
+      "ADD-NEG": 0.21879346668720245,
+      "SUB-NEG": 0.028725307434797287
+    },
+    "untrained_cross_class_abs_cos_rd3": {
+      "ADD-SUB": 0.3081645667552948,
+      "ADD-NEG": 0.02267095074057579,
+      "SUB-NEG": 0.22589510679244995
+    },
+    "untrained_within_class_cross_digit_abs_cos_fresh": {
+      "ADD": 0.40733546018600464,
+      "SUB": 0.00483260303735733,
+      "NEG": 0.34780415892601013
+    }
+  },
+  "arm1_shared_dir_var_clean_rd2": 0.6630049347877502
+}
