@@ -1,0 +1,10 @@
+{
+  "mode": "upload-only",
+  "roundtrip_ok": true,
+  "uploaded": true,
+  "paths": {
+    "behaviors.json": "results/hf-update/ins1_mix_d8_l3_h4_t70K_s572091/updated/behaviors.json",
+    "features.json": "results/hf-update/ins1_mix_d8_l3_h4_t70K_s572091/updated/features.json"
+  },
+  "_seconds": 2.6
+}

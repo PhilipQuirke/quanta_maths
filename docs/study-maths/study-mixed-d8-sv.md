@@ -19,11 +19,21 @@ reached the combiner via *both* the residual and last-layer attention at every
 depth; on **d8 they ride the residual for shallow cascades (depths 2–3) but
 switch to last-layer attention for deep ones (depth 4)**, while addition stays
 residual-only at all depths. **A12 supported** (the SV interface is size-general;
-the delivery route is model/depth-specific, as CE25 anticipated). Two pieces are
-**map-blocked** (this model has no published node map): the question-tail
-writer-encoding probe (site unconfirmed — untrained ≥ trained, invalid) and the
-paper-style behavior map / mechanism diagram. A reusable **d8 SV node-tag
-dataset** was emitted (18 combiner `Algo` tags + 21 `Probe:DELIVERY` tags).
+the delivery route is model/depth-specific, as CE25 anticipated). A reusable
+**d8 SV node-tag dataset** was emitted (18 combiner `Algo` tags + 21
+`Probe:DELIVERY` tags).
+
+**Map gap filled (2026-07-16):** the d8 mixed model previously had **no published
+verified map** on HF (which blocked the question-tail writer-encoding probe, the
+SLT shared-engine test, and the mechanism diagram). I then **generated + uploaded
+the full d8 mixed map via the standard method** (`maths_hf_update` headless
+QMAnalyse discovery + techniques → `behaviors.json` [Fail%/Impact/Math.*/Attn +
+Probe] + `features.json` [Algo roles + STC/MTC/NTC combiners], round-trip
+verified, uploaded to `PhilipQuirke/QuantaMaths_ins1_mix_d8_l3_h4_t70K_s572091`).
+PCA `.SP/.MP` tri-case tagging was disabled (an SV-irrelevant >30-min bottleneck
+on d8); combiner tags were added via a redundancy-proof combiner-input criterion
+(`_combiner_is_causal` fallback) after the zero-ablation tagger returned 0 on d8.
+Those map-blocked follow-ups are now runnable.
 
 Entry 2 follow-up (a) (cross-model). Scope: **mixed model**, 8-digit. Scores
 **A12** (cross-size mixed generalization). The d8 model has **no published

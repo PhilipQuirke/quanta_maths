@@ -746,3 +746,86 @@ live — not the current best story (that goes in
   d8 model/seed.
 - **Linked study**:
   [study-maths/study-mixed-d8-sv.md](study-maths/study-mixed-d8-sv.md)
+
+### 2026-07-16 — Latent-geometry: rail-and-address factorization (CE27; addition + mixed; G1 refuted / G4 two-rail / A3 settled; dual-gated)
+
+- **Bundle**: the geometry-factorization study (G1 killer test + G4 rail
+  identity + F1 write-site shape) on `add_d6_l2_h3_t20K_s173289`,
+  `add_d5_l2_h3_t15K_s372001`, mixed `ins1_mix_d6_l3_h4_t40K_s372001`
+  (all acc 1.000). Tests whether ST storage factors as one shared 1-D carry rail
+  (the consumer-OV pre-image of the CE16 carry axis) ⊕ private address, and
+  whether SV/MV/NV share one rail on the mixed model.
+- **Result (CE27)**: **G1's OV-preimage rail REFUTED** — it does not rescue
+  CE11's cross-digit no-transfer (off-diag gain 0.099/0.116 vs OV-pre-image-of-
+  random null 0.078/0.106, below the 0.05 margin; weak within-site diag 0.60),
+  and no shared *stored* carry subspace is shown (full-activation *binary* carry
+  transfers only at null-band off-diag gain 0.088/0.096) → canonicalization is a
+  **read-time transformation** (consistent with CE24), the common currency on
+  the wire not in storage. **A3 settled descriptively** — the question-tail ST
+  write is **collinear-ordered**, U not off-axis (perm p ~1.0), U split by cin on
+  the rail. **G4 single-rail REFUTED → two-rail** — SUB/NEG borrow codes share
+  one rail (|cos| 0.90/0.96), ADD carry ~orthogonal (0.20/0.22); SGN orthogonal
+  to all. PC1 reproduces CE11 (tri retention 0.169/0.074; ST–SV 26/21°); PC2
+  reproduces CE20 (bits decode 1.00 vs untrained 0.51–0.68).
+- **Artifacts (local, no HF)**: `results/study-geometry-factorization/results.json`
+  + `run.log`; `scripts/geometry_factorization.py`.
+- **Caveats**: linear-probe / representational (causal read-locus = CE16/CE24);
+  addition question-site + mixed combiner-input scoped; retention *ratio* on a
+  fixed 1-D axis near-tautological (absolute off-diag gain used); mixed two-rail
+  is a descriptive |cos|-spectrum read with an ADD-axis nuisance caveat
+  (untrained decodes ADD's bit 0.68); F3 single-digit per model; a *nonlinear*
+  shared code not excluded. Dual fresh-context skeptic gates (pre PASS-WITH-
+  CONDITIONS incl. F3 redesign; post PASS-WITH-CORRECTIONS, 12 folded).
+- **Linked study**:
+  [study-maths/study-geometry-factorization.md](study-maths/study-geometry-factorization.md)
+
+### 2026-07-16 — Addition model: geometry-certificate (G2/G3 latent-geometry stream): CE28
+
+- **Bundle**: per-prompt LN-fair OV decomposition of the L1-read combiner input
+  along the CE16/CE17 carry rail into per-source-site contributions, scoring G2
+  (place-value dominance code + STEP-makes-TriAdd) and G3 (dynamic-range law).
+  Models `add_d6_l2_h3_t20K_s173289` (primary), `add_d5_l2_h3_t15K_s372001` (rep);
+  T5/G3 on `add_d10_..._s572091` + `add_d13_..._s572091`. All acc 1.000.
+- **Result (CE28)**: **G2 partial (low-medium)** — the decomposition is exact
+  (recon_err ~5e-8); per-site writes form an **ordered place-value rail** (class-1 >
+  class-0 every site; super-increasing weighted gaps within the cascade region on
+  both the shared and each consumer's own refit rail; cin-dependent U per CE13); a
+  **static-attention additive read** predicts carry-out (agreement 0.92–1.00; per-
+  prompt attention is worse → supports A5); the **worst-case TriAdd certificate is
+  met at the d6 middle consumer** (non-empty + α\* inside + config-acc 1.00) but
+  **empty at the leading digit** (compressed top-gap, persistent on the local rail —
+  genuine, not misalignment) and additivity is non-additive at the primary d6
+  (static R² 0.24–0.42 vs 0.79–0.96 at d5). U overshoots the committed range at the
+  dominant deciding site (a cin-gate, not a midpoint). **G3 low (consistent)** — the
+  carry-axis sep collapses 28.6/32.2 → 5.57/6.04 (d5/d6→d10/d13), **re-explaining
+  CE18's 30→6 as dynamic-range compression, not instrument failure**; the strict ρ^i
+  law is weak at d13 and low-digit gaps aren't discriminated from irrelevance.
+- **Controls (all pass)**: PC1 1.00/0.00; PC2 sep 28.6/32.2; PC3 wrong-axis gap
+  collapse ~100×; **untrained twin** sep→2.7, gap→0.006 (trained-specific);
+  **local-rail refit** (the decisive control) reproduces the leading top-gap
+  compression + empty certificate on the consumer's own rail.
+- **Touches**: A3 (U cin-dependent, never a static symbol — reinforced low), A5
+  (static-attention read wins — supported), A10 (combiner STEP = threshold on a
+  dominance rail — geometric implementation added).
+- **Skeptic**: combined fresh-context gate — post-result **BLOCK** (rail-misalignment
+  confound + 7 over-claims) → added local-rail + untrained controls, re-ran full-N,
+  folded corrections → scoped G2-partial / G3-consistent read.
+- **Artifacts**: `results/study-geometry-certificate/results.json` + `run_full.log`;
+  `scripts/geometry_certificate.py`. Linked study:
+  [study-maths/study-geometry-certificate.md](study-maths/study-geometry-certificate.md).
+  Caveats: linear/representational; 2-layer addition; figures deferred (numbers in JSON).
+
+### 2026-07-16 — Mixed model (8-digit): verified map generated + uploaded to HF (CE26 follow-up)
+
+- The d8 mixed model `ins1_mix_d8_l3_h4_t70K_s572091` had **no published verified
+  map** (gap). Generated + uploaded it **via the standard method** (`maths_hf_update`
+  headless QMAnalyse discovery + registered techniques): `behaviors.json` (158 nodes:
+  Fail%/Impact/Math.Add|Sub|Neg/Attn + Probe:LINXFER/CARRY/DELIVERY) + `features.json`
+  (133 Algo tags: OPR/SGN/ST/MT/SA/MD/MB/NB/SC roles + STC/MTC/NTC combiners),
+  round-trip verified, now live on `PhilipQuirke/QuantaMaths_ins1_mix_d8_l3_h4_t70K_s572091`
+  (downloaded + rehydrated OK). PCA `.SP/.MP` tagging disabled (SV-irrelevant >30-min
+  bottleneck). **Library fix**: `_combiner_is_causal` gained a redundancy-proof
+  combiner-input fallback (zero-ablation returned 0 combiners on d8) — makes combiner
+  tagging work on large/redundant models across the zoo. Unblocks the d8
+  writer-necessity / SLT shared-engine / mechanism-diagram follow-ups.
+- Artifacts: `scripts/run_d8_map.py`, `results/hf-update/ins1_mix_d8_l3_h4_t70K_s572091/`.

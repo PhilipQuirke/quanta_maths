@@ -2,12 +2,53 @@
 
 Read role and rules: [Study Notes](../thor-document-rules.md#study-notes).
 
-**Status: DESIGNED 2026-07-16 (evening) — pre-run only. Awaiting the sprint
-combined skeptic gate, then implementation + overnight run. No code has been
-written or executed for this study yet.** Owner: `maths` thread (latent-geometry
-stream). Paired study: [study-geometry-factorization.md](study-geometry-factorization.md)
+**Status: RUN 2026-07-16 (overnight), dual-gated (see Post-run). Verdict:
+G2 partial (low-medium — ordered dominance geometry supported; worst-case-certificate
++ U-midpoint forms scoped/refuted); G3 low (consistent, not discriminated).** Owner:
+`maths` thread (latent-geometry stream). Paired study: [study-geometry-factorization.md](study-geometry-factorization.md)
 (shares the stimulus grids and activation caches; one collection pass, two
 analysis batteries).
+
+## Executive summary
+
+**Question:** is the resolved-carry computation implemented as a **place-value
+dominance code on a single carry rail** — per-site class values ordered
+`p_i < u_i < q_i` (U leaning to the incoming carry, CE13), super-increasing
+attention-weighted gaps in digit significance, and the CE17 STEP threshold
+sitting inside the feasible interval that makes TriAdd provably correct?
+
+**Verdict (`add_d6_l2_h3_t20K_s173289` + `add_d5_l2_h3_t15K_s372001`, plus d10/d13
+for G3; all acc 1.000; per-prompt LN-fair OV decomposition, reconstruction
+exact to ~5e-8):**
+
+- **G2 → LOW-MEDIUM (partial).** SUPPORTED: an ordered, trained-specific carry
+  rail (class-1 > class-0 at every source site), super-increasing weighted gaps
+  within the cascade region, cin-dependent U (never a static third symbol,
+  reinforcing A3-low), a static-attention additive read (d5) that a single rail
+  threshold turns into carry-out (agreement 0.92–1.00), and a **met worst-case
+  feasibility certificate at the d6 middle consumer** (non-empty + α\* inside +
+  config-accuracy 1.00). NOT established / refuted: U-as-neutral-midpoint (fails
+  at the dominant deciding site — a full cin-gate there); additivity at the
+  primary d6 consumer (static R² 0.24–0.42, ambiguous zone); worst-case
+  certification at the leading digit (empty on both shared and local rails —
+  a genuine compressed top-gap); α\* strictly inside at 3/4 consumers. So the
+  dominance code is real and does computational work, but "provably computes
+  TriAdd everywhere via one STEP" holds only at a middle digit.
+- **G3 → LOW (consistent, not discriminated).** The carry-axis dynamic-range
+  collapse (sep 28.6/32.2 → 5.6/6.0 at d10/d13) reproduces CE18's 30→6 as
+  physics, not instrument failure; but the strict geometric ρ^i decay law is not
+  discriminated from plain irrelevance / per-consumer renormalization.
+- **Touches** A3 (cin-dependent U on the resolution axis), A5 (static-attention
+  additive read beats per-prompt-attention — supports mostly-static routing),
+  A10 (gives the combiner STEP a geometric implementation: a threshold on a
+  super-increasing dominance rail).
+
+**Controls (all PASS):** PC1 reproduces CE16 (head-pair flip 1.00 / null 0.00);
+PC2 carry-axis sep 28.6/32.2; PC3 wrong-axis gap collapse ~50–100×; untrained
+control sep 2.67/2.68 (trained-specific); local-rail control refutes the
+shared-rail-misalignment confound. Artifacts:
+`scripts/geometry_certificate.py`, `results/study-geometry-certificate/results.json`.
+Full detail in [Post-run](#post-run-run-2026-07-16-overnight).
 
 ## Pre-run (write before the experiment)
 
@@ -187,6 +228,143 @@ analysis batteries).
   + figures: per-consumer gap-profile bars (g_i vs Σ_{j<i} g_j), α̂-vs-α scatter,
   feasible-threshold interval with α* marked, d10/d13 gap-compression curve.
 
-## Post-run (fill in after the experiment)
+## Post-run (run 2026-07-16, overnight)
 
-*(not run yet)*
+**Status: RUN + dual-gated (combined skeptic pass BLOCKed the first interpretation;
+re-run with the two demanded controls; corrected read below).** Owner: `maths`
+thread (latent-geometry stream). Artifacts:
+`results/study-geometry-certificate/results.json` + `run_full.log`. Code:
+`scripts/geometry_certificate.py` (reuses `maths_edge_patch.head_ov`/`ln_scale`,
+`sv_implementation.carry_axis`/`pair_at_top`/`twin_pair`, `deep_cascade_mechanism`
+chain builders, `node_output_encoding.ST_NODES`, `sv_compounding.CONSUMER_HEADS`).
+
+**Models actually used (disclosure):** `add_d6_l2_h3_t20K_s173289` (primary) and
+`add_d5_l2_h3_t15K_s372001` (replication) — the **CE13–CE17 registry models**
+(the wired `ST_NODES`/`CONSUMER_HEADS`/`GEO_CFG` carry-rail exist only for these
+seeds). The pre-run's "`add_d6_..._t15K_s372001`" was a pre-registration slip vs
+the actual SV-implementation study model; using the wired-registry models is
+required to reuse the CE16/CE17 sites and rail. T5/G3 on `add_d10_..._s572091`
+and `add_d13_..._s572091` (CE18 empirical consumer registry). All acc 1.000.
+
+### Core measurement is exact (skeptic Q1 answered)
+
+The per-prompt LN-fair OV decomposition is **exact**: summing the per-source-site
+rail contributions + the skip/bias baseline reconstructs the measured combiner-input
+α to `recon_err ~5e-8` (both models). The baseline had to include the attention
+output bias `b_O`, the LN2 bias, AND the non-consumer heads' output at the position
+(their omission was the only source of error). "Per-site contribution" is therefore
+well-defined and additive under the frozen (this-prompt) LN std.
+
+### Controls (all PASS)
+
+- **PC1** (reproduce CE16): joint head-pair edge flip **1.00** / deciding-matched
+  null **0.00**, both models.
+- **PC2** carry-axis committed-class separation: **28.6** (d6) / **32.2** (d5) —
+  CE16/CE17 magnitude.
+- **PC3** wrong (random) axis: T1 ordering flag drops (1.0→0.4–0.75) and, decisively,
+  class-gap **magnitude collapses ~50–100×** (0.14→~0.002). (Lean on gap magnitude,
+  not the ordering flag, whose random-axis null is only ~0.4–0.6.)
+- **Untrained negative control** (added at skeptic request): on an untrained twin the
+  "carry axis" sep collapses to **2.67/2.68** (vs 28.6/32.2) and the max class-gap to
+  **~0.006** (vs ~0.14) — the geometry is **trained-specific, not a pipeline / 10-points-
+  in-high-D artifact**.
+- **Local-rail control** (added at skeptic request; the decisive one): refitting the
+  rail at **each consumer's own consuming position** from its delivered-carry twins
+  (PC2_local 23–27, all strong) reproduces the same per-digit gap profile — in
+  particular the **leading consumer's top-digit gap stays compressed on its own rail**
+  (d6 local: digit3=0.12 ≫ top digit4=0.02; d5 local: digit2=0.073 ≫ top digit3=0.003)
+  and its certificate stays empty, while the **middle consumer's certificate stays
+  non-empty (cfg-acc 0.89–1.00)**. So the leading-vs-middle contrast is **genuine, not
+  shared-rail misalignment** (the skeptic's decisive confound is refuted).
+
+### Battery results (final, full-N)
+
+**T1 ordering & transparency — largely holds, one scoped exception.** Class-1 rail >
+class-0 at **every** source site both models (pos_gap 1.00); p<u<q and U-inside hold
+at ~all moderate-weight sites; U carries the **CE13 cin lean**. Exception (skeptic
+Q on transparency): at the single **highest-weight deciding site** (d5 middle, w=0.56)
+U **overshoots** the committed range (u0=−0.198 < p=−0.027; u1=+0.235 > q=+0.003;
+ordered=False) — there U is not a neutral midpoint but a **full cin-controlled gate**.
+Net: U is **cin-dependent on the carry-resolution axis** (never a static third symbol
+— consistent with A3-low/CE6/CE7); "U as neutral midpoint" holds only at
+moderate-weight sites.
+
+**T2 dominance — super-increasing within the cascade region; top digit compressed at
+the leading consumer.** Per-digit weighted gaps are super-increasing in significance
+up to the deciding region (d6 middle 0.009→0.034→0.139; d5 middle 0.112→0.147), on
+**both** the shared and the local rail. The **top** digit each **leading** consumer
+serves has a **compressed** gap (d6 digit4=0.02 after digit3=0.093; d5 digit3=0.003
+after digit2=0.047) — persistent on the local rail (genuine).
+
+**T3 additivity (STATIC-attention reconstruction — the correct metric).** d5 leading
+R²=**0.79**, middle **0.96** → additive; d6 leading **0.24**, middle **0.42** → in the
+non-additive/ambiguous zone (the pre-registered R²<0.4 → "ordered rail, non-additive
+read"). The **per-prompt-attention** reconstruction is *worse* (negative R²) — i.e. a
+**static-attention** additive read is the better model (consistent with A5
+mostly-static routing). Threshold-agreement (1[read>α*]==carry-out) is **0.92–1.00**
+everywhere. (separation_bacc=1.00 is demoted to a consistency check — near-tautological
+since the axis is the class-mean difference.)
+
+**T4 feasibility certificate.** Non-empty **and α\* inside with config-accuracy 1.00**
+at the **d6 middle** consumer (geo and local rail) — the geometry provably certifies
+TriAdd there. Non-empty but α\* outside (cfg-acc 0.78–0.89) at the **d5 middle**;
+**empty** at **both leading** consumers (cfg-acc 0.49–0.68) on both rails. The
+operating α\* (rail coordinate ≈0.49–0.54) is **not** CE17's interpolation-α\*≈0.75
+(different coordinate — flagged, not "explained").
+
+**T5 / G3 dynamic-range law.** Carry-axis sep collapses **28.6/32.2 (d5/d6) → 5.57/6.04
+(d10/d13)** — reproducing CE18's 30→6 as **dynamic-range compression** (physics), not
+instrument failure. Gap profiles are super-increasing (d10 ρ≈6.9, r²=0.78; d13 ρ≈1.9,
+r²=0.41 on a non-contiguous digit set), with low-significance gaps at the noise floor.
+**Caveat (skeptic):** the near-zero low-digit gaps are not discriminated from **plain
+irrelevance / per-consumer renormalization** (those digits are far below the consumer),
+so the sep-collapse re-explanation of CE18 is the durable part; the strict ρ^i decay
+law is suggestive at d10, weak at d13.
+
+### Verdict
+
+- **G2 → LOW-MEDIUM (partial; constructive geometry supported, strong certificate form
+  scoped/refuted).** SUPPORTED: an ordered place-value carry rail (class-1>class-0,
+  trained-specific, rail-robust), super-increasing weighted gaps within the cascade
+  region, cin-dependent U (CE13), a static-additive read (d5) that a single rail
+  threshold turns into carry-out (agreement 0.92–1.00), and a **met worst-case
+  certificate at the d6 middle consumer** (non-empty + α\* inside + cfg-acc 1.00).
+  NOT established / refuted: U-as-neutral-midpoint (fails at the dominant deciding
+  site); additivity at the **primary d6** (static R² 0.24–0.42); worst-case
+  certification at the **leading digit** (empty on both rails — compressed top-gap,
+  genuine); α\* strictly inside the interval at 3 of 4 consumers. The place-value
+  dominance code is real and does computational work, but "provably computes TriAdd
+  everywhere via a single STEP" is met only at a middle digit.
+- **G3 → LOW (consistent, not discriminated).** The carry-axis dynamic-range collapse
+  (CE18 re-explanation) is real; the geometric-decay law is not discriminated from
+  renormalization/irrelevance.
+- **Touches:** A3 (U is cin-dependent on the resolution axis, never a static third
+  symbol — reinforces A3-low; adds the dominant-site cin-gate overshoot); A5
+  (static-attention additive read beats per-prompt-attention — supports mostly-static
+  routing); A10 (gives the combiner STEP a geometric implementation: a threshold on a
+  super-increasing dominance rail; α\*-frame and `=`-depot-as-bias-anchor notes).
+
+### Skeptic review (combined gate — run 2026-07-16, separate subagent thread)
+
+- **Round 1: post-result BLOCK.** The gate flagged a decisive confound (rail fit at the
+  middle consumer's position, reused for the leading consumer → the compressed-top-gap
+  could be rail-misalignment/G1, not compression) plus over-claims on U-transparency,
+  the additivity metric (report STATIC R², honoring the d6 ambiguous condition), the T4
+  α\*-inside sub-condition (α\* outside the interval at 3/4 consumers; α\*≠0.75),
+  separation_bacc being near-tautological, the primary-model swap, and the missing
+  untrained control.
+- **Resolution:** added the **local-rail** control (refutes the confound — compression
+  persists on the consumer's own rail) and the **untrained** control (structure is
+  trained-specific); re-ran full-N; rewrote every flagged claim to the scoped wording
+  above (STATIC R² as the additivity metric; T4 reported as met-at-d6-middle-only;
+  α\*-frame flagged; sep_bacc demoted; model choice disclosed). Post-correction the
+  interpretation is the scoped G2-partial / G3-consistent read.
+
+### Immediate next read
+
+Post-deadline: the paired [study-geometry-factorization.md](study-geometry-factorization.md)
+(G1/G4) shares these caches; and a genuine multi-depth certificate at n=10/13 (where
+G3 predicts the sharpest gap structure) would test whether the leading-digit
+compression is the same physics as CE18's collapse. Figures (gap-profile bars, α̂-vs-α
+scatter, feasible-interval plot, d10/d13 compression curve) deferred — numbers in
+`results.json`.

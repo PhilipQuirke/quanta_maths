@@ -1075,6 +1075,184 @@ Confidence labels:
   `maths_cascade` + the CE20/CE22 batteries; combiners tagged via the
   redundancy-proof combiner-input criterion (zero-ablation is redundancy-limited
   at d8).
-- **Caveats**: single d8 model/seed; map-blocked pieces above; delivery tag
-  depth-2 only (full depth sweep in results.json); whole-last-layer-attention
-  patch; writer-encoding invalid on d8.
+ - **Caveats**: single d8 model/seed; delivery tag depth-2 only (full depth sweep
+  in results.json); whole-last-layer-attention patch; writer-encoding invalid on d8.
+- **Map published (2026-07-16 follow-up)**: the d8 mixed model's verified map was
+  then **generated + uploaded via the standard method** (`maths_hf_update` headless
+  QMAnalyse discovery + techniques → `behaviors.json` + `features.json` on
+  `PhilipQuirke/QuantaMaths_ins1_mix_d8_l3_h4_t70K_s572091`; PCA `.SP/.MP` disabled;
+  combiner STC/MTC/NTC tags via the new redundancy-proof `_combiner_is_causal`
+  fallback). This **unblocks** the previously map-blocked follow-ups (writer-
+  necessity, SLT shared-engine, mechanism diagram) for d8.
+
+<a id="ce27"></a>
+
+### CE27: Addition & mixed models — Storage geometry — the canonical carry currency is NOT a shared stored 1-D rail (G1 OV-preimage form refuted; read-time canonicalization, consistent with CE24); question-side ST storage is collinear-ordered with U on-rail (A3 settled descriptively); on the mixed model the carried datum is a two-rail geometry (borrow/neg-borrow share one rail, add-carry ~orthogonal)
+
+- **Confidence**: **Medium** — clean and cross-model-replicated (both addition
+  models; mixed model), dual-gated; linear-probe / representational, question-
+  and combiner-input-site scoped; the mixed two-rail read carries an ADD-axis
+  nuisance caveat and F3 is single-digit per model.
+- **What it establishes** (`add_d6_l2_h3_t20K_s173289`, `add_d5_l2_h3_t15K_s372001`,
+  mixed `ins1_mix_d6_l3_h4_t40K_s372001`; all acc 1.000):
+  - **G1's specific rail form REFUTED (addition)**: the shared carry rail
+    proposed as the consumer heads' OV pre-image of the CE16 carry axis
+    (`r = w1⊙((W_V@W_O)@(w2⊙ĉ))`, pair-summed) does **not** rescue CE11's dead
+    cross-digit transfer. Its cross-site binary-carry off-diagonal gain (0.099
+    d6 / 0.116 d5) does not exceed the pre-registered OV-pre-image-of-random
+    wrong-axis null (0.078 / 0.106) by the 0.05 specificity margin, and it is a
+    weak within-site instrument (binary diag 0.60). **No shared stored carry
+    subspace is demonstrated**: a full-activation *binary* carry probe (CE11
+    only tested tri-state) transfers only at off-diagonal gain 0.088/0.096 — at
+    the same wrong-axis null band, no magnitude/nuisance control — so its high
+    retention *ratio* (0.25) is a self-diagonal artifact, not sharing. Per-digit
+    binary carry axes are only partially aligned (mean |cos| 0.41/0.60).
+    Interpretation: canonicalization into the common carry currency is
+    **consistent with a read-time transformation** (CE24 shows the canonical
+    carry emerges in the L1 read), not a shared stored 1-D coordinate — the
+    "common currency lives on the wire, not in storage".
+  - **A3 settled descriptively (addition)**: at the strong question-tail ST
+    writers the tri-state write is **collinear-ordered** — U's off-rail fraction
+    is not above a permutation null (p 0.99–1.0) at any strong writer — with the
+    U centroid **split by incoming carry on the rail** (site-concentrated: 0.98
+    at d5-D3, 0.33 at d6-D3). No off-axis U "symbol" at the question write site
+    (extends CE6/CE7 to the question position).
+  - **Two-rail carried-datum geometry (mixed, descriptive)**: at the shared L2
+    combiner input the resolved **borrow (SUB) and neg-borrow (NEG) codes share
+    one rail** (|cos| 0.90 combiner / 0.96 resid_pre) while the **add-carry code
+    is ~orthogonal** (|cos| 0.20/0.22 combiner, 0.01/0.05 resid_pre); one shared
+    direction explains only 0.66 of the three axes' separation; the SGN axis is
+    orthogonal to all three (|cos| ≤ 0.09). So the *carried datum* is not one
+    universal "adjust-by-one" rail — add-carry and subtract-borrow are
+    geometrically distinct; positive/negative subtraction reuse one borrow rail.
+- **What it does NOT establish**: the read-time *rotation* mechanism itself
+  (imported from CE24, not tested here); whether a *nonlinear* shared code exists
+  (linear probes only); the two-rail read with the ADD-axis nuisance removed
+  (mixed untrained control decodes ADD's bit at 0.68 — the ADD axis carries an
+  operand/format component; SUB 0.51 clean, NEG 0.61); F3 entanglement beyond a
+  single representative digit per model.
+- **Relation to conjectures**: **G1 → refuted (OV-preimage form) / no shared
+  storage rail shown** (was proposed). **G4 → single-rail refuted, two-rail
+  descriptive** (was proposed). **A3 → question-position remnant closed against a
+  simplex** (collinear, U on-rail). **A4/A8 → CE11 sharpened**: even the binary
+  carry bit does not transfer on the consumer's read axis; question-side ST
+  storage is position-specific (A4 template-sharing stays low; A8 entanglement
+  reproduced at 21–26° but only partly aligned with the OV rail).
+- **Positive controls**: PC1 reproduced CE11 (tri-state retention 0.169/0.074 vs
+  0.124/0.097; within-site diag 0.63/0.69 ≈ CE11 0.64/0.72; ST–SV angle
+  26/21° ≈ 21°). PC2 (mixed) reproduced CE20 (all bits decode 1.00 trained vs
+  untrained 0.51–0.68). PC3 wrong-axis nulls (variance-matched random,
+  OV-pre-image-of-random [headline], random-in-ST-subspace) all at ~0.10
+  off-diagonal gain — the level the OV rail fails to beat.
+- **Supporting evidence**: 2026-07-16 geometry-factorization study
+  ([study-geometry-factorization.md](study-maths/study-geometry-factorization.md),
+  `results/study-geometry-factorization/results.json`; `scripts/geometry_factorization.py`).
+  Dual fresh-context skeptic gates (pre-launch PASS-WITH-CONDITIONS incl. F3
+  redesign; post-result PASS-WITH-CORRECTIONS, 12 corrections folded).
+- **Caveats**: linear probes; representational (no causal patch in this study —
+  the causal read-locus is CE16/CE24); addition question-site + mixed
+  combiner-input scoped; 2-layer / 3-layer only; the retention *ratio* on a
+  fixed 1-D axis is near-tautological (absolute off-diagonal gain used instead);
+  mixed two-rail is a descriptive reading of an intermediate |cos| spectrum with
+  an ADD-axis nuisance caveat; F3 single-digit per model.
+- **F4b addendum (2026-07-17, human-green-lit in-window; gate waived by human,
+  self-skeptic pass recorded): the two-rail geometry is FIRMED under nuisance
+  control.** Two arms on fresh draws (n=300/bit trained, 120/bit untrained,
+  read digits {2,3}): (i) **untrained-nuisance projection** — projecting the
+  untrained twin's per-class axes out of the trained activations leaves every
+  alignment unchanged (SUB–NEG 0.898→0.898; ADD pairs ~0.21) while trained
+  decode stays 1.00 and untrained held-out decode falls to ≈0.5 — the
+  estimated nuisance carries none of the structure; (ii) **cross-digit
+  canonical axes** — each class's rail is canonical across read digits
+  (within-class |cos| 0.975–0.981 trained vs a ≤~0.4 draw-unstable untrained
+  noise band), and the nuisance-robust cross-class × cross-digit alignments
+  reproduce the spectrum (SUB–NEG **0.877**; ADD pairs **0.21–0.22**, null
+  p95 0.092). **ADD-orthogonality: ESTABLISHED** (the "ADD-axis nuisance"
+  caveat above is closed — cleaned ADD decode 1.00, alignments
+  projection-invariant and cross-digit-stable; trained ADD–SUB 0.21 sits
+  *below* the untrained format background 0.31). **SUB–NEG sharing: registered
+  control passes at the primary read digit** (untrained cross-class SUB–NEG
+  0.029 ≈ null floor; 0.226 at rd3 → the untrained background is a ≤~0.4
+  band, the stated residual caveat). Registration note: the script's verdict
+  line substituted a stricter unregistered control; the registered quantity
+  was computed post-hoc and governs (disposition in the study-note skeptic
+  section). What F4b cannot separate: a learned component bit-locked in both
+  SUB and NEG *is* the shared borrow signal — causal identity anchored by
+  CE20/CE22. Artifacts: `scripts/geometry_g4_refit.py`,
+  `results/study-geometry-factorization/results_f4b.json`
+  ([study addendum](study-maths/study-geometry-factorization.md#addendum--battery-f4b-add-nuisance-controlled-g4-re-fit-pre-run-written-2026-07-17-t-7h-human-green-light)).
+
+<a id="ce28"></a>
+
+### CE28: Addition model — Read-time carry geometry — per-site writes form an ordered place-value dominance code on the (read-time) carry rail; a single STEP threshold provably computes TriAdd at a middle digit but NOT at the leading digit (compressed top-gap); the large-n carry-axis collapse is dynamic-range compression, re-explaining CE18
+
+- **Confidence**: **Low-medium** — cross-model (both addition models) and
+  fully controlled (untrained twin + per-consumer local-rail refit + wrong-axis
+  null + exact-decomposition faithfulness), dual-gated (a first interpretation
+  was BLOCKed for a rail-misalignment confound, refuted by the added local-rail
+  control). Linear/representational, question→L1-read scoped; the *constructive*
+  geometry is supported but the *worst-case-certificate* form is met at only one
+  consumer.
+- **What it establishes** (`add_d6_l2_h3_t20K_s173289` primary,
+  `add_d5_l2_h3_t15K_s372001` replication; all acc 1.000): using the CE16/CE17
+  read-time carry rail (canonical at the L1 read per CE24/CE27 — this is *not* a
+  stored rail), an **exact** per-prompt LN-fair OV decomposition of the combiner
+  input into per-source-site contributions (reconstruction error ~5e-8):
+  - **Ordered place-value rail (T1/T2)**: class-1 rail > class-0 at **every**
+    source site (both models); per-digit weighted class gaps are **super-increasing
+    in digit significance within the cascade region** (d6 middle 0.009→0.034→0.139;
+    d5 middle 0.112→0.147), on both the shared and each consumer's own refit rail.
+    U is **cin-dependent** (CE13 lean) and sits between the committed values at
+    moderate-weight sites, but at the single **highest-weight deciding site** it
+    **overshoots** them (d5 middle: u0=−0.198<p, u1=+0.235>q) — a full cin-gate,
+    not a neutral midpoint. U is never a static third symbol (reinforces A3-low).
+  - **STEP-makes-it-work, scoped (T3/T4)**: a **static-attention additive** read of
+    the per-site class values reconstructs the rail (static R² 0.79/0.96 at d5;
+    0.24/0.42 at d6 — non-additive residual at the primary model) and a single rail
+    threshold predicts the resolved carry-out at **agreement 0.92–1.00**; the
+    per-prompt-attention reconstruction is *worse* (supports A5 mostly-static
+    routing). The worst-case TriAdd **feasibility certificate is met** (interval
+    non-empty AND operating α\* inside, config-accuracy 1.00) **at the d6 middle
+    consumer**, but is **empty at both leading consumers** (compressed top-digit
+    gap, persistent on the local rail — genuine, not misalignment) and non-empty
+    but α\*-outside at d5 middle. So the geometry *provably* computes TriAdd at a
+    middle digit but the leading digit relies on config rarity + a non-additive
+    residual (competing reads 2/3). The rail α\* (≈0.49–0.54) is a different
+    coordinate from CE17's interpolation α\*≈0.75 (not "explained").
+  - **Dynamic-range compression (T5/G3)**: the committed-carry axis separation
+    collapses **28.6/32.2 (d5/d6) → 5.57/6.04 (d10/d13)**, reproducing CE18's
+    30→6 as **bounded-norm + dominance gap compression (physics), not instrument
+    failure**. Super-increasing gap profiles (d10 ρ≈6.9, r²=0.78; d13 ρ≈1.9,
+    r²=0.41), low-significance gaps at the noise floor.
+- **What it does NOT establish**: worst-case certification at the leading digit
+  or on the primary model (empty interval / non-additive residual); U-as-neutral-
+  midpoint (fails at the dominant deciding site); that the large-n low-digit gaps
+  are *compression* rather than plain irrelevance / per-consumer renormalization
+  (G3 consistent, not discriminated — d13 ρ-fit weak); any causal claim (the
+  causal read-locus is CE16/CE24; this is representational); nonlinear structure
+  (linear projection only).
+- **Relation to conjectures**: **G2 → partial (low-medium)**: ordered dominance
+  geometry + cin-U + static-additive read + STEP-certifies-at-a-middle-digit
+  supported; worst-case-certificate and U-midpoint forms scoped/refuted.
+  **G3 → low (consistent, not discriminated)**; the CE18 re-explanation is the
+  durable part. **A3 → reinforced-low** (U cin-dependent on the resolution axis,
+  never a static symbol; dominant-site overshoot). **A5 → supported** (static-
+  attention read beats per-prompt). **A10 → geometric implementation added** (the
+  combiner STEP is a threshold on a super-increasing dominance rail).
+- **Positive/negative controls**: PC1 reproduced CE16 (joint edge flip 1.00 /
+  deciding-matched null 0.00). PC2 sep 28.6/32.2. PC3 wrong-axis collapses gap
+  magnitude ~50–100×. **Untrained twin**: sep 2.67/2.68, max gap ~0.006 (structure
+  is trained-specific). **Local-rail refit** (PC2_local 23–27): leading top-gap
+  compression + empty certificate persist on the consumer's own rail (refutes the
+  shared-rail-misalignment confound). Faithfulness recon_err ~5e-8.
+- **Supporting evidence**: 2026-07-16 geometry-certificate study
+  ([study-geometry-certificate.md](study-maths/study-geometry-certificate.md),
+  `results/study-geometry-certificate/results.json` + `run_full.log`;
+  `scripts/geometry_certificate.py`). Combined fresh-context skeptic gate
+  (post-result BLOCK → added local-rail + untrained controls, re-ran full-N,
+  folded corrections → scoped read).
+- **Caveats**: linear/representational; question→L1-read locus scoped; 2-layer
+  addition only; separation_bacc is near-tautological (demoted to a consistency
+  check); T4 additivity is tested per-consumer but the enumeration assumes the
+  measured per-site class means compose; G3 low-digit gaps not discriminated from
+  irrelevance; figures deferred (numbers in `results.json`).

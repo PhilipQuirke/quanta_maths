@@ -62,8 +62,25 @@ reference docs, without this thread's conversation context.
 
 | Priority | Status | Owner | Experiment | Updates |
 | --- | --- | --- | --- | --- |
-| 1 | designed, awaiting gate + overnight launch | **`maths` thread (geometry stream)** | [Latent-geometry stream: dominance certificate + rail factorization](#1-latent-geometry-stream-overnight-pair) | G1–G4, A3, A4, A8, C1/C2 |
 | 2 | mostly done | **`maths` mixed thread** | [Mixed model: remaining follow-ups (SV mechanism + A7 landed)](#2-mixed-model-remaining-follow-ups-sv-mechanism--a7-landed) | A10, A6, depth |
+| 3 | **DELIVERED 2026-07-17 ~T-8h** — consolidated §a+§b with referee tags in the [synthesis hand-off section](maths-results-synthesis.md#paper-hand-off-2026-07-17-t-8h--consolidated-evidence-for-the-revision); `maths` on-call for evidence queries until the deadline | **`paper` + `maths`** | [Paper hand-off: consolidate SV mechanism (a) + latent-geometry (b) sections](#3-paper-hand-off-consolidation-and-referee-checkpoint) | — |
+
+Rerank note (2026-07-17, ~T-8h): the latent-geometry entry **completed** —
+CE27 (G1 refuted / read-time canonicalization; A3 settled collinear; G4
+two-rail) + CE28 (G2 partial: ordered place-value dominance code, certificate
+at the d6 middle consumer; G3 low: CE18 collapse = dynamic range) — and is
+deleted per the agenda rules (trail:
+[study-geometry-certificate.md](study-maths/study-geometry-certificate.md),
+[study-geometry-factorization.md](study-maths/study-geometry-factorization.md),
+[CE27](maths-claim-evidence.md#ce27)/[CE28](maths-claim-evidence.md#ce28)).
+Entry 3 (hand-off) is executed — inside the final window **no new experiments**
+(one human-green-lit exception ran and landed 2026-07-17 ~T-6h: the **F4b
+ADD-nuisance-controlled G4 re-fit**, two-rail FIRMED / ADD-orthogonality
+established — CE27 addendum; separate-thread gate waived by the human,
+self-skeptic pass recorded in the study addendum); remaining `maths` effort is
+answering the `paper` thread's evidence questions and post-deadline backlog
+grooming (the geometry follow-ups live in the hand-off's referee block and the
+two study notes' Immediate-next-read lines).
 
 Rerank note (2026-07-16 evening): the former entry 1 (compounding locus,
 decisive A11 vs L1-read) **completed** — CE24/CE24-TF settled it conclusively
@@ -97,61 +114,6 @@ Router docs (claim-evidence, results-by-time/summary/synthesis, conjectures) are
 rewrite the other thread's. On any dirty-file collision in `git status`, assume
 it belongs to the other thread and leave it. The paper hand-off (entry 3)
 consolidates BOTH threads' outputs and triggers **no later than ~T-12h**.
-
-### 1. Latent-geometry stream (overnight pair)
-
-*(Owner: `maths` thread, geometry stream. Opened 2026-07-16 evening by human
-directive; the compounding-locus predecessor completed via CE24.)*
-
-**What to learn**: a geometric, latent-space account of the arithmetic the
-mechanistic account already localizes — the **shape** of the storage manifolds
-(per-digit ST tri-states; the carry code), the **relations** between feature
-manifolds (ST vs SV; carry vs borrow vs neg-borrow), and whether the geometry
-**does computational work** (does the manifold arrangement itself implement the
-cascade?). Conjectures
-[G1–G4](maths-conjectures-agent.md#new-stream-2026-07-16-latent-geometry-conjectures-g-series).
-
-**Why now**: the paper hand-off's section (b) is currently a list of scoped
-negatives (no dominant embedding circle CE1; no ST transfer CE11; non-orthogonal
-slots CE12; probe-limited large-n CE18). G1/G2 would flip those into one
-constructive geometric story — rail-and-address storage + a place-value
-dominance code that the STEP combiner (CE17) reads — and G3 re-explains the
-CE18 collapse as a dynamic-range law. High payoff, cheap (forward passes +
-linear algebra on existing HF artifacts, tested library helpers), overnight-
-runnable before the hand-off.
-
-**The two designed studies** (pre-run notes written; shared stimulus grids and
-caches):
-
-- **[study-geometry-certificate.md](study-maths/study-geometry-certificate.md)**
-  (scores G2, G3; touches A3/A5/A10): per-prompt OV/LN decomposition of the
-  combiner input along the CE16/CE17 carry rail into per-source-site
-  contributions; test class-value ordering (`p_i < u_i < q_i`, U cin-split),
-  weighted-gap dominance, additive α reconstruction, and the feasible-threshold
-  **certificate** (is measured α* inside the interval that makes TriAdd
-  provably correct to depth k?). Stretch: d10/d13 gap-compression law (G3).
-- **[study-geometry-factorization.md](study-maths/study-geometry-factorization.md)**
-  (scores G1, G4; touches A3/A4/A8/C1/C2): does OV-rail projection rescue the
-  CE11 cross-digit no-transfer (storage factorization vs read-time rotation)?
-  Does removing the rail explain the ST–SV 21° entanglement? Write-site
-  manifold shape (collinear vs simplex). Mixed model: do SV/MV/NV share one
-  unit-adjust rail (F4)?
-
-**Launch checklist (per sprint protocol)**: (1) combined skeptic gate on both
-pre-run notes in a separate thread; (2) implement
-`scripts/geometry_certificate.py` + `scripts/geometry_factorization.py` from
-the notes (reuse `maths_probe` / `maths_edge_patch` / `maths_cascade` /
-`maths_temporal_finalization` helpers; smoke-test on d6 before the full run);
-(3) run overnight (d5/d6 + mixed; d10/d13 stretch), results to
-`results/study-geometry-*/`; (4) morning: score G1–G4, post-result gate, CE
-entries, fold into entry 3's section (b) **before the ~T-12h hand-off
-trigger**.
-
-Done when: G1 and G2 are each scored confirmed / refuted / scoped-partial
-against the pre-stated bars (with G3/G4 scored where the stretch batteries
-ran), and the verdicts are folded into the entry-3 hand-off — or the window
-closes, in which case hand off section (b) unchanged and park the stream
-post-deadline.
 
 ### 2. Mixed model: remaining follow-ups (SV mechanism + A7 landed)
 
@@ -216,8 +178,18 @@ Done when: (a) the cross-model sweep is scored, or the mixed line is frozen.
 
 ### 3. Paper hand-off consolidation and referee checkpoint
 
-Produce the maths-thread deliverable for the paper revision, ready **≥ 12
-hours before the deadline**: update
+**STATUS: DELIVERED 2026-07-17 (~T-8h).** The consolidated two-section account
+(§a SV mechanism, §b latent representation) with per-claim CONFIRMED/PARTIAL/OPEN
+referee tags, confidences, CE anchors, and the folded-in adversarial-referee
+caveat block lives in the
+[synthesis PAPER HAND-OFF section](maths-results-synthesis.md#paper-hand-off-2026-07-17-t-8h--consolidated-evidence-for-the-revision);
+CE27/CE28 Q-sections added to the synthesis and the stale ambiguity items
+refreshed the same pass. Consolidates both parallel threads (addition incl.
+geometry stream; mixed CE20–CE23/CE25). Remaining `maths` role until the
+deadline: answer `paper`-thread evidence questions; **no new experiments**.
+
+Original entry (for provenance): produce the maths-thread deliverable for the
+paper revision, ready **≥ 12 hours before the deadline**: update
 [maths-results-summary.md](maths-results-summary.md) /
 [maths-results-synthesis.md](maths-results-synthesis.md) (and claim-evidence
 as entry 1 lands) into two paper-ready sections with per-claim confidence and

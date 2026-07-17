@@ -11,8 +11,8 @@ detail; do not turn this into a ledger.
 **Scope note (multi-thread): the Executive summary, Top current claims, Strongest
 live caveats, and Open questions sections below all concern the ADDITION models
 (CE1–CE19). The mixed add/sub model is covered separately in
-[Mixed-model generalization](#mixed-model-generalization-entry-2-parallel-thread--ce20ce21)
-(CE20/CE21). Do not read addition-model claims as mixed-model claims or vice
+[Mixed-model generalization](#mixed-model-generalization-entry-2-parallel-thread--ce20ce23-ce25ce26)
+(CE20–CE26). Do not read addition-model claims as mixed-model claims or vice
 versa.**
 
 Twenty studies complete (CE1–CE19). The addition-model SV mechanism is now
@@ -211,6 +211,58 @@ model (entry 2).
   model — run the zoo). Linear-probe; coarse tail; both models. See
   [maths-claim-evidence.md#ce24](maths-claim-evidence.md#ce24).
 
+- **CE27 (latent-geometry stream)** — **the carry currency is NOT a shared stored
+  rail; read-time canonicalization + two-rail mixed geometry**. (a) G1's proposed
+  shared 1-D carry rail (the consumer-OV pre-image of the CE16 carry axis) is
+  **refuted** — it does not rescue CE11's cross-digit no-transfer (off-diag gain
+  0.10/0.12 at the OV-pre-image-of-random null), and no shared *stored* carry
+  subspace is shown (full-activation *binary* carry transfers only at the null
+  band); so canonicalization is a **read-time transformation** (consistent with
+  CE24 — the canonical carry emerges in the L1 read, not in storage). (b) **A3
+  settled descriptively**: the question-tail ST write is **collinear-ordered, U
+  not off-axis** (perm p ~1.0), U split by cin on the rail. (c) **G4 two-rail**:
+  on the mixed model borrow (SUB) and neg-borrow (NEG) share one rail (|cos|
+  0.90/0.96) but **add-carry is ~orthogonal** (0.20/0.22) and SGN orthogonal to
+  all — the carried datum is low-D but splits by operation family, not one
+  universal rail (ADD-axis nuisance caveat). Linear-probe / representational;
+  both addition models + mixed; PC1 reproduces CE11, PC2 reproduces CE20.
+  **F4b addendum (2026-07-17, in-window, human-green-lit): two-rail FIRMED under
+  nuisance control** — untrained-nuisance projection leaves all alignments
+  unchanged (SUB–NEG 0.898; ADD ~0.21; trained decode 1.00) and the axes are
+  canonical across read digits (within-class 0.975–0.981), with nuisance-robust
+  cross-digit cross-class alignments reproducing the spectrum (SUB–NEG 0.877,
+  ADD 0.21–0.22 vs null p95 0.09); **ADD-orthogonality established** (the
+  nuisance caveat is closed; trained ADD–SUB 0.21 < untrained format background
+  0.31); SUB–NEG's registered untrained control passes at the primary read
+  digit (0.029; untrained background ≤~0.4 draw-unstable band stays as the
+  residual caveat). Gate waived by the human (~T-6h); self-skeptic pass in the
+  study addendum. See [maths-claim-evidence.md#ce27](maths-claim-evidence.md#ce27).
+- **CE28 (latent-geometry stream, G2/G3)** — **on the read-time carry rail the
+  per-site writes form an ordered place-value dominance code; a single STEP
+  threshold provably computes TriAdd at a middle digit but not the leading digit;
+  the large-n carry-axis collapse is dynamic-range compression.** An **exact**
+  per-prompt LN-fair OV decomposition (recon_err ~5e-8) shows class-1 rail >
+  class-0 at every source site, **super-increasing weighted gaps within the
+  cascade region** (on both the shared and each consumer's own refit rail),
+  **cin-dependent U** (CE13; U overshoots the committed range at the dominant
+  deciding site — a gate, not a midpoint), and a **static-attention additive
+  read** predicting carry-out at agreement 0.92–1.00 (per-prompt attention is
+  worse → supports A5). The worst-case TriAdd **certificate is met at the d6
+  middle consumer** (non-empty + α\* inside + config-acc 1.00) but **empty at the
+  leading digit** (compressed top-gap, genuine per a local-rail control) and
+  additivity is non-additive at the primary d6 (static R² 0.24–0.42 vs 0.79–0.96
+  d5). **G3**: the carry-axis sep collapses 28.6/32.2 → 5.57/6.04 (d5/d6→d10/d13),
+  **re-explaining CE18's 30→6 as dynamic-range compression, not instrument
+  failure** (strict ρ^i law weak at d13; low-digit gaps not discriminated from
+  irrelevance). Controls: untrained twin (sep→2.7), wrong-axis (gap collapse
+  ~100×), local-rail refit, PC1 1.00/0.00. **G2 partial (low-medium); G3 low.**
+  See [maths-claim-evidence.md#ce28](maths-claim-evidence.md#ce28).
+
+**Paper hand-off (2026-07-17, ~T-8h)**: the consolidated, referee-tagged
+two-section account for the revision — §(a) SV mechanism, §(b) latent-space
+representation — is in the
+[synthesis PAPER HAND-OFF section](maths-results-synthesis.md#paper-hand-off-2026-07-17-t-8h--consolidated-evidence-for-the-revision).
+
 ## Strongest live caveats
 
 - Weights-only / correlational: nothing yet on whether the model *uses* any of
@@ -272,7 +324,7 @@ model (entry 2).
   control form is REFUTED**; the add/sub selection is a **distributed,
   high-dimensional L1 transformation** (leans C2 on selection, shared combiner).
   Confidence Medium-high. A7 → low (control mechanism); C2 → partially up.
- - **CE25** — the class-dependent **delivery pathway holds across cascade depths
+- **CE25** — the class-dependent **delivery pathway holds across cascade depths
   2–4** (carry/borrow-specific, deciding-matched null 0.00): ADD residual-only
   (last-layer attention flip 0.00 at every depth), SUB/NEG residual + last-layer
   attention (1.00). Clears the CE14 ≥2-depth bar on the mixed model; untrained

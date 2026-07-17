@@ -101,7 +101,57 @@ def _combiner_is_causal(model, cfg, produce_pos: int, impact_digit: int,
             q.unsqueeze(0),
             fwd_hooks=[(f"blocks.{mlp_layer}.mlp.hook_post", hook)]
         )[0, [p - 1 for p in ap]].argmax(-1)
-    return not torch.equal(clean, abl)
+    if not torch.equal(clean, abl):
+        return True
+
+    # Fallback (redundancy-proof): zero-ablating the whole MLP is often inert on
+    # LARGER / more redundant models (e.g. d8+), even where the combiner is real.
+    # Test the combiner INPUT instead: on a U cascade at digit k, patch the
+    # last-layer resid_mid at the producing position from a carry_in=1 chain onto
+    # the carry_in=0 one; if A_k flips to the carry_in=1 value, the last-layer MLP
+    # combines that input into the digit (this is the CE22 STEP criterion).
+    return _combiner_input_causal(model, cfg, cls, impact_digit, mlp_layer)
+
+
+def _combiner_input_causal(model, cfg, cls, k, mlp_layer) -> bool:
+    from quanta_maths.maths_edge_patch import answer_positions
+    if not (1 <= k <= cfg.n_digits - 2):   # need room for a cascade + class-top digit
+        return False
+    try:
+        from quanta_maths.maths_cascade import make_cascade_operands, cascade_question
+    except Exception:
+        return False
+    ap = answer_positions(cfg)
+    idx = len(ap) - 1 - k
+    hook_name = f"blocks.{mlp_layer}.hook_resid_mid"
+    a1, b1 = make_cascade_operands(cfg, cls, k, carry_in=1)
+    a0, b0 = make_cascade_operands(cfg, cls, k, carry_in=0)
+    q1, q0 = cascade_question(cfg, cls, a1, b1), cascade_question(cfg, cls, a0, b0)
+
+    def ak(q):
+        with torch.no_grad():
+            lg = model(q.unsqueeze(0))
+        return int(lg[0, [p - 1 for p in ap]].argmax(-1)[idx])
+
+    ak0, ak1 = ak(q0), ak(q1)
+    if ak0 == ak1:
+        return False
+    with torch.no_grad():
+        _, c1 = model.run_with_cache(q1.unsqueeze(0), names_filter=lambda nm: nm == hook_name)
+        _, c0 = model.run_with_cache(q0.unsqueeze(0), names_filter=lambda nm: nm == hook_name)
+    delta = c1[hook_name][0, produce_pos_of(cfg, k), :] - c0[hook_name][0, produce_pos_of(cfg, k), :]
+    pp = produce_pos_of(cfg, k)
+
+    def hk(act, hook):
+        act[:, pp, :] = act[:, pp, :] + delta
+        return act
+    with torch.no_grad():
+        lg = model.run_with_hooks(q0.unsqueeze(0), fwd_hooks=[(hook_name, hk)])
+    return int(lg[0, [p - 1 for p in ap]].argmax(-1)[idx]) == ak1
+
+
+def produce_pos_of(cfg, k):
+    return int(cfg.an_to_position_name(k)[1:]) - 1
 
 
 def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None,

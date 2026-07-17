@@ -1,13 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[review]{acl}   % [review] = line numbers + anonymized; drop to \usepackage{acl} for camera-ready
 \usepackage{times}
-%\documentclass{article} % For LaTeX2e
-%\usepackage{iclr2026_conference,times} % FOR ICLR
-%\usepackage{arxiv}  % FOR ARXIV
-%\usepackage{natbib} % FOR ARXIV
-% arXiv subjects: cs.LG (Machine Learning), cs.AI (Artificial Intelligence), cs.CL (Computation and Language)
-% Primary: cs.LG
-% Secondary: cs.AI, cs.CL
 
 % Recommended, but optional, packages for figures and better typesetting:
 \usepackage{microtype}
@@ -83,7 +76,6 @@
 \def\UrlBreaks{\do\/\do-} % Added to split long URLs.
 \newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
 
-%\usepackage[table]{xcolor} % FOR ARXIV
 % Define a custom light brown color
 \definecolor{lightbrown}{rgb}{0.7, 0.4, 0.1}
 
@@ -152,8 +144,7 @@ We construct (effectively infinite) synthetic training data enriched with the ha
 \label{fig:ModelScores}
 \end{figure}
 
-%We introduce a novel, simple, mathematically exact algorithm for n-digit addition (Figure \ref{fig:AdditionAlgorithm}). The algorithm respects the transformer’s left-to-right processing constraint, handling high-value digits before low-value ones. We also introduce a novel, exact algorithm for subtraction.
-\textcolor{blue}{ We introduce novel, accurate algorithms for n-digit addition and subtraction (Fig. \ref{fig:AdditionAlgorithm} and \ref{fig:SubtractionAlgorithm}) that (unlike humans) processes digits left-to-right — the ordering in which arithmetic appears in training corpora and the constraint under which LLMs must operate. }
+We introduce novel, accurate algorithms for n-digit addition and subtraction (Fig. \ref{fig:AdditionAlgorithm} and \ref{fig:SubtractionAlgorithm}) that (unlike humans) process digits left-to-right — the ordering in which arithmetic appears in training corpora and the constraint under which LLMs must operate.
 
 We then ask whether our trained models actually implement these algorithms. To do so, a model must realize each algorithmic subtask. We hypothesize the existence of specific calculation “nodes” capable of carrying out these subtasks, and develop code to automatically search for candidate nodes.
 We evaluate these candidates through systematic ablations. Each ablation is designed around a specific subtask, allowing us to precisely predict how the model’s output should change when we intervene. The predictions match perfectly: intervening on the identified node produces exactly the expected effect. Every model we study contains nodes corresponding to all subtasks, though in some cases a single logical role is distributed across two attention heads.
@@ -161,12 +152,10 @@ We evaluate these candidates through systematic ablations. Each ablation is desi
 The algorithms also impose strict constraints on node ordering and relationships. For example, certain nodes must appear earlier in the computation sequence, while others depend on them downstream (see Figure \ref{fig:AdditionAlgorithm}). We test these constraints and find they are consistently satisfied across seeds, model sizes, and digit ranges. Together, these results show that all our accurate models converge on the same algorithmic solution.
 
 To make this analysis reproducible, we release a general-purpose interpretability library.
-%\url{https://anonymous.4open.science/r/quanta_mech_interp-F9E5}. % FOR ICLR
-\url{https://github.com/PhilipQuirke/quanta_mech_interp}. % FOR ARXIV
+\url{https://anonymous.4open.science/r/quanta_mech_interp-F9E5}. % TODO: regenerate anonymized link for BlackboxNLP submission
 It provides tools for (1) node characterization, search, and ablation, (2) systematic testing of node relationships and constraints, and (3) visualizations.
 It is a foundational tool used by this project
-\url{https://anonymous.4open.science/r/quanta_maths-6413} % FOR ICLR
-%\url{https://github.com/PhilipQuirke/quanta_maths} % FOR ARXIV
+\url{https://anonymous.4open.science/r/quanta_maths-6413} % TODO: regenerate anonymized link for BlackboxNLP submission
 
 \textbf{Our contributions are fivefold}: (i) a large-scale survey of LLM arithmetic capabilities, (ii) enriched datasets for addition and subtraction, (iii) 49 small transformer models trained to near-perfect accuracy, (iv) human-comprehensible exact addition and subtraction algorithms and (v) a reusable interpretability toolkit demonstrating that these models implement the algorithms.
 
@@ -475,9 +464,7 @@ Fully reverse engineering neural networks faces significant challenges, includin
 Our models may be useful to researchers investigating the universality of representations / circuits across models. 
 
 \bibliography{paper}
-%\bibliographystyle{acl_natbib}
-%\bibliographystyle{iclr2026_conference} % ICLR
-%\bibliographystyle{plainnat} % ARXIV
+% Note: acl.sty already sets \bibliographystyle{acl_natbib}
 
 \appendix
 
@@ -509,7 +496,7 @@ These terms and abbreviations are used in this paper and the associated Colabs a
 %\item \textbf{MZ} : Make Zero. A positive-answer subtraction subtask. $MZ_n$ is defined as Dn - D'n == 0. e.g. 5 - 5 gives True
 %\item \textbf{MT} : TriCase. A positive-answer subtraction subtask. 
 %\item \textbf{MT1, MT0, MT-1} : Outputs of the MT TriCase subtask.  
-\item \textcolor{blue}{\textbf{Node} : A logical locus implementing a specific subtask. Physically an attention head (e.g. P18L0H1), an MLP layer (P18L0MLP), or occasionally two heads working together.}
+\item \textbf{Node} : A logical locus implementing a specific subtask. Physically an attention head (e.g. P18L0H1), an MLP layer (P18L0MLP), or occasionally two heads working together.
 \item \textbf{N} : Prefix for Subtraction with a negative answer. Think N for Negative. Aka NEG
 \item \textbf{ND} : Basic Difference. A negative-answer subtraction subtask. $ND_n$ is defined as (Dn - D'n) \% 10. e.g. 3 - 7 gives 6
 \item \textbf{NB} : Borrow One. A negative-answer subtraction subtask. $NB_n$ is defined as Dn - D'n $<$ 0. e.g. 5 - 7 gives True
@@ -809,25 +796,6 @@ While, for each model the 'QuantaMathsAnalysis' Colab notebook generates two mor
 
 
 
-%\section{Appendix: TriAdd Mappings}
-%\label{app:TriAdd}
-
-%TriAdd transfers data from \AM to \AN by integrating the values of \AMST and \ANST. This function can be represented as nine bigram mappings with three possible outputs.  Tab.\ref{tab:TriAddMappings} shows the logical bigram mapping.
-
-%\begin{table}[h]
-%    \caption{\AN .TriAdd can be calculated from \ANST and \AMST through nine bigram mappings and yielding the three distinct outputs 0, U and 1 }    
-%    \label{tab:TriAddMappings}
-%    \centering
-%    \begin{tabularx}{\columnwidth}{p{2cm} p{1.2cm} p{1.2cm} p{1.2cm}}
-%          & \ANST & \ANST & \ANST \\
-%         \textbf{\AMST} & = 0 & = U & = 1 \\
-%         \hline
-%         \textbf{0} & 0 & U & 1 \\             
-%         \textbf{U} & 0 & U & 1 \\\
-%         \textbf{1} & 0 & 1 & 1 \\
-%    \end{tabularx}
-%\end{table}
-
 \section{Appendix: Complexity}
 \label{app:Complexity}
 To analyze question difficulty, we categorized addition questions by the complexity of the computation required to solve the question, as shown in Tab.~\ref{tab:AdditionComplexity}. The categories are arranged according to the number of digits that a carry bit has to cascade through.
@@ -1092,93 +1060,6 @@ Some notes about the mixed models:
 \item All the notes about the addition model (above) also apply to the mixed model.
 \item The model contains a new subtask that stands out: The algorithm relies on calculations done at token position P0, when the model has only seen one question token! What information can the model gather from just the first token? Intuitively, if the first token is a “8" or “9" then the first answer token is more likely to be a “+" (and not a “-"). The model uses this heuristic even though this probabilistic information is sometimes incorrect and so will work against the model achieving very low loss. 
 \end{itemize}
-
-
-%\section{Appendix: Addition Hypothesis 1}
-%\label{app:Hypothesis1}
-
-%Given the 2-layer attention pattern’s similarity to 1-layer attention pattern, and the above evidence, our first (incorrect) hypothesis was that the 2-layer algorithm:
-
-%\begin{itemize}
-%\item Is based on the same \SAC \SC and \SUS operations as the 1-layer.
-%\item Uses the new early positions to (somehow) do the \SUS calculations with higher accuracy than the 1-layer model.
-%\item The long double staircase still finalizes each answer digit’s calculation.
-%\item The two attention nodes in the long double staircase positions do the \SA and \SC calculations and pull in \SUS information calculated in the early positions.
-%\end{itemize}
-
-%If this is correct then the 2-layer algorithm successfully completes these calculations:
-
-%\begin{itemize}
-%\item A0 = SA0
-%\item A1 = SA1 + SC0
-%\item A2 = SA2 + (SC1 or (SS1 \& SC0))
-%\item A3 = SA3 + (SC2 or (SS2 \& SC1) or (SS2 \& SS1 \& SC0))
-%\item A4 = SA4 + (SC3 or (SS3 \& SC2) or (SS3 \& SS2 \& SC1) or (SS3 \& SS2 \& SS1 \& SC0))
-%\item A5 = SC4 or (SS4 \& SC3) or (SS4 \& SS3 \& SC2) or (SS4 \& SS3 \& SS2 \& SC1) or (SS4 \& SS3 \& SS2 \& SS1 \& SC0)
-%\end{itemize}
-
-%Our intuition is that there are not enough useful nodes in positions 8 to 11 to complete the A5 calculation this way. So we abandoned this hypothesis.
-
-
-%\section{Appendix: Addition Hypothesis 2}
-%\label{app:Hypothesis2}
-
-%Our second (incorrect) hypothesis was that the 2-layer algorithm has a \textbf{more compact} data representation, so it can pack more calculations into each node, allowing it to accurately predict A5 in step 11.
-
-%We claimed the model stores the sum of each digit-pair as a single token in the range “0” to “18” (covering 0+0 to 9+9). We name this operator \AN .T, where T stands for “token addition”:
-
-%\begin{itemize}
-%\item \AN .T = \DN + $D'_n$
-%\end{itemize}
-
-%The \AN .T operation does not understand mathematical addition. Tab.~\ref{tab:Addition_T1Pairs} shows how the model implements the T operator as a bigram mapping.
-
-%\AN .T is a compact way to store data. Tab.~\ref{tab:Addition_T1Bigrams} show how, if it needs to, the model can convert a \AN .T value into a one-digit-accuracy \SAC \SC or \SUS value.)
-
-%Our notation shorthand for one-digit-accuracy these “conversion" bigram mappings is:
-
-%\begin{itemize}
-%\item \SAN = (\AN .T \% 10) where \% is the modulus operator 
-%\item \SCN = (\AN .T // 10) where // is the integer division operator
-%\item \SSN = (\AN .T == 9) where == is the equality operator
-%\end{itemize}
-
-%The A0.T value is accurate. But the other \AN .T values are \textbf{not} accurate because each is constrained to information from just one digit. We define another more accurate operator \AN .T2 that has “two-digit accuracy”. \AN .T2 is the pair sum for the nth digit plus the carry bit (if any) from the n-1th digit T:
-
-%\begin{itemize}
-%\item \AN .T2 = \AN .T + \AM .SC
-%\end{itemize}
-
-%\AN .T2 is more accurate than \AN .T. The \AN .T2 value is always in the range “0” to “19” (covering 0+0+0 to 9+9+CarryOne). Tab.~\ref{tab:Addition_T2Mappings} show how the model can implement the T2 operator as a mapping.
-
-%Following this pattern, we define operators \AN .T3, \AN .T4 and \AN .T5 with 3, 4 and 5 digit accuracy respectively:
-
-%\begin{itemize}
-%\item \AN .T3 = \AN .T + ( \AM .T2 // 10 )	aka \AN .T + \AM .SC2
-%\item \AN .T4 = \AN .T + ( \AM .T3 // 10 )	aka \AN .T + \AM .SC3
-%\item \AN .T5 = \AN .T + ( \AM .T4 // 10 )	aka \AN .T + \AM .SC4
-%\end{itemize}
-
-%The value A4.T5 is accurate as it integrates \SC and cascading \SUS data all the way back to and including A0.T. The values A1.T2, A2.T3, A3.T4 are also all accurate. If the model knows these values it can calculate answer digits accurately:
-
-%\begin{itemize}
-%\item A1 = A1.T2 \% 10 
-%\item A2 = A2.T3 \% 10 
-%\item A3 = A3.T4 \% 10 
-%\item A4 = A4.T5 \% 10 
-%\item A5 = A4.T5 // 10 
-%\end{itemize}
-
-%In this hypothesis, \textbf{all} the answer digits are accurately calculated using the nodes in positions 8 to 11. This hypothesis 2 is feasible, elegant and compact - reflecting the authors (human) values for good code.
-
-%Experimenation shows the model does not implement this hypothesis. It retains the long staircase \SA calculations in positions 11 to 16. Why? Two reasons suggest themselves:
-
-%\begin{itemize}
-%\item Hypothesis 2 is too compact. The model is not optimising for compactness. The long staircase is discovered early in training, and it works for simple questions. Once the overall algorithm gives low loss consistently it stops optimising.
-%\item Hypothesis 2 accurately predicts \textbf{all} answer digits in step 11 - reflecting the authors (human) values for good code. The model is not motivated to do this. It just needs to accurately predict A5 as 1 or 0 in step 11 and A4 in step 12 - nothing more.
-%\end{itemize}
-
-%We abandoned this hypothesis.
 
 
 \section{Appendix: Addition Hypothesis 3}

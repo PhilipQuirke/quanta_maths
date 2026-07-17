@@ -593,6 +593,88 @@ Q&A above.)*
   the CE14 ≥2-depth bar on the mixed model. Reusable cross-model sweep in
   `quanta_maths.maths_cascade`.
 
+## Q: Is the carry currency stored on a shared rail across digit positions, and what shape is the question-side ST write? — no shared stored rail (read-time canonicalization); collinear-ordered writes, U on-rail (CE27)
+
+- **Question**: G1 proposed each ST write = shared 1-D carry-rail coordinate ⊕
+  private address subspace, predicting the consumer-OV pre-image rescues CE11's
+  dead cross-digit transfer; F1 asked the manifold shape (collinear vs simplex);
+  F4 asked whether the mixed model's SV/MV/NV share one unit-adjust rail.
+- **Result (CE27, dual-gated)**: **G1's OV-preimage form refuted** — off-diagonal
+  gain 0.099/0.116 does not clear the wrong-axis null by the pre-registered
+  margin; no shared *stored* carry subspace shown (full-activation binary-carry
+  transfer also at the null band; per-digit carry axes only partially aligned,
+  mean |cos| 0.41/0.60). With CE24 (canonical carry emerges in the L1 read):
+  **the common carry currency is created at read time on the wire, not stored as
+  a shared coordinate**. **Shape**: every strong-writer ST site is
+  **collinear-ordered** — U's off-rail component is at the permutation null
+  (p 0.99–1.0), U splits by incoming carry on the rail (site-concentrated,
+  CE13-consistent) — settling A3's question-position remnant against a simplex.
+  **Mixed (G4)**: single-rail refuted; descriptive **two-rail spectrum** — SUB
+  borrow and NEG neg-borrow share one rail (combiner-input |cos| 0.897,
+  resid_pre 0.956); ADD carry ~orthogonal (0.196/0.223; ADD-axis
+  untrained-nuisance caveat 0.68). **F4b (2026-07-17, in-window): two-rail
+  FIRMED under nuisance control** — untrained-nuisance projection changes no
+  alignment (SUB–NEG 0.898, trained decode 1.00 after projection), axes are
+  canonical across read digits (0.975–0.981), cross-digit cross-class
+  alignments reproduce the spectrum (SUB–NEG 0.877, ADD 0.21–0.22, null p95
+  0.09) — **ADD-orthogonality established, nuisance caveat closed**; residual
+  caveat: the untrained background is a ≤~0.4 draw-unstable band (registered
+  SUB–NEG control 0.029 at the primary read digit). SGN orthogonal to all
+  (≤0.09).
+- **Caveats**: linear-probe/representational; the OV-preimage is a weak
+  within-site instrument (binary diag 0.599/0.614 — the refutation rests on the
+  specificity margin, not the weak rail alone); F3 (entanglement re-read) is
+  n=1 site per model — the CE11 21° ST–SV entanglement is reproduced but **not**
+  explained by the OV rail (residual ≈9–10° over a recomputed null); d6's
+  head-pair pre-images are near-orthogonal (|cos| 0.15), so a "single rail" is
+  not even well-defined there.
+- Detail: [study-geometry-factorization.md](study-maths/study-geometry-factorization.md),
+  [CE27](maths-claim-evidence.md#ce27).
+
+## Q: What geometry does the read-time carry rail have, and does it provably compute TriAdd? — an ordered place-value dominance code; worst-case-certified at a middle digit only; the large-n axis collapse is dynamic-range physics (CE28)
+
+- **Question**: G2 proposed per-site class values ordered `p<u<q` with
+  super-increasing attention-weighted gaps (place value), U transparent, so the
+  CE17 STEP threshold provably computes TriAdd; G3 predicted gap compression
+  with digit count. Motivating theory: an *exact linear* read of local-class
+  writes cannot equal the resolved carry at depth ≥ 2 (two-site contradiction);
+  only a *thresholded* linear read can — making the STEP load-bearing.
+- **Result (CE28, dual-gated; round-1 BLOCK → local-rail + untrained controls
+  added)**: the per-prompt LN-fair OV decomposition is **exact** (recon err
+  ~5e-8). **Supported**: class-1 > class-0 rail values at every source site
+  (trained-specific: untrained sep 2.7 vs 28.6/32.2; wrong-axis gaps collapse
+  ~100×); **super-increasing weighted gaps within the cascade region** (robust
+  on each consumer's own locally-refit rail); **U is cin-dependent** (CE13's
+  lean; at the dominant deciding site U *overshoots* the committed range — a
+  cin-controlled gate, not a midpoint); a **static-attention additive read**
+  (better than per-prompt attention — supports mostly-static A5) whose
+  **thresholded output matches carry-out at 0.92–1.00** everywhere; and the
+  **worst-case TriAdd certificate is met at the d6 middle consumer** (interval
+  non-empty, operating point inside, config-acc 1.00). **Not established /
+  refuted**: U-as-neutral-midpoint (dominant site); additivity on the primary
+  d6 (static R² 0.24–0.42 vs d5's 0.79–0.96 — pre-registered ambiguous zone);
+  **certificate at the leading digit — empty on both rails** (its top-digit gap
+  is genuinely compressed; local-rail control refutes the misalignment
+  confound). The operating threshold's rail coordinate (≈0.49–0.54) is **not**
+  CE17's interpolation-frame α\*≈0.75 — different coordinate frames, flagged
+  and unexplained. **G3**: carry-axis separation collapses 28.6/32.2 →
+  5.57/6.04 (d10/d13), **re-explaining CE18's "probe-limited" 30→6 collapse as
+  dynamic-range compression of a place-value code**; the strict ρ^i decay law
+  is suggestive at d10 (r²=0.78), weak at d13, and not discriminated from
+  per-consumer renormalization/irrelevance.
+- **Read together with CE27**: no tension — CE28 measures class-conditional
+  *means* of per-site read contributions (population geometry, strong), CE27
+  measures per-prompt 1-D decodability and cross-site transfer (weak/absent).
+  Only the attention-*aggregated* rail value is decision-grade; no single
+  site's coordinate needs to be individually decodable, and the currency is
+  created in the read (CE24).
+- **Verdict**: G2 **partial, low-medium** (constructive ordered-dominance
+  geometry real and doing computational work; "provably computes TriAdd
+  everywhere via one STEP" holds only at the d6 middle consumer). G3 **low**
+  (collapse re-explanation durable; decay law undiscriminated).
+- Detail: [study-geometry-certificate.md](study-maths/study-geometry-certificate.md),
+  [CE28](maths-claim-evidence.md#ce28).
+
 ## Where the story is still ambiguous
 
 Standing ambiguities that constrain interpretation (the ranked plan and backlog
@@ -602,13 +684,186 @@ open empirical uncertainty, not the schedule):
 - Whether the `=` resolved carry is causally USED downstream or recomputed per
   answer position, and whether `SV` at `=` survives a fair operand-recompute
   baseline — the open half of CE12.
-- Whether the hand-off delivery holds at ≥2 depths (CE10 established only one),
-  and how the consumer head + combiner MLP compute `carry_out` — under-powered,
-  not settled.
-- Why delivery differs by size (5-digit direct path live, 6-digit not).
-- Whether a *transient* `{0,1,U}` tri-state exists at question positions before
-  the answer position — the only regime A3 could still live in.
+- ~~Whether the hand-off delivery holds at ≥2 depths~~ — settled by CE14/CE16
+  (≥2-depth carry-specific delivery; canonical message; STEP combiner CE17;
+  geometric implementation CE28). Still open inside that account: the
+  **leading-digit consumer has no worst-case certificate** (compressed top-gap,
+  CE28) and the **primary d6 read is non-additive** (static R² 0.24–0.42) — how
+  the leading digit retains reliability without worst-case margins is unknown.
+- Why delivery differs by size (5-digit direct path live, 6-digit not); and the
+  α\*-frame mismatch (CE17 interpolation-frame 0.75 vs CE28 rail-coordinate
+  ~0.5) — flagged, unexplained.
+- ~~Whether a transient `{0,1,U}` tri-state exists at question positions~~ —
+  settled descriptively by CE27 F1 (collinear-ordered write, U on-rail,
+  cin-split; no off-axis symbol). Remaining A3 residue is only a *weak*
+  (sub-detection-floor) symbol.
 - Whether the tie-break economy (A6) holds for multi-digit `...999` cascades; CE9
   found the mechanism non-localizable at node/pattern granularity.
 - Whether the model causally *uses* digit magnitude / circular ordering despite a
   weak embedding geometry, and whether that ordering survives LayerNorm folding.
+- The ST–SV 21° entanglement is reproduced (CE27 F3) but not explained by the
+  OV rail (n=1 site, residual ≈9–10° over null) — its geometric origin is open.
+- ~~Mixed-model two-rail ADD-nuisance~~ — closed in-window by the F4b re-fit
+  (CE27 addendum): ADD-orthogonality established under projection + cross-digit
+  controls. Residual: the untrained format background is a ≤~0.4 draw-unstable
+  band (SUB–NEG's registered control passes at the primary read digit), and a
+  learned bit-locked shared component is definitionally the borrow signal
+  (causal identity via CE20/CE22). Single model/seed.
+
+## PAPER HAND-OFF (2026-07-17, ~T-8h) — consolidated evidence for the revision
+
+*(Agenda entry 3 deliverable, `maths` thread → `paper` thread. Two sections
+matching the revision's mandated deliverables; every claim carries a referee
+tag — **CONFIRMED** / **PARTIAL** / **OPEN** — its confidence, and its CE
+anchor. The adversarial-referee caveats are folded in per claim and in the
+closing block; this section is the one artifact for both uses. Paper edits are
+the `paper` thread's; evidence questions come back to `maths`.)*
+
+### (a) The SV mechanism — how the carry cascade is implemented
+
+Layer-general phrasing (writer layer / consumer layer / combiner) per the
+2026-07-16 terminology directive; L0/L1 names are the 2-layer instantiation.
+
+1. **Writers** — map-named early-layer ST nodes at question-tail/sign positions
+   write their local tri-state class plus *single-step* U-resolution
+   (cin-dependent U write); the map's causal tags are vindicated over an
+   untagged baseline. **CONFIRMED (medium, cross-model)** —
+   [CE13](maths-claim-evidence.md#ce13).
+2. **Delivery** — a redundant SP-tagged consumer head pair at *every* answer
+   position (incl. the sign position for the leading digit) delivers the carry
+   **carry-specifically** (deciding-matched null 0.00) into the answer-position
+   combiner MLP; sufficient at ≥2 depths; **class-necessary** (paired ablation
+   over baseline 1.07/0.85); the skip/direct path carries ≈0 carry (used-path
+   sense, not formal exclusion). **CONFIRMED (medium-high, aggregated per
+   working axioms)** — [CE14](maths-claim-evidence.md#ce14)/[CE15](maths-claim-evidence.md#ce15)/[CE16](maths-claim-evidence.md#ce16).
+3. **Message & source** — the delivered signal is a **canonical,
+   format-invariant resolved carry** (cross-deciding-position transfer 1.00);
+   its source is the **distributed question-tail ST cluster, never `=`** (`=`
+   value-arm flips 0.00, OV-projection ≈0 — a depot/bias, not a value source).
+   **CONFIRMED (medium-high)** — [CE16](maths-claim-evidence.md#ce16).
+4. **Combiner** — a **STEP function** (interpolation-frame α\*≈0.75 both
+   addition models; ≈0.5 mixed), emitting resolved `carry_out` on the CE5
+   centroids. **CONFIRMED (medium-high)** —
+   [CE17](maths-claim-evidence.md#ce17)/[CE5](maths-claim-evidence.md#ce5)/[CE22](maths-claim-evidence.md#ce22).
+5. **Compounding locus & timing** — multi-digit compounding is completed **in
+   the consumer-layer read** (cross-depth transfer 1.00 at the combiner input;
+   no carry-specific canonical code in L0's output; A11 L0-relay and A9
+   single-head selection both closed-negative), and it is **temporally lazy**:
+   the propagated carry appears only at the sign token in the final layer
+   (~2 tokens after full input availability), while single-step make-carry is
+   eager in-place. **CONFIRMED (conclusive per CE24, linear-probe caveat)** —
+   [CE24](maths-claim-evidence.md#ce24) (+TF addendum).
+6. **Generalization** — the role skeleton + STEP combiner hold d5→d13 and on
+   the 3-layer mixed model across ADD/SUB/NEG — including **d6→d8 mixed**
+   (binary resolved cascade, STEP combiner, canonical message, `=`-not-source,
+   shared combiner; CE26); mixed delivery is class-dependent (ADD
+   residual-borne; SUB/NEG + last-layer attention, depths 2–4) and the route is
+   additionally **depth/size-dependent** (d8 SUB/NEG switch to attention at
+   deep cascades — CE26); SGN = top-of-cascade `D≥D'` comparison at `=`;
+   **redundancy is intrinsic, not small-model slack** (C6 not supported;
+   class-vs-single gap *grows* d5→d10). **CONFIRMED (medium-high; large-n
+   source signatures probe-limited → see (b)5)** —
+   [CE18](maths-claim-evidence.md#ce18)/[CE20](maths-claim-evidence.md#ce20)–[CE23](maths-claim-evidence.md#ce23)/[CE25](maths-claim-evidence.md#ce25)/[CE26](maths-claim-evidence.md#ce26).
+7. **Operator control (mixed)** — the engine is shared at the combiner (full
+   L1-state patch → correct other-class digit 0.96) but selection is a
+   **distributed, high-dimensional** transformation; rank-1 operator steering
+   flips 0%. **CONFIRMED-NEGATIVE for low-rank control (medium-high)** —
+   [CE23](maths-claim-evidence.md#ce23).
+
+### (b) Latent-space representation of intermediate results
+
+1. **Digit embeddings are near-isotropic categorical codes** — no dominant
+   circle/helix; only a weak, seed-fragile circular ordering (LN-robust weakly).
+   The arithmetic geometry below is **constructed at the read/write interfaces,
+   not inherited from the embedding**. **CONFIRMED (medium; ordering low)** —
+   [CE1](maths-claim-evidence.md#ce1).
+2. **The carry is a binary linear code with no dedicated `{0,1,U}` symbol**
+   anywhere on the answer stream (U resolved around consumer-layer attention);
+   the question-side ST **write manifold is collinear-ordered** — U sits *on*
+   the carry-resolution axis (off-rail component at permutation null), split by
+   incoming carry (a cin-gate at the dominant deciding site, a lean elsewhere).
+   No simplex/third-direction anywhere. **CONFIRMED (medium; write-shape
+   descriptive)** — [CE6](maths-claim-evidence.md#ce6)/[CE7](maths-claim-evidence.md#ce7)/[CE27](maths-claim-evidence.md#ce27)-F1/[CE28](maths-claim-evidence.md#ce28)-T1.
+3. **Storage is position-specific; there is NO shared stored carry rail.**
+   Question-side ST probes do not transfer across digits (retention ~0.10);
+   the consumer-OV pre-image rail fails axis-specificity; even the binary
+   carry bit transfers only at the null band; per-digit carry axes are only
+   partially aligned. The **common carry currency is created at read time on
+   the wire** (consistent with — and jointly forced by — CE24's
+   emerges-in-the-read result). Answer-side layout: `SA` is a just-in-time
+   register; `SV` is present at `=` but on non-orthogonal slots (tape
+   refuted); answer-side templates transfer while question-side ones do not.
+   **CONFIRMED (medium-high for the negative + read-time reading)** —
+   [CE11](maths-claim-evidence.md#ce11)/[CE12](maths-claim-evidence.md#ce12)/[CE24](maths-claim-evidence.md#ce24)/[CE27](maths-claim-evidence.md#ce27).
+4. **At the read, the geometry is an ordered place-value dominance code** —
+   per-site class-1 > class-0 rail values at every source site
+   (trained-specific; untrained and wrong-axis controls collapse it),
+   **super-increasing attention-weighted gaps** within the cascade region
+   (robust on locally-refit rails), U cin-dependent, and a **static-attention
+   additive read whose STEP-thresholded output matches the model's carry-out
+   at 0.92–1.00**. A **worst-case TriAdd certificate** (interval non-empty,
+   operating point inside, all configs correct) is **met at the d6 middle
+   consumer** — at that locus the measured geometry *provably* implements the
+   cascade under a single threshold. Theory note usable in prose: an exact
+   linear read of local-class writes cannot compute the resolved carry at
+   depth ≥2; a thresholded one can — the STEP is load-bearing, not incidental.
+   **PARTIAL (G2 low-medium)** — certificate holds at one consumer;
+   **leading-digit certificate is empty** (genuinely compressed top gap);
+   primary-model d6 additivity is in the ambiguous zone (static R² 0.24–0.42
+   vs d5's 0.79–0.96); threshold-frame mismatch vs CE17's α\* unexplained.
+   [CE28](maths-claim-evidence.md#ce28).
+5. **The large-n "probe-limited" caveat is re-explained as physics**: the
+   carry-axis separation collapse (28.6/32.2 → 5.57/6.04 at d10/d13,
+   reproducing CE18's 30→6) is **dynamic-range compression** of a place-value
+   code under bounded norms. **PARTIAL (G3 low: collapse re-explanation
+   durable; strict geometric-decay law not discriminated from per-consumer
+   renormalization)** — [CE28](maths-claim-evidence.md#ce28)-T5/[CE18](maths-claim-evidence.md#ce18).
+6. **Mixed-model data geometry is a two-rail spectrum** — SUB-borrow and
+   NEG-neg-borrow share one rail (|cos| 0.90/0.96); ADD-carry is ~orthogonal
+   (0.20/0.22); SGN orthogonal to all. **Nuisance-controlled in-window
+   (F4b)**: untrained-nuisance projection changes no alignment (trained
+   decode 1.00 after projection), each class's axis is canonical across read
+   digits (0.975–0.981), and the nuisance-robust cross-digit cross-class
+   alignments reproduce the spectrum (SUB–NEG 0.877; ADD 0.21–0.22; null p95
+   0.09) — **ADD-orthogonality established; the ADD-nuisance caveat is
+   closed**. Pairs with (a)7 as a clean contrast: **the carried datum is
+   low-dimensional per operation family, while the operator control is
+   high-dimensional.** **PARTIAL→FIRMED (descriptive, nuisance-controlled;
+   residual caveat: untrained background is a ≤~0.4 draw-unstable band;
+   single model/seed)** — [CE27](maths-claim-evidence.md#ce27)-F4/F4b.
+7. **Known-open geometric residue** (state, don't hide): the ST–SV 21°
+   entanglement is real but unexplained by the OV rail (n=1 site); ST/SV
+   remain geometrically entangled at question positions (CE11). **OPEN**.
+
+### Referee block — how to not over-write this in the paper
+
+- **Causal vs representational**: (a)2–4 and CE24's delivery half are causal
+  (patch/ablation with matched nulls); the geometry claims (b)2–6 are
+  representational/linear-probe with causal *anchors* (CE16/CE17). CE28's
+  certificate is a sufficiency argument over measured geometry, not an
+  intervention. Do not write "we causally verified the geometry".
+- **Scope the certificate precisely**: "provably computes TriAdd" is true **at
+  the d6 middle consumer only**; d5-middle has the interval but the operating
+  point sits outside (config-acc 0.78–0.89); both leading consumers have empty
+  intervals. The robust universal statement is threshold-agreement 0.92–1.00.
+- **Do not link CE28's rail coordinate (~0.5) to CE17's α\*≈0.75** — different
+  coordinate frames, flagged and unexplained.
+- **Additivity is model-asymmetric** (d5 additive; d6 primary non-additive) —
+  say "a static-attention additive read approximates the computation well on
+  d5 and partially on d6", not more.
+- **Two-rail (mixed) and decay-law (G3) claims are descriptive** — keep the
+  ADD-nuisance and renormalization alternatives in any statement.
+- **Redundancy wording** per working axiom 2: single-node nulls are expected;
+  necessity claims are class-level.
+- **Two-rail wording after F4b** (in-window re-fit, 2026-07-17): safe paper
+  sentence — "SUB and NEG read their resolved borrow along one shared
+  direction (|cos| 0.88–0.90, unchanged under untrained-nuisance projection
+  and stable across read digits), while the ADD carry axis is near-orthogonal
+  to both (~0.21, at the untrained format background; its own decode 1.00
+  after nuisance projection)." Do not claim more than single-model/seed.
+- **Cheapest picture-changing follow-ups** (post-deadline, ranked): (1)
+  ~~ADD-nuisance-controlled G4 re-fit~~ — DONE in-window (F4b; two-rail
+  firmed); next is a cross-seed/size replication of the two-rail geometry;
+  (2) multi-depth certificate at n=10/13 (tests whether leading-digit
+  compression is G3 physics); (3) multi-site F3 (entanglement origin); (4)
+  causal write-site rail steering (would upgrade (b)4 to causal).

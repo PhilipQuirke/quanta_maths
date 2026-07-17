@@ -364,13 +364,27 @@ mode.
   separation, below the detection floor) and a *transient* `U` at **question
   positions** (D'n, descoped) — the only regimes where A3's remnant can still
   live. A3 is not globally dead, but the "U as a dedicated symbol" frame is
-  strongly disfavored (see streak note in the reflection log). **2026-07-15
+  strongly disfavored (see streak note in the reflection log). **Update
+  2026-07-16 ([CE27](maths-claim-evidence.md#ce27), F1 write-site manifold
+  shape): the descoped question-position remnant is now settled DESCRIPTIVELY
+  against a simplex.** At the strong question-tail ST writers the tri-state write
+  is **collinear-ordered** — U's off-rail fraction is not above a permutation
+  null (p 0.99–1.0) at any strong writer, the U centroid split by incoming carry
+  *on the rail* (CE13 single-step co-resolution; site-concentrated). So even at
+  the question write position there is no off-axis U symbol; the linear/ordered
+  read closes A3's last hiding place (a *weak* sub-floor or *nonlinear* U symbol
+  is still not excluded — linear probes only). **2026-07-15
   note:** the human C4 leading-digit argument independently motivates the
   question-position remnant (B12): the top answer digit is predicted from the
   answer-sign position, so whatever carry information feeds it must already
   exist at or before that position — a deep `...999` chain at question
-  positions is the one regime where a transient `U`-like state would earn its
+  positions is the one regime where   a transient `U`-like state would earn its
   keep (though A9 predicts even there it is skipped by selection).
+  **Update 2026-07-16 (CE28):** at the L1-read carry rail the `U` write is
+  **cin-dependent on the resolution axis and never a static third symbol** — it sits
+  between the committed values at moderate-weight sites and *overshoots* them (a full
+  cin-gate) at the highest-weight deciding site. Reinforces A3-low: `U` is a
+  transparency/relay state parameterized by the incoming carry, not an off-axis symbol.
 
 ### A4: Features are position-addressed: shared templates plus positional binding
 
@@ -473,6 +487,12 @@ mode.
   CE8's routing stays *representational*, not shown load-bearing.** Hold A5 at
   medium (the representational hybrid-routing finding stands; its causal role is
   not established at this granularity — an edge path-patch is the open test).
+  **Update 2026-07-16 (CE28, indirect support):** on the carry-rail reconstruction,
+  a **static-attention** additive read of the per-site class values reconstructs the
+  combiner input and predicts carry-out (agreement 0.92–1.00), whereas rescaling by
+  **per-prompt** attention makes it *worse* (negative R²) — i.e. the carry read is
+  well-modelled by *static* attention weights, consistent with A5's majority
+  (mostly-static) claim at the consumer read.
   **Update 2026-07-16 (CE10):** the edge path-patch shows `L1.H1` **is causally
   load-bearing at the combiner edge at one depth** (6-digit k=3) — so the CE8
   routing cell has a *causal* role after all, but only a one-depth crumb (the edge
@@ -616,7 +636,13 @@ mode.
   rather than occupying near-orthogonal dedicated subspaces. This challenges A8's
   "unrelated sub-task readouts are near-orthogonal / low interference" prediction
   for the carry family at question positions. The task-wide effective-dimension
-  claim (agenda entry 2) is still the untouched core test.
+  claim (agenda entry 2) is still the untouched core test. **Update 2026-07-16
+  ([CE27](maths-claim-evidence.md#ce27)):** the ST–SV entanglement reproduces
+  (principal angle 26°/21°), but it is **not cleanly "the carry rail"** — the
+  consumer-OV carry direction is only moderately aligned with the SV axis
+  (|cos| 0.35–0.47) and oblique to the ST plane (52–57°), so removing it leaves
+  a residual angle that only modestly exceeds a recomputed null. The entanglement
+  is real but its geometric source is not a single shared 1-D carry direction.
 
 ### A9: Deep `U`-cascades are resolved by one-hop attention selection, not sequential propagation
 
@@ -872,9 +898,18 @@ mode.
   combiner is a STEP (CE22 iv), the delivered carry/borrow is canonical and
   `=`-is-not-the-source (CE22 i/ii), and delivery is carry/borrow-specific across
   depths 2–4 (CE25). One layer-general refinement: the delivery *route* is
-  class-dependent — ADD rides the residual, SUB/NEG also use last-layer attention
-  (CE20/CE25). Held at medium-high on the wiring; delivery-route now a documented
-  per-model property (tag `Probe:DELIVERY.*`).
+   class-dependent — ADD rides the residual, SUB/NEG also use last-layer attention
+   (CE20/CE25). Held at medium-high on the wiring; delivery-route now a documented
+   per-model property (tag `Probe:DELIVERY.*`).
+- **Update 2026-07-16 (CE28, geometric implementation of the combiner STEP):** the
+  CE17 STEP combiner now has a geometric account — its input is an **ordered place-
+  value carry rail** whose per-site writes have super-increasing weighted gaps in
+  significance within the cascade region, so the STEP is a **threshold on a dominance
+  code** that (at a middle digit) provably discretizes the delivered carry into the
+  digit. Scoped: the certificate is met at the d6 middle consumer but not the leading
+  digit (compressed top-gap) — the geometry *does* the compounding-to-carry step,
+  provably at a middle digit, empirically elsewhere. Does not change A10's wiring
+  confidence.
 
 ### A11: Multi-digit compounding is a positional L0 relay across the question-tail ST sites
 
@@ -1151,7 +1186,27 @@ itself does computational work. All G-entries are **speculative, pre-evidence**
   activation level (CE11) but may hold on exactly one dimension; C2's
   orthogonality question becomes "address subspaces are private/orthogonalish,
   the rail is deliberately shared".
-- **Confidence**: proposed (pre-evidence).
+- **Confidence**: **REFUTED (OV-preimage form) 2026-07-16** by the
+  geometry-factorization study ([CE27](maths-claim-evidence.md#ce27), both
+  addition models, dual-gated). The proposed rail — the consumer heads' OV
+  pre-image of the CE16 carry axis — does **not** rescue CE11's cross-digit
+  no-transfer: its cross-site binary-carry off-diagonal gain (0.099/0.116) does
+  not beat the pre-registered OV-pre-image-of-random wrong-axis null
+  (0.078/0.106) by the 0.05 margin, and it is a weak within-site instrument
+  (binary diag 0.60). **No shared *stored* carry rail is demonstrated at all**:
+  a full-activation *binary* carry probe (CE11 tested only tri-state) transfers
+  at off-diagonal gain 0.088/0.096 — at the same null band, no nuisance control
+  — so the tidy factorization fails and the earlier smoke-test "rescue" was a
+  small-n retention-ratio artifact. The prediction (2) half (removing the rail
+  raises the ST–SV angle) is only weakly met: |cos|(rail, SV) 0.35–0.47, the
+  rail is oblique to the ST plane (52–57°), and the residual angle overshoots a
+  recomputed null (gap ~9–10°). **Net: G1's storage-factorization is refuted;
+  canonicalization is a read-time transformation (consistent with CE24 — the
+  canonical carry emerges in the L1 read), the common currency living on the
+  wire, not in storage.** Residual life: a *nonlinear* shared code is not
+  excluded (linear probes only). Was proposed → **low** (refuted for the linear
+  OV-preimage rail; the read-time-rotation alternative is now the standing
+  account).
 
 ### G2: The cascade is computed by a place-value dominance code on the rail, and the STEP combiner is what makes it possible
 
@@ -1191,7 +1246,29 @@ itself does computational work. All G-entries are **speculative, pre-evidence**
 - **Tension with human**: none on direction; gives C3's "MLP transforms" a
   sharp form (the MLP's step *is* the cascade's nonlinearity) and gives the
   paper's `=`-attention puzzle a concrete answer (bias anchoring).
-- **Confidence**: proposed (pre-evidence). Scored by
+- **Confidence**: **LOW-MEDIUM (partial) 2026-07-16** after the certificate study
+  ([CE28](maths-claim-evidence.md#ce28), dual-gated). **Supported**: on the
+  read-time carry rail (canonical at the L1 read, CE24/CE27 — not a stored rail),
+  an **exact** per-prompt LN-fair OV decomposition (recon_err ~5e-8) shows the
+  per-site writes form an **ordered place-value code** — class-1 rail > class-0 at
+  every site, **super-increasing weighted gaps within the cascade region** (both
+  models, both the shared and each consumer's own refit rail), **cin-dependent U**
+  (CE13), and a **static-attention additive read** that a single rail threshold
+  turns into the resolved carry (agreement 0.92–1.00; the per-prompt-attention read
+  is worse → supports A5 static routing). The **worst-case TriAdd certificate is
+  MET at the d6 middle consumer** (interval non-empty + α\* inside + config-accuracy
+  1.00) — a real geometry-computes-TriAdd datapoint. **Not established / refuted**:
+  the **worst-case-certificate form at the leading digit** (empty interval on both
+  the shared and the consumer's own local rail — a genuine *compressed top-gap*, not
+  rail-misalignment, confirmed by the local-rail control) and at the **primary d6**
+  (static R² 0.24–0.42, non-additive residual); the **U-as-neutral-midpoint** form
+  (at the single highest-weight deciding site U *overshoots* the committed range — a
+  full cin-gate); α\* is a different coordinate from CE17's ≈0.75 (not "explained").
+  Controls all pass (untrained twin sep 28→2.7; wrong-axis gap collapse ~100×;
+  PC1 1.00/0.00). Net: the **constructive ordered-dominance geometry is real and does
+  computational work**, but the strong "provably computes TriAdd everywhere via one
+  STEP" form holds only at a middle digit. Competing read 3 (ordered-but-uncertified)
+  + read 2 (non-additive residual) survive at the leading digit. Scored by
   [study-geometry-certificate.md](study-maths/study-geometry-certificate.md).
 
 ### G3: Dynamic-range law — dominance coding under bounded norms compresses gaps exponentially with operand count
@@ -1216,8 +1293,17 @@ itself does computational work. All G-entries are **speculative, pre-evidence**
 - **Tension with human**: touches C6's spirit from a new angle — what
   changes with n is not redundancy (CE18 refuted that) but **signal
   allocation**.
-- **Confidence**: proposed (pre-evidence; T5 stretch battery of the
-  certificate study).
+- **Confidence**: **LOW (consistent, not discriminated) 2026-07-16** after the T5
+  battery ([CE28](maths-claim-evidence.md#ce28)). The **carry-axis dynamic-range
+  collapse is observed** — committed-carry separation 28.6/32.2 (d5/d6) → 5.57/6.04
+  (d10/d13), **reproducing CE18's 30→6 as physics (bounded-norm + dominance gap
+  compression), not instrument failure** — and gap profiles are super-increasing
+  (d10 ρ≈6.9, r²=0.78). BUT the strict `g_i ~ ρ^i` law is **weak at d13** (ρ≈1.9,
+  r²=0.41, non-contiguous digit set), and the near-zero low-significance gaps are
+  **not discriminated from plain irrelevance / per-consumer renormalization**
+  (G3's own listed alternative — those digits sit far below the consumer). So the
+  **CE18 re-explanation is the durable part**; the geometric-decay-law form is
+  suggestive at d10, unproven. Falsifier (sep NOT shrinking with n) not triggered.
 
 ### G4: One rail, many meanings — ADD/SUB/NEG share a single unit-adjust rail; data is low-D even though control is high-D
 
@@ -1246,9 +1332,22 @@ itself does computational work. All G-entries are **speculative, pre-evidence**
   attention-borne, CE20/CE25, could carry geometrically distinct codes).
 - **Tension with human**: gives C2-vs-A7 a finer resolution: C2-like
   separation for *control*, A7-like reuse for *data*.
-- **Confidence**: proposed (pre-evidence). Scored by
-  [study-geometry-factorization.md](study-maths/study-geometry-factorization.md)
-  battery F4.
+- **Confidence**: **single-rail REFUTED → TWO-RAIL (descriptive) 2026-07-16**
+  ([CE27](maths-claim-evidence.md#ce27), mixed model, dual-gated). The proposed
+  single shared unit-adjust rail is not what the geometry shows: at the shared
+  L2 combiner input **borrow (SUB) and neg-borrow (NEG) share one rail**
+  (|cos| 0.90 combiner / 0.96 resid_pre) but **add-carry is ~orthogonal** to
+  them (|cos| 0.20/0.22, 0.01/0.05), and one shared direction explains only
+  0.66 of the three axes' separation (< the 0.70 bar). The pre-registered scheme
+  returns "intermediate → report spectrum"; the descriptive reading is the
+  alternative already named — **two rails: add-carry ⊥ subtract-borrow, with NEG
+  reusing the borrow rail** (SGN orthogonal to all, |cos| ≤ 0.09). So the
+  *carried datum* is low-D but **not one universal rail** — it splits by
+  operation family. Caveat: ADD's separateness carries an untrained-decodable
+  nuisance (mixed untrained decodes ADD's bit 0.68 vs SUB 0.51), so the ADD
+  ⊥ borrow claim needs a nuisance-controlled re-fit before it firms. Was
+  proposed → **low-medium** (two-rail descriptive; the C2-for-control /
+  reuse-for-data framing survives only for the *subtraction family*).
 
 ## Sharpest forks
 
@@ -1289,15 +1388,25 @@ class-necessary carrier; trails in the A10 confidence block):
 4. **Paper hand-off timing** — deferred by the human 2026-07-16; must trigger
    no later than ~12 h before the deadline. Post-deadline: the mixed-model
    shared engine (A7 vs C2) and the neuron-level combiner decomposition (B2).
-5. **The latent-geometry stream (G1–G4, opened 2026-07-16 evening by human
-   directive) — the new active fork.** Two cheap discriminators are designed
-   for an overnight run: does OV-rail projection rescue the CE11 no-transfer
-   (G1: storage factorization vs read-time rotation), and do the per-site
-   rail values satisfy the ordering + dominance inequalities that would let
-   the CE17 STEP provably compute TriAdd (G2: dominance code vs
-   interaction-dependent read)? Either verdict upgrades the paper's
-   representation section from a list of scoped negatives (CE11/CE12/CE18
-   caveats) to a constructive geometric statement.
+5. ~~The latent-geometry stream (G1–G4)~~ — **BOTH overnight studies LANDED
+   2026-07-16.** G1 (storage factorization): **refuted** as a shared *stored* rail
+   ([CE27](maths-claim-evidence.md#ce27)) — the common carry currency is a
+   **read-time** transformation (consistent with CE24), not a stored 1-D coordinate;
+   G4's single-rail form refuted, two-rail (borrow/neg-borrow share one, add-carry
+   orthogonal) descriptive. G2 (dominance code): **partial**
+   ([CE28](maths-claim-evidence.md#ce28)) — on the read-time rail the per-site writes
+   *are* an ordered place-value dominance code (super-increasing gaps, cin-U) and a
+   single STEP threshold provably computes TriAdd **at a middle digit**, but the
+   worst-case certificate is empty at the **leading digit** (compressed top-gap,
+   genuine) and additivity is model-dependent (clean d5, non-additive residual d6).
+   G3 (dynamic-range law): **low/consistent** — the carry-axis 30→6 collapse *is*
+   dynamic-range compression (re-explains CE18) but the strict decay law is not
+   discriminated from irrelevance. Net for the paper's representation section: it can
+   now make a **constructive but scoped** geometric statement (ordered dominance rail,
+   read-time canonicalization, STEP-as-threshold) rather than a list of CE11/CE18
+   negatives. **Remaining latent-geometry fork (post-deadline):** a genuine
+   multi-depth certificate at n=10/13 (where G3 predicts the sharpest gap structure)
+   to test whether leading-digit compression is the same physics as CE18's collapse.
 
 ## Supporting literature
 
