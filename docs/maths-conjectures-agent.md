@@ -566,7 +566,16 @@ mode.
 - **Tension with human**: Direct tension with C2's "different sub-tasks are
   more orthogonal" for the `SA`-vs-`MD`/`ND` pair on shared mixed-model nodes
   — I predict the opposite there.
-- **Confidence**: medium.
+- **Confidence**: medium → **hybrid / low on the control mechanism 2026-07-16**
+  after the mixed model ([CE21](maths-claim-evidence.md), [CE23](maths-claim-evidence.md)).
+  The "shared engine" half is **supported** (SA/MD/ND share the same head nodes;
+  the L2 combiner is shared — patching an ADD L1-state into a SUB run emits the
+  correct ADD digit 0.96); but A7's **function-vector / low-rank-control** form is
+  **refuted** — a rank-1 operator steer flips the readout 0% at both the combiner
+  and the SLT selector, and no single SLT head selects; the add/sub selection is a
+  **distributed, high-dimensional** L1 transformation (leans C2). Residual A7
+  escape hatch: a learned rank-r operator subspace (untested). See the mixed
+  reflection-log entries and CE21/CE23.
 
 ### A8: No superposition pressure: complexity is compositional, not superposed
 
@@ -858,6 +867,14 @@ mode.
   distributed" not "deciding-ST"; F3 co-rider = decode-existence). Backlink:
   [study-sv-implementation.md](study-maths/study-sv-implementation.md),
   `results/study-sv-implementation/results.json`, CE16.
+- **Update 2026-07-16 (Mixed model, CE20/CE22/CE25):** A10's core wiring +
+  implementation **replicate on the 3-layer mixed model across ADD/SUB/NEG** — the
+  combiner is a STEP (CE22 iv), the delivered carry/borrow is canonical and
+  `=`-is-not-the-source (CE22 i/ii), and delivery is carry/borrow-specific across
+  depths 2–4 (CE25). One layer-general refinement: the delivery *route* is
+  class-dependent — ADD rides the residual, SUB/NEG also use last-layer attention
+  (CE20/CE25). Held at medium-high on the wiring; delivery-route now a documented
+  per-model property (tag `Probe:DELIVERY.*`).
 
 ### A11: Multi-digit compounding is a positional L0 relay across the question-tail ST sites
 
@@ -1058,6 +1075,12 @@ mode.
   inconclusive"). Backlink:
   [study-cross-size-sv.md](study-maths/study-cross-size-sv.md),
   `results/study-cross-size-sv/results.json`, CE18.
+- **Update 2026-07-16 (Mixed model, CE20/CE22/CE25):** A12 generalization holds on
+  a **new axis** — not just size but a **different architecture (3 layers/4 heads)
+  and the borrow/neg-borrow task families**: the SV representation + STEP combiner +
+  canonical message + delivery all replicate across ADD/SUB/NEG on the mixed model.
+  Raised confidence that the SV interface is architecture/task-general (the delivery
+  *route* can differ by class/model — run `combiner_delivery_sweep` across the zoo).
 
 ## Sharpest forks
 

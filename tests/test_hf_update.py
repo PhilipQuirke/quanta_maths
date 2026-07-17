@@ -56,7 +56,11 @@ class TestRegistry(unittest.TestCase):
 
     def test_applicability_subtraction_only(self):
         names = {t.name for t in techniques_for(_cfg(0, 100))}
-        self.assertEqual(names, {"sub_combiner_MTC"})
+        # subtraction covers positive-answer (MTC) AND negative-answer (NTC)
+        # combiners, plus the class-agnostic delivery-route technique.
+        self.assertEqual(names, {"sub_combiner_MTC", "neg_combiner_NTC",
+                                 "combiner_delivery_route"})
+        self.assertNotIn("add_combiner_STC", names)
 
     def test_applicability_mixed(self):
         names = {t.name for t in techniques_for(_cfg(34, 66))}

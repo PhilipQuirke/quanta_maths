@@ -105,26 +105,30 @@ def _combiner_is_causal(model, cfg, produce_pos: int, impact_digit: int,
 
 
 def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None,
-                  operation=None) -> int:
-    """Add the combiner tag (``Algo:A{d}.STC`` for addition, ``Algo:A{d}.MTC`` for
-    subtraction) to answer-position last-layer MLP nodes that pass the causal check.
+                  operation=None, cls: str = None) -> int:
+    """Add the combiner tag to answer-position last-layer MLP nodes that pass the
+    causal check: ``Algo:A{d}.STC`` (addition), ``Algo:A{d}.MTC`` (positive-answer
+    subtraction), or ``Algo:A{d}.NTC`` (negative-answer subtraction).
 
-    ``mlp_layer`` defaults to the LAST layer (``n_layers - 1``); on 2-layer models
-    that is L1, on 3-/4-layer models it is L2/L3. ``operation`` defaults to the
-    model's own operation (PLUS unless the config is pure subtraction).
-    Returns the number of tags added.
+    ``cls`` in {"ADD","SUB","NEG"} selects the class explicitly (needed on MIXED
+    models, where SUB and NEG share the same MINUS operation). If ``cls`` is None it
+    is inferred from ``operation`` (PLUS->ADD, MINUS->SUB) for backward
+    compatibility. ``mlp_layer`` defaults to the LAST layer. Returns tags added.
     """
     from QuantaMechInterp import QType
     from quanta_maths.maths_search_add import add_stc_functions
-    from quanta_maths.maths_search_sub import sub_mtc_functions
+    from quanta_maths.maths_search_sub import sub_mtc_functions, neg_ntc_functions
     from quanta_maths.maths_constants import MathsToken
 
     if operation is None:
         operation = MathsToken.MINUS if cfg.perc_sub == 100 else MathsToken.PLUS
+    if cls is None:
+        cls = "SUB" if operation == MathsToken.MINUS else "ADD"
     if mlp_layer is None:
         mlp_layer = cfg.n_layers - 1
 
-    tag_fn = sub_mtc_functions.tag if operation == MathsToken.MINUS else add_stc_functions.tag
+    tag_fn = {"ADD": add_stc_functions.tag, "SUB": sub_mtc_functions.tag,
+              "NEG": neg_ntc_functions.tag}[cls]
 
     added = 0
     for k in range(cfg.n_digits + 1):
@@ -134,7 +138,7 @@ def tag_stc_nodes(model, cfg, nodes, mlp_layer: Optional[int] = None,
                 continue
             if node.position != produce_pos or node.layer != mlp_layer:
                 continue
-            if _combiner_is_causal(model, cfg, produce_pos, k, mlp_layer, operation):
+            if _combiner_is_causal(model, cfg, produce_pos, k, mlp_layer, cls=cls):
                 added += node.add_tag(QType.ALGO.value, tag_fn(k))
     return added
 

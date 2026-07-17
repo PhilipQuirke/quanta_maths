@@ -128,5 +128,50 @@ class TestDftGeometry(unittest.TestCase):
         self.assertGreater(participation_ratio(M), 5.0)  # high-dim, not low-rank
 
 
+class TestProbeConvergenceQuiet(unittest.TestCase):
+    """fit_probe suppresses only ConvergenceWarning, without changing numerics."""
+
+    def test_fit_probe_suppresses_convergence_warning(self):
+        import warnings
+        from sklearn.exceptions import ConvergenceWarning
+        from sklearn.linear_model import LogisticRegression
+        from quanta_maths.maths_probe import fit_probe
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((60, 120)); y = rng.integers(0, 10, 60)
+
+        # A raw max_iter=1 fit warns; fit_probe must not leak ConvergenceWarning.
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            LogisticRegression(max_iter=1).fit(X, y)
+            raw = sum(1 for x in w if issubclass(x.category, ConvergenceWarning))
+        self.assertGreater(raw, 0)
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            clf = fit_probe(X, y)
+            leaked = sum(1 for x in w if issubclass(x.category, ConvergenceWarning))
+        self.assertEqual(leaked, 0)
+
+    def test_fit_probe_numerics_identical_to_raw(self):
+        from sklearn.linear_model import LogisticRegression
+        from quanta_maths.maths_probe import fit_probe
+        rng = np.random.default_rng(1)
+        X = rng.standard_normal((200, 20)); y = (X[:, 0] > 0).astype(int)
+        clf = fit_probe(X, y, C=0.7)
+        raw = LogisticRegression(max_iter=2000, C=0.7).fit(X, y)
+        # suppression must not alter the fitted model
+        self.assertTrue(np.allclose(clf.coef_, raw.coef_))
+        self.assertTrue(np.array_equal(clf.predict(X), raw.predict(X)))
+
+    def test_non_convergence_warning_still_surfaces_elsewhere(self):
+        # Only ConvergenceWarning is suppressed, and only inside the probe helper.
+        import warnings
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            warnings.warn("unrelated", UserWarning)
+            leaked = sum(1 for x in w if issubclass(x.category, UserWarning))
+        self.assertEqual(leaked, 1)
+
+
 if __name__ == "__main__":
     unittest.main()

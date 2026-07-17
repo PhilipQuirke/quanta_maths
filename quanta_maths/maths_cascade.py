@@ -188,3 +188,53 @@ def combiner_delivery_sweep(model, cfg, classes: Sequence[str] = None,
                 out[cls][k][arm] = {"flip": r["flip"]["rate"], "null": r["null"]["rate"],
                                     "valid": r["stimulus_valid"]}
     return out
+
+
+def model_classes(cfg) -> List[str]:
+    """Question classes a model supports, from its config: ADD if it does addition,
+    SUB and NEG if it does subtraction."""
+    out = []
+    if getattr(cfg, "perc_add", 0) > 0:
+        out.append("ADD")
+    if getattr(cfg, "perc_sub", 0) > 0:
+        out += ["SUB", "NEG"]
+    return out
+
+
+def delivery_route(model, cfg, cls: str, read_digit: int = 2,
+                   n_pairs: int = 20, hi: float = 0.6, lo: float = 0.3) -> str:
+    """Classify how the resolved carry/borrow reaches the combiner for ``cls``:
+    ``resatt`` (residual + last-layer attention), ``res`` (residual only),
+    ``att`` (attention only), ``none``, or ``na`` (stimulus invalid). CE25.
+    Carry/borrow-specific: an arm counts only if flip>=hi AND deciding null<lo.
+    """
+    resid = combiner_delivery_flip(model, cfg, cls, read_digit, "resid_pre", n_pairs=n_pairs)
+    if not resid["stimulus_valid"]:
+        return "na"
+    attn = combiner_delivery_flip(model, cfg, cls, read_digit, "lastlayer_attn", n_pairs=n_pairs)
+    res_ok = resid["flip"]["rate"] >= hi and resid["null"]["rate"] < lo
+    att_ok = attn["flip"]["rate"] >= hi and attn["null"]["rate"] < lo
+    if res_ok and att_ok:
+        return "resatt"
+    if res_ok:
+        return "res"
+    if att_ok:
+        return "att"
+    return "none"
+
+
+def tag_delivery_route_nodes(model, cfg, nodes, read_digit: int = 2, n_pairs: int = 20) -> int:
+    """Tag the last-layer answer-MLP combiner nodes with the per-class delivery
+    route ``Probe:DELIVERY.{ADD|SUB|NEG}={res|resatt|att|none|na}`` (CE25). A
+    model-level fact replicated onto each combiner node; run across the zoo to see
+    where the route differs by model. Returns tags added.
+    """
+    ll = last_layer(cfg)
+    produce = {consuming_pos(cfg, k) for k in range(1, cfg.n_digits)}
+    added = 0
+    for cls in model_classes(cfg):
+        route = delivery_route(model, cfg, cls, read_digit, n_pairs=n_pairs)
+        for node in nodes.nodes:
+            if (not node.is_head) and node.layer == ll and node.position in produce:
+                added += node.add_tag("Probe", f"DELIVERY.{cls}={route}")
+    return added

@@ -45,7 +45,8 @@ from quanta_maths.maths_hf_update import (Technique, TECHNIQUES, register_techni
     BEHAVIORS_FILE, FEATURES_FILE)
 
 from quanta_maths.maths_cascade import (make_cascade_operands, cascade_answer_digit,
-    cascade_question, combiner_delivery_flip, combiner_delivery_sweep, CLASS_OP)
+    cascade_question, combiner_delivery_flip, combiner_delivery_sweep, CLASS_OP,
+    model_classes, delivery_route, tag_delivery_route_nodes)
 
 from quanta_maths.maths_diagram import (capture_role_registry, token_layout_md,
     node_inventory_md, logical_mechanism_mermaid, implementation_mermaid,

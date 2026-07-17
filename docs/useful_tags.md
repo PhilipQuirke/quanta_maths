@@ -67,14 +67,27 @@ Model-level scalars ride as a numeric `=NN` suffix. Currently registered:
 
 | Tag | File | Meaning | Source |
 |---|---|---|---|
-| `Algo:A{d}.STC` | features | Answer-position last-layer MLP that combines the resolved **carry** into digit `A{d}` | CE5 |
-| `Algo:A{d}.MTC` | features | Subtraction parallel of STC (combines the resolved **borrow**) | sub |
+| `Algo:A{d}.STC` | features | Answer-position last-layer MLP that combines the resolved **carry** into digit `A{d}` (addition) | CE5 |
+| `Algo:A{d}.MTC` | features | Positive-answer-subtraction parallel of STC (combines the resolved **borrow**) | CE22 |
+| `Algo:A{d}.NTC` | features | Negative-answer-subtraction parallel of STC (combines the resolved **neg-borrow**) | CE22 |
 | `Probe:A{d}.LINXFER=NN` | behaviors | Operand digit is linearly decodable (balanced-acc `NN`%) at its first-layer fetch site | CE2 |
 | `Probe:A{top}.CARRYLAYER=NN` | behaviors | Layer at which the canonical **propagated carry** first becomes cross-deciding-position transfer-decodable (the "read" layer) | CE24 TF |
 | `Probe:A{top}.CARRYDEFER=NN` | behaviors | Token-time deferral of the propagated carry past full input availability (`D'_0`): `0`=eager, `>0`=lazy/deferred to the answer region | CE24 TF |
+| `Probe:DELIVERY.{ADD\|SUB\|NEG}=route` | behaviors | How the resolved carry/borrow reaches the combiner per class: `res` (residual only), `resatt` (residual + last-layer attention), `att`, `none` | CE25 |
 
 Run across the model zoo via `python -m quanta_maths.maths_hf_update` (dry-run
 default; `--execute` to upload). Techniques are idempotent and gated by
 `applies_to(cfg)` (operation/size). Adding a technique: see the
 technique-authoring contract in
 [maths-code-migration-plan.md](maths-code-migration-plan.md).
+
+**Consistency invariant (all add/sub/mixed techniques).** Two JSON files are kept
+separate and saved with a major-tag filter: `features.json` keeps only `Algo:*`
+tags; `behaviors.json` keeps all tags (`Fail%`, `Impact`, `Math.*`, `Attn`,
+`Probe:*`). Therefore a technique's tag major MUST match its target file, or the
+tag is silently dropped on save: **`Algo:` tags → `features.json`; `Probe:` (and
+other behavior) tags → `behaviors.json`.** Nodes are `{position, layer, is_head,
+num, tags}`; each tag is a single-colon `major:minor` string (scalars ride as a
+`=NN` suffix in the minor part). The full store→download→rehydrate cycle
+(`save_nodes` → HF upload/download → `load_nodes`, idempotent) and this invariant
+are enforced by `tests/test_json_roundtrip.py`.

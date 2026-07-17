@@ -144,19 +144,32 @@ function (`SV1 = TriAdd(ST1, ST0)`, `SV2 = TriAdd(TriAdd(ST2, ST1), ST0)`, ...).
 Because the last term is always `ST0` (which is `0`/`1`), every `SVn` resolves to
 `0` or `1` — all `U` uncertainty is gone by the `=` token. The final answer
 combines `SVn` with [SA](#s-addition-sub-tasks-sa-sc-ss-st-sv). The subtraction
-parallel is `MV` (see [M](#m-positive-answer-subtraction-sub-tasks-md-mb-mz-mt)).
+parallels are `MV` (positive-answer borrow-in) and `NV` (negative-answer
+neg-borrow-in).
 
-### `M` (positive-answer Subtraction sub-tasks: `MD`, `MB`, `MZ`, `MT`)
+### `STC` / `MTC` / `NTC` (combiners)
+
+Combiner. The answer-position **last-layer MLP** that combines the resolved
+cascade into the emitted answer digit `An`: `STC` for addition
+(`(SA + carry) % 10`), `MTC` for positive-answer subtraction
+(`(MD - borrow) % 10`), and `NTC` for negative-answer subtraction
+(`(ND - neg-borrow) % 10`). Empirically a **step function** of the delivered
+carry/borrow (CE17 addition; CE22 mixed). Tags: `Algo:A{d}.{STC,MTC,NTC}`.
+
+### `M` (positive-answer Subtraction sub-tasks: `MD`, `MB`, `MZ`, `MT`, `MV`)
 
 `M` is the positive-answer subtraction prefix (think Minus; aka SUB). Sub-tasks:
 `MD` Basic Difference `(Dn - D'n) % 10`; `MB` Borrow One `Dn - D'n < 0`;
-`MZ` Make Zero `Dn - D'n == 0`; `MT` TriCase (outputs `MT1/MT0/MT-1`).
+`MZ` Make Zero `Dn - D'n == 0`; `MT` TriCase (outputs `MT1/MT0/MT-1`); `MV`
+cascaded borrow (the `SV` parallel: borrow INTO digit `n`).
 
-### `N` (negative-answer Subtraction sub-tasks: `ND`, `NB`, `NZ`, `NT`)
+### `N` (negative-answer Subtraction sub-tasks: `ND`, `NB`, `NZ`, `NT`, `NV`)
 
-`N` is the negative-answer subtraction prefix (think Negative; aka NEG).
-Sub-tasks: `ND` Basic Difference `(Dn - D'n) % 10`; `NB` Borrow One
-`Dn - D'n < 0`; `NZ` Make Zero `Dn - D'n == 0`; `NT` TriCase.
+`N` is the negative-answer subtraction prefix (think Negative; aka NEG). The
+answer magnitude is `D' - D`, so the base difference and cascade run on the
+swapped operands. Sub-tasks: `ND` Basic Difference `(D'n - Dn) % 10`; `NB` Borrow
+One `D'n - Dn < 0`; `NZ` Make Zero; `NT` TriCase (parallel of `ST`/`MT`); `NV`
+cascaded neg-borrow (the `SV` parallel: neg-borrow INTO digit `n`).
 
 ### `GT`
 
@@ -170,6 +183,13 @@ whether the question is addition or subtraction).
 ### `SGN`
 
 Sign. A sub-task attending to the first answer token (`+` or `-`).
+
+### `SLT`
+
+Select. A mixed-model sub-task that selects the addition / positive-subtraction /
+negative-subtraction readout (`S` / `M` / `N`) based on the `OPR` and `SGN`
+values. On the studied mixed model this selection is distributed/high-dimensional,
+not a low-rank switch (CE23).
 
 ### `PCA`
 

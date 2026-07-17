@@ -18,6 +18,8 @@ CPU-friendly; numpy + scikit-learn only.
 """
 from __future__ import annotations
 
+import contextlib
+import warnings
 from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
@@ -191,37 +193,66 @@ def site_hook_and_pos(cfg, site: str, n: int, layer: int = None) -> Tuple[str, i
 
 def collect_site_activations(
     model, cfg, n_q: int, digits: Sequence[int], sites: Sequence[str],
-    rng: np.random.Generator, operation=None, layer: int = None,
+    rng: np.random.Generator, operation=None, layer: int = None, cls: str = None,
 ) -> Tuple[dict, dict]:
     """Gather residual activations at ``(site, digit)`` + SA/ST/SV labels.
 
     Returns ``(acts, labs)`` where ``acts[(site, n)]`` is ``[n_q, d_model]`` and
     ``labs[task][n]`` is ``[n_q]``.
 
-    ``operation`` selects the token (defaults to PLUS; pass ``MathsToken.MINUS``
-    for subtraction models). ``layer`` (optional) overrides the site's ``_L``
-    suffix for every site -- use ``last_layer(cfg)`` on multi-layer models.
+    ``operation`` selects the token (defaults to PLUS). ``cls`` in
+    {"ADD","SUB","NEG"} selects the question CLASS and the correct labels — needed
+    on MIXED models: "SUB" forces ``D>=D'`` with positive-answer borrow labels,
+    "NEG" forces ``D<D'`` with negative-answer labels (``neg_labels``; the base
+    difference is on ``D'-D``). If ``cls`` is None the legacy behaviour is kept
+    (random operands, ``sub_labels``) — which mislabels the NEG subset of a MINUS
+    run, so pass ``cls`` explicitly for mixed/subtraction models. ``layer``
+    overrides the site's ``_L`` suffix (use ``last_layer(cfg)`` on deep models).
     """
     import torch
     from quanta_maths.maths_utilities import make_a_maths_question_and_answer
     from quanta_maths.maths_constants import MathsToken
 
+    if cls is not None:
+        operation = MathsToken.PLUS if cls == "ADD" else MathsToken.MINUS
     if operation is None:
         operation = MathsToken.PLUS
     nd = cfg.n_digits
+    lim = 10 ** nd
     acts = {(s, n): [] for s in sites for n in digits}
     labs = {t: {n: [] for n in digits} for t in ("SA", "ST", "SV")}
     hooks_needed = sorted({site_hook_and_pos(cfg, s, digits[0], layer=layer)[0] for s in sites})
-    lim = 10 ** nd
+
+    def draw():
+        if cls == "ADD" or cls is None:
+            hi = lim // 2 if (cls == "ADD" or operation == MathsToken.PLUS) else lim
+            return int(rng.integers(0, hi)), int(rng.integers(0, hi))
+        a, b = int(rng.integers(0, lim)), int(rng.integers(0, lim))
+        if cls == "SUB":
+            if a < b:
+                a, b = b, a
+            if a == b:
+                a = (a + 1) % lim
+                if a < b:
+                    a, b = b, a
+        else:  # NEG
+            if a == b:
+                b = (b + 1) % lim
+            if a > b:
+                a, b = b, a
+        return a, b
+
     for _ in range(n_q):
-        a = int(rng.integers(0, lim // 2))
-        b = int(rng.integers(0, lim // 2))
+        a, b = draw()
         q = torch.zeros((1, cfg.n_ctx), dtype=torch.int64)
         make_a_maths_question_and_answer(cfg, q, 0, a, b, operation)
         with torch.no_grad():
             _, c = model.run_with_cache(
                 q, names_filter=lambda nm: nm in hooks_needed)
-        SA, ST, SV = sub_labels(a, b, nd, operation=operation)
+        if cls == "NEG":
+            SA, ST, SV = neg_labels(a, b, nd)
+        else:
+            SA, ST, SV = sub_labels(a, b, nd, operation=operation)
         for s in sites:
             for n in digits:
                 hook, pos = site_hook_and_pos(cfg, s, n, layer=layer)
@@ -260,10 +291,31 @@ def balance_idx(y: np.ndarray, rng: np.random.Generator, cap: int = None) -> np.
     return np.asarray(idx)
 
 
+@contextlib.contextmanager
+def _quiet_convergence():
+    """Silence only sklearn's ConvergenceWarning.
+
+    Probes are consumed as an accuracy metric with a permutation null; lbfgs not
+    fully converging on high-dim unscaled activations (common on the permutation-
+    shuffled null fits) only makes the accuracy conservative. Suppressing this one
+    warning keeps batch logs clean WITHOUT changing any numerics (max_iter, solver
+    and objective are unchanged, so fitted coefficients are identical). Scoped so
+    other warnings still surface.
+    """
+    try:
+        from sklearn.exceptions import ConvergenceWarning
+    except Exception:  # pragma: no cover - sklearn always present here
+        ConvergenceWarning = Warning
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", ConvergenceWarning)
+        yield
+
+
 def fit_probe(X: np.ndarray, y: np.ndarray, C: float = 1.0):
     """Fit a logistic-regression linear probe."""
     from sklearn.linear_model import LogisticRegression
-    return LogisticRegression(max_iter=2000, C=C).fit(X, y)
+    with _quiet_convergence():
+        return LogisticRegression(max_iter=2000, C=C).fit(X, y)
 
 
 def probe_balanced_accuracy(clf, X: np.ndarray, y: np.ndarray) -> float:
@@ -283,7 +335,8 @@ def cross_val_probe_accuracy(X: np.ndarray, y: np.ndarray, folds: int = 5,
     from sklearn.model_selection import cross_val_score
     clf = LogisticRegression(max_iter=2000, C=C)
     scorer = "balanced_accuracy" if balanced else None
-    return float(cross_val_score(clf, X, y, cv=folds, scoring=scorer).mean())
+    with _quiet_convergence():
+        return float(cross_val_score(clf, X, y, cv=folds, scoring=scorer).mean())
 
 
 def probe_accuracy_with_null(

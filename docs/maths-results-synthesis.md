@@ -555,6 +555,44 @@ better instrument:
   control did not license readability at the deep invisible depth) and softened
   "refuted" to "not supported" (linear probe).
 
+## Mixed model — addition→mixed generalization (CE20–CE23, CE25)
+
+*(Scope: the mixed add/sub model `ins1_mix_d6_l3_h4_t40K_s372001`; 3 layers, 4
+heads; initialised from a 6-digit addition model. Distinct from the addition-model
+Q&A above.)*
+
+- **Q: Does the addition SV mechanism replicate on the mixed model, across ADD /
+  SUB / NEG? — Yes, the representation; delivery is class-dependent (CE20).** The
+  question-tail tri-state writers encode their class (ST/MT/NT ~1.00 vs untrained
+  chance) and the resolved carry/borrow is a clean **binary** code at the last-layer
+  (L2) combiner input (SV/MV/NV ~1.00). Delivery is carry/borrow-specific
+  (deciding-null 0.00) but the *route* differs by class: **ADD residual-only;
+  SUB/NEG residual + last-layer attention** — the inserted addition circuit resolves
+  early and rides the residual; the freshly-learned subtraction cascades also use
+  last-layer-attention delivery.
+- **Q: Does the SV *implementation* (combiner form, message, source) replicate? —
+  Yes for STEP/canonical/`=`-not-source; necessity redundancy-blurred (CE22).** The
+  combiner is a **STEP** for all three classes (α-sweep, endpoints gated); the
+  delivered carry is a **canonical format-invariant** code (cross-digit transfer
+  1.00); `=` is **not** the middle-digit source. Class-necessity is not scored
+  (writer-class ablation ≈ untagged baseline — redundancy, as in CE13/CE18).
+- **Q: How is the answer sign `SGN` computed? — the `D≥D'` comparison delivered to
+  the `=` combiner, the CE15 leading-digit analog (CE21).** Boundary crossing flips
+  SGN 1.00; the sign is binary-decodable 1.00 at `=`; a sign-combiner edge patch
+  flips it comparison-specifically.
+- **Q: Is the operator a low-rank control selecting a shared engine (A7) or are
+  add/sub separate circuits (C2)? — hybrid; A7's low-rank-control form refuted
+  (CE21, CE23).** The engine is **shared at the combiner** (patching the L1 state
+  ADD→SUB emits the correct ADD digit 0.96) and `SA`/`MD`/`ND` share head nodes,
+  but the operator is **not** an additive rank-1 knob at either the combiner or the
+  SLT selector, and no single SLT head selects — the add/sub selection is a
+  **distributed, high-dimensional** L1 transformation (leans C2 on selection).
+- **Q: Does the class-dependent delivery hold at multiple cascade depths? — Yes,
+  depths 2/3/4 (CE25).** ADD residual-only, SUB/NEG residual + last-layer attention
+  at every depth (deciding-null 0.00; untrained control delivers nothing). Clears
+  the CE14 ≥2-depth bar on the mixed model. Reusable cross-model sweep in
+  `quanta_maths.maths_cascade`.
+
 ## Open empirical questions
 
 - **Is the `=` resolved carry actually USED downstream** (causal), or recomputed at

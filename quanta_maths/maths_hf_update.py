@@ -85,6 +85,13 @@ def _run_combiner(operation):
     return _fn
 
 
+def _run_combiner_cls(cls):
+    def _fn(model, cfg, nodes):
+        from quanta_maths.maths_batch import tag_stc_nodes
+        return tag_stc_nodes(model, cfg, nodes, cls=cls)
+    return _fn
+
+
 def _applies_add(cfg):
     return getattr(cfg, "perc_add", 0) > 0
 
@@ -101,6 +108,15 @@ def _run_linxfer(model, cfg, nodes):
 def _run_carry_finalization(model, cfg, nodes):
     from quanta_maths.maths_temporal_finalization import tag_carry_finalization_nodes
     return tag_carry_finalization_nodes(model, cfg, nodes)
+
+
+def _run_delivery_route(model, cfg, nodes):
+    from quanta_maths.maths_cascade import tag_delivery_route_nodes
+    return tag_delivery_route_nodes(model, cfg, nodes)
+
+
+def _applies_cascade(cfg):
+    return getattr(cfg, "perc_add", 0) > 0 or getattr(cfg, "perc_sub", 0) > 0
 
 
 def _minus():
@@ -123,8 +139,16 @@ TECHNIQUES: List[Technique] = [
         target=FEATURES_FILE,
         applies_to=_applies_sub,
         owns_tag=lambda t: t.startswith("Algo:") and t.endswith(".MTC"),
-        run=lambda model, cfg, nodes: _run_combiner(_minus())(model, cfg, nodes),
-        description="Answer-position last-layer MLP that combines the resolved borrow into An (sub parallel of STC).",
+        run=_run_combiner_cls("SUB"),
+        description="Answer-position last-layer MLP that combines the resolved borrow into An (positive-answer sub; CE22 mixed).",
+    ),
+    Technique(
+        name="neg_combiner_NTC",
+        target=FEATURES_FILE,
+        applies_to=_applies_sub,
+        owns_tag=lambda t: t.startswith("Algo:") and t.endswith(".NTC"),
+        run=_run_combiner_cls("NEG"),
+        description="Answer-position last-layer MLP that combines the resolved neg-borrow into An (negative-answer sub; CE22 mixed).",
     ),
     Technique(
         name="operand_linear_transfer_LINXFER",
@@ -142,7 +166,20 @@ TECHNIQUES: List[Technique] = [
         run=_run_carry_finalization,
         description=("Token-time finalization of the propagated carry (CE24 TF): "
                      "Probe:A{top}.CARRYLAYER (read layer) + .CARRYDEFER (tokens past "
-                     "full input availability; 0=eager, >0=lazy). Run across models."),
+                     "full input availability; 0=eager, >0=lazy). ADDITION carry only "
+                     "-- a borrow/neg-borrow variant is still TODO (see maths-code-"
+                     "migration-plan)."),
+    ),
+    Technique(
+        name="combiner_delivery_route",
+        target=BEHAVIORS_FILE,
+        applies_to=_applies_cascade,
+        owns_tag=lambda t: t.startswith("Probe:DELIVERY"),
+        run=_run_delivery_route,
+        description=("How the resolved carry/borrow reaches the combiner per class "
+                     "(Probe:DELIVERY.{ADD|SUB|NEG}=res|resatt|att|none; CE25 mixed). "
+                     "ADD tends residual-only, SUB/NEG residual+attention. Run across "
+                     "the zoo -- the route may differ by model."),
     ),
 ]
 
