@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[review]{acl}   % [review] = line numbers + anonymized; drop to \usepackage{acl} for camera-ready
+% TODO(build, queue 7): acl.sty is not yet in-repo. CFP requires the CURRENT *ACL/EMNLP template — fetch the latest acl style release (acl.sty + acl_natbib.bst) when adding style files, do not reuse an old copy.
 \usepackage{times}
 
 % Recommended, but optional, packages for figures and better typesetting:
@@ -137,9 +138,9 @@ We did not begin with an algorithm. We first trained small transformers (2--3 la
 or both, examined the edge cases early models failed---long carry and borrow cascades---and enriched the effectively-infinite synthetic
 training data to remove them. Most of these models converge in under an hour on a single GPU to $>$99.999\% accuracy, solving cascades such
 as $555555555+444444448=+1000000003$, and at $\sim$10M parameters form an efficient, reproducible, interpretable testbed
-(Sec.~\ref{sec:TrainingModels}). The problem space is astronomically---the 5-digit task alone has $10^{10}$ distinct
-questions, against $\sim$10M model parameters---and each training step draws fresh data, so rote
-memorization is infeasible: to reach this accuracy a model must compute the answer (App.~\ref{app:TrainingData}).
+(Sec.~\ref{sec:TrainingModels}). The problem space is astronomical---the 5-digit task alone has $10^{10}$ distinct
+questions, against $\sim$10M parameters---and each training step draws fresh data, so memorization is
+infeasible: to reach this accuracy a model must compute the answer (App.~\ref{app:TrainingData}).
 
 We then analyzed these near-perfect models. Attention patterns, ablations, and PCA of node outputs surfaced structure recurring
 across models; the algorithms we present (Fig.~\ref{fig:AdditionAlgorithm} and Fig.~\ref{fig:SubtractionAlgorithm}) are our attempt to explain
@@ -156,10 +157,9 @@ across models. Second, on four representative models we use activation and edge 
 carry ($SV$)---the sub-task earlier analyses left open---tracing how carries are computed, propagated, resolved, and combined into the answer.
 
 To make this analysis reproducible, we release a general-purpose interpretability library.
-\url{https://anonymous.4open.science/r/quanta_mech_interp-F9E5}. % TODO: regenerate anonymized link for BlackboxNLP submission
-It provides tools for (1) node characterization, search, and ablation, (2) systematic testing of node relationships and constraints, 
-and (3) visualizations. It is a foundational tool used by this project
-\url{https://anonymous.4open.science/r/quanta_maths-6413} % TODO: regenerate anonymized link for BlackboxNLP submission
+\url{https://anonymous.4open.science/r/quanta_mech_interp-F9E5}. % TODO(anonymization, queue 5): regenerate for BlackboxNLP with a NON-IDENTIFYING slug — the current slug contains the real repo name, which is searchable on GitHub and de-anonymizes the authors.
+It provides node characterization, search, and ablation; testing of node relationships and constraints; and visualizations. It underpins this project:
+\url{https://anonymous.4open.science/r/quanta_maths-6413} % TODO(anonymization, queue 5): regenerate for BlackboxNLP with a NON-IDENTIFYING slug — the current slug contains the real repo name, which is searchable on GitHub and de-anonymizes the authors.
 
 \textbf{Our contributions are fivefold}: (i) enriched datasets for n-digit addition and subtraction; (ii) 46 small transformers trained from 
 scratch--- many to $>$99.999\% accuracy; (iii) novel, sound, exact, human-comprehensible left-to-right addition and subtraction algorithms; (iv) causal 
@@ -181,12 +181,12 @@ single-layer model that achieved 99\% accuracy, identifying a cascading carry-on
 models memorize or generalize is central \citep{mahdavi2024memorization,michaud2023quantization}; our large problem space, small models, and
 fresh-data training place these models firmly in the generalizing regime.
 
-\textbf{Architectural modifications and specialized models}. Several approaches achieve near-perfect arithmetic accuracy through
-architectural changes. Reformatting inputs to present least-significant digits first by adding position embeddings and zero-padding
-strategies \citep{mcleish2024transformersarithmeticrightembeddings}. \citet{cho2024positioncouplingimprovinglength} align computational flow
-with carry propagation. Specialized models demonstrate superior performance: MathGLM's 10M parameter model achieves 100\% accuracy on
+\textbf{Architectural modifications and specialized models}. Near-perfect arithmetic accuracy is achievable through architectural
+changes: least-significant-digit-first inputs with position embeddings and zero-padding
+\citep{mcleish2024transformersarithmeticrightembeddings}, or aligning computational flow with carry propagation
+\citep{cho2024positioncouplingimprovinglength}. Specialized models excel: MathGLM's 10M parameter model achieves 100\% accuracy on
 integer addition through step-by-step reasoning \citep{yang2023gptsolvemathematicalproblems}, while
-\citet{qiu2024dissectingmultiplicationtransformersinsights} reached 99.9\% accuracy on 5-digit multiplication with a tiny transformer that
+\citet{qiu2024dissectingmultiplicationtransformersinsights} reached 99.9\% on 5-digit multiplication with a tiny transformer that
 outperforms GPT-4. Subtraction is much less studied, though \cite{zhang2024interpretingimprovinglargelanguage} identified symmetries between
 addition and subtraction circuits, with the same attention heads handling both operations.
 
@@ -238,10 +238,9 @@ Using only $SA_n$ and $SC_n$, the 1-layer model of \citet{quirke2023understandin
 but fails when a carry cascades through two or more digits (e.g.\ ``555+446'' predicted as ``0901''). The tri-state $ST_n$ below supersedes
 $SC_n$; we nonetheless find some models still compute the logically redundant $SC_n$.
 
-To solve $n$-digit addition with high accuracy, the framework must handle carry bits that cascade through multiple digits. 
-For an autoregressive model to correctly predict the first answer digit in “555+448=+1003", as “1", it must cascade the carry bit from the
-\textit{rightmost} digit to the \textit{leftmost} digit in a single forward pass. This is particularly challenging for an autoregressive model 
-that processes tokens from left to right. Aligned to this challenge we define two new subtasks.
+To solve $n$-digit addition with high accuracy, the framework must handle carry bits that cascade through multiple digits: to predict
+the first answer digit of “555+448=+1003" as “1", the carry bit must cascade from the \textit{rightmost} to the \textit{leftmost} digit
+in a single forward pass---challenging for an autoregressive model that processes tokens left to right. We define two new subtasks for this.
 
 First, we introduce subtask ST. It classifies a digit pair sum as \textit{definitely} causing a carry (e.g. 6+7), definitely \textit{not} 
 causing a carry (e.g. 2+3), or \textit{possibly} causing a carry (e.g. 5+4). The 5+4 case is uncertain as the digits sum to 9 and a carry 
@@ -284,13 +283,12 @@ Finally, we introduce the SV subtask that uses TriAdd to handle multidigit carry
     SV2 &= \text{TriAdd}(\text{TriAdd}(ST2,ST1),ST0)
 \end{align}
 
-The highlighted (solid-color) part of Figure~\ref{fig:AdditionAlgorithm} illustrates the SV2 calculation. Note that the calculation first combines 
-ST2 and ST1 (the higher value digits) before combining the result with ST0. This formulation mirrors the left to right order in which the model processes 
-tokens i.e. from higher value digits to lower value digits. The last term in all $SV_n$ calculations is ST0 which is always 0 or 1, so all $SV_n$ evaluate 0 or 1.
-That is, at the end of the $SV_n$ calculation any uncertainty has been resolved. 
+The highlighted (solid-color) part of Fig.~\ref{fig:AdditionAlgorithm} illustrates SV2: ST2 and ST1 (the higher-value digits) combine first,
+mirroring the left-to-right order in which the model processes tokens. The last term, ST0, is always 0 or 1, so every $SV_n$ evaluates
+to 0 or 1---by the end of the calculation all uncertainty is resolved.
 
-The $SV_n$ are accurate multidigit cascade carry values. Their calculation occurs across multiple tokens and is completed by the “=" token. 
-Combining the \ANSV values with the \SAN values as shown in Figure~\ref{fig:AdditionAlgorithm} gives accurate answer tokens.
+The $SV_n$ are accurate multidigit cascade carry values, computed across multiple tokens and complete by the “=" token; combined with
+the \SAN values (Fig.~\ref{fig:AdditionAlgorithm}) they give accurate answer tokens.
 
 \subsection{Subtraction Algorithm Description}
 \label{Sec:SubtractionFramework}
@@ -313,10 +311,10 @@ We introduce “Base Diff" $MD_n$ defined as \DN - \DND $ $ modulo 10 (paralleli
 Finally, we introduce $MV_n$ which parallels $SV_n$ to handle the “cascading borrow one" edge case. With this formulation, the addition and subtraction algorithms 
 have the same structure (just replacing $SA_n$ with $MD_n$, $ST_n$ with $MB_n$, and $SV_n$ with $MV_n$). 
 
-Subtraction poses an additional algorithmic difficulty - some questions give a positive answer (e.g. 325-129=+196) and others a negative answer (e.g. 325-329=-004).
-Note that all the answer digits are different in the above examples.  While there are multiple ways this could be handled mathematically, based on experimental insights, 
-we introduce “Neg Diff" $ND_n$ defined as \DND - \DN $ $ modulo 10 (the opposite of $MD_n$).  At the “=" token, the $MV_n$ values are known, and the algorithm 
-selects $MD_n$ or $ND_n$ values as appropriate.
+Subtraction poses an additional difficulty: some questions give a positive answer (e.g. 325-129=+196) and others a negative one
+(e.g. 325-329=-004), with every answer digit differing between the two. Guided by experimental insights, we introduce “Neg Diff" $ND_n$
+defined as \DND - \DN $ $ modulo 10 (the opposite of $MD_n$). At the “=" token the $MV_n$ values are known, and the algorithm
+selects $MD_n$ or $ND_n$ as appropriate.
 
 In Fig.~\ref{fig:SubtractionAlgorithm}, the value $MV2$ determines the answer sign. While the following calculations could use $MV2$ too, 
 in fact they attend to the answer sign itself. We introduce the subtask SGN to reflect this.     
@@ -341,7 +339,7 @@ outputs. Sec.~\ref{Sub:ExperimentalResults} shows that individual nodes become p
 \subsection{Training Models}  
 \label{sec:TrainingModels}
 
-Our models' vocabulary consisted of 14 tokens: the digits 0-9 plus the mathematical operators +, -, =, *, and /. (Also see App.~\ref{app:Vocab}).
+Our models' vocabulary consisted of 14 tokens: the digits 0-9 plus the mathematical operators +, -, =, *, and /.
 We created an infinite training dataset enriched with rare numerical combinations (mainly cascading use cases). (Also see App.~\ref{app:TrainingData})
 
 We trained addition-only, subtraction-only, and mixed (addition and subtraction) models. We systematically explored different model architectures
@@ -350,16 +348,15 @@ and settled on 2--3 layers (2 for addition and subtraction, 3 for mixed) and 3--
 We used a batch size of 64, learning rate of 0.00008, and weight decay of 0.1. The loss function was defined as the mean negative log likelihood 
 across all output tokens. Training was stopped when the loss was very low e.g. $2 \times 10^{-8}$. (Also see App.~\ref{app:ModelLoss}, Fig.~\ref{fig:TrainingLossAddition}, Fig.~\ref{fig:TrainingLossMixed}). 
 
-Each model's accuracy was tested on 1 million questions. Robust statistical accuracy ranges were calculated, but for ease of presentation, 
-we say a model has 99.999\% accuracy if it got less than 10 of the 1 million questions wrong. Most models achieved this. The resulting 46 models, 
-including detailed accuracy results, are summarized in Tab.~\ref{tab:AdditionModels} and Tab.~\ref{tab:MixedModels}. 
+Each model was tested on 1 million questions; for ease of presentation we say a model has 99.999\% accuracy if fewer than 10 were wrong
+(Clopper-Pearson intervals in the tables). Most models achieved this. The 46 models are summarized in Tab.~\ref{tab:AdditionModels} and
+Tab.~\ref{tab:MixedModels}.
 
 \subsubsection{Training mixed models}
 \label{sec:TrainingNDigitMixed}
 
-To explore how transformers can learn multiple arithmetic operations simultaneously, we conducted experiments with models capable of
-both addition and subtraction. We were particularly interested in whether knowledge from addition-specialized models could transfer to
-this expanded task.
+To explore how transformers learn multiple operations simultaneously---and whether addition-specialized knowledge transfers---we trained
+models capable of both addition and subtraction.
 
 We trained mixed models in two ways: 9 from scratch, and 14 initialized from a highly accurate addition-only model to test whether addition
 knowledge transfers (5- to 13-digit, 2--4 layers, 3--4 heads; see Tab.~\ref{tab:MixedModels}). For the initialized models we copied the addition
@@ -367,10 +364,9 @@ weights into the first two layers and first three heads, then trained with a cur
 data for both operations (Fig.~\ref{fig:InsertAddIntoMix}). From-scratch mixed models also train to high accuracy; the initialization
 experiments test transfer specifically.
 
-This initialization approach proved effective, with most models quickly achieving high accuracy on both operations. We explored alternative
-training strategies, such as periodically ``freezing'' the inserted attention heads or MLPs by restoring their original addition-model
-weights every 100 training steps. However, these more constrained approaches resulted in lower accuracy, suggesting that some flexibility in
-modifying the initialized weights was necessary for optimal performance (Also see App.~\ref{app:MixedModelInit}).
+Initialization proved effective: most models quickly reached high accuracy on both operations. Periodically ``freezing'' the inserted
+heads or MLPs (recopying their addition weights every 100 steps) lowered accuracy---the initialized weights need freedom to adapt
+(App.~\ref{app:MixedModelInit}).
 
 \begin{figure}[ht]
 \centering
@@ -381,8 +377,7 @@ subtraction and 20\% addition. (5) The resulting model predicts accurately and r
 \label{fig:InsertAddIntoMix} 
 \end{figure}
 
-We did a seed sensitivity analysis. App.~\ref{app:SeedSensitivity} includes a visualization Fig.~\ref{fig:SeedSensitivity} of the range
-of training losses for different model categories.
+A seed-sensitivity analysis appears in App.~\ref{app:SeedSensitivity} (Fig.~\ref{fig:SeedSensitivity}).
 
 
 \subsection{Experimental Results}
@@ -399,23 +394,22 @@ unconfirmed: the multi-digit resolved carry (\SV).
 For each model we search every (sub-task, digit-position) pair for candidate nodes, keeping only those that satisfy the algorithm's constraints:
 the node attends to the relevant operand tokens, occupies a valid position, exhibits the expected sub-task structure (e.g.\ three $ST$ clusters
 under PCA; Fig.~\ref{fig:PCATrigrams5D}), and respects the ordering dependencies (e.g.\ $SV_1 = \mathrm{TriAdd}(ST_1, ST_0)$ must follow its inputs---our 
-6-digit model has over 30 such constraints). We then ablate each candidate to confirm its predicted effect. The full constraint list, per-node walkthrough, 
-and the techniques we apply are given in App.~\ref{app:Hypothesis3} and App.~\ref{app:Techniques}.
+6-digit model has over 30 such constraints). We then ablate each candidate to confirm its predicted effect (full constraint list and
+techniques: App.~\ref{app:Hypothesis3}, App.~\ref{app:Techniques}).
 
-The 1-layer baseline of \citet{quirke2023understanding} reaches only 99\% accuracy using per-digit \SAC \SC nodes. Of our 46 trained models, 29 meet 
-the fewer-than-10-failures-per-million bar (Tabs.~\ref{tab:AdditionModels} and \ref{tab:MixedModels}). In all 27 accurate addition and mixed models 
-the search finds the \emph{same} skeleton: every sub-task the algorithms require is present at a valid position, and the ordering constraints hold. 
-This is a per-model, machine-checked result, not an aggregate impression: the map behind it (a behaviors and features JSON pair per model) is released 
-for every model, so the family claim is independently reproducible. Map \emph{depth} varies with model size---the largest models' maps lack some 
-consumer-head tags---so Tab.~\ref{tab:Techniques} records which technique ran at which scale.
+The 1-layer baseline of \citet{quirke2023understanding} reaches only 99\% accuracy using per-digit \SAC \SC nodes. Of our 46 trained
+models, 29 meet the fewer-than-10-failures-per-million bar (Tabs.~\ref{tab:AdditionModels}, \ref{tab:MixedModels}), and in all 27 accurate
+addition and mixed models the search finds the \emph{same} skeleton: every required sub-task present at a valid position, every ordering
+constraint holding. This is a per-model, machine-checked result: the underlying per-model maps are released, making the family claim
+independently reproducible. Map \emph{depth} varies with size (the largest maps lack some consumer-head tags); Tab.~\ref{tab:Techniques}
+records which technique ran at which scale.
 % TODO(numeric-audit, queue 6): re-verify the accurate-model count (29 total / 27 addition+mixed; the strict <10/M reading excludes the 15-digit model at exactly 10 fails) when the table numeric-column audit lands.
 % TODO(maths): the two accurate subtraction-only models are not yet map-verified for the MD/MB skeleton; keep the scoping sentence below until they are, then strengthen it to a positive claim.
 Subtraction-only training mostly falls short of the accuracy bar (Tab.~\ref{tab:MixedModels}); in this paper the subtraction algorithm is exercised through the mixed models.
 
-The implementation, however, is not uniform across models, and the variation is itself informative: with 27 accurate models we can separate what
-training reliably converges on (the algorithm) from what it leaves free (the binding of sub-tasks to components, and their timing). 
-Tab.~\ref{tab:FamilyInvariants} summarizes this family-level picture. The invariants in the top block hold in every accurate model we analyzed; 
-the properties in the bottom block vary from model to model without breaking any of them.
+The implementation, however, is not uniform, and the variation is itself informative: 27 accurate models let us separate what training
+reliably converges on (the algorithm) from what it leaves free (binding and timing). Tab.~\ref{tab:FamilyInvariants} summarizes: the top
+block holds in every accurate model; the bottom block varies without breaking any of them.
 
 \begin{table*}[t]
     \caption{The family-level picture across the 29 accurate models: the algorithm is invariant, the implementation is not. Top block: properties that hold in every accurate model analyzed. Bottom block: properties that vary across models without breaking the algorithm. ``Family'' = all accurate models via the released per-model maps; ``worked examples'' = the deep-dive models of Sec.~\ref{sec:CausalSV}.}
@@ -431,7 +425,7 @@ the properties in the bottom block vary from model to model without breaking any
         \hline
         The per-digit carry is computed eagerly, in place, as a binary make-carry & activation patching (worked examples) \\
         \hline
-        The resolved multi-digit carry is delivered carry-specifically into an answer-position combiner by redundant attention heads; the ``='' position is a depot, not the carry source & activation + edge path-patching with matched controls (worked examples) \\
+        The resolved carry is delivered carry-specifically to an answer-position combiner by redundant heads; ``='' is a depot, not the source & activation + edge path-patching with matched controls (worked examples) \\
         \hline
         The combiner \SV is a step function & interpolation of the combiner input (5 addition sizes + mixed) \\
         \hline
@@ -441,26 +435,26 @@ the properties in the bottom block vary from model to model without breaking any
         \hline
         Which attention head implements a given sub-task; some sub-tasks split across two co-located heads & family maps \\
         \hline
-        The degree of redundancy; the class-vs-single-node necessity gap \emph{grows} with digit count, so redundancy is intrinsic, not small-model slack & ablation ($d{=}5$--$13$) \\
+        Degree of redundancy; the class-vs-single-node necessity gap \emph{grows} with digit count---intrinsic, not small-model slack & ablation ($d{=}5$--$13$) \\
         \hline
         Some models also compute the logically-redundant \SCC others omit it & family maps \\
         \hline
         PCA cluster geometry per head --- always the same three \ST classes (Fig.~\ref{fig:PCATrigrams5D}) & PCA (worked examples) \\
         \hline
-        Timing: the resolved multi-digit carry appears at the answer read with a lag that grows modestly with size (2 tokens at 5--6 digits; 3 at 8) & linear probes ($d{=}5$--$8$) \\
+        Timing: the resolved carry appears at the answer read, with a lag growing with size (2 tokens at 5--6 digits; 3 at 8) & linear probes ($d{=}5$--$8$) \\
         \hline
-        Mixed-model delivery route --- which of the residual stream and last-layer attention carries the resolved carry/borrow, per question class and cascade depth --- is model-specific & patching with deciding-matched nulls (6d + 8d mixed) \\
+        Which route (residual stream vs.\ last-layer attention) delivers the mixed model's carry/borrow, per class and cascade depth & patching with deciding-matched nulls (6d + 8d mixed) \\
         \hline
-        How many heads carry the mixed borrow delivery: distributed across three heads at 6 digits; concentrated into a single head (reading the ``=''/sign staging region) at 8 & attention profile, OV decode, group interchange (6d + 8d mixed) \\
+        Mixed borrow delivery: spread across three heads at 6 digits, concentrated into one at 8 & attention profile, OV decode, group interchange (6d + 8d mixed) \\
         \hline
-        At large $n$ the carry-axis separation compresses --- consistent with dynamic-range compression of a place-value code, not a change of algorithm & linear probes ($d{=}10$--$13$) \\
+        At large $n$ the carry-axis separation compresses---consistent with dynamic-range compression of a place-value code, not an algorithm change & linear probes ($d{=}10$--$13$) \\
         \hline
     \end{tabularx}
 \end{table*}
 
-A representative addition node-map is shown in Tab.~\ref{tab:MathsPurposePerNodeAdd6D}; per-size maps are in App.~\ref{app:NDigitAddition}.
+A representative addition node-map is shown in Tab.~\ref{tab:MathsPurposePerNodeAdd6D} (App.~\ref{app:ExperimentalModels}); the released per-model maps cover every size.
 
-The located skeleton is also \emph{sufficient}, not merely present. Keeping only the map's useful nodes intact and mean-ablating the position-specific complement retains 0.94 of baseline addition accuracy on a 5-digit model (48 of 152 nodes kept; resample-ablation, a harsher bound that pollutes the shared residual stream, gives 0.62), and 0.89 / 0.92 for addition on the 6- and 8-digit mixed models---while keeping a \emph{random} same-size node set retains 0.00 under both ablations. The mapped circuit specifically, not just some sufficiently large subnetwork, carries the computation. The same test is candid about the map's limits: on the mixed models, subtraction retains only ${\sim}0.5$ (positive-answer) and ${\sim}0.37$ (negative-answer) at 6 digits, and 0.19 / 0.66 at 8 digits---the size of the shortfall is model-specific; Sec.~\ref{sec:MixedPoly} localizes and closes this gap. (Single seed per model and class.)
+The located skeleton is also \emph{sufficient}, not merely present. Keeping only the map's useful nodes and mean-ablating the position-specific complement retains 0.94 of baseline addition accuracy on a 5-digit model (48 of 152 nodes kept; harsher resample-ablation gives 0.62), and 0.89 / 0.92 for addition on the 6- and 8-digit mixed models---while keeping a \emph{random} same-size node set retains 0.00 under both ablations: the mapped circuit specifically carries the computation. The test also exposes the map's limits: mixed-model subtraction retains only ${\sim}0.5$ / ${\sim}0.37$ (positive-/negative-answer) at 6 digits and 0.19 / 0.66 at 8---a model-specific shortfall that Sec.~\ref{sec:MixedPoly} localizes and closes. (Single seed per model and class.)
 
 \begin{figure}[h]
 \centering
@@ -475,8 +469,7 @@ The located skeleton is also \emph{sufficient}, not merely present. Keeping only
 
 Locating the \SAC \SC and \ST nodes establishes the per-digit pieces, but the harder claim---that the model computes the \emph{multi-digit} resolved carry \SV, 
 which must propagate across a run of 9s as in $555555555+444444448$---was not causally confirmed by prior work. We close this gap using activation patching,
-edge path-patching, and a step-function interpolation of the combiner input (App.~\ref{app:Techniques}), on all four worked-example models: the 6- and 8-digit
-addition models and the 6- and 8-digit mixed models.
+edge path-patching, and a step-function interpolation of the combiner input (App.~\ref{app:Techniques}), on all four worked-example models.
 
 Tracing the carry gives a consistent picture across all four models. Each digit's carry is computed eagerly, in place, as a binary make-carry; the multi-digit carry 
 is then propagated and resolved, and integrated into the answer by a step function at the answer position. The delivery is carry-specific---an interchange that 
@@ -487,9 +480,9 @@ running carry is sourced from the question-tail carry nodes, not read from the `
 The family also shows a graded variation that our per-model analysis is built to capture (Tab.~\ref{tab:FamilyInvariants}, bottom block): the carry is computed 
 in place, but its multi-digit resolution is represented \emph{lazily}, at the answer read, and this lag grows modestly with size---a 2-token deferral at 5--6 digits and 3 tokens at 8 digits.
 
-We are explicit about the limits. At larger digit-counts the carry direction is weakly separated in activation space, so the \emph{source} of the running carry 
-is probe-limited there; the robust cross-size evidence is the step combiner, the redundancy, and the answer-side resolution locus. We show the carry is \emph{delivered} 
-and \emph{combined}, but do not establish that a single head \emph{selects} the deciding digit, and much of the representational evidence is linear-probe based, at 2-layer scale.
+We are explicit about the limits: at larger digit-counts the carry \emph{source} is probe-limited (the robust cross-size evidence is the
+step combiner, the redundancy, and the answer-side resolution locus), and we show the carry is \emph{delivered} and \emph{combined} without
+establishing that any single head \emph{selects} the deciding digit (see Limitations).
 
 \subsubsection{Mixed models and polysemantic reuse}
 \label{sec:MixedPoly}
@@ -499,7 +492,7 @@ The mixed models additionally show how one network serves several operations. \c
 
 In mixed models initialized from a smaller addition model (Sec.~\ref{sec:TrainingNDigitMixed}), the majority of inherited nodes become polysemantic during training: rather than growing new subtraction circuits, the model adapts its addition circuits to both operations. A node that originally performed only Base Add (\SA) typically learns three sub-tasks---addition (\SA), positive-answer subtraction (\MD), and negative-answer subtraction (\ND); the full per-node map is in App.~\ref{app:NDigitSubtraction}, Tab.~\ref{tab:MathsPurposePerNodeMix6D}. Nodes that handled carry (\ST) likewise adapt to borrow (\MT).
 
-This reuse is natural: the three operations share structure, each mapping a digit pair ($10 \times 10 = 100$ input cases) to a single-digit output. It is also extensive---Tab.~\ref{tab:Coverage_SNM} shows that in a sample mixed model, most inserted addition-model nodes are reused for two or three operations.
+This reuse is natural---the three operations share structure, each mapping a digit pair to a single-digit output---and extensive: most inserted addition-model nodes serve two or three operations (Tab.~\ref{tab:Coverage_SNM}).
 
 \begin{table}[h]
     \caption{Mixed models re-use most inserted addition-model nodes. Many inserted nodes become polysemantic during training - performing addition, positive-answer subtraction \textbf{and} negative-answer subtraction subtasks simultaneously. For a sample mixed model that uses 96 nodes and had 48 nodes inserted, this table shows inserted node reuse.}    
@@ -520,28 +513,27 @@ This reuse is natural: the three operations share structure, each mapping a digi
     \end{tabularx}
 \end{table}
 
-How the model \emph{selects} among these co-computed outputs is itself informative. Patching the full pre-combiner selector state flips a subtraction answer to the correct addition digit (flip rate 0.96)---so the final-layer combiner is shared across operations---yet no rank-1 ``operator direction'' achieves any flips at either the selector or the combiner: operation selection is a distributed, high-dimensional transformation, not a low-rank control signal. The carried \emph{data}, by contrast, is low-dimensional per operation family: the two subtraction classes read their resolved borrow along one shared direction ($|\cos| \approx 0.9$, unchanged under an untrained-nuisance projection and stable across read digits), while the addition carry axis is near-orthogonal to both (${\sim}0.21$, at the untrained-format background). Low-dimensional data, high-dimensional control (single model and seed).
+Selection among these co-computed outputs is itself informative: patching the full pre-combiner selector state flips a subtraction answer to the correct addition digit (0.96)---the final-layer combiner is shared---yet no rank-1 ``operator direction'' achieves any flips: selection is a distributed, high-dimensional transformation, not a low-rank control signal. The carried \emph{data}, by contrast, is low-dimensional per operation family: the two subtraction classes read their resolved borrow along one shared direction ($|\cos|\approx0.9$, nuisance-controlled and stable across read digits), while the addition carry axis is near-orthogonal (${\sim}0.21$). Low-dimensional data, high-dimensional control (single model and seed).
 
-Finally, the sufficiency test of Sec.~\ref{sec:SkeletonFamily} exposes---and lets us close---a real incompleteness in the ablation-built map. Keeping only map nodes preserves operation selection perfectly (the answer-sign token is retained at 1.00 for all three question classes) but loses specific subtraction answer digits. The missing mass localizes to last-layer attention heads at the failing digits' answer positions: heads the map tags as useful \emph{elsewhere}, under-tagged at these positions because each is individually redundant. Restoring roughly ten such nodes recovers subtraction accuracy to ${\geq}0.94$, while a same-size random augmentation of the map stays near the unrestored level until ${\sim}80$ nodes are added. Mechanistically, these heads deliver the borrow: at the producing position they attend to the lower-digit operands, their group write decodes the resolved borrow-in at 1.00, and interchange-patching the group flips the produced digit at 1.00 with a deciding-matched null of 0.00---while patching any single head does almost nothing. This is the subtraction analog of the addition carry delivery, and a concrete demonstration that redundancy defeats per-node attribution: the map-builder's single-node ablations cannot see nodes that only matter as a group. The entire pattern---sufficiency gap, localization to tagged-elsewhere last-layer heads, targeted restore beating a random augmentation, and causal borrow delivery---replicates on the 8-digit mixed model, with one instructive difference: there the delivery concentrates into a single head reading the ``=''/sign staging region, rather than spreading across three heads. Redundancy concentrates as size grows (Tab.~\ref{tab:FamilyInvariants}). (Single seed per model and class; App.~\ref{app:Techniques}.)
+Finally, the sufficiency test of Sec.~\ref{sec:SkeletonFamily} exposes---and closes---a real incompleteness in the ablation-built map. Keeping only map nodes preserves operation selection perfectly (sign token retained at 1.00, all classes) but loses specific subtraction answer digits. The missing mass is last-layer attention heads at the failing digits' answer positions: heads tagged useful \emph{elsewhere}, under-tagged here because each is individually redundant. Restoring roughly ten such nodes recovers subtraction to ${\geq}0.94$; a same-size random augmentation stays near the unrestored level until ${\sim}80$ nodes. These heads deliver the borrow: they attend to the lower-digit operands, their group write decodes the resolved borrow-in at 1.00, and patching the group flips the produced digit at 1.00 (deciding-matched null 0.00) while any single head does almost nothing---redundancy defeats per-node attribution. The pattern replicates on the 8-digit mixed model with one instructive difference: the delivery concentrates into a single head (reading the ``=''/sign staging region) rather than three---redundancy concentrates as size grows. (Single seed per model and class; App.~\ref{app:Techniques}.)
 
 \section{Conclusion}
 \label{sec:Conclusion}
-Our analysis of 46 transformer models demonstrates their ability to learn highly accurate mathematical algorithms: 29 of them reach $>$99.999\% accuracy (fewer than 10 failures per million questions) on tasks of up to 13 digits. By investigating how models implement computations using attention heads and MLPs, we uncovered novel computational approaches distinct from traditional human calculation methods. Parameter transfer experiments revealed that features originally specialized for addition could be repurposed for subtraction, with many nodes becoming polysemantic.
+We set out to establish, with calibrated confidence, the algorithm a family of low-loss transformers implements for integer addition and subtraction. Training 46 small models on edge-case-enriched data yields 29 exceeding 99.999\% accuracy on tasks of up to 13 digits. From their internals we derived novel, exact, left-to-right algorithms built on progressive refinement of carry and borrow uncertainty, then causally confirmed---via patching with matched controls on four worked examples---that the models implement them, closing the open multi-digit resolved-carry gap. Across the accurate family the algorithm is the invariant: every model carries the same circuit skeleton, while head assignment, redundancy, timing, and delivery route vary without breaking it---and the located circuits are sufficient, not merely present. Mixed models reuse addition circuitry polysemantically for subtraction, whether or not initialized from an addition model. We release the models, per-model maps, and toolkit.
 
-Our research provides insights into how transformers learn precise algorithmic computations across related tasks, developing a reusable library of mechanistic interpretability tools that advances our understanding of neural network computational learning.
-
-\section{Limitations and Future Work}
+\section*{Limitations}
 \label{sec:LimitationsAndFutureWork}
+% Venue (BlackboxNLP 2026 CFP, confirmed 2026-07-17): Limitations is OPTIONAL at this workshop and does NOT count toward the 8-page limit (EMNLP/*ACL convention; sits on a separate page). We keep it deliberately.
 
-%While we identify and test the \textit{role} of each node in the mixed model algorithm, we do not detail the \textit{data representation} of the polysemantic nodes, SGN nodes, and OPR nodes output in the residual stream. We have not detailed the \textit{transformation} of this data performed by MLP layer nodes that support accurate answer digit prediction.
-While we identify and test the functional \textit{role} of each component in the mixed model algorithm, we do not analyze the specific \textit{data representations} and \textit{transformations} used by polysemantic nodes, SGN nodes, and OPR nodes in the residual stream, nor the detailed mechanisms by which MLP layers process this information. Although our algorithmic-level analysis may be more generalizable across models, this approach leaves gaps in understanding how the identified components actually encode and manipulate information.
+\textbf{Evidence depth and scope.} Our deep causal battery ran on four worked-example models; for the rest of the accurate family the skeleton claim rests on automated map-level search and ablation, and map depth decreases with model size. At large digit counts the carry direction is weakly separated in activation space, so the \emph{source} of the running carry is probe-limited there. We show the resolved carry is delivered and combined, but do not establish that any single head \emph{selects} the deciding digit; much of the representational evidence is linear-probe based, on 2--3-layer models; and the sufficiency and restoration results are single-seed per model and class.
 
-Our automated framework for discovering algorithm subtasks in models, while instrumental in accelerating our research, has limitations. Some aspects are specific to our math models. Some aspects are generic and have already been used in the published paper by ~\citet{harrasse2025tinysqlprogressivetexttosqldataset}.
+\textbf{Attribution method.} Our ablation-built maps have a demonstrated failure mode: nodes that matter only as a redundant group are under-tagged. We detected this by sufficiency masking and repaired it by group restoration, but where the borrow is \emph{resolved} upstream of its last-layer delivery remains unpinned, as do the residual-stream representations of OPR and SGN beyond their functional roles.
 
-%We created a declarative language to describe algorithms in terms of necessary subtasks and a framework to test these descriptions against specific models, but more work is needed to generalize this. We also need standard metrics to measure the “strength" of the evidence collected from a model when compared to a described algorithm.  
-Fully reverse engineering neural networks faces significant challenges, including distributed parallel computations difficult to trace to specific components. We made progress on an alternative approach: a declarative language describing algorithms in terms of subtasks and a framework to test these descriptions against models. However, more work is needed to refine this method and quantity our certainty when comparing evidence gathered from models against an algorithmic description.
+\textbf{External validity and future work.} These are ${\sim}$10M-parameter specialized models; frontier LLMs implement addition through different, hybrid circuits \citep{lindsey2025biology}, and we make no transfer claim. Our declarative sub-task language and constraint-testing framework needs refinement and calibrated certainty metrics, though parts have already been reused elsewhere \citep{harrasse2025tinysqlprogressivetexttosqldataset}. The released family---same algorithm, varying implementation---is a ready-made testbed for universality studies across seeds, scales, and operations.
 
-Our models may be useful to researchers investigating the universality of representations / circuits across models. 
+\section*{Ethics Statement}
+\label{app:EthicsStatement}
+Our work aims to explain the inner workings of transformer-based language models, which may have broad implications for a wide range of applications. A deeper understanding of generative AI has dual usage. While the potential for misuse exists, we discourage it. The knowledge gained can be harnessed to safeguard systems, ensuring they operate as intended. It is our sincere hope that this research will be directed toward the greater good, enriching our society and preventing detrimental effects. We encourage responsible use of AI, aligning with ethical guidelines.
 
 \bibliography{paper}
 % Note: acl.sty already sets \bibliographystyle{acl_natbib}
@@ -588,70 +580,43 @@ These terms and abbreviations are used in this paper and the associated Colabs a
 \item \textbf{EVR} : Explained Variance Ratio. In PCA, EVR represents the percentage of variance explained by each of the selected components.
 \end{itemize}
 
-\section{Appendix: Ethics Statement}
-\label{app:EthicsStatement}
-Our work aims to explain the inner workings of transformer-based language models, which may have broad implications for a wide range of applications. A deeper understanding of generative AI has dual usage. While the potential for misuse exists, we discourage it. The knowledge gained can be harnessed to safeguard systems, ensuring they operate as intended. It is our sincere hope that this research will be directed toward the greater good, enriching our society and preventing detrimental effects. We encourage responsible use of AI, aligning with ethical guidelines.
-
-\section{Appendix: Vocabulary}
-\label{app:Vocab}
-Each digit is represented as a separate token. \citep{liu2023goat} state that LLaMa's “remarkable arithmetic ability ... is mainly atributed to LLaMA’s consistent tokenization of numbers". The model's vocabulary contains 14 tokens ( 0, .., 9, +, -, =, *, / ) to enable this and planned future investigations.
-
-
 \section{Appendix: Training Data}
 \label{app:TrainingData}
+Each digit is represented as a separate token: \citet{liu2023goat} attribute LLaMA's ``remarkable arithmetic ability'' mainly to its consistent tokenization of numbers.
+
 Training uses a new batch of data each step (aka Infinite Training Data) to minimize memorization. Depending on the configuration, each training run processes 1 to 4 million training datums. For the 5-digit addition problem there are 100,000 squared (that is 10 billion) possible questions. So the training data is much less than 1\% of the possible problems.
 
 Addition and subtraction include rare edge cases. For example, these cascades (e.g. 55555+44446=100001, 54321+45679=1000000,
-44450+55550=10000, 1234+8769=10003) are exceedingly rare. The data generator
-was enhanced to increase the frequency of all known edges cases. This leads to lower model loss. 
+44450+55550=10000, 1234+8769=10003) are exceedingly rare: for 10-digit questions the deepest-cascade class occurs at frequency
+${\sim}3\times10^{-4}$. The data generator was enhanced to increase the frequency of all known edge cases, lowering model loss.
 
 We enriched 60\% of training data based on these edge cases (leaving the other 40\% of training data random):
 (1) The initial model failed at cascading carry ones in addition. To rectify this, we randomly selected one operand and modified a random subset of digits in that operand to make the selected digit-position sum to 9, increasing the likelihood of a cascading carry one. 
 (2) The initial model was worse at the subtraction task when the answer was negative, so we added 1 to each second operand digit (that was 8 or less) to increase the frequency of negative answers. 
 (3) When the operands were identical, the initial model predicted -000000 instead of +000000. We increased the frequency of this case. For example, for 6 digit questions, we increased the frequency from 0.0001\% to 0.6\%.
 
-\section{Appendix: Training Setup}
+\section{Appendix: Training Details}
 \label{app:ModelShape}
+\label{app:ModelLoss}
 
-Addition, subtraction and mixed (addition and subtraction) training experiments were done in a Colab notebook. The Colab runs on a T4 GPU. Each training run takes up to 60 mins. The key parameters (and their common configurations) are:
-\begin{itemize}
-\item n\_layers = 1, 2 or 3: Number of layers.
-\item n\_heads = 3 or 4: Number of attention heads.
-\item n\_digits = 5 .. 15: Number of digits in the question.
-\end{itemize}
-
+Training runs execute in a Colab notebook on a T4 GPU; each run takes up to 60 minutes.
 % For ICLR
 The Colabs will be made available on publication.
-% For ARXIV
-%The Colabs are available at \url{https://github.com/PhilipQuirke/quanta_maths}
+% For ARXIV / camera-ready: restore the public GitHub repo URL (recorded in docs/paper-next-steps.md; removed here so the anonymized source carries no identifying strings).
 
-While we wanted a very low loss models, we also wanted to keep the model compact - intuiting that a smaller model would be easier to understand than a large model. Here are the things we tried to reduce loss that \textbf{didn't} work:  
+The batch size is 64, with an AdamW optimizer (learning rate 0.00008, weight decay 0.1, betas (0.9, 0.98)); the learning rate warms up linearly over the first fifth of training and is then cosine-annealed. Per-digit loss is the negative log likelihood of an answer digit; all-digits loss is the mean across answer digits. Each model's final loss is in Tabs.~\ref{tab:AdditionModels} and ~\ref{tab:MixedModels}.
+
+While we wanted very low loss, we also wanted to keep the model compact---intuiting that a smaller model is easier to understand. Things we tried to reduce loss that \textbf{didn't} work:
 
 \begin{itemize}
 \item Increasing the frequency of hard (cascading carry one) examples in the training data so the model has more hard examples to learn from. This improved training speed but did not reduce loss.
-\item Increasing the number of attention heads from 3 to 4 or 5 (while still using 1 layer) to provide more computing power. 
+\item Increasing the number of attention heads from 3 to 4 or 5 (while still using 1 layer) to provide more computing power.
 \item Changing the question format from “12345+22222=” to “12345+22222equals” giving the model more prediction steps after the question is revealed before it needs to state the first answer digit.
 \item Inserting “+” in the answer format (e.g. “12345+22222=034567” becomes “12345+22222=+034567” had no impact on accuracy or the algorithm.
-\item With n\_layers = 1 increasing the number of attention heads from 3 to 4. 
 \item Changing the n\_layers to 2 and n\_heads to 2.
 \end{itemize}
 
 The smallest model shape that did reduce loss significantly was 2 layers with 3 attention heads.
-
-
-\section{Appendix: Model Loss}
-\label{app:ModelLoss}
-
-The model defaults to batch size = 64. The loss function is simple:
-
-\begin{itemize}
-\item Per Digit Loss: For “per digit” graphs and analysis, for a given answer digit, the loss used is negative log likelihood.
-\item All Digits Loss: For “all answer digits” graphs and analysis, the loss used is the mean of the “per digit” loss across all the answer digits.
-\end{itemize}
-
-In our experimental models, the number of digits in the question varies from 5 to 15, the number of layers varies from 1 to 4, the number of heads varies from 3 to 4. Each experimental model's loss is detailed in Tabs.~\ref{tab:AdditionModels} and ~\ref{tab:MixedModels}. 
-
-During training, the models use an AdamW optimizer with a learning rate (LR) of 0.00008, weight decay of 0.1 and betas of (0.9, 0.98). During the first 5th of training the LR is linearly increased from 0.01 * LR to LR to help stabilize training. During the remainder of training, cosine annealing is used.
 
 \begin{figure*}[h]
 \centering
@@ -671,7 +636,13 @@ We apply a common set of techniques to every model. Tab.~\ref{tab:Techniques} na
     \vspace{0.1in}
     \centering
     \small
-    \begin{tabularx}{\textwidth}{|l|X|X|l|l|}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\textwidth}{|
+        >{\hsize=0.85\hsize\raggedright\arraybackslash}X|
+        >{\hsize=1.30\hsize\raggedright\arraybackslash}X|
+        >{\hsize=1.30\hsize\raggedright\arraybackslash}X|
+        >{\hsize=0.95\hsize\raggedright\arraybackslash}X|
+        >{\hsize=0.60\hsize\raggedright\arraybackslash}X|}
         \hline
         \textbf{Technique} & \textbf{What it tests} & \textbf{What it establishes} & \textbf{Scale} & \textbf{Conf.} \\
         \hline
@@ -704,8 +675,7 @@ We apply a common set of techniques to every model. Tab.~\ref{tab:Techniques} na
 Forty-six models were trained and analyzed (Refer Tabs.~\ref{tab:AdditionModels} and ~\ref{tab:MixedModels}): 16 addition-only, 7 subtraction-only, and 23 mixed. The released collection is a superset of the models studied here: 48 model weight-sets, with per-model analysis repos (model.pth, training\_loss.json, behaviors.json, features.json) for 53 models, including 20-digit and training-variant models not analyzed in this paper.
 % For ICLR
 The models and analysis output will be made available on HuggingFace on publication to support further research in AI Safety.
-% For ARXIV
-%The models and output of analysis are available on HuggingFace at \url{https://huggingface.co/PhilipQuirke} in the \texttt{quanta\_maths\_*} collections to support further research in AI Safety.
+% For ARXIV / camera-ready: restore the public HuggingFace collection URL (recorded in docs/hugging_models.md; removed here so the anonymized source carries no identifying strings).
 
 \begin{table*}[h]
     \caption{For a sample 6-digit addition model, we show a compacted location map for the \SAC \SC and \ST subtasks. Interestingly 1) the \ST nodes are in a semi-random order 2) the second $ST1$ node is redundant 3) the model uses \SC nodes which are redundant 4) each \SA subtask is shared across two attention heads.}
@@ -817,13 +787,13 @@ The models and analysis output will be made available on HuggingFace on publicat
 \end{table*}
 
 
-For each model the 'QuantaMathsTrain' Colab notebook generates two files:
+For each model the training Colab notebook generates two files:
 \begin{itemize}
 \item A “model.pth" file containing the model weights
 \item A “training\_loss.json" file containing configuration information and training loss data
 \end{itemize}
 
-While, for each model the 'QuantaMathsAnalysis' Colab notebook generates two more files:
+While, for each model the analysis Colab notebook generates two more files:
 \begin{itemize}
 \item A “behaviors.json" file containing generic “behavior" facts learned about the model by the Colab e.g. P18L0H0 attends to tokens D3 and D'3
 \item A “features.json" file containing maths-specific “feature" facts learned about the model by the Colab e.g. P18L0H0 performs the SC3 subtask.
@@ -864,107 +834,6 @@ While, for each model the 'QuantaMathsAnalysis' Colab notebook generates two mor
 
 
 
-\section{Appendix: Complexity}
-\label{app:Complexity}
-To analyze question difficulty, we categorized addition questions by the complexity of the computation required to solve the question, as shown in Tab.~\ref{tab:AdditionComplexity}. The categories are arranged according to the number of digits that a carry bit has to cascade through.
-
-\begin{table}[ht]
-    \caption{We categorize addition questions into non-overlapping “calculation complexity" quanta, ordered by increased computational difficulty (and decreasing occurrence frequency). Five-digit addition questions quanta are \textit{S0} to \textit{S5}. Ten-digit addition question quanta are \textit{S0} to \textit{S10}. \textit{S10}'s frequency is $ \sim 3e-4$ showing the need to enrich training data for rare edge cases. }
-    \label{tab:AdditionComplexity}
-    \centering
-    \vspace{0.5cm}
-    \begin{tabularx}{\columnwidth}{p{0.7cm} p{1.2cm} p{3.3cm} l}
-    \hline
-         \textbf{Name} &  \textbf{Contains} & \textbf{Example} & \textbf{Freq} \\
-         \hline
-         \textit{S0} & \SA & 11111+12345=23456 &  $\sim$5\% \\
-         \textit{S1} & \text{SA,SC} & 11111+9=22230 & $\sim$21\%  \\
-         \textit{S2} & \text{SA,SC}x2 & 11111+89=22300 & $\sim$34\% \\
-         \textit{S3} & \text{SA,SC}x3 & 11111+889=23000 & $\sim$28\% \\
-         \textit{S4} & \text{SA,SC}x4 & 11111+8889=30000 & $\sim$11\% \\
-         \textit{S5} & \text{SA,SC}x5 & 11111+88889=100000 & $\sim$2\% \\
-         \hline
-    \end{tabularx}
-\end{table}
-
-% Define M and N complexity
-%\begin{table}[ht]
-%    \caption{We define “positive-answer subtraction" and “negative-answer subtraction" calculation complexity quanta that parallel the addition quanta.}   
-%    \label{tab:SubtractionComplexity}
-%    \centering
-%    \begin{tabularx}{\columnwidth}{p{0.8cm} l p{0.8cm} l l}
-%         \textbf{+ve Sub} & \textbf{Contains} & \textbf{-ve Sub} & \textbf{Contains} & \textbf{Like} \\
-%         \hline
-%         \textit{M0} & \textit{MD} & N/A & N/A & \textit{S0} \\
-%         \textit{M1} & \textit{MD,MB} & \textit{N1} & \textit{ND,NB} & \textit{S1} \\
-%         \textit{M2} & \textit{MD,MB}x2 & \textit{N2} & \textit{ND,NB}x2 & \textit{S2} \\
-%         \textit{M3} & \textit{MD,MB}x3 & \textit{N3} & \textit{ND,NB}x3 & \textit{S3} \\
-%         \textit{M4} & \textit{MD,MB}x4 & \textit{N4} & \textit{ND,NB}x4 & \textit{S4} \\
-%    \end{tabularx}
-%\end{table}
-
-%\begin{table}[ht]
-%    \caption{Implementing the T operator as a bigram mapping from 2 input tokens to 1 result token. }    
-%    \label{tab:Addition_T1Pairs}
-%    \centering
-%    \begin{tabularx}{\columnwidth}{ccccccccc}
-%          \DN vs $D'_n$  & \textbf{0} & \textbf{1} & \textbf{...} & \textbf{4} & \textbf{5} & \textbf{...} & \textbf{8} & \textbf{9} \\
-%         \hline
-%         \textbf{0} & 0 & 1 & ... & 4 & 5 & ... & 8 & 9 \\             
-%         \textbf{1} & 1 & 2 & ... & 5 & 6 & ... & 9 & 10 \\ 
-%         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
-%         \textbf{4} & 4 & 5 & ... & 8 & 9 & ... & 12 & 13 \\             
-%         \textbf{5} & 5 & 6 & ... & 9 & 10 & ... & 13 & 14 \\ 
-%         ... & ... & ... & ... & ... & ... & ... & ... & ... \\
-%         \textbf{8} & 8 & 9 & ... & 12 & 13 & ... & 16 & 17 \\ 
-%         \textbf{9} & 9 & 10 & ... & 13 & 14 & ... & 17 & 18 \\ 
-%    \end{tabularx}
-%\end{table}
-
-%\begin{table}[ht]
-%    \caption{Converting a \AN .T value into a \SA, \SC or \SUS value. }    
-%    \label{tab:Addition_T1Bigrams}
-%    \centering
-%    \begin{tabularx}{\columnwidth}{cccc}
-%         \AN .T & \AN .\SA & \AN .\SC  &  \AN .\SUS \\
-%         \hline
-%         \textbf{0} & 0 & 0 & 0 \\             
-%         \textbf{1} & 1 & 0 & 0 \\             
-%         ... & ... & ... & ... \\
-%         \textbf{8} & 8 & 0 & 0 \\             
-%         \textbf{9} & 9 & 0 & 1 \\   
-%         \textbf{10} & 0 & 1 & 0 \\   
-%         ... & ... & ... & ... \\
-%         \textbf{17} & 7 & 1 & 0 \\             
-%         \textbf{18} & 8 & 1 & 0 \\             
-%    \end{tabularx}
-%\end{table}
-
-%\begin{table}[ht]
-%    \caption{Calculating \AN .T2 from \AN .T and \AM .T }    
-%    \label{tab:Addition_T2Mappings}
-%    \centering
-%    \begin{tabularx}{\columnwidth}{p{1.5cm} p{2.5cm} p{2.5cm}}
-%         \textbf{\AN .T} & \textbf{\AN .T2 if \AM .SC==0} & \textbf{\AN .T2 if \AM .SC==1} \\
-%         \hline
-%         \textbf{0} & 0 & 1 \\             
-%         \textbf{1} & 1 & 2 \\             
-%         ... & ... & ... \\        
-%         \textbf{9} & 9 & 10 \\   
-%         \textbf{10} & 10 & 11 \\   
-%         ... & ... & ...  \\
-%         \textbf{17} & 17 & 18 \\             
-%         \textbf{18} & 18 & 19 \\             
-%    \end{tabularx}
-%\end{table}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
-\caption{For a sample \textbf{5-digit} 2-layer 3-head \textbf{addition} model, this map shows a compacted view of all useful token positions (horizontally) and all useful attention heads and MLP layers (vertically) used in predictions as green cells. Each cell shows the simplest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. The model only uses nodes in ten token positions. }
-\label{fig:Complexity5D}
-\end{figure}
-
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
@@ -972,101 +841,14 @@ To analyze question difficulty, we categorized addition questions by the complex
 \label{fig:FailPerc5D}
 \end{figure}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AttentionBehaviorPerHead.pdf}
-\caption{This map shows the input tokens each attention head attends to at each token position in a \textbf{5-digit} 2-layer 3-head addition model. At token position P12 the model predicts the first answer digit A5. \textbf{All} digit pairs (e.g. D2 D'2) are attended to by P12.}
-\label{fig:Attention5D}
-\end{figure}
-
-%\begin{figure}[ht]
-%\centering
-%\includegraphics[width=\columnwidth]{Figures/PCA_Bigrams_D5.pdf}
-%\caption{For 5-digit addition, for these attention heads, for exactly 1 digit \AN { } each, PCA shows these interpretable results. The dot colors show the TriCase value of each question. The PCA and TriCase data are strongly correlated, but the PCA data has 2 states. }
-%\label{fig:PCABigrams5D}
-%\end{figure}
-
-
-%\section{Appendix: Addition Interchange Interventions}
-%\label{app:InterchangeInterventions}
-
-%To test the hypothesis 3 mapping of the mathematical framework (casual abstraction) to the model attention heads, various “interchange interventions" (aka activation patching) experiments were performed on the model, where
-%\begin{itemize}
-%\item A particular claim about an attention head has selected for testing. 
-%\item The model predicted answers for sample test questions, and the attention head activations were recorded (stored).   
-%\item The model then predicted answers for more questions, but this time we intervened during the prediction to override the selected attention head activations with the activations from the previous run.   
-%\end{itemize}
-
-%Using this approach we obtained the findings in Tab.~\ref{tab:InterchangeInterventions}.
-
-%\begin{table*}[ht]
-%    \centering
-%    \begin{tabularx}{\textwidth}{p{2.2cm} p{6cm} p{6.7cm}}
-%         \textbf{Nodes} & \textbf{Claim: Attention head(s) perform ...} & \textbf{Finding: Attention head(s) perform a function that ...} \\
-%         \hline
-%         P8.L0.H1 and MLP & ST2 = TriCase( D2, D'2 ) impacting A4 and A5 accuracy & Based on D2 and D'2. Triggers on a A2 carry value. Provides carry bit used in A5 and A4 calculation. \\         
-%         P9.L0.H1 and MLP & ST1 = TriCase( D1, D'1 ) impacting A5, A4 and A3 accuracy & Based on D1 and D'1. Triggers on a A1 carry value. Provides carry bit used in A5, A4 and A3 calculation. \\         
-%         P10.L0.H1 and MLP & ST2 = TriAdd( ST1, TriCase(D0, D'0) ) impacting A5, A4, A3 and A2 accuracy & Based on D0 and D'0. Triggers on a A0 carry value. Provides carry bit used in A5, A4, A3 and A2 calculation.  \\         
-%         P11.L0.H1 and MLP & ST4 = TriAdd( TriCase( D3, D'3 ), TriAdd( ST2, ST1)) impacting A5 accuracy & Based on D3 and D'3. Triggers on a A3 carry value. Provides carry bit used in A5 calculations. \\         
-%         P11.L0.H2 and MLP & ST4 = TriCase(D4, D'4) impacting A5 accuracy A4 & Based on D4 and D'4. Triggers on a A4 carry value. Provides carry bit used in A5 calculation. \\         
-%         P12.L0.H0+H2 and MLP & SA4 = (D4 + D'4) \% 10 impacting A4 accuracy A4 & Sums D4 and D'4. Impacts A4 \\        
-%         P13.L0.H0+H2 and MLP & SA3 = (D3 + D'3) \% 10 impacting A3 accuracy & Sums D3 and D'3. Impacts A3 \\         
-%         P14.L0.H0+H2 and MLP & SA2 = (D2 + D'2) \% 10 impacting A2 accuracy & Sums D2 and D'2. Impacts A2 \\   
-%         P14.L0.H1 and MLP & (D1 + D'1) / 10 + P10.ST2 info impacting A2 accuracy & Calculates P10.ST1 but add P10.ST2 info when ST1 != ST2. Impacts A2 \\       
-%         P15.L0.H0+H2 and MLP & SA1 = (D1 + D'1) \% 10 impacting A1 accuracy & Sums D1 and D'1. Impacts A1 \\  
-%         P15.L0.H1 and MLP & SC0 = (D0 + D'0) / 10 impacting A1 accuracy & Triggers when D0 + D'0 \textgreater 10. Impacts A1 digit by 1 \\     
-%         P16.L0.H0+H2 and MLP & SA0 = (D0 + D'0) \% 10 impacting A0 accuracy & Sums D0 and D'0. Impacts A0 \\            
-%    \end{tabularx}
-%    \caption{Interchange Interventions experiments used activation patching to test the claims addition hypothesis 3 made for each attention head in a sample mixed model. Experimental results are consistent with hypothesis 3 for all nodes. }    
-%    \label{tab:InterchangeInterventions}
-%\end{table*}
-
-
-\section{Appendix: N-Digit Addition}
-\label{app:NDigitAddition}
-
-The addition models perform addition accurately. Visualizations that provided insights into the behavior of the model, aiding our interpretation of the algorithm, are below:     
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/add_d5_l2_h3_t40K_s372001AdditionMinComplexity.pdf}
-\caption{This map shows the simpliest (lowest \textbf{complexity}) quanta S0, S1, etc impacted when we ablate each node in the \textbf{5-digit} 2-layer 3-head \textbf{addition} model. To answer S0 questions, only the S0 nodes are used. To answer S1 questions, S0 and S1 nodes are used, etc. }
-\label{fig:Complexity5D_app}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/add_d6_l2_h3_t40K_s372001FailureFrequencyBehaviorPerNode.pdf}
-\caption{This map shows the \textbf{\% of questions} that fail when we ablate each node in the \textbf{6-digit} 2-layer 3-head addition model. The model only uses nodes in token positions P11 to P20. Lower percentages correspond to rarer edge cases. The gray space represents nodes that are not useful. }
-\label{fig:FailPerc6D}
-\end{figure}
-
-Some notes about the models:
-
-\begin{itemize}
-\item The models selected different attention heads in the early positions to use to do the same logical calculations.    
-\item Some models use 2 attention heads per digit to do the \SA calculation, whereas some models only uses one (and so are more compact).
-\item The PCA trigrams have difference appearances in different models (but the same interpretable clusters). Refer Figures~\ref{fig:PCATrigrams5D} % and ~\ref{fig:PCA_Trigrams_D6}.  
-\item Per answer digit, some models use the \SC calculation, whereas some models optimize it out and rely solely on the \ST value (and so are more compact).
-\end{itemize}
 
 
 \section{Appendix: Mixed Model Initialization}
 \label{app:MixedModelInit}
 
-We experimented with three approaches to re-using the trained addition model in the “mixed" (addition and subtraction) model:
+We experimented with three ways to re-use the trained addition model in the mixed model: \textit{Initialize Only} (copy the addition weights into the untrained mixed model), \textit{Freeze Attention} (as before, but recopy the attention-head weights from the addition model every 100 training steps), and \textit{Freeze All} (recopy attention heads and MLP layers every 100 steps). Our intuition was that the freeze variants would keep the trained model easier to interpret, but only Initialize Only trained quickly to accuracy on both operations---the freeze variants constrain learning too much.
 
-\begin{itemize}
-    \item Initialize Only: Initialize the untrained mixed model with the addition model weights before training begins.
-    \item Freeze Attention: As per “Initialize Only", but also every 100 training steps recopy the attention head weights from the addition model into the partially-trained mixed model.
-    \item Freeze All: As per “Initialize Only", but also every 100 training steps recopy the entire addition model (attention heads and MLP layers) into the partially-trained mixed model.
-\end{itemize}
-
-Our intuition was that “Initialize Only" would give the mixed model the most freedom to learn new algorithms, but that the “Freeze Attention" and “Freeze All" approaches would make the resulting trained mixed model easier to interpret (as we could reuse our addition model insights).
-
-After experimentation we found that the “Initialize Only" approach was the only one that quickly trained to be able to do both addition and subtraction accurately. We concluded that the other two methods constrain the model's ability to learn new algorithms too much.
-
-We also experimented with “where" in the model we inserted the addition (6-digit, 2-layer, 3-head) model into the slightly larger (6-digit, 3-layer, 4-head) mixed model.  That is, do we initialize the first 2 layers or the last 2 layers of the mixed model? Also do we initialize the first 3 attention heads or the last 3 attention heads of the mixed model? Our intuition was that initializing the first layers and heads would be more likely to cause the model to re-use the addition circuits adding interpretability, so we used this approach.
+We also tested \emph{where} to insert the 2-layer 3-head addition model into the 3-layer 4-head mixed model (first vs.\ last layers; first vs.\ last heads). We initialized the first two layers and first three heads, reasoning that early placement makes reuse of the addition circuits---and hence interpretation---most likely.
 
 \section{Appendix: Seed Sensitivity}
 \label{app:SeedSensitivity}
@@ -1090,12 +872,10 @@ An analysis of the sensitivity of 45 models to the initial seed was performed (T
 \section{Appendix: N-Digit Subtraction}
 \label{app:NDigitSubtraction}
 
-The mixed models perform addition and subtraction accurately. Visualizations that provided insights into the behavior of the model, aiding our interpretation of the algorithm, are below.
-
-Tab.~\ref{tab:MathsPurposePerNodeMix6D} gives the full per-node sub-task map, over the last five token positions, for the 6-digit mixed capstone model discussed in Sec.~\ref{sec:MixedPoly}.
+The mixed models perform addition and subtraction accurately. Tab.~\ref{tab:MathsPurposePerNodeMix6D} gives the full per-node sub-task map, over the last five token positions, for the 6-digit mixed capstone model discussed in Sec.~\ref{sec:MixedPoly}.
 
 \begin{table*}[h]
-    \caption{For this mixed model, in the last 5 tokens, polysemantic attention heads simultaneously generate outputs for the three question classes (S, M and N). Other heads calculate the question class by attending to the question operation (OPR) token and the answer sign (SGN) token. We assume the MLP layers then select the output appropriate for the class. }
+    \caption{For this mixed model, in the last 5 tokens, polysemantic attention heads simultaneously generate outputs for the three question classes (S, M and N). Other heads calculate the question class by attending to the question operation (OPR) token and the answer sign (SGN) token. The class-appropriate output is then selected via a distributed transformation feeding a shared last-layer combiner (Sec.~\ref{sec:MixedPoly}).}
     \label{tab:MathsPurposePerNodeMix6D}
     \vspace{0.1in}
     \sffamily
@@ -1127,47 +907,53 @@ Tab.~\ref{tab:MathsPurposePerNodeMix6D} gives the full per-node sub-task map, ov
     \end{tabularx}
 \end{table*}
 
-% Show the re-use/generalization of the inserted addition nodes
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/Coverage_SNM.pdf}
-\caption{ This map of a sample 6-digit \textbf{mixed} model shows the 98 nodes used to predict answers to addition (S), positive-answer subtraction (M) and/or negative-answer subtraction (N) questions. Before training the mixed model, 48 nodes were initalized pre-training with a smaller \textbf{addition} model's weights. These are have a red border. During mixed model training, 39 of 48 of the initalized monosemantic nodes were generalized (become poly-semantic) and now help predict two or three question classes. }
-\label{fig:Coverage_SNM}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AdditionMinComplexity.pdf}
-\caption{This map shows the simplest \textbf{complexity} quanta S0, S1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model when doing \textbf{addition} questions.}
-\label{fig:mix_add_complexity}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001PositiveanswerSubtractionMinComplexity.pdf}
-\caption{This map shows the simpliest \textbf{complexity} quanta M0, M1, etc used in each useful node of the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model for \textbf{subtraction} questions with positive answers. }
-\label{fig:mix_sub_complexity}
-\end{figure}
-
-%\begin{figure}[ht]
-%\centering
-%\includegraphics[width=\columnwidth]{Figures/ins1_mix_d6_l3_h4_t40K_s372001AnswerImpactBehaviorPerNode.pdf}
-%\caption{This map shows the \textbf{answer digit(s)} A0 .. A7 impacted when we ablate each useful node in the \textbf{6-digit} 3-layer 4-head \textbf{mixed} model. A7 is the sign of the answer and calculated first. Note the similarity to the 5 and 6-addition Tab.~\ref{tab:Impact5D} and Figure~\ref{fig:Impact6D}.}
-%\label{fig:mix_answer_impact}
-%\end{figure}
-
-Some notes about the mixed models:
-
-\begin{itemize}
-\item All the notes about the addition model (above) also apply to the mixed model.
-\item The model contains a new subtask that stands out: The algorithm relies on calculations done at token position P0, when the model has only seen one question token! What information can the model gather from just the first token? Intuitively, if the first token is a “8" or “9" then the first answer token is more likely to be a “+" (and not a “-"). The model uses this heuristic even though this probabilistic information is sometimes incorrect and so will work against the model achieving very low loss. 
-\end{itemize}
+One mixed-model sub-task stands out: the algorithm relies on calculations done at token position P0, when the model has seen only one question token. What can the model gather from just the first token? Intuitively, if that token is an “8" or “9" the answer sign is more likely to be “+" than “-". The model uses this heuristic even though the probabilistic information is sometimes incorrect and so works against achieving very low loss.
 
 
 \section{Appendix: Addition Hypothesis 3}
 \label{app:Hypothesis3}
 
-The hypothesis 3 pseudo-code was derived iteratively by obtaining experimental results and mapping them to mathematical operations. Some of the experiments and mappings were:
+The hypothesis 3 pseudo-code (Tab.~\ref{tab:Hypothesis3A5A4}) was derived iteratively by obtaining experimental results and mapping them to mathematical operations. To validate the underlying framework we implemented the algorithm in Python and executed one million additions with zero errors.
+
+\begin{table}[ht]
+    \centering
+    \caption{Hypothesis 3 pseudo-code for the 5-digit addition worked example, restored from the published version in this paper's notation: each intermediate value, how it is computed, and the nodes implementing it. $ST_n = \mathrm{TriCase}(D_n, D'_n)$. The $SV_1$ recomputed at P14 defers to P10's value only when the two disagree (final bullet below).}
+    \label{tab:Hypothesis3A5A4}
+    \vspace{0.1in}
+    \small
+    \begin{tabularx}{\columnwidth}{p{0.7cm} p{3.6cm} p{2.6cm}}
+         \textbf{Value} & \textbf{Calculated as} & \textbf{Nodes used} \\
+         \hline
+         $ST_2$ & TriCase($D_2$, $D'_2$) & P8.L0.H1 + MLP \\
+         $ST_1$ & TriCase($D_1$, $D'_1$) & P9.L0.H1 + MLP \\
+         $SV_1$ & TriAdd($ST_1$, $ST_0$) & P10.L0.H1 + MLP \\
+         $SV_3$ & TriAdd($ST_3$, TriAdd($ST_2$, $SV_1$)) & P11.L0.H1 \\
+         $ST_4$ & TriCase($D_4$, $D'_4$) & P11.L0.H2 \\
+         $SV_4$ & TriAdd($ST_4$, $SV_3$) & P11.L0.MLP \\
+         \textbf{A5} & $SV_4$ & P11.L1.MLP \\
+         \hline
+         $SA_4$ & $(D_4 + D'_4) \bmod 10$ & P12.L0.H0+H2 \\
+         $SV_3$ & as above & P12.L0.H1 \\
+         \textbf{A4} & $(SA_4 + SV_3) \bmod 10$ & P12 MLPs \\
+         \hline
+         $SA_3$ & $(D_3 + D'_3) \bmod 10$ & P13.L0.H0+H2 \\
+         $SV_2$ & TriAdd($ST_2$, $SV_1$) & P13.L0.H1 \\
+         \textbf{A3} & $(SA_3 + SV_2) \bmod 10$ & P13 MLPs \\
+         \hline
+         $SA_2$ & $(D_2 + D'_2) \bmod 10$ & P14.L0.H0+H2 \\
+         $SV_1$ & recomputed; defers to P10 $SV_1$ & P14.L0.H1 \\
+         \textbf{A2} & $(SA_2 + SV_1) \bmod 10$ & P14 MLPs \\
+         \hline
+         $SA_1$ & $(D_1 + D'_1) \bmod 10$ & P15.L0.H0+H2 \\
+         $SC_0$ & $(D_0 + D'_0) \geq 10$ & P15.L0.H1 \\
+         \textbf{A1} & $(SA_1 + SC_0) \bmod 10$ & P15 MLPs \\
+         \hline
+         \textbf{A0} & $(D_0 + D'_0) \bmod 10$ & P16.L0.H0+H2, MLPs \\
+         \hline
+    \end{tabularx}
+\end{table}
+
+Some of the experiments and mappings behind this pseudo-code were:
 
 \begin{itemize}
 \item Ablation experiments show that the A5 value is \textbf{accurately} calculated in prediction step 11 using 5 attention heads and 5 MLP layers. The pseudo-code accurately calculates A5 while constraining itself to this many steps.

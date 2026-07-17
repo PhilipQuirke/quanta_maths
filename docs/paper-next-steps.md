@@ -8,9 +8,15 @@ ship; delete shipped entries.
 
 ## Active piece: reframe Paper 2 for BlackboxNLP 2026
 
-**Venue**: BlackboxNLP 2026 (co-located with EMNLP 2026, Budapest), **archival
-track = 8 pages + references + appendix**. ACL style files (`acl.sty`,
-`acl_natbib.bst`); `\usepackage[review]{acl}` for submission (anonymized).
+**Venue** (CFP details confirmed by human 2026-07-17): BlackboxNLP 2026
+(co-located with EMNLP 2026, Budapest), **archival track = up to 8 content pages;
+references uncounted; optional appendix after references in the same PDF, also
+uncounted**. Limitations section is **optional** at this workshop and **excluded
+from the page limit** (EMNLP convention, separate page) — we keep it. Archival
+papers must be **fully anonymized** (double-blind); reviewers are not obligated
+to read appendices, so core claims stay in the 8 pages. Must use the **current**
+*ACL/EMNLP LaTeX template (`acl.sty`, `acl_natbib.bst`);
+`\usepackage[review]{acl}` for submission.
 
 **New angle** ("what we can say with confidence"): a deep worked-example study of
 the learned arithmetic algorithm — **logical** (sound exact left-to-right add/sub
@@ -143,9 +149,9 @@ Notes:
 | 2 | in progress | **Appendix de-dump + flesh out `Analysis Techniques` appendix** (stub table exists) and add an **SV-detail appendix** (CE13–24/CE20–25 detail referenced from the reworked Results); cut remaining dumping-ground appendices | study-maths/*, claim-evidence | techniques + SV detail complete; dead appendices cut |
 | 3 | pending | **Subtraction-only models → appendix**; verify main body keeps only the (novel) subtraction *algorithm* | n/a | main body slimmed, no stray sub-only prose |
 | 4 | pending | **Restore brief "Refuted hypotheses" content** (intro carries a `% TODO`); name 1–2 ruled-out mechanisms (e.g. no single carry-selecting head; old compact-representation Hyp) | claim-evidence (A3/A9/A11); old Hyp1/2 | note/short appendix added, TODO cleared |
-| 5 | pending | **Anonymization** — regenerate the two anon repo URLs for BlackboxNLP (2 `% TODO` comments in `paper.tex`); keep third-person self-cites | n/a | valid anonymized links for review build |
+| 5 | in progress | **Anonymization** — regenerate the two anon repo URLs with **non-identifying slugs** (current slugs embed `quanta_maths`/`quanta_mech_interp`, searchable to the real GitHub — 2 `% TODO` comments in `paper.tex`); keep third-person self-cites. DONE 2026-07-17: `QuantaMaths*` Colab names genericized in the appendix; commented-out PhilipQuirke GitHub/HF URLs removed from source (restore paths noted in comments; real URLs live in this doc + `hugging_models.md`) | n/a | review PDF (and source) carry no identifying strings; valid anon links |
 | 6 | blocked (maths) | **Numeric-column audit** of both model tables (fails/M, heads/MLPs-used) against HF maps (HO-2 8d-mixed causal write-up now DONE, CE32) | maths thread | table numbers verified |
-| 7 | pending | **Build** — add `Figures/` PNGs/PDFs + `acl.sty`/`acl_natbib.bst`; compile under `acl.sty`; fix floats/overfull; confirm ≤ 8pp main text | assets/, ACL style repo | compiles to a within-limit PDF |
+| 7 | pending | **Build** — add `Figures/` PNGs/PDFs + the **latest** `acl.sty`/`acl_natbib.bst` release (CFP requires the current template; do not reuse an old copy — `% TODO(build)` at top of `paper.tex`); compile; fix floats/overfull; confirm ≤ 8 content pages (references/appendix/Limitations uncounted) | assets/, ACL style repo | compiles to a within-limit PDF on the current template |
 
 ## Deliberately paused
 
