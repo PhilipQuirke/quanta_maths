@@ -7,6 +7,22 @@ This library support goals and uses [terminology](./docs/terminology.md) introdu
 - Useful facts found in this way are stored as JSON (refer [Useful_Tags](./docs/useful_tags.md) for details) and can be visualized (refer [Assets](./assets/) for samples).
 - A researcher can describe an algorithm hypothesis as a series of claims, and evaluate those claims against the facts found. The resulting insights can be used to refine and\or extend both the algorithm sub-task tests and the algorithm hypothesis description, leading to a full description of the model's algorithm.
 
+## Research process — thor
+
+This project's research is run with **thor** (Towards Human-Oracle Research), a
+lightweight framework for doing real research with AI agents as semi-independent
+assistants. thor keeps the human's and the agent's beliefs in separate,
+version-controlled Markdown files, biases experiments toward ones that settle the
+disagreement between them, and runs a fresh "skeptic" agent over every plan and
+result. Because all project state lives in these docs, the work survives crashes,
+model/vendor swaps, and a new collaborator joining by `git clone`.
+
+It runs two threads — `maths` (the research) and `paper` (the write-up). A new
+agent rehydrates by naming its thread and reading that thread's contract — e.g.
+*"You are the `maths` thread. Read thor-agent.md"*
+
+New to thor? Start with the framework and templates: **[github.com/withmartian/thor](https://github.com/withmartian/thor)**
+
 ## Installation
 
 From source
