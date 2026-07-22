@@ -5,16 +5,33 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Weekly run so upstream dependency breaks (this suite floats its deps) surface
+  # on their own, not on the next unrelated push. Mondays 06:00 UTC.
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+# A newer push to the same branch/PR cancels the in-progress run.
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Matches the versions advertised in pyproject.toml classifiers.
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
 
       - name: Install dependencies
         run: |

@@ -1,7 +1,22 @@
 version: 2
 updates:
-  # Enable version updates for pip
+  # Python dependencies (pyproject.toml). Weekly + grouped so PRs stay low-noise.
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      python-deps:
+        patterns:
+          - "*"
+
+  # GitHub Actions versions. Would have flagged the Node 20 -> Node 24
+  # deprecation on actions/checkout and actions/setup-python.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

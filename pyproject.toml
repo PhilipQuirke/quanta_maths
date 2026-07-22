@@ -37,3 +37,10 @@ dependencies = [
 where = ["."]
 include = ["quanta_maths*", "maths_catgen*"]
 namespaces = true
+
+[tool.pytest.ini_options]
+# torchtyping (an unmaintained transitive dep) registers a pytest plugin that
+# fails to import against torch >= 2.13 ("Cannot subclass _TensorBase directly"),
+# which crashes pytest at startup. Nothing in this project imports torchtyping at
+# runtime, so we just stop pytest from auto-loading its plugin.
+addopts = "-p no:torchtyping"
